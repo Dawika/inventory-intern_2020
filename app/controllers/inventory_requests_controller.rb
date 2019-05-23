@@ -65,7 +65,7 @@ class InventoryRequestsController < ApplicationController
 	def show 
 		inventories_request = InventoryRequest.find(params[:id])
 		
-		render json: inventories_request.as_json(methods:[:manage_inventory, :inventory]), status: :ok
+		render json: inventories_request.as_json(methods:[:manage_inventory, :inventory, :manage_inventory_request]), status: :ok
 	end
 
 	def new

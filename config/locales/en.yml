@@ -566,6 +566,8 @@ en:
   request_type: "Request type"
   withdraw_equipment: "Withdraw equipment"
   new_request_inventory: "New request inventory"
+  request_number: "Request number"
+  of: "of"
 
   #Update inventory request
   details_inventory_request: "Details Inventory Request"

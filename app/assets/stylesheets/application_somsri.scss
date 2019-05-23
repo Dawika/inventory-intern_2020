@@ -746,6 +746,21 @@ body {
   }
 }
 
+.btn-background {
+  background-color: #F4F9FC;
+  padding-bottom: 15px;
+  padding-left: 0px;
+  color: #fff !important;
+  border: 2px solid #F4F9FC;
+  &:hover{
+    border:2px solid #F4F9FC;
+    color: #F4F9FC !important;
+  }
+  &:focus{
+    color: #fff;
+  }
+}
+
 .background-blue-hover:focus,
 .background-blue-hover:hover{
   color: #fff !important;

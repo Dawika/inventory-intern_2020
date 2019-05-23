@@ -7,7 +7,6 @@
 		ctrl.real_id = $state.params.id;
 		ctrl.date_purchase = ""//new Date()
 		ctrl.date_send = ""//new Date()
-		// ctrl.price_step2 = ""
 		ctrl.step = $rootScope.step
 
     ctrl.openDatePurchasePopup = function() {
@@ -171,39 +170,39 @@
       })
     }
 
-    function setData() {
-    	//setp1
-    	ctrl.save_by = ctrl.manage_inventory.step1.save_by
-			//setp2
-			ctrl.save_by_step2 = ctrl.manage_inventory.step2.save_by
-			ctrl.date_purchase = new Date(ctrl.manage_inventory.step2.date_purchase)
-			ctrl.date_send = new Date(ctrl.manage_inventory.step2.date_send)
-			ctrl.price_step2 = parseFloat(ctrl.manage_inventory.step2.price)
-    }
+   //  function setData() {
+   //  	//setp1
+   //  	ctrl.save_by = ctrl.manage_inventory.step1.save_by
+			// //setp2
+			// ctrl.save_by_step2 = ctrl.manage_inventory.step2.save_by
+			// ctrl.date_purchase = new Date(ctrl.manage_inventory.step2.date_purchase)
+			// ctrl.date_send = new Date(ctrl.manage_inventory.step2.date_send)
+			// ctrl.price_step2 = parseFloat(ctrl.manage_inventory.step2.price)
+   //  }
 
    	function checkStep() {
- 			if(!ctrl.step) {
- 				if (ctrl.step_to == 1) {
- 					setData()
- 				}
-				if (ctrl.real_id) {
-					$rootScope.updateInventoryRequest(ctrl.real_id)
-				}
-			} else {
-				//setp1
-				ctrl.save_by = ctrl.step.step1.save_by
-				//setp2
-				ctrl.save_by_step2 = ctrl.step.step2.save_by
-				ctrl.date_purchase = new Date(ctrl.step.step2.date_purchase)
-        if (!ctrl.step.step2.date_purchase) {
-          ctrl.date_purchase = ""
-        }
-				ctrl.date_send = new Date(ctrl.step.step2.date_send)
-        if (!ctrl.step.step2.date_send) {
-          ctrl.date_send = ""
-        }
-				ctrl.price_step2 = parseFloat(ctrl.step.step2.price);
-			}
+ 		// 	if(!ctrl.step) {
+ 		// 		if (ctrl.step_to == 1) {
+ 		// 			setData()
+ 		// 		}
+			// 	if (ctrl.real_id) {
+			// 		$rootScope.updateInventoryRequest(ctrl.real_id)
+			// 	}
+			// } else {
+			// 	//setp1
+			// 	ctrl.save_by = ctrl.step.step1.save_by
+			// 	//setp2
+			// 	ctrl.save_by_step2 = ctrl.step.step2.save_by
+			// 	ctrl.date_purchase = new Date(ctrl.step.step2.date_purchase)
+   //      if (!ctrl.step.step2.date_purchase) {
+   //        ctrl.date_purchase = ""
+   //      }
+			// 	ctrl.date_send = new Date(ctrl.step.step2.date_send)
+   //      if (!ctrl.step.step2.date_send) {
+   //        ctrl.date_send = ""
+   //      }
+			// 	ctrl.price_step2 = parseFloat(ctrl.step.step2.price);
+			// }
 		}
 
 		 function getSetting() {

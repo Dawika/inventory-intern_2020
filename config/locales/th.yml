@@ -726,6 +726,8 @@ th:
   request_type: "ประเภทคำขอ"
   withdraw_equipment: "เบิกพัสดุ"
   new_request_inventory: "คำขอใช้พัสดุใหม่"
+  request_number: "คำขอที่"
+  of: "ของ"
 
   #Update inventory request
   details_inventory_request: "รายละเอียดคำขอใช้อุปกรณ์"
