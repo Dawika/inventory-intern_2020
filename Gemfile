@@ -64,7 +64,6 @@ gem "aws-sdk"
 gem "paperclip", "~> 5.0.0"
 
 gem "bootstrap-table-rails"
-gem 'bootstrap-select-rails'
 
 gem 'detect_timezone_rails'
 gem 'listen', '~> 3.0.5'
@@ -118,3 +117,14 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'turbolinks', '~> 5'
+gem 'jquery-ui-rails'
+
+# order matters
+gem 'simple_form'
+gem 'client_side_validations'
+gem 'client_side_validations-simple_form'
+gem 'bootstrap-tagsinput-rails'
+
+gem 'awesome_print', require: 'ap'

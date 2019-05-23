@@ -10,6 +10,10 @@ class User < ApplicationRecord
   belongs_to :role
   delegate :can?, :cannot?, :to => :ability
 
+  validates :email, presence: true, allow_blank: false, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :password, presence: true, allow_blank: false, confirmation: true, if: :can_validate_password?
+  validates_confirmation_of :password
+
   def ability
     Ability.new(self)
   end
@@ -22,4 +26,7 @@ class User < ApplicationRecord
     self.has_role? :finance_officer
   end
 
+  def can_validate_password?
+    self.new_record? || self.changing_password
+  end
 end

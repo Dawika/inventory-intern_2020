@@ -38,3 +38,6 @@
 
 //= require bootstrap-table
 //= ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min
+//= require rails.validations
+//= require rails.validations.simple_form
+//= require modal_clientside_validation

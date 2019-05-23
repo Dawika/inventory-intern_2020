@@ -45,3 +45,6 @@
 //= require angular-xeditable/dist/js/xeditable
 //= require bootstrap-table
 //= require rich-autocomplete
+//= require rails.validations
+//= require rails.validations.simple_form
+//= require modal_clientside_validation
