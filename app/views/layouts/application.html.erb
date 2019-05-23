@@ -30,6 +30,10 @@
         <%= stylesheet_link_tag 'application', media: 'all' %>
         <%= stylesheet_link_tag 'application_somsri', media: 'all' %>
         <%= javascript_include_tag 'application' %>
+        <%# This is just an example, you can put `i18n.js` and `translations.js` anywhere you like %>
+        <%# Unlike the Asset Pipeline example, you need to require both **in order** %>
+        <%= javascript_include_tag "i18n" %>
+        <%= javascript_include_tag "translations", skip_pipeline: true %>
         <script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
     </head>
     <% if !user_signed_in? %>

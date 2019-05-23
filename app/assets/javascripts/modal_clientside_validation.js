@@ -12,7 +12,7 @@ function validateEmailUniqueness() {
   var status = 0;
   $(".form-group.email .invalid-feedback").remove();
   $.ajax({
-    url: 'users/check_uniqueness?email=' + $('#user_email').val(),
+    url: '/users/check_uniqueness?email=' + $('#user_email').val(),
     async: false,
     statusCode: {
       200: function() {

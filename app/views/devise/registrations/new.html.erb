@@ -7,7 +7,7 @@
     <%= f.input :email,
                 required: true,
                 autofocus: true,
-                input_html: { autocomplete: "email", class: 'form-control' }%>
+                input_html: { autocomplete: "email", class: 'form-control', onchange: "validateUniqueness('#{email_uniqueness_ckeck_validates_path}', this.id)" } %>
     <%= f.input :password,
                 required: true,
                 hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
@@ -18,7 +18,7 @@
   </div>
 
   <div class="form-actions py-3">
-    <%= f.button :submit, "Sign up", class: 'btn-outline-success btn-block' %>
+    <%= f.button :submit, "Sign up", class: 'btn-outline-success btn-block', id: 'registerSubmit' %>
   </div>
 <% end %>
 

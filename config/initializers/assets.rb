@@ -37,3 +37,4 @@ Rails.application.config.assets.precompile += %w( home.css )
 Rails.application.config.assets.precompile += %w( home.js )
 
 Rails.application.config.assets.precompile += %w( pdf.css )
+Rails.application.config.assets.precompile += %w( i18n.js )

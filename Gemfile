@@ -128,3 +128,4 @@ gem 'client_side_validations-simple_form'
 gem 'bootstrap-tagsinput-rails'
 
 gem 'awesome_print', require: 'ap'
+gem "i18n-js"
