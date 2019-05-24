@@ -72,6 +72,8 @@ th:
   settings: "ตั้งค่าระบบ"
   log_in: "เข้าสู่ระบบ"
   sign_out: "ออกระบบ"
+  sign_up: "สมัครสมาชิก"
+  confirm_password: "ยืนยันรหัสผ่าน"
   profile: "ข้อมูลส่วนตัว"
 
   mr: นาย
@@ -524,3 +526,5 @@ th:
   save_change_confirmation: "คุณต้องการบันทึกการเปลี่ยนแปลงนี้หรือไม่"
   save_success: "บันทึกข้อมูลเรียบร้อยแล้ว"
   save_falied: "ไม่สามารถบันทึกข้อมูลได้"
+  email_uniqueness: "อีเมลนี้ถูกใช้งานแล้ว"
+

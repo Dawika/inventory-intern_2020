@@ -15,7 +15,6 @@ class Devise::RegistrationsController < DeviseController
   # POST /resource
   def create
     build_resource(sign_up_params)
-
     resource.save
     yield resource if block_given?
     if resource.persisted?
@@ -134,7 +133,11 @@ class Devise::RegistrationsController < DeviseController
   end
 
   def sign_up_params
-    devise_parameter_sanitizer.sanitize(:sign_up)
+    params.require(:user).permit(
+      :full_name,
+      :email,
+      :password
+    )
   end
 
   def account_update_params
@@ -164,5 +167,11 @@ class Devise::RegistrationsController < DeviseController
     return true if account_update_params[:password].blank?
 
     Devise.sign_in_after_change_password
+  end
+  
+  def set_minimum_password_length
+    if devise_mapping.validatable?
+      @minimum_password_length = resource_class.password_length.min
+    end
   end
 end
