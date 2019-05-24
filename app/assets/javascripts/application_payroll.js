@@ -27,6 +27,7 @@
 //= require angular-sanitize
 //= require ng-csv
 //= require angular-ui-bootstrap-fontawesome
+//= require bootstrap-select/js/bootstrap-select
 //= require detect_timezone
 //= require jquery.detect_timezone
 //= require redactor/redactor.min.js

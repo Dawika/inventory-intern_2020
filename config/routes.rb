@@ -156,6 +156,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     get "/sign_in" => "devise/sessions#new"
   end
+
   comfy_route :cms, :path => '/homepage', :sitemap => false
   comfy_route :cms_admin, :path => '/cms_admin'
   root to: 'home#index'
