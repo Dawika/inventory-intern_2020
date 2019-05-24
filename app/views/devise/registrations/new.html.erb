@@ -28,29 +28,29 @@
           </div>
           <div class="row">
             <div class="field form-group">
-           <%= f.input :email,
-                        required: true,
-                        autofocus: true,
-                        label: false,
-                        input_html: { autocomplete: "email", class: 'form-control', placeholder: t('email'),
-                        onkeyup: "validateUniqueness('#{email_uniqueness_ckeck_validates_path}', this.id)" } %>
+              <%= f.input :email,
+                            required: true,
+                            autofocus: true,
+                            label: false,
+                            input_html: { autocomplete: "email", class: 'form-control', placeholder: t('email'),
+                            onkeyup: "validateUniqueness('#{email_uniqueness_ckeck_validates_path}', this.id)" } %>
             </div>
           </div>
             <div class="row">
-            <div class="field form-group">
-              <%= f.input :password,
-                          label: false,
-                          required: true,
-                          hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                          input_html: { autocomplete: "new-password", placeholder: t('password') } %>
-            </div>
+              <div class="field form-group">
+                <%= f.input :password,
+                            label: false,
+                            required: true,
+                            hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                            input_html: { autocomplete: "new-password", placeholder: t('password') } %>
+              </div>
           </div>
             <div class="row">
-            <div class="field form-group">
-              <%= f.input :password_confirmation,
-                          label: false,
-                          input_html: { autocomplete: "new-password", placeholder: t('confirm_password') } %>
-            </div>
+              <div class="field form-group">
+                <%= f.input :password_confirmation,
+                            label: false,
+                            input_html: { autocomplete: "new-password", placeholder: t('confirm_password') } %>
+              </div>
           </div>
           <div class="row">
             <div class="form-actions py-3">
