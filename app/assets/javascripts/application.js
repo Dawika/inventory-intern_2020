@@ -63,7 +63,7 @@ function inValid(id, errorMessage) {
   input.removeClass('is-valid');
   input.addClass('is-invalid');
   $('.' + id + ':first').append('<div class="invalid-feedback text-right" style="display:block;">' + errorMessage + '</div>');
-  input.closest('form').find(':submit').attr('disabled', true);
+  disabledOrEnableSubmitForm(input.closest('form'));
 }
 
 function valid(id) {
@@ -71,5 +71,15 @@ function valid(id) {
   $('.' + id + ':first .invalid-feedback').remove();
   input.removeClass('is-invalid');
   input.addClass('is-valid');
-  input.closest('form').find(':submit').attr('disabled', false);
+  disabledOrEnableSubmitForm(input.closest('form'));
+}
+
+function disabledOrEnableSubmitForm(form) {
+  // disabled buntton save when input validate blank
+  form.find('input.is-valid').length === form.find('input.required').length
+  if (form.find('input.is-valid').length === form.find('input.required').length) {
+    form.find(':submit').attr('disabled', false);
+  } else {
+    form.find(':submit').attr('disabled', true);
+  }
 }
