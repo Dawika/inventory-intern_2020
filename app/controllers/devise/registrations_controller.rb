@@ -9,7 +9,7 @@ class Devise::RegistrationsController < DeviseController
   def new
     build_resource
     yield resource if block_given?
-    respond_with resource
+    respond_with user_signed_in? ? new_school_path : resource
   end
 
   # POST /resource
@@ -19,9 +19,8 @@ class Devise::RegistrationsController < DeviseController
     yield resource if block_given?
     if resource.persisted?
       if resource.active_for_authentication?
-        set_flash_message! :notice, :signed_up
         sign_up(resource_name, resource)
-        respond_with resource, location: after_sign_up_path_for(resource)
+        redirect_to new_school_path
       else
         set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
         expire_data_after_sign_in!

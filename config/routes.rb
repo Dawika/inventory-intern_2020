@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get "/language" => "home#language"
   get "/locale" => "home#locale"
 
+  resources :schools
+
   resources :users, only: [] do
     collection do
       get "me"
@@ -154,10 +156,10 @@ Rails.application.routes.draw do
   end
 
   devise_scope :user do
+    root to: 'devise/registrations#new'
     get "/sign_in" => "devise/sessions#new"
   end
 
   comfy_route :cms, :path => '/homepage', :sitemap => false
   comfy_route :cms_admin, :path => '/cms_admin'
-  root to: 'home#index'
 end

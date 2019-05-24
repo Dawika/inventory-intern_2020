@@ -30,7 +30,7 @@
 //= require bootstrap-table
 //= require extensions/bootstrap-table-multiple-sort.js
 //= require angular-ui-bootstrap-fontawesome
-//= require bootstrap-select/js/bootstrap-select
+
 //= require extensions/bootstrap-table-export.js
 //= require_tree .
 
@@ -45,9 +45,9 @@ function validateUniqueness(url, id) {
     dataType: 'json',
     data: { email: input.val() },
     success: function(response) {
-      if (response.status == false) { 
+      if (response.status == false) {
         input.addClass('is-uniqueness');
-        inValid(id, response.message) 
+        inValid(id, response.message)
       } else {
         input.removeClass('is-uniqueness');
         valid(id)
@@ -72,7 +72,7 @@ function valid(id) {
     input.removeClass('is-invalid');
     input.addClass('is-valid');
     disabledOrEnableSubmitForm(input.closest('form'));
-  } 
+  }
 }
 
 function disabledOrEnableSubmitForm(form) {

@@ -1,0 +1,142 @@
+<h1>School Setting</h1>
+<div class="row">
+
+      <div class="col-lg-8 col-lg-offset-2">
+<div class="col-md-6">
+        <h3>ข้อมูลทั่วไป</h3> 
+</div>
+<div class="col-md-6">
+        <h3>ข้อมูลสำหรับหัวใบเสร็จ</h3> 
+</div>
+
+        <div class="controls content">
+        <%= simple_form_for @school, action: @school.new_record? ? 'create' : 'update', validate: true do |f| %>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= f.input :name, label: 'ชื่อโรงเรียน(ภาษาไทย)', required: true %>
+              </div>
+            </div>
+
+            
+             <div class="col-md-6">
+              <div class="form-group">
+                <%= f.input :address, label: 'ที่อยู่', required: true %>
+                </div>
+              </div>
+            </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <%= f.input :name_eng, label: 'ชื่อโรงเรียน(ภาษาอังกฤษ)', required: true %>
+                  </div>
+                </div>
+                
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <%= f.input :phone, label: 'หมายเลขโทรศัพท์', required: true %>
+                  </div>
+                </div>
+                
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <%= f.input :fax, label: 'หมายเลขแฟกซ์' %>
+                  </div>
+                </div>
+              </div>
+             
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <%= f.input :subdomain_name, label: 'Subdomain name', required: true %>
+                </div>
+              </div>
+
+              <div class="col-md-3"> 
+                <div class="form-group">
+                <br><h4>.somsri.io</h4> 
+                
+                </div>
+              </div>
+    
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.input :email, label: 'อีเมล', required: true %>
+                </div>
+              </div>
+            </div>
+
+
+              <%= f.simple_fields_for :school_settings do |school_setting_form| %>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <%= school_setting_form.input :school_year, label: 'ปีการศึกษา', as: :integer, required: true %>
+                  </div>
+                </div>
+                
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <%= school_setting_form.input :semesters, label: 'จำนวนเทอม', as: :integer, required: true %>
+                  </div>
+                </div>
+              <% end %>
+              
+              <div class="col-md-4">
+                <div class="form-group">
+                  <%= f.input :tax_id, label: 'เลขประจำตัวผู้เสียภาษี' %>
+                </div>
+              </div>
+              
+              <div class="col-md-2">
+                <div class="form-group">
+                  <%= f.input :branch, label: 'สาขาที่' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <h3>สัญลักษณ์โรงเรียน</h3>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <h3>ข้อมูลสำหรับท้ายใบเสร็จ</h3>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+               <div class="col-md-6">
+                <div class="form-group">
+                  รูป
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.input :note, label: 'หมายเหตุ' %>
+                </div>
+              </div>
+            </div>
+
+            <%= f.button :submit, 'save' %>
+          <% end %>
+
+      </div>
+
+    </div>
+
+
+
+  </div><!-- /.8 -->
+
+
+
+<%= link_to destroy_user_session_path, method: :delete, data: { confirm: 'แน่ใจแล้วใช่ไหม' }, class: 'btn btn-danger' do %>
+                <i class="fa fa-sign-out-alt"></i> Sign out
+              <% end %>

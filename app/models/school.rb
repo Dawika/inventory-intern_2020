@@ -1,8 +1,12 @@
 class School < ApplicationRecord
   has_many :employees
   has_many :users
+  has_one :school_setting
   has_attached_file :logo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/somsri_logo.png"
   validates_attachment_content_type :logo, content_type: /\Aimage\/.*\z/
+  accepts_nested_attributes_for :school_setting, reject_if: :all_blank
+
+  validates :name, :address, :name_eng, :phone, :subdomain_name, :email, presence: true
 
   def logo_url
     self.logo.expiring_url(3600, :medium)

@@ -1,5 +1,8 @@
 class SchoolSetting < ApplicationRecord
+  belongs_to :school
   @@default_semesters = ["1","2","3"]
+
+  validates :school_year, :semesters, presence: true
 
   def self.school_year
     school_setting = SchoolSetting.first
