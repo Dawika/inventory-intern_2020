@@ -39,12 +39,19 @@ $(document).ready(function() {
 })
 
 function validateUniqueness(url, id) {
+  input = $('#' + id);
   $.ajax({
     url: url,
     dataType: 'json',
-    data: { email: $('#' + id).val() },
+    data: { email: input.val() },
     success: function(response) {
-      if (response.status != true) { inValid(id, response.message) }
+      if (response.status == false) { 
+        input.addClass('is-uniqueness');
+        inValid(id, response.message) 
+      } else {
+        input.removeClass('is-uniqueness');
+        valid(id)
+      }
     }
   });
 }
@@ -60,15 +67,16 @@ function inValid(id, errorMessage) {
 
 function valid(id) {
   input = $('#' + id)
-  $('.' + id + ':first .invalid-feedback').remove();
-  input.removeClass('is-invalid');
-  input.addClass('is-valid');
-  disabledOrEnableSubmitForm(input.closest('form'));
+  if (!input.hasClass('is-uniqueness')) {
+    $('.' + id + ':first .invalid-feedback').remove();
+    input.removeClass('is-invalid');
+    input.addClass('is-valid');
+    disabledOrEnableSubmitForm(input.closest('form'));
+  } 
 }
 
 function disabledOrEnableSubmitForm(form) {
   // disabled buntton save when input validate blank
-  form.find('input.is-valid').length === form.find('input.required').length
   if (form.find('input.is-valid').length === form.find('input.required').length) {
     form.find(':submit').attr('disabled', false);
   } else {

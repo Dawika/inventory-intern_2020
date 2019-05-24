@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   validates :email, presence: true, allow_blank: false, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, presence: true, allow_blank: false, confirmation: true
+  validates :full_name , presence: true,allow_blank: false
 
   def ability
     Ability.new(self)
