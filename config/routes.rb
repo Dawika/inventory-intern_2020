@@ -156,8 +156,14 @@ Rails.application.routes.draw do
   end
 
   devise_scope :user do
-    root to: 'devise/registrations#new'
     get "/sign_in" => "devise/sessions#new"
+    authenticated :user do
+      root 'home#index', as: :authenticated_root
+    end
+
+    unauthenticated do
+      root 'devise/registrations#new', as: :unauthenticated_root
+    end
   end
 
   comfy_route :cms, :path => '/homepage', :sitemap => false
