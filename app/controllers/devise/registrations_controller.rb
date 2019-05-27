@@ -96,6 +96,7 @@ class Devise::RegistrationsController < DeviseController
   # temporary session data to the newly created user.
   def build_resource(hash = {})
     self.resource = resource_class.new_with_session(hash, session)
+    self.resource.build_school
   end
 
   # Signs in a user on sign up. You can overwrite this method in your own
@@ -167,7 +168,7 @@ class Devise::RegistrationsController < DeviseController
 
     Devise.sign_in_after_change_password
   end
-  
+
   def set_minimum_password_length
     if devise_mapping.validatable?
       @minimum_password_length = resource_class.password_length.min

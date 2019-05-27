@@ -77,9 +77,24 @@ function valid(id) {
 
 function disabledOrEnableSubmitForm(form) {
   // disabled buntton save when input validate blank
-  if (form.find('input.is-valid').length === form.find('input.required').length) {
+  if (form.find('input.required.is-valid').length === form.find('input.required').length) {
     form.find(':submit').attr('disabled', false);
   } else {
     form.find(':submit').attr('disabled', true);
   }
+}
+
+function enableButton(formID, id) {
+  form = $('#' + formID);
+  button = $('#' + id);
+  if (form.find('input.validate-sign-in.is-valid').length === form.find('input.validate-sign-in.required').length) {
+    button.attr('disabled', false);
+  } else {
+    button.attr('disabled', true);
+  }
+}
+
+function showNewSchool() {
+  $('#formSingUp').hide();
+  $('#formSchool').show();
 }

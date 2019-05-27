@@ -13,6 +13,7 @@ class User < ApplicationRecord
   validates :full_name, presence: true
   validates :email, presence: true, allow_blank: false, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, presence: true, allow_blank: false, confirmation: true
+  accepts_nested_attributes_for :school
 
   def ability
     Ability.new(self)
