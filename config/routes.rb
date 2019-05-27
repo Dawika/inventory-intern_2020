@@ -152,6 +152,7 @@ Rails.application.routes.draw do
   resources :ckeck_validates do
     collection do
       get 'email_uniqueness'
+      get 'subdomain_uniqueness'
     end
   end
 

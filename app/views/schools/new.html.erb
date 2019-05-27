@@ -31,11 +31,33 @@
             </div>
           </div>
 
-          <div class="col-md-3">
-            <div class="form-group">
-              <%= f.input :phone, label: 'หมายเลขโทรศัพท์', required: true %>
-            </div>
-          </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <%= f.input :name_eng, label: 'ชื่อโรงเรียน(ภาษาอังกฤษ)', required: true %>
+                  </div>
+                </div>
+                
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <%= f.input :phone, label: 'หมายเลขโทรศัพท์', required: true %>
+                  </div>
+                </div>
+                
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <%= f.input :fax, label: 'หมายเลขแฟกซ์' %>
+                  </div>
+                </div>
+              </div>
+             
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <%= f.input :subdomain_name, label: 'Subdomain name', required: true, 
+                  input_html: {onkeyup: "validateUniqueness2('#{subdomain_uniqueness_ckeck_validates_path}', this.id)" } %>
+                </div>
+              </div>
 
           <div class="col-md-3">
             <div class="form-group">
@@ -109,16 +131,19 @@
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                รูป
+            <div class="row">
+               <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.input :logo, as: :file , input_html: { onChange: 'changeLogo(event, "logoSchool")' } %>
+                  <%= image_tag @school.logo.url, id: 'logoSchool', class: 'img-lg'  %>
+                </div>
               </div>
             </div>
 
-            <div class="col-md-6">
-              <div class="form-group">
-                <%= f.input :note, label: 'หมายเหตุ' %>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= f.input :note, label: 'หมายเหตุ'%>
+                </div>
               </div>
             </div>
           </div>

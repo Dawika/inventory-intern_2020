@@ -56,6 +56,24 @@ function validateUniqueness(url, id) {
   });
 }
 
+function validateUniqueness2(url, id) {
+  input = $('#' + id);
+  $.ajax({
+    url: url,
+    dataType: 'json',
+    data: { subdomain_name: input.val() },
+    success: function(response) {
+      if (response.status == false) {
+        input.addClass('is-uniqueness');
+        inValid(id, response.message)
+      } else {
+        input.removeClass('is-uniqueness');
+        valid(id)
+      }
+    }
+  });
+}
+
 function inValid(id, errorMessage) {
   input = $('#' + id)
   $('.' + id + ':first .invalid-feedback').remove();
@@ -97,4 +115,30 @@ function enableButton(formID, id) {
 function showNewSchool() {
   $('#formSingUp').hide();
   $('#formSchool').show();
+}
+
+function changeLogo(event, img_logo) {
+  logo = URL.createObjectURL(event.target.files[0]);
+  $('#' + img_logo).attr('src', logo);
+
+  FileType =event.target.files[0]
+  FileSize = event.target.files[0].size / 1024 / 1024; // in MB
+  error = $('#errorMessage')
+  if (FileType.name.match(/\.(jpg|jpeg|png)$/) ) {
+    if (FileSize > 2) {
+      error.show()
+      error.html('ไฟล์รูปภาพขนาดเกิน 2 Mb')
+      // alert('ขนาดเกิน 2 Mb');
+      $('#' + img_logo).attr('src', '/somsri_logo.png');
+    } else {
+      error.hide()
+    }
+
+} else {
+  // alert('this is not image file! (jpg,jpeg,png)');
+  $('#' + img_logo).attr('src', '/somsri_logo.png');
+  error.show()
+  error.html('ต้องเป็นไฟล์รูปภาพเท่านั้น (jpg,jpeg,png)')
+}
+
 }
