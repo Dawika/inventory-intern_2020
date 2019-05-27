@@ -19,7 +19,6 @@
 								<div class="col-md-3">
 									<div class="form-group">
 										<label class="control-label" for="item_name">{{"item_name" | translate}}</label>
-
 										<div class="col-md-12">
 											<input class="form-control" autocomplete="off" type="text" id="inventory_name" ng-model="inventory.name" required="true">
 										</div>
@@ -75,32 +74,46 @@
 							</div>
 						</div>
 					</div>
+					
 					<div class="row mt-20">
 						<div class="col-lg-4" style="padding-left: 0px;">
-							<div class="report-content container-fluid panel-board" style="height: 300px;">
-								<div class="row mt-20">
-									<p class="pl-20" style="color: #B6B6B6;" >{{ "request_approval" | translate }} ({{ "save_by" | translate }} {{ inventory.save_by }})  </p>
-								</div>
-							</div>	
+							<div class="report-content min-h-350 panel-board">
+								<h5><label class="control-label" for="purchase"> {{ "history" | translate }} </label></h5>
+								<hr class="mt-0">
+								<p class="pl-20" style="color: #B6B6B6;" >
+								{{ inventory.accept_date }} - {{ "request_approval" | translate }} 
+								<label class="control-label color-light-blue">Admin1</label>
+								<!-- {{ inventory.save_by }} -->
+								</p>
+							</div>
 						</div>	
-
-						<div class="col-lg-8 report-content container-fluid panel-board">
+						<div class="col-lg-8 report-content container-fluid panel-board min-h-350">
 							<div class="row">
-								<div class="col-lg-4">
+								<div class="col-lg-3 mt-50">
 									<div class="wrapper">
-										<ul class="StepProgress">
-										  <li class="StepProgress-item current"><i class="fa fa-shopping-basket" aria-hidden="true" style="margin-left: -37px;"></i><strong style="margin-top: -17px;">{{ "inventory_purchase" | translate }}</strong><label style="padding-top: 15px;"></label></li>
-										  <li class="StepProgress-item"><strong>{{ "get_inventory" | translate }}</strong><label style="padding-top: 15px;"></label></li>
-										  <li class="StepProgress-item"><strong>{{ "dispatch_to_employees" | translate }}</strong></li>
+										<ul class="step-progress">
+										  <li class="step-progress-item step-2 current">
+										  	<strong class="label-status">{{ "inventory_purchase" | translate }}</strong>
+										  	<label class="pt-5"></label>
+										  </li>
+										  <li class="step-progress-item step-3">
+										  	<strong class="label-status">{{ "get_inventory" | translate }}</strong>
+										  	<label class="pt-5"></label>
+										  </li>
+										  <li class="step-progress-item step-4">
+										  	<strong class="label-status">{{ "dispatch_to_employees" | translate }}</strong>
+										  </li>
 										</ul>
 									</div>
 								</div>
-								<div class="col-lg-8">
+								<div class="col-lg-9">
 									<div class="row">
+										<h4><label class="control-label" for="purchase"> {{ "inventory_purchase" | translate }} </label></h4>
+										<hr class="mt-0">
 										<div class="row mt-10">
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="control-label" for="date_purchase">วันที่สั่งซื้อ</label>
+													<label class="control-label" for="date_purchase">{{ "date_purchasing" | translate }}</label>
 													<p class="input-group">
 														<input id="date_purchase" type="text" class="form-control numberic" uib-datepicker-popup="dd/MM/yyyy" ng-model="inventory.date_purchase" is-open="inventory.datePurchasePopup.opened" close-text="Close" required="true"/>
 														<span class="input-group-btn">
@@ -113,7 +126,7 @@
 										<div class="row mt-10">
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="control-label" for="price">ราคา</label>
+													<label class="control-label" for="price">{{ "price" | translate }}</label>
 													<div class="col-md-12">
 														<input class="form-control" autocomplete="off" type="number" id="inventory_price_step2" ng-model="inventory.price_step2" ng-validate="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required="true" parseFloat>
 													</div>
@@ -130,7 +143,7 @@
 				                </div>
 				              </div>
 				              <div class="pull-left text-left padding-rigth10">
-				                <button type="button" class="btn btn-custom btn-orange ng-binding btn-block  padding-left10" ng-click="inventory.openAddSupplierModal()" >{{ "add_supplier" | translate }}</button>
+				                <button type="button" class="btn btn-custom btn-ligth-green ng-binding btn-block  padding-left10" ng-click="inventory.openAddSupplierModal()" style="padding: 10px;" >{{ "add_supplier" | translate }}</button>
 				              </div>
 										</div>
 									</div>
@@ -147,7 +160,7 @@
 					<button type="button" class="btn btn-custom btn-orange ng-binding btn-block  padding-left10" ng-click="inventory.cancel()">{{ "back" | translate }}</button>
 				</div>
 				<div class="pull-right text-right padding-left10">
-					<button type="button" class="btn btn-custom btn-gray ng-binding" ng-click="inventory.backToRooView()">{{ "cancel" | translate }}</button>
+					<button type="button" class="btn btn-custom btn-gray ng-binding" ng-click="inventory.backToRootView()">{{ "cancel" | translate }}</button>
 				</div>
 				<div class="pull-right text-right padding-left10">
 					<button type="submit" class="btn btn-custom btn-blue ng-binding btn-block padding-left10">{{ "save" | translate }}</button>
@@ -156,8 +169,3 @@
 		</div>
 	</form>
 </div>
-
-			
-
-
-              

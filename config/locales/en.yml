@@ -568,6 +568,10 @@ en:
   new_request_inventory: "New request inventory"
   request_number: "Request number"
   of: "of"
+  date_purchasing: "date_purchasing"
+  history: "History"
+  purchasing_by: "Purchasing by"
+  from_store: "From store"
 
   #Update inventory request
   details_inventory_request: "Details Inventory Request"
@@ -575,6 +579,7 @@ en:
   inventory_purchase: "Inventory purchase"
   get_inventory: "Get inventory"
   dispatch_to_employees: "Dispatch to employees"
+  dispatch_to_employees_success: "Dispatch to employees successfully"
   date_get_inventory: "Date get inventory"
   date_purchase_inventory: "Date purchare inventory"
   date_send_inventory: "Date send inventory"

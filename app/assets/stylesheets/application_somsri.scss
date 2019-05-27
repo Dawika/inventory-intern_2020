@@ -642,6 +642,19 @@ body {
   }
 }
 
+.btn-ligth-green {
+  background-color: #7ED321;
+  color: #fff !important;
+  border: 2px solid #7ED321;
+  &:hover{
+    border:2px solid #7ED321;
+    color: #7ED321 !important;
+  }
+  &:focus{
+    color: #fff;
+  }
+}
+
 .btn-gray {
   background-color: #9D9D9D;
   color: #fff !important;
@@ -786,6 +799,7 @@ body {
 
 hr {
   border-bottom: 1px solid #aaa;
+  border-top: 0px solid #eee;
 }
 
 #next-classroom .fixed-table-body {
@@ -1345,14 +1359,8 @@ tags-input .tags .tag-item .remove-button{
   text-align: center;
 }
 
-.wrapper {
-  width: 330px;
-  font-family: 'Helvetica';
-  font-size: 14px;
-  // border: 1px solid #CCC;
-}
-
-.StepProgress {
+// for step
+.step-progress {
   position: relative;
   padding-left: 45px;
   list-style: none;
@@ -1373,7 +1381,7 @@ tags-input .tags .tag-item .remove-button{
     counter-increment: list;
     
     &:not(:last-child) {
-      padding-bottom: 20px;
+      padding-bottom: 30px;
     }
     
     &::before {
@@ -1386,92 +1394,70 @@ tags-input .tags .tag-item .remove-button{
     }
 
     &::after {
-      content: '';
       display: inline-block;
       position: absolute;
       top: 0;
       left: -39px;
       width: 20px;
       height: 20px;
-      // border: 2px solid #CCC;
-      // border-radius: 50%;
-      // background-color: #FFF;
+      padding-top: 3px;
+      font-size: 14px;
+      text-align: center;
+      background-color: white;
+      font: normal normal normal 14px/1 FontAwesome;
+    }
+
+    &.current {
+
+      .label-status{
+        color: #FFAB04;
+      }
+
+      &::before {
+        border-left: 2px solid #CCC;
+      }
+      
+      &::after {
+        color: #FFAB04;
+      }
     }
       
     &.is-done {
+
+      .label-status{
+        color: #5BAB67;
+      }
+
       &::before {
-        border-left: 2px solid green;
+        border-left: 2px solid #FFAB04;
       }
       &::after {
-        // content: "✔";
-        font-size: 10px;
-        color: #FFF;
-        text-align: center;
-        border: 2px solid green;
-        background-color: green;
-      }
-    }
-    
-    &.current {
-      &::before {
-        border-left: 2px solid green;
-      }
-      
-      &::after {
-        color: #C2D1D9;
-        top:0;
-        // content: "\f291";
-        padding-top: 1px;
-        width: 20px;
-        height: 20px;
-        top: 0px;
-        left: -39px;
-        font-size: 14px;
-        text-align: center;
-        color: green;
-        // font-family: FontAwesome4;
-        // border: 2px solid green;
-        // background-color: white;
+        color: #5BAB67;
       }
     }
 
-    &.feature {
+    &.is-pass{
+
       &::before {
-        border-left: 2px solid green;
+        border-left: 2px solid #5BAB67 !important;
       }
-      
-      &::after {
-        content: counter(list);
-        padding-top: 1px;
-        width: 20px;
-        height: 20px;
-        top: 25px;
-        left: -39px;
-        font-size: 14px;
-        text-align: center;
-        color: green;
-        border: 2px solid green;
-        background-color: white;
-      }
+
     }
 
-    &.feature2 {
-      &::before {
-        border-left: 2px solid green;
+    // icon inventory
+    &.step-2{
+      &::after{
+        content: "\f291";
       }
-      
-      &::after {
-        content: counter(list);
-        padding-top: 1px;
-        width: 20px;
-        height: 20px;
-        top: 50px;
-        left: -39px;
-        font-size: 14px;
-        text-align: center;
-        color: green;
-        border: 2px solid green;
-        background-color: white;
+    }
+    &.step-3{
+      &::after{
+        content: "\f187";
+      }
+    }
+    &.step-4{
+      &::after{
+        content: "\f14a";
       }
     }
   }

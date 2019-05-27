@@ -9,11 +9,14 @@
 		ctrl.date_get_inventory = null
     ctrl.buy_slip = ""
 		ctrl.end_warranty = ""
-		ctrl.step = $rootScope.step
 
     ctrl.serial_number = ""
     ctrl.model = ""
     ctrl.category = translateFilter("select_category")
+    if ($rootScope.supplier_id) {
+      ctrl.supplier_id = $rootScope.supplier_id
+      getSupplier(ctrl.supplier_id)
+    }
 
     ctrl.item_catogery = [
       {name: "office_furniture", id: 1},
@@ -45,8 +48,6 @@
         ctrl.employee_id = value.employee_id
         ctrl.manage_inventory = value.manage_inventory
 
-        ctrl.step_to = ctrl.manage_inventory.step
-	      ctrl.manage_inventory_id = ctrl.manage_inventory.id
         ctrl.request_type = value.request_type
         if (ctrl.request_type == "request") {
           ctrl.change_request_type = translateFilter("withdraw_equipment")
@@ -58,68 +59,49 @@
         } else {
           ctrl.datas.request_date = null
         }
-        checkStep()
+
+        ctrl.manage_inventory_request = value.manage_inventory_request
+
+        if (ctrl.manage_inventory_request) {
+          ctrl.step = ctrl.manage_inventory_request.step
+          ctrl.manage_inventory_id = ctrl.manage_inventory_request.id
+          checkStep()
+        }
+        setData()
       })
     }
 
     function setData() {
-      if (ctrl.step_to) {
-        ctrl.step = ctrl.manage_inventory
-        //setp1
-        ctrl.save_by = ctrl.manage_inventory.step1.save_by
-        //setp2
-        ctrl.save_by_step2 = ctrl.manage_inventory.step2.save_by
-        ctrl.date_purchase_save = ctrl.manage_inventory.step2.date_purchase
-        ctrl.date_send_save = ctrl.manage_inventory.step2.date_send
-        ctrl.date_purchase = $filter('date')(new Date(ctrl.manage_inventory.step2.date_purchase), 'dd/MM/yyyy')
-        ctrl.date_send = $filter('date')(new Date(ctrl.manage_inventory.step2.date_send), 'dd/MM/yyyy')
-        ctrl.price_step2 = ctrl.manage_inventory.step2.price
-        //setp3
-        ctrl.save_by_step3 = ctrl.manage_inventory.step3.save_by
-        ctrl.date_get_inventory = ctrl.manage_inventory.step3.get_date
-        ctrl.buy_slip = ctrl.manage_inventory.step3.buy_slip
-        ctrl.end_warranty = ctrl.manage_inventory.step3.end_warranty
-      }
+      //setp1
+      ctrl.save_by = ctrl.manage_inventory_request.save_by
+      ctrl.accept_date = ctrl.manage_inventory_request.accept
+      //setp2
+      ctrl.save_by_step2 = ctrl.manage_inventory_request.save_by_step2
+      ctrl.date_purchase = $filter('date')(new Date(ctrl.manage_inventory_request.date_purchase), 'dd/MM/yyyy HH:mm')
+      ctrl.date_purchase_save = ctrl.manage_inventory_request.date_purchase
+      ctrl.date_send = $filter('date')(new Date(ctrl.manage_inventory_request.date_send), 'dd/MM/yyyy HH:mm')
+      ctrl.date_send_save = ctrl.manage_inventory_request.date_send
+      ctrl.price_step2 = parseFloat(ctrl.manage_inventory_request.price)
+      //setp3
+      ctrl.save_by_step3 = ctrl.manage_inventory_request.save_by_step3
+      ctrl.date_get_inventory = ctrl.manage_inventory_request.get_date
+      ctrl.buy_slip =ctrl.manage_inventory_request.buy_slip
+      ctrl.end_warranty = $filter('date')(new Date(ctrl.manage_inventory_request.end_warranty), 'dd/MM/yyyy HH:mm')
     }
 
 		function checkStep() {
-			if(!ctrl.step) {
-        if (ctrl.step_to == 2) {
-          setData()
-        } else {
-          if (ctrl.real_id) {
-            $rootScope.updateInventoryRequest(ctrl.real_id)
-          }
-        }
-			} else {
-        //setp1
-				ctrl.save_by = ctrl.step.step1.save_by
-        //setp2
-				ctrl.save_by_step2 = ctrl.step.step2.save_by
-        ctrl.date_purchase_save = ctrl.step.step2.date_purchase
-        ctrl.date_send_save = ctrl.step.step2.date_send
-				ctrl.date_purchase = $filter('date')(new Date(ctrl.step.step2.date_purchase), 'dd/MM/yyyy')
-				ctrl.date_send = $filter('date')(new Date(ctrl.step.step2.date_send), 'dd/MM/yyyy')
-				ctrl.price_step2 = ctrl.step.step2.price
-				//setp3
-				ctrl.save_by_step3 = ctrl.step.step3.save_by
-				ctrl.date_get_inventory = new Date(ctrl.step.step3.get_date)
-        if (!ctrl.step.step3.get_date) {
-          ctrl.date_get_inventory = ""
-        }
-				ctrl.buy_slip = ctrl.step.step3.buy_slip
-				ctrl.end_warranty = new Date(ctrl.step.step3.end_warranty)
-        if (!ctrl.step.step3.end_warranty) {
-          ctrl.end_warranty = ""
-        }
-			} 
+      if (!ctrl.step || ctrl.step == 1) {
+        $rootScope.updateInventoryRequest(ctrl.real_id)
+      } else if (ctrl.step == 2) {
+        $rootScope.updateInventoryRequestStep2(ctrl.real_id)
+      } else if (ctrl.step == 4) {
+        $rootScope.updateInventoryRequestStep4(ctrl.real_id)
+      } else if (ctrl.step == 5) {
+        $rootScope.updateInventoryRequestStep5(ctrl.real_id)
+      }
 		}
 
 		ctrl.continue = function() {
-    	ctrl.step.step3.get_date = ctrl.date_get_inventory
-    	ctrl.step.step3.buy_slip = ctrl.buy_slip
-    	ctrl.step.step3.end_warranty = ctrl.end_warranty
-    	ctrl.step.step3.save_by = ctrl.name_setting
       ctrl.is_save = false
       checkGetDatePurchase()
     }
@@ -127,32 +109,20 @@
     ctrl.cancel = function() {
       var data = {
         manage_inventories_requests: {
-          step: 1
+          step: 2
         }
       }
 
       service.updateManageInventoryRequest(data, ctrl.real_id , ctrl.manage_inventory_id).then(function(resp) {
-        service.purchasing(ctrl.real_id).then(function(resp) {
+        service.pending(ctrl.real_id).then(function(resp) {
           
         })
       })
       $window.history.back();
     }
 
-    function beforeBackToRootView() {
-      if (ctrl.step_to == 1) {
-        service.pending(ctrl.real_id).then(function(resp) {
-          $rootScope.openInventory(1)
-        })
-      } else if (ctrl.step_to == 2) {
-        service.purchasing(ctrl.real_id).then(function(resp) {
-          $rootScope.openInventory(1)
-        })
-      }
-    }
-
-    ctrl.backToRooView = function() {
-      beforeBackToRootView()
+    ctrl.backToRootView = function() {
+      $rootScope.openInventory(1)
     }
 
     ctrl.save = function() {
@@ -228,7 +198,8 @@
 
     function createInventory(inventory_datas, category_datas) {
        inventoryService.newInventory(inventory_datas).then(function(resp) {
-          createCategory(resp.data.id, category_datas)
+        $rootScope.supplier_id = null
+        createCategory(resp.data.id, category_datas)
       }, function(e){
         // Error
       });
@@ -236,7 +207,6 @@
 
     function createCategory(inventory_id, data) {
       inventoryService.createCategory(inventory_id, data).then(function(resp) {
-        ctrl.step.inventory_id = inventory_id
         beforeUpdateRequest(inventory_id)
       })
     }
@@ -265,20 +235,9 @@
     }
     
     function updateInventoryRequest(inventory_datas, id, inventory_id) {
-      var step = 2
-      if (ctrl.date_get_inventory && !ctrl.is_save) {
-        step = 3
-      }
- 
       var data = {
         manage_inventories_requests: {
-          step: step,
-          accept: "accept",
-          save_by: ctrl.save_by,
-          save_by_step2: ctrl.save_by_step2,
-          date_purchase: ctrl.date_purchase_save,
-          date_send: ctrl.date_send_save,
-          price: ctrl.price_step2,
+          step: 4,
           save_by_step3: ctrl.name_setting,
           get_date: ctrl.date_get_inventory,
           buy_slip: ctrl.buy_slip,
@@ -288,7 +247,7 @@
       }
 
     	service.updateInventoryRequest(inventory_datas, id).then(function(resp) {
-    		if (!ctrl.manage_inventory_id) {
+    		if (ctrl.manage_inventory_id) {
     			updateManageInventory(data)
     		} else {
     			createManageInventory(data)
@@ -312,13 +271,9 @@
 
 
     function isSave() {
-      if (ctrl.is_save) {
-        $rootScope.openInventory(1)
-      } else {
-        service.done(ctrl.real_id).then(function(resp) {
-          $rootScope.updateInventoryRequestStep4(ctrl.step, ctrl.real_id)
-        })
-      }
+      service.done(ctrl.real_id).then(function(resp) {
+        $rootScope.updateInventoryRequestStep4(ctrl.real_id)
+      })
     }
 
     ctrl.opengetInventorytDatePopup = function() {
@@ -419,41 +374,31 @@
       })
     }
 
-    function getSupplierList() {
+    function getSupplier(id) {
       ctrl.supplier_lists = []
-      inventorySupplierService.getAllSuppliers().then(function(resp) {
-        if (resp.data.length > 0){
-          for (var i = 0; i < resp.data.length; i++) {
-            var supplier = resp.data[i]
-            if (supplier.name != ctrl.supplierDisplayName) {
-              ctrl.supplier_lists.push({
-                name: supplier.name,
-                id: supplier.id
-              })
-            }
-          }
-        }
+      inventorySupplierService.show(id).then(function(resp) {
+        ctrl.supplier_name = resp.data.suppliers.name
       })
     }
 
-    ctrl.onSelectSupplier = function($item) {
-      ctrl.supplier_name = $item.name;
-      ctrl.supplier_id = $item.id
-    };
+    // ctrl.onSelectSupplier = function($item) {
+    //   ctrl.supplier_name = $item.name;
+    //   ctrl.supplier_id = $item.id
+    // };
 
-    ctrl.onChangeSupplier = function() {
-      ctrl.supplier_name = ctrl.supplier_name
-      ctrl.supplier_id = ""
-    }
+    // ctrl.onChangeSupplier = function() {
+    //   ctrl.supplier_name = ctrl.supplier_name
+    //   ctrl.supplier_id = ""
+    // }
 
-    ctrl.openAddSupplierModal = function() {
-      $rootScope.appSupplierModal(translateFilter('add_supplier'), function(){
-        ctrl.supplier_id = $rootScope.supplier_id
-        ctrl.supplier_name = $rootScope.supplier_name
-        $rootScope.supplier_id = null
-        $rootScope.supplier_name = null
-      })
-    }
+    // ctrl.openAddSupplierModal = function() {
+    //   $rootScope.appSupplierModal(translateFilter('add_supplier'), function(){
+    //     ctrl.supplier_id = $rootScope.supplier_id
+    //     ctrl.supplier_name = $rootScope.supplier_name
+    //     $rootScope.supplier_id = null
+    //     $rootScope.supplier_name = null
+    //   })
+    // }
 
     ctrl.openRequestDatePopup = function() {
       ctrl.requestDatePopup.opened = true;
@@ -463,24 +408,22 @@
       opened: false
     };
 
-    function deleteInventory() {
-      ctrl.deleteInventory = $rootScope.backToDeleteInventory
-      var inventory_id_for_delete = $rootScope.inventory_id_for_delete
-      $rootScope.backToDeleteInventory = null
-      $rootScope.inventory_id_for_delete = null
-      if(ctrl.deleteInventory && inventory_id_for_delete) {
-        inventoryService.removeInventory(inventory_id_for_delete).then(function(resp) {
+    // function deleteInventory() {
+    //   ctrl.deleteInventory = $rootScope.backToDeleteInventory
+    //   var inventory_id_for_delete = $rootScope.inventory_id_for_delete
+    //   $rootScope.backToDeleteInventory = null
+    //   $rootScope.inventory_id_for_delete = null
+    //   if(ctrl.deleteInventory && inventory_id_for_delete) {
+    //     inventoryService.removeInventory(inventory_id_for_delete).then(function(resp) {
       
-          }, function(e){
-        })
-      }
-    }
+    //       }, function(e){
+    //     })
+    //   }
+    // }
 
-    
-    getSupplierList()
+
     getInventoryList()
     getSetting()
     initData()
-    deleteInventory()
 	}]);
 })();

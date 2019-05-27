@@ -48,30 +48,26 @@
       $rootScope.backToDeleteInventory = null
       $rootScope.inventory_id_for_delete = null
       if (ctrl.step == 2) {
-        //2
         if (ctrl.request_type == "request") {
           $rootScope.updateInventoryRequestStep4(ctrl.step, ctrl.real_id)
         } else {
-          $rootScope.updateInventoryRequestStep2(ctrl.step, ctrl.real_id)
+          $rootScope.updateInventoryRequestStep2(ctrl.real_id)
         }
-        
       } else if (ctrl.step == 3) {
-        //3
-        $rootScope.updateInventoryRequestStep3(ctrl.step, ctrl.real_id)
+        $rootScope.updateInventoryRequestStep3(ctrl.real_id)
       } else if (ctrl.step == 4) {
-        //4
-        $rootScope.updateInventoryRequestStep4(ctrl.step, ctrl.real_id)
+        $rootScope.updateInventoryRequestStep4(ctrl.real_id)
       } else if (ctrl.step == 5) {
-        //5
-        $rootScope.updateInventoryRequestStep5(ctrl.step, ctrl.real_id)
+        $rootScope.updateInventoryRequestStep5(ctrl.real_id)
       }
     }
 
     ctrl.accept = function() {
+      var accept_date = $filter('date')(new Date(), 'dd/MM/yyyy HH:mm')
       var data = {
         manage_inventories_requests: {
           step: 2,
-          accept:  "",
+          accept:  accept_date,
           save_by: ctrl.name_setting  
         }
       }
