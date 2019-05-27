@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "2.3.1"
 
 gem "table_print"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -60,7 +61,7 @@ gem 'comfortable_mexican_sofa', '~> 1.12.0'
 #Paranoia
 gem 'paranoia', '~> 2.1', '>= 2.1.5'
 
-gem "aws-sdk"
+gem "aws-sdk", "< 3.0"
 gem "paperclip", "~> 5.0.0"
 
 gem "bootstrap-table-rails"
