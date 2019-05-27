@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "2.3.1"
 
 gem "table_print"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
