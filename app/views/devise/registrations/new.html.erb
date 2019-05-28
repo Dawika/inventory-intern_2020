@@ -8,7 +8,7 @@
     <%= render 'layouts/messages' %>
       <div class="col-lg-12">
         <div>
-          <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), validate: true) do |f| %>
+          <%= simple_form_for(resource, as: resource_name, url: schools_path(resource_name), validate: true) do |f| %>
             <div class="form-sign-in" id="formSingUp">
               <div class="row">
                 <div class="col-xs-12">
@@ -118,7 +118,7 @@
                         </div>
                       </div>
 
-                      <%= school_form.simple_fields_for :school_settings do |school_setting_form| %>
+                      <!--<%= school_form.simple_fields_for :school_settings do |school_setting_form| %>
                         <div class="row">
                           <div class="col-md-3">
                             <div class="form-group">
@@ -130,7 +130,7 @@
                               <%= school_setting_form.input :semesters, label: t('.semesters'), input_html: { id: 'user_school_semesters' }, as: :integer, required: true %>
                             </div>
                           </div>
-                          <% end %>
+                          <% end %> -->
                           <div class="col-md-4">
                             <div class="form-group">
                               <%= school_form.input :tax_id, label: t('.tax_id'), input_html: { id: 'user_school_tax_id' } %>

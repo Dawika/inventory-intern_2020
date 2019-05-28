@@ -14,11 +14,13 @@ class SchoolsController < ApplicationController
   
     def new
       @school = School.new
+      @school.users.build
+      @school.school_settings.build
     end
   
     def create
       @school = School.new(school_params)
-      @school.save
+      ap @school.save!
       # redirect_to root_path
     end
   
@@ -106,7 +108,9 @@ class SchoolsController < ApplicationController
         :note,
         :subdomain_name,
         :branch,
-        [{ school_settings_attributes: [:id, :school_year, :semesters] }]
+        :logo,
+        [{ school_settings_attributes: [:id, :school_year, :semesters] }],
+        [{ users_attributes: [:id, :full_name, :email, :password] }]
       )
     end
   end

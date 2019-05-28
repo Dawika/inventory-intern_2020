@@ -9,7 +9,7 @@ class Devise::RegistrationsController < DeviseController
   def new
     build_resource
     yield resource if block_given?
-    respond_with user_signed_in? ? new_school_path : resource
+    respond_with resource
   end
 
   # POST /resource
@@ -19,8 +19,9 @@ class Devise::RegistrationsController < DeviseController
     yield resource if block_given?
     if resource.persisted?
       if resource.active_for_authentication?
+        set_flash_message! :notice, :signed_up
         sign_up(resource_name, resource)
-        redirect_to new_school_path
+        respond_with resource, location: after_sign_up_path_for(resource)
       else
         set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
         expire_data_after_sign_in!
@@ -136,7 +137,21 @@ class Devise::RegistrationsController < DeviseController
     params.require(:user).permit(
       :full_name,
       :email,
-      :password
+      :password,
+      :password_confirmation,
+      [{ school_attributes: [:name, :tax_id,
+        :address,
+        :zip_code,
+        :phone,
+        :fax,
+        :email,
+        :name_eng,
+        :note,
+        :subdomain_name,
+        :logo,
+        :branch] 
+        }]
+
     )
   end
 
@@ -168,7 +183,7 @@ class Devise::RegistrationsController < DeviseController
 
     Devise.sign_in_after_change_password
   end
-
+  
   def set_minimum_password_length
     if devise_mapping.validatable?
       @minimum_password_length = resource_class.password_length.min
