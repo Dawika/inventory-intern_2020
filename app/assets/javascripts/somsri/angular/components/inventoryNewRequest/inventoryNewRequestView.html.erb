@@ -36,7 +36,7 @@
                   <p class="input-group">
                     <input id="request_date" type="text" class="form-control numberic" uib-datepicker-popup="dd/MM/yyyy" ng-model="inventory.datas.request_date" is-open="inventory.requestDatePopup.opened" close-text="Close" required="true"/>
                     <span class="input-group-btn">
-                      <button type="button" class="btn btn-default" ng-click="inventory.openRequestDatePopup()" ><i class="fa fa-calendar"></i></button>
+                      <button type="button" class="btn btn-default" ng-click="inventory.openRequestDatePopup(inventory.price)" ><i class="fa fa-calendar"></i></button>
                     </span>
                   </p>
                 </div>
@@ -45,7 +45,8 @@
                 <div class="form-group">
                   <label class="control-label" for="price">{{ "price" | translate }}</label>
                   <div class="col-md-12">
-                    <input class="form-control" autocomplete="off" type="number" id="inventory_price" ng-model="inventory.price" ng-validate="number" required="true" step=".01" parseFloat>
+                    <input class="form-control string-color-white" autocomplete="off" type="number" id="inventory_price" ng-model="inventory.price" ng-validate="number" required="true" step=".01" ng-change="inventory.changePriceToString(inventory.price)"  parseFloat>       
+                    <input class="form-control " autocomplete="off" type="string" id="inventory_price_string" ng-model="inventory.priceString" required="true" style="margin-top: -34px;" disabled="true">
                   </div>
                 </div>
 							</div>
