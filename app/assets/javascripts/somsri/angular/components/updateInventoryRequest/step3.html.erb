@@ -82,12 +82,10 @@
 									<h5><label class="control-label" for="purchase"> {{ "history" | translate }} </label></h5>
 									<hr class="mt-0">
 									<p class="pl-20">
-									{{ inventory.accept_date }} - {{ "request_approval" | translate }} {{ inventory.save_by }}
-									<label class="control-label color-light-blue">Admin1</label><br>
-									<!-- {{ inventory.save_by }} -->
-									{{ inventory.date_purchase }} - {{ "purchasing_by" | translate }}
-									<label class="control-label color-light-blue">Admin1</label>
-									<!-- {{inventory.save_by_step2 }}) -->
+									{{ inventory.date_save_step1 }} - {{ "request_approval" | translate }} {{ inventory.save_by }}
+									<label class="control-label color-light-blue">{{ inventory.save_by }}</label><br>
+									{{ inventory.date_save_step2 }} - {{ "purchasing_by" | translate }}
+									<label class="control-label color-light-blue">{{ inventory.save_by_step2 }}</label>
 									{{ "from_store" | translate }}
 									<label class="control-label color-light-blue">{{ inventory.supplier_name }}</label>
 									</p>

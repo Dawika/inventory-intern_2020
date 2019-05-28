@@ -590,6 +590,7 @@ en:
   continue: "Continue"
   completed: "Completed"
   send_the_package_to: "Send the package to"
+  get_inventory_by: "Get inventory by"
 
   #inventory supplier
   inventory_supplier: "Supplier"

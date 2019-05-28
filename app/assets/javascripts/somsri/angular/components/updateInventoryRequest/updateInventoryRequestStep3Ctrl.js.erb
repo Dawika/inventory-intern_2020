@@ -13,10 +13,6 @@
     ctrl.serial_number = ""
     ctrl.model = ""
     ctrl.category = translateFilter("select_category")
-    if ($rootScope.supplier_id) {
-      ctrl.supplier_id = $rootScope.supplier_id
-      getSupplier(ctrl.supplier_id)
-    }
 
     ctrl.item_catogery = [
       {name: "office_furniture", id: 1},
@@ -65,6 +61,8 @@
         if (ctrl.manage_inventory_request) {
           ctrl.step = ctrl.manage_inventory_request.step
           ctrl.manage_inventory_id = ctrl.manage_inventory_request.id
+          ctrl.supplier_id = ctrl.manage_inventory_request.supplier_id
+          getSupplier(ctrl.supplier_id)
           checkStep()
         }
         setData()
@@ -74,7 +72,7 @@
     function setData() {
       //setp1
       ctrl.save_by = ctrl.manage_inventory_request.save_by
-      ctrl.accept_date = ctrl.manage_inventory_request.accept
+      ctrl.date_save_step1 = $filter('date')(new Date(ctrl.manage_inventory_request.date_save_step1), 'dd/MM/yyyy HH:mm')
       //setp2
       ctrl.save_by_step2 = ctrl.manage_inventory_request.save_by_step2
       ctrl.date_purchase = $filter('date')(new Date(ctrl.manage_inventory_request.date_purchase), 'dd/MM/yyyy HH:mm')
@@ -82,6 +80,7 @@
       ctrl.date_send = $filter('date')(new Date(ctrl.manage_inventory_request.date_send), 'dd/MM/yyyy HH:mm')
       ctrl.date_send_save = ctrl.manage_inventory_request.date_send
       ctrl.price_step2 = parseFloat(ctrl.manage_inventory_request.price)
+      ctrl.date_save_step2 = $filter('date')(new Date(ctrl.manage_inventory_request.date_save_step2), 'dd/MM/yyyy HH:mm')
       //setp3
       ctrl.save_by_step3 = ctrl.manage_inventory_request.save_by_step3
       ctrl.date_get_inventory = ctrl.manage_inventory_request.get_date
@@ -139,7 +138,6 @@
         beforeUpdateRequest() 
       }
     }
-
 
     function beforeSave() {
       var changePrice = parseFloat(ctrl.price);
@@ -216,7 +214,7 @@
       if (changePrice == ctrl.price_step2) {
         changePrice = parseFloat(ctrl.price_step2)
       }
-      var checngeRequestDate = ctrl.datas.request_date //$filter('date')(new Date(ctrl.datas.request_date), 'yyyy-MM-ddTh:MM:ss')
+      var checngeRequestDate = ctrl.datas.request_date
 
       var inventory_datas = {
         user_name: ctrl.user_name,
@@ -235,6 +233,7 @@
     }
     
     function updateInventoryRequest(inventory_datas, id, inventory_id) {
+      var date_save_step3 = $filter('date')(new Date(), 'dd/MM/yyyy HH:mm')
       var data = {
         manage_inventories_requests: {
           step: 4,
@@ -242,7 +241,8 @@
           get_date: ctrl.date_get_inventory,
           buy_slip: ctrl.buy_slip,
           end_warranty: ctrl.end_warranty,
-          inventory_id: inventory_id
+          inventory_id: inventory_id,
+          date_save_step3: date_save_step3
         }
       }
 
@@ -381,25 +381,6 @@
       })
     }
 
-    // ctrl.onSelectSupplier = function($item) {
-    //   ctrl.supplier_name = $item.name;
-    //   ctrl.supplier_id = $item.id
-    // };
-
-    // ctrl.onChangeSupplier = function() {
-    //   ctrl.supplier_name = ctrl.supplier_name
-    //   ctrl.supplier_id = ""
-    // }
-
-    // ctrl.openAddSupplierModal = function() {
-    //   $rootScope.appSupplierModal(translateFilter('add_supplier'), function(){
-    //     ctrl.supplier_id = $rootScope.supplier_id
-    //     ctrl.supplier_name = $rootScope.supplier_name
-    //     $rootScope.supplier_id = null
-    //     $rootScope.supplier_name = null
-    //   })
-    // }
-
     ctrl.openRequestDatePopup = function() {
       ctrl.requestDatePopup.opened = true;
     };
@@ -408,22 +389,9 @@
       opened: false
     };
 
-    // function deleteInventory() {
-    //   ctrl.deleteInventory = $rootScope.backToDeleteInventory
-    //   var inventory_id_for_delete = $rootScope.inventory_id_for_delete
-    //   $rootScope.backToDeleteInventory = null
-    //   $rootScope.inventory_id_for_delete = null
-    //   if(ctrl.deleteInventory && inventory_id_for_delete) {
-    //     inventoryService.removeInventory(inventory_id_for_delete).then(function(resp) {
-      
-    //       }, function(e){
-    //     })
-    //   }
-    // }
-
-
     getInventoryList()
     getSetting()
     initData()
+
 	}]);
 })();

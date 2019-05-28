@@ -749,6 +749,7 @@ th:
   continue: "ต่อไป"
   completed: "เรียบร้อยแล้ว"
   send_the_package_to: "ได้ทำการส่งมอบพัสดุให้กับ"
+  get_inventory_by: "รับพัสดุโดย"
 
   #Repair
   list_repair: "แจ้งซ่อม"

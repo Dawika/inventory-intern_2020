@@ -5,7 +5,7 @@
 	$rootScope.menu = translateFilter("inventory_request")
 		var ctrl = this
 		ctrl.real_id = $state.params.id;
-		ctrl.date_purchase = ""//new Date()
+		ctrl.date_purchase = ""
 		ctrl.date_send = new Date()
 
     ctrl.openDatePurchasePopup = function() {
@@ -15,7 +15,6 @@
     ctrl.datePurchasePopup = {
       opened: false
     }; 
-
 
     ctrl.openDateSendPopup = function() {
       ctrl.dateSendPopup.opened = true;
@@ -78,13 +77,16 @@
 
     function updateInventoryRequest(inventory_datas, id) {
       var changePrice = parseFloat(ctrl.price_step2)
+      var date_save_step2 = $filter('date')(new Date(), 'dd/MM/yyyy HH:mm')
       var data = {
         manage_inventories_requests: {
           step: 3,
           save_by_step2: ctrl.name_setting,
           date_purchase: ctrl.date_purchase,
           date_send: ctrl.date_send,
-          price: changePrice
+          price: changePrice,
+          date_save_step2: date_save_step2,
+          supplier_id: ctrl.supplier_id
         }
       }
       
@@ -114,7 +116,6 @@
 
     function isSave() {
       service.purchasing(ctrl.real_id).then(function(resp) {
-        $rootScope.supplier_id = ctrl.supplier_id
         $rootScope.updateInventoryRequestStep3(ctrl.real_id)
       })
     }
@@ -161,7 +162,7 @@
     function setData() {
     	//setp1
     	ctrl.save_by = ctrl.manage_inventory_request.save_by
-      ctrl.accept_date = ctrl.manage_inventory_request.accept
+      ctrl.date_save_step1 = $filter('date')(new Date(ctrl.manage_inventory_request.date_save_step1), 'dd/MM/yyyy HH:mm')
 			//setp2
 			ctrl.save_by_step2 = ctrl.manage_inventory_request.save_by_step2
       if (ctrl.manage_inventory_request.date_purchase) {
@@ -230,7 +231,6 @@
     getSupplierList()
   	getSetting()
   	initData()
-
 
 	}]);
 })();

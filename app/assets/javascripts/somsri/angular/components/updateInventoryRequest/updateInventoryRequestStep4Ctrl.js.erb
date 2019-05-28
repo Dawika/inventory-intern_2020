@@ -127,7 +127,7 @@
     function setData() {
       //setp1
       ctrl.save_by = ctrl.manage_inventory_request.save_by
-      ctrl.accept_date = ctrl.manage_inventory_request.accept
+      ctrl.date_save_step1 = $filter('date')(new Date(ctrl.manage_inventory_request.date_save_step1), 'dd/MM/yyyy HH:mm')
       //setp2
       ctrl.save_by_step2 = ctrl.manage_inventory_request.save_by_step2
       ctrl.date_purchase = $filter('date')(new Date(ctrl.manage_inventory_request.date_purchase), 'dd/MM/yyyy')
@@ -135,6 +135,7 @@
       ctrl.date_send = $filter('date')(new Date(ctrl.manage_inventory_request.date_send), 'dd/MM/yyyy')
       ctrl.date_send_save = ctrl.manage_inventory_request.date_send
       ctrl.price_step2 = parseFloat(ctrl.manage_inventory_request.price)
+      ctrl.date_save_step2 = $filter('date')(new Date(ctrl.manage_inventory_request.date_save_step2), 'dd/MM/yyyy HH:mm')
       //setp3
       ctrl.get_date_save = ctrl.manage_inventory_request.get_date
       ctrl.get_date = $filter('date')(new Date(ctrl.manage_inventory_request.get_date), 'dd/MM/yyyy')
@@ -142,6 +143,7 @@
       ctrl.date_get_inventory = ctrl.manage_inventory_request.get_date
       ctrl.buy_slip =ctrl.manage_inventory_request.buy_slip
       ctrl.end_warranty = $filter('date')(new Date(ctrl.manage_inventory_request.end_warranty), 'dd/MM/yyyy')
+      ctrl.date_save_step3 = $filter('date')(new Date(ctrl.manage_inventory_request.date_save_step3), 'dd/MM/yyyy HH:mm')
       //step4
       ctrl.employee_name = ctrl.manage_inventory_request.send_to_employee_name
       ctrl.employee_id = ctrl.manage_inventory_request.send_to_employee_id
@@ -318,12 +320,15 @@
         ctrl.step_num = 4
       }
 
+      var date_save_step4 = $filter('date')(new Date(), 'dd/MM/yyyy HH:mm')
+
       var data = {
         manage_inventories_requests: {
           step: 5,
           save_by_step4: ctrl.name_setting,
           send_to_employee_name: ctrl.employee_name,
-          send_to_employee_id: ctrl.employee_id
+          send_to_employee_id: ctrl.employee_id,
+          date_save_step4: date_save_step4
         }
       }
       service.updateInventoryRequest(inventory_datas, id).then(function(resp) {
@@ -410,7 +415,6 @@
       opened: false
     };
 
-    
     getSetting()
    	getEmployee()
     initData()

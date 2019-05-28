@@ -39,6 +39,7 @@
 
         if (ctrl.manage_inventory_request) {
           ctrl.step = ctrl.manage_inventory_request.step
+          ctrl.manage_inventory_id = ctrl.manage_inventory_request.id
           checkStep()
         }
       })
@@ -63,23 +64,34 @@
     }
 
     ctrl.accept = function() {
-      var accept_date = $filter('date')(new Date(), 'dd/MM/yyyy HH:mm')
+      var date_save_step1 = $filter('date')(new Date(), 'dd/MM/yyyy HH:mm')
       var data = {
         manage_inventories_requests: {
           step: 2,
-          accept:  accept_date,
-          save_by: ctrl.name_setting  
+          accept:  "",
+          save_by: ctrl.name_setting,
+          date_save_step1: date_save_step1
         }
       }
       if (ctrl.real_id) {
         service.pending(ctrl.real_id).then(function(resp) {
-          createManageInventory(data)
+          if (ctrl.manage_inventory_id) {
+            updateMangeInventory(data)
+          } else {
+            createManageInventory(data)
+          }
         })
       }
     } 
 
     function createManageInventory(data) {
       service.createManageInventoryRequest(data, ctrl.real_id).then(function(resp) {
+        save()
+      })
+    }
+
+    function updateMangeInventory(data) {
+      service.updateManageInventoryRequest(data, ctrl.real_id , ctrl.manage_inventory_id).then(function(resp) {
         save()
       })
     }
@@ -152,7 +164,6 @@
     ctrl.requestDatePopup = {
       opened: false
     };
-
 
     getSetting()
     initData()

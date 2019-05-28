@@ -59,6 +59,7 @@
       //setp1
       ctrl.save_by = ctrl.manage_inventory_request.save_by
       ctrl.accept_date = ctrl.manage_inventory_request.accept
+      ctrl.date_save_step1 = $filter('date')(new Date(ctrl.manage_inventory_request.date_save_step1), 'dd/MM/yyyy HH:mm')
       //setp2
       ctrl.save_by_step2 = ctrl.manage_inventory_request.save_by_step2
       ctrl.date_purchase = $filter('date')(new Date(ctrl.manage_inventory_request.date_purchase), 'dd/MM/yyyy')
@@ -66,6 +67,7 @@
       ctrl.date_send = $filter('date')(new Date(ctrl.manage_inventory_request.date_send), 'dd/MM/yyyy')
       ctrl.date_send_save = ctrl.manage_inventory_request.date_send
       ctrl.price_step2 = parseFloat(ctrl.manage_inventory_request.price)
+      ctrl.date_save_step2 = $filter('date')(new Date(ctrl.manage_inventory_request.date_save_step2), 'dd/MM/yyyy HH:mm')
       //setp3
       ctrl.get_date_save = ctrl.manage_inventory_request.get_date
       ctrl.get_date = $filter('date')(new Date(ctrl.manage_inventory_request.get_date), 'dd/MM/yyyy')
@@ -73,10 +75,12 @@
       ctrl.date_get_inventory = ctrl.manage_inventory_request.get_date
       ctrl.buy_slip =ctrl.manage_inventory_request.buy_slip
       ctrl.end_warranty = $filter('date')(new Date(ctrl.manage_inventory_request.end_warranty), 'dd/MM/yyyy')
+      ctrl.date_save_step3 = $filter('date')(new Date(ctrl.manage_inventory_request.date_save_step3), 'dd/MM/yyyy HH:mm')
       //step4
       ctrl.employee_name = ctrl.manage_inventory_request.send_to_employee_name
       ctrl.employee_id = ctrl.manage_inventory_request.send_to_employee_id
       ctrl.save_by_step4 = ctrl.manage_inventory_request.save_by_step4
+      ctrl.date_save_step4 = $filter('date')(new Date(ctrl.manage_inventory_request.date_save_step4), 'dd/MM/yyyy HH:mm')
     }
 
     function getEmployeeById(id) {
@@ -88,13 +92,12 @@
       }
     }
 
-
 		ctrl.save = function() {
       var changePrice = parseFloat(ctrl.price)
       if (changePrice == ctrl.price_step2) {
         changePrice = parseFloat(ctrl.price_step2)
       }
-      var checngeRequestDate = ctrl.datas.request_date//$filter('date')(new Date(ctrl.datas.request_date), 'yyyy-MM-ddTh:MM:ss')
+      var checngeRequestDate = ctrl.datas.request_date
 
       var inventory_datas = {
         user_name: ctrl.user_name,
@@ -120,10 +123,8 @@
       $rootScope.step = null
       service.updateInventoryRequest(inventory_datas, id).then(function(resp) {
         if (ctrl.manage_inventory_id) {
-          console.log("update")
           updateManageInventory(data)
         } else {
-          console.log("create")
           createManageInventory(data)
         }
       }, function(e){
@@ -161,8 +162,8 @@
       opened: false
     };
 
-
     getSetting()
     initData()
+    
 	}]);
 })();
