@@ -182,6 +182,22 @@
     	})
     }
 
+    ctrl.changePriceToString = function(price) {  
+    
+      var p = String(price)
+      var value = p.replace(/,/g,''); // remove commas from existing input
+      ctrl.priceString = numberWithCommas(value); // add commas back in
+      if (!ctrl.price) {
+        ctrl.priceString = ""
+      }
+    }
+
+    function numberWithCommas(x) {
+      var parts = x.toString().split(".");
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return parts.join(".");
+    }
+
     ctrl.cancel = function() {
       $rootScope.openInventory(1);
     }
