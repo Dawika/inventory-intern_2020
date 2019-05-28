@@ -95,11 +95,11 @@ function valid(id) {
 
 function disabledOrEnableSubmitForm(form) {
   // disabled buntton save when input validate blank
-  // if (form.find('input.required.is-valid').length === form.find('input.required').length) {
-  //   form.find(':submit').attr('disabled', false);
-  // } else {
-  //   form.find(':submit').attr('disabled', true);
-  // }
+  if (form.find('input.required.is-valid').length === form.find('input.required').length) {
+    form.find(':submit').attr('disabled', false);
+  } else {
+    form.find(':submit').attr('disabled', true);
+  }
 }
 
 function enableButton(formID, id) {

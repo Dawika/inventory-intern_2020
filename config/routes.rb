@@ -149,7 +149,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :ckeck_validates do
+  resources :check_validates do
     collection do
       get 'email_uniqueness'
       get 'subdomain_uniqueness'

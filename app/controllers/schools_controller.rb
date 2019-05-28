@@ -20,8 +20,12 @@ class SchoolsController < ApplicationController
   
     def create
       @school = School.new(school_params)
-      ap @school.save!
-      # redirect_to root_path
+      if @school.save!
+        sign_in(:user, @school.users.first)
+        redirect_to authenticated_root_path
+      else
+        redirect_to new_school_path
+      end
     end
   
     def edit; end

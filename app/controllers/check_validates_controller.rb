@@ -1,4 +1,4 @@
-class CkeckValidatesController < ApplicationController
+class CheckValidatesController < ApplicationController
 
   def subdomain_uniqueness
     subdomain_not_use = School.where(subdomain_name: params[:subdomain_name]).count == 0
