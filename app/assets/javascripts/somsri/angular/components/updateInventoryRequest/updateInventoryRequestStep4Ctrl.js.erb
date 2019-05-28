@@ -245,11 +245,7 @@
 
     ctrl.continue = function() {
       if (ctrl.inventory_employee_id != ctrl.employee_id) {
-        if (ctrl.request_type == "request") {
-          beforeUpdateInventoryRequest()
-        } else {
-          beforeSave()
-        }
+        beforeSave()
       } else {
         beforeUpdateInventoryRequest()
       }
