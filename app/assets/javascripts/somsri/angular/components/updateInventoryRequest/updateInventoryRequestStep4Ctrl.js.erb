@@ -361,17 +361,32 @@
     }
 
     ctrl.cancel = function() {
+      var step_num = 3
+      if (ctrl.request_type == "request") {
+        step_num = 1
+      } 
       var data = {
         manage_inventories_requests: {
-          step: 3
+          step: step_num
         }
       }
 
       service.updateManageInventoryRequest(data, ctrl.real_id , ctrl.manage_inventory_id).then(function(resp) {
+         updateStatus()
+      })
+    }
+
+    function updateStatus() {
+      if (ctrl.request_type == "request") {
+        service.wait(ctrl.real_id).then(function(resp) {
+          $window.history.back();
+        })  
+      } else {
         service.purchasing(ctrl.real_id).then(function(resp) {
           deleteInventory()
-        })   
-      })
+        })  
+      }
+      
     }
 
     function deleteInventory() {

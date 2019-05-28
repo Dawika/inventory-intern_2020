@@ -65,9 +65,13 @@
 
     ctrl.accept = function() {
       var date_save_step1 = $filter('date')(new Date(), 'dd/MM/yyyy HH:mm')
+      var step_num = 2
+      if (ctrl.request_type == "request") {
+        step_num = 4
+      }
       var data = {
         manage_inventories_requests: {
-          step: 2,
+          step: step_num,
           accept:  "",
           save_by: ctrl.name_setting,
           date_save_step1: date_save_step1

@@ -80,7 +80,7 @@
 								<p class="pl-20">
 									<h5><label class="control-label" for="purchase"> {{ "history" | translate }} </label></h5>
 									<hr class="mt-0">
-									<p class="pl-20">
+									<p class="pl-20" ng-show="inventory.show_text">
 									{{ inventory.date_save_step1 }} - {{ "request_approval" | translate }} {{ inventory.save_by }}
 									<label class="control-label color-light-blue">{{ inventory.save_by }}</label><br>
 									{{ inventory.date_save_step2 }} - {{ "purchasing_by" | translate }}
@@ -92,7 +92,7 @@
 									{{ "buy_slip" | translate }}
 									<label class="control-label color-light-blue">{{ inventory.buy_slip }}</label><br>
 									{{ inventory.date_save_step4 }} - {{ "save_by" | translate }}
-									<label class="control-label color-light-blue">{{ inventory.save_by_step4 }})</label>
+									<label class="control-label color-light-blue">{{ inventory.save_by_step4 }}</label>
 									{{ "send_the_package_to" | translate }}
 									<label class="control-label color-light-blue">{{ inventory.employee_name }}</label>
 									</p>
@@ -101,7 +101,7 @@
 									{{ inventory.date_save_step1 }} - {{ "request_approval" | translate }} {{ inventory.save_by }}
 									<label class="control-label color-light-blue">{{ inventory.save_by }}</label><br>
 									{{ inventory.date_save_step4 }} - {{ "save_by" | translate }}
-									<label class="control-label color-light-blue">{{ inventory.save_by_step4 }})</label>
+									<label class="control-label color-light-blue">{{ inventory.save_by_step4 }}</label>
 									{{ "send_the_package_to" | translate }}
 									<label class="control-label color-light-blue">{{ inventory.employee_name }}</label>
 								</p>
