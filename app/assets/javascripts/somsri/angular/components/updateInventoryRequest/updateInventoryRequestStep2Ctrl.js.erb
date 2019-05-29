@@ -1,14 +1,12 @@
 (function() {
 	angular.module('somsri.somsri.update_inventory_request_step2', [])
-    .controller('updateInventoryRequestStep2Ctrl', ['$compile', '$scope', '$window', '$filter', '$rootScope', '$timeout', 'translateFilter', '$uibModal', 'Upload', '$state', "inventoryRequestService", "settingService" , 
-    	function($compile, $scope, $window, $filter, $rootScope, $timeout, translateFilter, $uibModal, Upload, $state, service, settingService) {
+    .controller('updateInventoryRequestStep2Ctrl', ['$compile', '$scope', '$window', '$filter', '$rootScope', '$timeout', 'translateFilter', '$uibModal', 'Upload', '$state', "inventoryRequestService", "settingService", "inventorySupplierService" , 
+    	function($compile, $scope, $window, $filter, $rootScope, $timeout, translateFilter, $uibModal, Upload, $state, service, settingService, inventorySupplierService) {
 	$rootScope.menu = translateFilter("inventory_request")
 		var ctrl = this
 		ctrl.real_id = $state.params.id;
-		ctrl.date_purchase = ""//new Date()
-		ctrl.date_send = ""//new Date()
-		// ctrl.price_step2 = ""
-		ctrl.step = $rootScope.step
+		ctrl.date_purchase = ""
+		ctrl.date_send = new Date()
 
     ctrl.openDatePurchasePopup = function() {
       ctrl.datePurchasePopup.opened = true;
@@ -17,7 +15,6 @@
     ctrl.datePurchasePopup = {
       opened: false
     }; 
-
 
     ctrl.openDateSendPopup = function() {
       ctrl.dateSendPopup.opened = true;
@@ -36,36 +33,26 @@
     };
 
     ctrl.continue = function() {
-    	ctrl.step.step2.date_purchase = ctrl.date_purchase
-    	ctrl.step.step2.date_send = ctrl.date_send
-    	ctrl.step.step2.price = parseFloat(ctrl.price_step2)
-    	ctrl.step.step2.save_by = ctrl.save_by_step2
-      ctrl.is_save = false
       beforeSave()
     }
 
     ctrl.cancel = function() {
       var data = {
         manage_inventories_requests: {
-          step: 0
+          step: 1
         }
       }
 
       service.updateManageInventoryRequest(data, ctrl.real_id , ctrl.manage_inventory_id).then(function(resp) {
-        service.pending(ctrl.real_id).then(function(resp) {
+        service.wait(ctrl.real_id).then(function(resp) {
           $window.history.back();
         })
       })
     }
 
-    ctrl.backToRooView = function() {
+    ctrl.backToRootView = function() {
       $rootScope.openInventory(1)
     }
-
-    ctrl.save = function() {
-      ctrl.is_save = true
-      beforeSave()
-  	}
 
     function beforeSave() {
       var changePrice = parseFloat(ctrl.price)
@@ -84,31 +71,30 @@
       }
 
       if (ctrl.real_id) {
-        service.accept(ctrl.real_id).then(function(resp) {
-          updateInventoryRequest(inventory_datas, ctrl.real_id)
-        })
+        updateInventoryRequest(inventory_datas, ctrl.real_id)
       } 
     }
 
     function updateInventoryRequest(inventory_datas, id) {
       var changePrice = parseFloat(ctrl.price_step2)
+      var date_save_step2 = $filter('date')(new Date(), 'dd/MM/yyyy HH:mm')
       var data = {
         manage_inventories_requests: {
-          step: 1,
-          accept: "accept",
-          save_by: ctrl.save_by,
+          step: 3,
           save_by_step2: ctrl.name_setting,
           date_purchase: ctrl.date_purchase,
           date_send: ctrl.date_send,
-          price: changePrice
+          price: changePrice,
+          date_save_step2: date_save_step2,
+          supplier_id: ctrl.supplier_id
         }
       }
       
     	service.updateInventoryRequest(inventory_datas, id).then(function(resp) {
     		if (!ctrl.manage_inventory_id) {
-    			updateManageInventory(data)
+          createManageInventory(data)
     		} else {
-    			createManageInventory(data)
+    			updateManageInventory(data)
     		}
     		
     	}, function(e){
@@ -129,13 +115,9 @@
     }
 
     function isSave() {
-      if (ctrl.is_save) {
-         $rootScope.openInventory(1)
-      } else {
-        service.purchasing(ctrl.real_id).then(function(resp) {
-          $rootScope.updateInventoryRequestStep3(ctrl.step, ctrl.real_id)
-        })
-      }
+      service.purchasing(ctrl.real_id).then(function(resp) {
+        $rootScope.updateInventoryRequestStep3(ctrl.real_id)
+      })
     }
 
   	function initData() {
@@ -152,58 +134,56 @@
         ctrl.user_name = value.user_name
         ctrl.request_date = new Date(value.request_date)
         ctrl.inventory_status = value.inventory_status
-        ctrl.manage_inventory = value.manage_inventory
         ctrl.employee_id = value.employee_id
-        ctrl.step_to = ctrl.manage_inventory.step
         ctrl.request_type = value.request_type
         if (ctrl.request_type == "request") {
           ctrl.change_request_type = translateFilter("withdraw_equipment")
         } else {
           ctrl.change_request_type = translateFilter("new_request_inventory")
         }
-        ctrl.manage_inventory_id = ctrl.manage_inventory.id
+
         if (value.request_date) {
           ctrl.datas.request_date = new Date(ctrl.datas.request_date)
         } else {
           ctrl.datas.request_date = null
         }
-        checkStep()
+
+        ctrl.manage_inventory_request = value.manage_inventory_request
+
+        if (ctrl.manage_inventory_request) {
+          ctrl.step = ctrl.manage_inventory_request.step
+          ctrl.manage_inventory_id = ctrl.manage_inventory_request.id
+          checkStep()
+        }
+        setData()
       })
     }
 
     function setData() {
     	//setp1
-    	ctrl.save_by = ctrl.manage_inventory.step1.save_by
+    	ctrl.save_by = ctrl.manage_inventory_request.save_by
+      ctrl.date_save_step1 = $filter('date')(new Date(ctrl.manage_inventory_request.date_save_step1), 'dd/MM/yyyy HH:mm')
 			//setp2
-			ctrl.save_by_step2 = ctrl.manage_inventory.step2.save_by
-			ctrl.date_purchase = new Date(ctrl.manage_inventory.step2.date_purchase)
-			ctrl.date_send = new Date(ctrl.manage_inventory.step2.date_send)
-			ctrl.price_step2 = parseFloat(ctrl.manage_inventory.step2.price)
+			ctrl.save_by_step2 = ctrl.manage_inventory_request.save_by_step2
+      if (ctrl.manage_inventory_request.date_purchase) {
+        ctrl.date_purchase = new Date(ctrl.manage_inventory_request.date_purchase)
+      }
+      if (ctrl.manage_inventory_request.date_send) {
+        ctrl.date_send = new Date(ctrl.manage_inventory_request.date_send)
+      }
+			ctrl.price_step2 = parseFloat(ctrl.manage_inventory_request.price)
     }
 
    	function checkStep() {
- 			if(!ctrl.step) {
- 				if (ctrl.step_to == 1) {
- 					setData()
- 				}
-				if (ctrl.real_id) {
-					$rootScope.updateInventoryRequest(ctrl.real_id)
-				}
-			} else {
-				//setp1
-				ctrl.save_by = ctrl.step.step1.save_by
-				//setp2
-				ctrl.save_by_step2 = ctrl.step.step2.save_by
-				ctrl.date_purchase = new Date(ctrl.step.step2.date_purchase)
-        if (!ctrl.step.step2.date_purchase) {
-          ctrl.date_purchase = ""
-        }
-				ctrl.date_send = new Date(ctrl.step.step2.date_send)
-        if (!ctrl.step.step2.date_send) {
-          ctrl.date_send = ""
-        }
-				ctrl.price_step2 = parseFloat(ctrl.step.step2.price);
-			}
+      if (!ctrl.step || ctrl.step == 1) {
+        $rootScope.updateInventoryRequest(ctrl.real_id)
+      } else if (ctrl.step == 3) {
+        $rootScope.updateInventoryRequestStep3(ctrl.real_id)
+      } else if (ctrl.step == 4) {
+        $rootScope.updateInventoryRequestStep4(ctrl.real_id)
+      } else if (ctrl.step == 5) {
+        $rootScope.updateInventoryRequestStep5(ctrl.real_id)
+      }
 		}
 
 		 function getSetting() {
@@ -212,9 +192,45 @@
     	})
   	}
 
+    function getSupplierList() {
+      ctrl.supplier_lists = []
+      inventorySupplierService.getAllSuppliers().then(function(resp) {
+        if (resp.data.length > 0){
+          for (var i = 0; i < resp.data.length; i++) {
+            var supplier = resp.data[i]
+            if (supplier.name != ctrl.supplierDisplayName) {
+              ctrl.supplier_lists.push({
+                name: supplier.name,
+                id: supplier.id
+              })
+            }
+          }
+        }
+      })
+    }
+
+    ctrl.onSelectSupplier = function($item) {
+      ctrl.supplier_name = $item.name;
+      ctrl.supplier_id = $item.id
+    };
+
+    ctrl.onChangeSupplier = function() {
+      ctrl.supplier_name = ctrl.supplier_name
+      ctrl.supplier_id = ""
+    }
+
+    ctrl.openAddSupplierModal = function() {
+      $rootScope.appSupplierModal(translateFilter('add_supplier'), function(){
+        ctrl.supplier_id = $rootScope.supplier_id
+        ctrl.supplier_name = $rootScope.supplier_name
+        $rootScope.supplier_id = null
+        $rootScope.supplier_name = null
+      })
+    }
+
+    getSupplierList()
   	getSetting()
   	initData()
-
 
 	}]);
 })();
