@@ -16,6 +16,7 @@
 //= require angular
 //= require tether
 //= require bootstrap
+//= require dropzone
 //= require rails.validations
 //= require rails.validations.simple_form
 //= require modal_clientside_validation
@@ -33,6 +34,9 @@
 
 //= require extensions/bootstrap-table-export.js
 //= require_tree .
+
+
+
 
 $(document).ready(function() {
   $('form[data-client-side-validations]').validate();
@@ -117,6 +121,10 @@ function showNewSchool() {
   $('#formSchool').show();
 }
 
+function cancel() {
+  location.reload();
+}
+
 function changeLogo(event, img_logo) {
   logo = URL.createObjectURL(event.target.files[0]);
   $('#' + img_logo).attr('src', logo);
@@ -132,13 +140,12 @@ function changeLogo(event, img_logo) {
       $('#' + img_logo).attr('src', '/somsri_logo.png');
     } else {
       error.hide()
-    }
-
+  }
 } else {
   // alert('this is not image file! (jpg,jpeg,png)');
   $('#' + img_logo).attr('src', '/somsri_logo.png');
   error.show()
-  error.html('ต้องเป็นไฟล์รูปภาพเท่านั้น (jpg,jpeg,png)')
+  error.html('*ต้องเป็นไฟล์รูปภาพเท่านั้น')
+  }
 }
 
-}

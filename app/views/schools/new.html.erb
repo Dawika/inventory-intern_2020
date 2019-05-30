@@ -2,6 +2,9 @@
   body {
     margin-bottom: 0px !important;
   }
+  h4{
+  color:rgb(53, 167, 219);
+}
 </style>
 <div class="container" id="warp" style="margin-top:100px;">
   <div class="row">
@@ -12,18 +15,16 @@
             <div class="form-sign-in" id="formSingUp">
               <div class="row">
                 <div class="col-xs-12">
-                  <%= image_tag School.first.logo_url, class: "img-responsive logo-login" %>
+                  <%= image_tag School.first&.logo_url, class: "img-responsive logo-login" %>
                 </div>
               </div>
-              <div class="row text-center">
-                <h1>
-                  <%= t('start')%>
-                </h1>
+              <div class="row text-center start-signup">
+                <b><%= t('start')%></b>
               </div>    
               <%= f.simple_fields_for :users, validate: true do |user_form| %>
                 <div class="row">
                   <div class="field form-group">
-                    <%= user_form.input :full_name, label: false, placeholder: t('full_name'),
+                    <%= user_form.input :full_name, label: false, autofocus: true, placeholder: t('full_name'),
                     input_html: { class: 'validate-sign-in', id: 'school_users_full_name'}, required: true %>
                   </div>
                 </div>
@@ -31,7 +32,6 @@
                   <div class="field form-group">
                     <%= user_form.input :email,
                                 required: true,
-                                autofocus: true,
                                 label: false,
                                 input_html: { autocomplete: "email", class: 'validate-sign-in', placeholder: t('email'),  id: 'school_users_email',
                                 onkeyup: "validateUniqueness('#{email_uniqueness_check_validates_path}', this.id)" } %>
@@ -50,25 +50,25 @@
                   <div class="field form-group">
                     <%= user_form.input :password_confirmation,
                                 label: false,
-                                input_html: { autocomplete: "new-password", placeholder: t('confirm_password'), id: 'school_users_password_confirmation' } %>
+                                input_html: { autocomplete: "new-password", class: 'validate-sign-in', placeholder: t('confirm_password'), id: 'school_users_password_confirmation' } %>
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-actions py-3">
-                    <%= button_tag "Sign up", class: 'btn-outline-success btn-block', type: 'button', id: 'newStep', onclick: 'showNewSchool()', disabled: true %>
+                    <%= button_tag "Sign up", class: 'btn-bg-signup', type: 'button', id: 'newStep', onclick: 'showNewSchool()', disabled: true %>
                   </div>
                 </div>
               </div>
               <% end %>
             <div class="new-school" id="formSchool">
-              <h1>School Setting</h1>
+            <h1>School Setting</h1>
               <div class="row">
                 <div class="col-lg-12">
                   <div class="col-md-6">
-                    <h3><%= t('.Message1') %></h3>
+                    <h4><%= t('.Message1') %></h4>
                   </div>
                   <div class="col-md-6">
-                    <h3><%= t('.Message2') %></h3>
+                    <h4><%= t('.Message2') %></h4>
                   </div>
                   <div class="controls content">
                       <div class="row">
@@ -91,12 +91,12 @@
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
-                            <%= f.input :phone, label: t('.phone'), required: true %>
+                            <%= f.input :phone, label: t('.phone'), as: :integer, required: true %>
                           </div>
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
-                            <%= f.input :fax, label: t('.fax') %>
+                            <%= f.input :fax, label: t('.fax'), as: :integer %>
                           </div>
                         </div>
                       </div>
@@ -119,8 +119,7 @@
                           </div>
                         </div>
                       </div>
-
-                        <%= f.simple_fields_for :school_settings do |school_setting_form| %>
+                        <%= f.simple_fields_for :school_settings, validate: true do |school_setting_form| %>
                           <div class="row">
                             <div class="col-md-3">
                               <div class="form-group">
@@ -132,38 +131,45 @@
                                 <%= school_setting_form.input :semesters, label: t('.semesters'), input_html: { id: 'school_school_settings_semesters' }, as: :integer, required: true %>
                               </div>
                             </div>
-                          <% end %>
+                        <% end %>
                           <div class="col-md-4">
                             <div class="form-group">
-                              <%= f.input :tax_id, label: t('.tax_id') %>
+                              <%= f.input :tax_id, label: t('.tax_id'), as: :integer %>
                             </div>
                           </div>
-
                           <div class="col-md-2">
                             <div class="form-group">
-                              <%= f.input :branch, label: t('.branch') %>
+                              <%= f.input :branch, label: t('.branch'), as: :integer %>
                             </div>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-md-6">
                             <div class="form-group">
-                              <h3><%= t('.Message3') %></h3>
+                              <h4><%= t('.Message3') %></h4>
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-group">
-                              <h3><%= t('.Message4') %></h3>
+                              <h4><%= t('.Message4') %></h4>
                             </div>
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-3">
                             <div class="form-group">
-                              <%= f.input :logo,  as: :file, multiple: true, accept:'image/*', input_html: { onChange: 'changeLogo(event, "logoSchool")'} %>
-                              <%= image_tag School.first.logo, id: 'logoSchool', class: 'img-lg'  %>
+                              <div class="dropzone" >
+                                <%= image_tag School.first.logo(:medium), id: 'logoSchool', class: 'img-lg' %>
+                              </div><br><br>
+                              <button type="button" class="btn btn-info btn-lg" onclick="$('#school_logo').trigger('click')">Choose file</button>
                             </div>
                             <div id="errorMessage" class="invalid-feedback" style="display: none;"></div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <%= f.input :logo, label: false, as: :file, multiple: true, accept:'image/*', input_html: { onChange: 'changeLogo(event, "logoSchool")', class: 'hide'} %>
+                              <br /><br /><br />*File type support .JPEG, .JPG, .PNG Size 200 x 200px under 2MB
+                            </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-group">
@@ -171,11 +177,16 @@
                             </div>
                           </div>
                         </div>
-                      <%= f.button :submit, 'Save', class: 'btn-outline-success btn-block', disabled: false  %>
+                        <div class="row">
+                         <div class="text-go-right">
+                          <%= f.button :submit, 'Save', class: 'btn-bg-blue', disabled: false  %>
+                          <%= button_tag "Cancel", class: 'btn-bg-grey', type: 'button', onclick: 'cancel()' %>
+                         </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
             <% end %>
         </div>
       </div>
@@ -205,8 +216,8 @@
   $(document).ready(function() {
     $('#formSchool').hide();
 
-    $('.validate-sign-in').change(function() {
-      enableButton('new_user', 'newStep');
+    $('.validate-sign-in').keyup(function() {
+      enableButton('new_school', 'newStep');
     })
   });
 </script>

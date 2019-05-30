@@ -524,7 +524,7 @@ en:
   save_change_confirmation: "Do you want to save this change?"
   save_success: "Save successfully."
   save_falied: "Save failed."
-
+  start: "Start"
   # School Setting
   schools:
     new:

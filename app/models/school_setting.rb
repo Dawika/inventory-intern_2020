@@ -1,5 +1,4 @@
 class SchoolSetting < ApplicationRecord
-     :school
   @@default_semesters = ["1","2","3"]
 
   validates :school_year, :semesters, presence: true

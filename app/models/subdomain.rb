@@ -1,0 +1,5 @@
+class Subdomain < ApplicationRecord
+  
+  
+  end
+  

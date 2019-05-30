@@ -1,21 +1,15 @@
-class SchoolsController < ApplicationController
+class SubdomainsController < ApplicationController
     # load_and_authorize_resource
     # before_action :authenticate_user!, :selected
     # STATUSES = ['กำลังศึกษา', 'จบการศึกษา', 'ลาออก']
   
     def index
-      @schools = School.joins(:school_setting)
-
-      respond_to do |format|
-        format.html
-        format.json { bootstrap_table_data }
-      end
+     
     end
   
     def new
-      @school = School.new
-      @school.users.build
-      @school.school_settings.build
+      @subdomain = Subdomain.new
+     
     end
   
     def create

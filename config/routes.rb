@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   resources :schools
 
+  resources :subdomains
+
   resources :users, only: [] do
     collection do
       get "me"

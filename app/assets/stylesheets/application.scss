@@ -14,6 +14,7 @@
  *= require angular-xeditable/dist/css/xeditable
  *= require font-awesome
  *= require_self
+ *= require dropzone/dropzone
  *= require bootstrap-table
  *= require bootstrap-select/sass/bootstrap-select
  */
@@ -444,6 +445,82 @@ ul.nav.navbar-nav.navbar-right.dropdown {
 }
 
 .img-lg {
-  height: 150px;
-  width: 150px;
+  height: 200px;
+  width: 200px;
 }
+
+.btn-bg-blue {
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 5px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.btn-bg-grey {
+  background-color: rgb(126, 125, 125);
+  border: none;
+  color: black;
+  padding: 5px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.select-file{
+  background-color: rgb(96, 157, 248) !important;
+  border: none !important;
+  color: rgb(255, 255, 255) !important;
+  padding: 0px 34px !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  font-size: 12px !important;
+  margin: 4px 2px !important;
+  cursor: pointer !important;
+  border-radius: 4px !important;
+}
+
+.btn-bg-signup {
+  background-color: rgb(115, 154, 228);
+  border: none;
+  color: rgb(255, 255, 255);
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 14px 2px;
+  cursor: pointer;
+  border-radius: 1px;
+  width: 100%;
+}
+
+.text-go-right{
+  text-align: right;
+}
+
+.start-signup{
+  color: #3fa1e6;
+  font-size: 25px
+}
+
+.hide {
+  display: none;
+}
+
+.btn-info{
+  width: 100%;
+  border-radius: 2px;
+}
+

@@ -528,7 +528,7 @@ th:
   save_falied: "ไม่สามารถบันทึกข้อมูลได้"
   email_uniqueness: "อีเมลนี้ถูกใช้งานแล้ว"
   subdomain_uniqueness: "subdomain นี้ถูกใช้งานแล้ว"
-  
+  start: "เริ่มใช้งาน"
 
   # School Setting
   schools:
