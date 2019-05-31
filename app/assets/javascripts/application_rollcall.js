@@ -38,7 +38,6 @@
 //= require rollcall/angular/app.assets
 
 //= require bootstrap-table
-//= require bootstrap-select/js/bootstrap-select
 //= ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min
 //= require rails.validations
 //= require rails.validations.simple_form
