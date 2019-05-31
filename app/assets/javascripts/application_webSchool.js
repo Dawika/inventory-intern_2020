@@ -15,6 +15,7 @@
 //= require angular
 //= require tether
 //= require bootstrap
+//= require bootstrap-select/js/bootstrap-select
 //= require angular-bootstrap
 //= require angular-ui-router
 //= require angular-ui-router.stateHelper

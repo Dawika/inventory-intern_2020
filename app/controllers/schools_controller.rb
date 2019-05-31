@@ -1,7 +1,6 @@
 class SchoolsController < ApplicationController
   
     def new
-      ap destroy_user_session_path
       @school = School.new
       @school.users.build
       @school.school_settings.build
