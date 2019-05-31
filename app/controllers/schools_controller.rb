@@ -9,6 +9,7 @@ class SchoolsController < ApplicationController
     def create
       @school = School.new(school_params)
       if @school.save!
+        @school.users.first.add_role('admin')
         sign_in(:user, @school.users.first)
         redirect_to "http://localhost:3000/.#{@school.subdomain_name}"
       else
