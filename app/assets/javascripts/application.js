@@ -92,7 +92,9 @@ function valid(id) {
   if (!input.hasClass('is-uniqueness')) {
     $('.' + id + ':first .invalid-feedback').remove();
     input.removeClass('is-invalid');
-    input.addClass('is-valid');
+    if(id != "school_fax" && id != "school_tax_id" && id != "school_branch" && id != "user_school_note"){
+      input.addClass('is-valid');
+    }
     disabledOrEnableSubmitForm(input.closest('form'));
   }
 }
@@ -134,16 +136,14 @@ function changeLogo(event, img_logo) {
   error = $('#errorMessage')
   if (FileType.name.match(/\.(jpg|jpeg|png)$/) ) {
     if (FileSize > 2) {
+      $('#' + img_logo).attr('src', 'http://chittagongit.com/images/icon-file-size/icon-file-size-10.jpg');
       error.show()
-      error.html('ไฟล์รูปภาพขนาดเกิน 2 Mb')
-      // alert('ขนาดเกิน 2 Mb');
-      $('#' + img_logo).attr('src', '/somsri_logo.png');
+      error.html('*ไฟล์รูปภาพขนาดเกิน 2 Mb')
     } else {
       error.hide()
   }
 } else {
-  // alert('this is not image file! (jpg,jpeg,png)');
-  $('#' + img_logo).attr('src', '/somsri_logo.png');
+  $('#' + img_logo).attr('src', 'http://chittagongit.com/images/icon-file-size/icon-file-size-10.jpg');
   error.show()
   error.html('*ต้องเป็นไฟล์รูปภาพเท่านั้น')
   }
