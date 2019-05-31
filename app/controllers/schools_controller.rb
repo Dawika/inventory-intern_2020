@@ -9,7 +9,7 @@ class SchoolsController < ApplicationController
     def create
       @school = School.new(school_params)
       if @school.save!
-        # sign_in(:user, @school.users.first)
+        sign_in(:user, @school.users.first)
         redirect_to "http://localhost:3000/.#{@school.subdomain_name}"
       else
         redirect_to new_school_path
