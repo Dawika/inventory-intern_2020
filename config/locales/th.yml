@@ -527,4 +527,24 @@ th:
   save_success: "บันทึกข้อมูลเรียบร้อยแล้ว"
   save_falied: "ไม่สามารถบันทึกข้อมูลได้"
   email_uniqueness: "อีเมลนี้ถูกใช้งานแล้ว"
+  subdomain_uniqueness: "subdomain นี้ถูกใช้งานแล้ว"
+  start: "เริ่มใช้งาน"
 
+  # School Setting
+  schools:
+    new:
+      name_thai: "ชื่อโรงเรียน(ภาษาไทย)"
+      address: "ที่อยู่"
+      name_eng: "ชื่อโรงเรียน(ภาษาอังกฤษ)"
+      phone: "หมายเลขโทรศัพท์"
+      fax: "หมายเลขแฟกซ์"
+      email: "อีเมล"
+      schoolyear: "ปีการศึกษา"
+      semesters: "จำนวนเทอม"
+      tax_id: "เลขประจำตัวผู้เสียภาษี"
+      branch: "สาขาที่"
+      note: "หมายเหตุ"
+      Message1: "ข้อมูลทั่วไป"
+      Message2: "ข้อมูลสำหรับหัวใบเสร็จ"
+      Message3: "สัญลักษณ์โรงเรียน"
+      Message4: "ข้อมูลสำหรับท้ายใบเสร็จ"

@@ -1,0 +1,223 @@
+<style>
+  body {
+    margin-bottom: 0px !important;
+  }
+  h4{
+  color:rgb(53, 167, 219);
+}
+</style>
+<div class="container" id="warp" style="margin-top:100px;">
+  <div class="row">
+    <%= render 'layouts/messages' %>
+      <div class="col-lg-12">
+        <div>
+          <%= simple_form_for @school, action: @school.new_record? ? 'create' : 'update', validate: true do |f| %>
+            <div class="form-sign-in" id="formSingUp">
+              <div class="row">
+                <div class="col-xs-12">
+                  <%= image_tag School.first&.logo_url, class: "img-responsive logo-login" %>
+                </div>
+              </div>
+              <div class="row text-center start-signup">
+                <b><%= t('start')%></b>
+              </div>    
+              <%= f.simple_fields_for :users, validate: true do |user_form| %>
+                <div class="row">
+                  <div class="field form-group">
+                    <%= user_form.input :full_name, label: false, autofocus: true, placeholder: t('full_name'),
+                    input_html: { class: 'validate-sign-in', id: 'school_users_full_name'}, required: true %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="field form-group">
+                    <%= user_form.input :email,
+                                required: true,
+                                label: false,
+                                input_html: { autocomplete: "email", class: 'validate-sign-in', placeholder: t('email'),  id: 'school_users_email',
+                                onkeyup: "validateUniqueness('#{email_uniqueness_check_validates_path}', this.id)" } %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="field form-group">
+                    <%= user_form.input :password,
+                                label: false,
+                                required: true,
+                                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                                input_html: { autocomplete: "new-password", id: 'school_users_password', class: 'validate-sign-in', placeholder: t('password') } %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="field form-group">
+                    <%= user_form.input :password_confirmation,
+                                label: false,
+                                input_html: { autocomplete: "new-password", class: 'validate-sign-in', placeholder: t('confirm_password'), id: 'school_users_password_confirmation' } %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-actions py-3">
+                    <%= button_tag "Sign up", class: 'btn-bg-signup', type: 'button', id: 'newStep', onclick: 'showNewSchool()', disabled: true %>
+                  </div>
+                </div>
+              </div>
+              <% end %>
+            <div class="new-school" id="formSchool">
+            <h1>School Setting</h1>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="col-md-6">
+                    <h4><%= t('.Message1') %></h4>
+                  </div>
+                  <div class="col-md-6">
+                    <h4><%= t('.Message2') %></h4>
+                  </div>
+                  <div class="controls content">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <%= f.input :name, label: t('.name_thai'), required: true %>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <%= f.input :address, label: t('.address'), required: true %>
+                          </div>
+                        </div>  
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <%= f.input :name_eng, label: t('.name_eng'), required: true %>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <%= f.input :phone, label: t('.phone'), as: :integer, required: true %>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <%= f.input :fax, label: t('.fax'), as: :integer %>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <%= f.input :subdomain_name, label: 'Subdomain name', 
+                            input_html: { onkeyup: "validateUniqueness2('#{subdomain_uniqueness_check_validates_path}', this.id)" }, required: true %>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <br>
+                            <h4>.somsri.io</h4>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <%= f.input :email, label: t('.email'), required: true %>
+                          </div>
+                        </div>
+                      </div>
+                        <%= f.simple_fields_for :school_settings, validate: true do |school_setting_form| %>
+                          <div class="row">
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <%= school_setting_form.input :school_year, label: t('.schoolyear'), input_html: { id: 'school_school_settings_school_year' }, as: :integer, required: true %>
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <%= school_setting_form.input :semesters, label: t('.semesters'), input_html: { id: 'school_school_settings_semesters' }, as: :integer, required: true %>
+                              </div>
+                            </div>
+                        <% end %>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <%= f.input :tax_id, label: t('.tax_id'), as: :integer %>
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <%= f.input :branch, label: t('.branch'), as: :integer %>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <h4><%= t('.Message3') %></h4>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <h4><%= t('.Message4') %></h4>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <div class="dropzone" >
+                                <%= image_tag 'http://chittagongit.com/images/icon-file-size/icon-file-size-10.jpg', id: 'logoSchool', class: 'img-lg' %>
+                              </div><br><br>
+                              <button type="button" class="btn btn-info btn-lg" onclick="$('#school_logo').trigger('click')">Choose file</button>
+                            </div>
+                            <div id="errorMessage" class="invalid-feedback" style="display: none;"></div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <%= f.input :logo, label: false, as: :file, multiple: true, accept:'image/*', input_html: { onChange: 'changeLogo(event, "logoSchool")', class: 'hide'} %>
+                              <br /><br /><br />*File type support .JPEG, .JPG, .PNG Size 200 x 200px under 2MB
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <%= f.input :note, label: t('.note'), input_html: { id: 'user_school_note' } %>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="text-go-right">
+                            <%= f.button :submit, 'Save', class: 'btn-bg-blue', disabled: false %>
+                            <%= link_to 'Cancel', new_school_path, class: 'btn-bg-grey' %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            <% end %>
+        </div>
+      </div>
+  </div>
+</div>
+<% if SiteConfig.get_cache.display_username_password_on_login %>
+  <div class="container">
+    <div class="col-md-offset-2 col-md-7 form-type">
+      <div class="col-md-12">
+        <p><button class="status_type_login">ฝ่ายบุคคล</button>&nbsp;&nbsp;&nbsp;<strong> User name:</strong> admin@bananacoding.com
+          <strong>Password:</strong> password</p>
+      </div>
+      <div class="col-md-12" style="margin-top: 10px;">
+        <p><button class="status_type_login">ฝ่ายการเงิน</button>&nbsp;&nbsp;<strong> User name:</strong> finance@bananacoding.com
+          <strong>Password:</strong> password</p>
+      </div>
+    </div>
+  </div>
+<% end %>
+<footer id="footer">
+  <div class="container">
+    <p class="text-center">© Copyright somsri.io</p>
+  </div>
+</footer>
+
+<script>
+  $(document).ready(function() {
+    $('#formSchool').hide();
+
+    $('.validate-sign-in').keyup(function() {
+      enableButton('new_school', 'newStep');
+    })
+  });
+</script>

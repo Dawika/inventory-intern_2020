@@ -26,7 +26,7 @@
 //= require angular-sanitize
 //= require ng-csv
 //= require angular-ui-bootstrap-fontawesome
-//= require bootstrap-select/js/bootstrap-select
+
 //= require angular-translate/angular-translate
 //= require angular-translate-loader-url/angular-translate-loader-url
 
@@ -41,6 +41,7 @@
 //= require invoice/angular/shared/filters
 //= require angular-xeditable/dist/js/xeditable
 //= require bootstrap-table
+//= require bootstrap-select/js/bootstrap-select
 //= require rich-autocomplete
 //= require rails.validations
 //= require rails.validations.simple_form

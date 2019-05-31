@@ -524,3 +524,22 @@ en:
   save_change_confirmation: "Do you want to save this change?"
   save_success: "Save successfully."
   save_falied: "Save failed."
+  start: "Start"
+  # School Setting
+  schools:
+    new:
+      name_thai: "School name(Thai)"
+      address: "Address"
+      name_eng: "School name(Eng)"
+      phone: "Phone number"
+      fax: "Fax"
+      email: "Email"
+      schoolyear: "School year"
+      semesters: "Semester"
+      tax_id: "Tax ID"
+      branch: "Branch"
+      note: "P.S."
+      Message1: "General information"
+      Message2: "Information for the receipt(Header)"
+      Message3: "School symbol"
+      Message4: "Information for the receipt(Footer)"

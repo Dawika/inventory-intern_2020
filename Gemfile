@@ -63,6 +63,7 @@ gem 'paranoia', '~> 2.1', '>= 2.1.5'
 
 gem "aws-sdk", "< 3.0"
 gem "paperclip", "~> 5.0.0"
+gem 'dropzonejs-rails'
 
 gem "bootstrap-table-rails"
 

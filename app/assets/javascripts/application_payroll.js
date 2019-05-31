@@ -27,7 +27,7 @@
 //= require angular-sanitize
 //= require ng-csv
 //= require angular-ui-bootstrap-fontawesome
-//= require bootstrap-select/js/bootstrap-select
+
 //= require detect_timezone
 //= require jquery.detect_timezone
 //= require redactor/redactor.min.js
@@ -45,6 +45,7 @@
 
 //= require angular-xeditable/dist/js/xeditable
 //= require bootstrap-table
+//= require bootstrap-select/js/bootstrap-select
 //= require rich-autocomplete
 //= require rails.validations
 //= require rails.validations.simple_form
