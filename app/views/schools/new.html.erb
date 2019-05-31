@@ -178,10 +178,10 @@
                           </div>
                         </div>
                         <div class="row">
-                         <div class="text-go-right">
-                          <%= f.button :submit, 'Save', class: 'btn-bg-blue', disabled: false  %>
-                          <%= button_tag "Cancel", class: 'btn-bg-grey', type: 'button', onclick: 'cancel()' %>
-                         </div>
+                          <div class="text-go-right">
+                            <%= f.button :submit, 'Save', class: 'btn-bg-blue', disabled: false %>
+                            <%= link_to 'Cancel', new_school_path, class: 'btn-bg-grey' %>
+                          </div>
                         </div>
                       </div>
                     </div>

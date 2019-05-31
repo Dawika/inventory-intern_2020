@@ -29,15 +29,10 @@
 //= require angular-input-masks
 //= require angular-xeditable/dist/js/xeditable
 //= require bootstrap-table
-//= require bootstrap-select/js/bootstrap-select
 //= require extensions/bootstrap-table-multiple-sort.js
 //= require angular-ui-bootstrap-fontawesome
-
 //= require extensions/bootstrap-table-export.js
 //= require_tree .
-
-
-
 
 $(document).ready(function() {
   $('form[data-client-side-validations]').validate();
@@ -89,13 +84,11 @@ function inValid(id, errorMessage) {
 }
 
 function valid(id) {
-  input = $('#' + id)
+  input = $('.required#' + id)
   if (!input.hasClass('is-uniqueness')) {
     $('.' + id + ':first .invalid-feedback').remove();
     input.removeClass('is-invalid');
-    if(id != "school_fax" && id != "school_tax_id" && id != "school_branch" && id != "user_school_note"){
-      input.addClass('is-valid');
-    }
+    input.addClass('is-valid');
     disabledOrEnableSubmitForm(input.closest('form'));
   }
 }
@@ -124,14 +117,9 @@ function showNewSchool() {
   $('#formSchool').show();
 }
 
-function cancel() {
-  location.reload();
-}
-
 function changeLogo(event, img_logo) {
   logo = URL.createObjectURL(event.target.files[0]);
   $('#' + img_logo).attr('src', logo);
-
   FileType =event.target.files[0]
   FileSize = event.target.files[0].size / 1024 / 1024; // in MB
   error = $('#errorMessage')
