@@ -106,7 +106,6 @@ function disabledOrEnableSubmitForm(form) {
 function enableButton(formID, id) {
   form = $('#' + formID);
   button = $('#' + id);
-  console.log(form.find('input.validate-sign-in.is-valid').length)
   if (form.find('input.validate-sign-in.is-valid').length === form.find('input.validate-sign-in.required').length) {
     button.attr('disabled', false);
   } else {
