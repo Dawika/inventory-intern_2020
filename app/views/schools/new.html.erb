@@ -33,7 +33,7 @@
                     <%= user_form.input :email,
                                 required: true,
                                 label: false,
-                                input_html: { autocomplete: "email", class: 'validate-sign-in', placeholder: t('email'),  id: 'school_users_email',
+                                input_html: { autocomplete: "email", class: 'validate-sign-in', placeholder: t('email'), id: 'school_users_email',
                                 onkeyup: "validateUniqueness('#{email_uniqueness_check_validates_path}', this.id)" } %>
                   </div>
                 </div>

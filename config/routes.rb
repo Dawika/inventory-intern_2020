@@ -163,7 +163,7 @@ Rails.application.routes.draw do
     end
 
     unauthenticated do
-      root 'schools#new', as: :unauthenticated_root
+      root 'comfy/cms/content#show', as: :unauthenticated_root
     end
   end
 

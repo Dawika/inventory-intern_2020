@@ -40,7 +40,7 @@ ComfortableMexicanSofa.configure do |config|
   # Sofa allows you to setup entire site from files. Database is updated with each
   # request (if necessary). Please note that database entries are destroyed if there's
   # no corresponding file. Fixtures are disabled by default.
-  #   config.enable_fixtures = false
+   config.enable_fixtures = true
 
   # Path where fixtures can be located.
   #   config.fixtures_path = File.expand_path('db/cms_fixtures', Rails.root)
@@ -107,7 +107,7 @@ end
 # Uncomment this module and `config.admin_auth` above to use custom admin authentication
 module ComfyAdminAuthentication
   def authenticate
-    redirect_to root_path unless current_user && current_user.has_role?(:admin)
+    redirect_to unauthenticated_path unless current_user && current_user.has_role?(:admin)
   end
 end
 
