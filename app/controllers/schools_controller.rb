@@ -1,4 +1,6 @@
 class SchoolsController < ApplicationController
+
+  include LocalSubdomain
   
     def new
       @school = School.new
@@ -10,8 +12,7 @@ class SchoolsController < ApplicationController
       @school = School.new(school_params)
       if @school.save!
         @school.users.first.add_role('admin')
-        sign_in(:user, @school.users.first)
-        redirect_to "http://#{@school.subdomain_name}.lvh.me:3000/"
+        redirect_to subdomain_url(@school.subdomain_name, new_user_session_path)
       else
         redirect_to new_school_path
       end

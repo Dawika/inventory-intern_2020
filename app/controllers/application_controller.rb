@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   after_action :set_csrf_cookie_for_ng
 
   include LocalSubdomain
-  
+
 
   def set_locale
     @locale = params[:locale] || session['locale'] ||
@@ -68,6 +68,10 @@ class ApplicationController < ActionController::Base
       return I18n.t('from_all')
     end
   end
+
+  def subdomain_url(name, path)
+    "http://#{name}.lvh.me:3000#{path}"
+  end  
 
   protected
     def verified_request?
