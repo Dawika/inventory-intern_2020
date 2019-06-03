@@ -131,3 +131,4 @@ gem 'bootstrap-tagsinput-rails'
 
 gem 'awesome_print', require: 'ap'
 gem "i18n-js"
+gem 'local-subdomain'

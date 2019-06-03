@@ -11,7 +11,7 @@ class SchoolsController < ApplicationController
       if @school.save!
         @school.users.first.add_role('admin')
         sign_in(:user, @school.users.first)
-        redirect_to "http://localhost:3000/.#{@school.subdomain_name}"
+        redirect_to "http://#{@school.subdomain_name}.lvh.me:3000/"
       else
         redirect_to new_school_path
       end
