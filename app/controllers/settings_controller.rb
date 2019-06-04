@@ -37,7 +37,7 @@ class SettingsController < ApplicationController
     def getSetting
       {
         user: current_user,
-        school: School.first
+        school: current_user.school
       }
     end
 

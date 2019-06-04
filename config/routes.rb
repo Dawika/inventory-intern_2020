@@ -153,6 +153,7 @@ Rails.application.routes.draw do
     collection do
       get 'email_uniqueness'
       get 'subdomain_uniqueness'
+      get 'user_by_subdomain'
     end
   end
 
@@ -169,4 +170,8 @@ Rails.application.routes.draw do
 
   comfy_route :cms, :path => '/homepage', :sitemap => false
   comfy_route :cms_admin, :path => '/cms_admin'
+
+  %w( 404 ).each do |code|
+    get code, :to => 'error#show', :code => code
+  end
 end

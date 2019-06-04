@@ -1,7 +1,5 @@
 class SchoolsController < ApplicationController
 
-  include LocalSubdomain
-  
     def new
       @school = School.new
       @school.users.build

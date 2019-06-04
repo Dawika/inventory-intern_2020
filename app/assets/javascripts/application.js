@@ -57,6 +57,31 @@ function validateUniqueness(url, id) {
   });
 }
 
+function validateUserBySubdomain(url, id) {
+  input = $('#' + id);
+  form = input.closest('form')
+  $.ajax({
+    url: url,
+    dataType: 'json',
+    data: { email: input.val() },
+    success: function(response) {
+      if (response.status == false) {
+        input = $('#' + id)
+        $('.' + id + ':first .invalid-feedback').remove();
+        input.removeClass('is-valid');
+        input.addClass('is-invalid');
+        $('.' + id + ':first').append('<div class="invalid-feedback text-right" style="display:block;">' + response.message + '</div>');
+        form.find(':submit').attr('disabled', true);
+      } else {
+        $('.' + id + ':first .invalid-feedback').remove();
+        input.removeClass('is-invalid');
+        input.addClass('is-valid');
+        form.find(':submit').attr('disabled', false);
+      }
+    }
+  });
+}
+
 function validateUniqueness2(url, id) {
   input = $('#' + id);
   $.ajax({

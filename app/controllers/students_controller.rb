@@ -1,7 +1,9 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:edit, :update, :destroy], unless: :is_api?
   before_action :authenticate_user!, unless: :is_api?
-  load_and_authorize_resource except: [:index, :get_roll_calls, :info]
+  load_and_authorize_resource except: [:get_roll_calls, :info]
+  before_action :load_resource
+
 
   def is_api?
     !params[:pin].blank?
@@ -130,7 +132,6 @@ class StudentsController < ApplicationController
   # GET /students.pdf
   def index
     @menu = t('student')
-    authorize! :read, Student
 
     grade_select = (params[:grade_select] || 'All')
     class_select = (params[:class_select] || 'All')
@@ -142,17 +143,17 @@ class StudentsController < ApplicationController
 
     # without angular
     if grade_select.downcase == 'all' && class_select.downcase == 'all'
-      students = Student
+      students = @students
     elsif grade_select.downcase == 'all' && class_select.downcase != 'all'
       classroom = Classroom.where(name: class_select).first
-      students = Student.where(classroom_id: classroom.id)
+      students = @students.where(classroom_id: classroom.id)
     elsif grade_select.downcase != 'all' && class_select.downcase == 'all'
       grade = Grade.where(name: grade_select).first
-      students = Student.where(grade: grade.id)
+      students = @students.where(grade: grade.id)
     elsif grade_select.downcase != 'all' && class_select.downcase != 'all'
       grade = Grade.where(name: grade_select).first
       classroom = Classroom.where(name: class_select).first
-      students = Student.where(grade: grade.id , classroom_id: classroom.id)
+      students = @students.where(grade: grade.id , classroom_id: classroom.id)
     end
     @students = students.order("#{params[:sort]} #{params[:order]}").search(params[:search])
     @filter_grade = grade_select
@@ -498,7 +499,7 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:full_name, :full_name_english, :nickname, :nickname_english, :gender_id, :birthdate, :grade_id, :classroom_id, :classroom_number, :student_number, :national_id, :remark , :status, :img_url)
+      params.require(:student).permit(:full_name, :full_name_english, :nickname, :nickname_english, :gender_id, :birthdate, :grade_id, :classroom_id, :classroom_number, :student_number, :national_id, :remark , :status, :img_url, :school_id)
     end
 
     def relation_assign
@@ -546,6 +547,10 @@ class StudentsController < ApplicationController
           end
         end
       end
+    end
+
+    def load_resource
+      @students = Student.where(school_id: current_user.school.id)
     end
 
     def upload_photo_params
