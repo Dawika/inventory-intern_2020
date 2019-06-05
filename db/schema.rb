@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190524063020) do
+ActiveRecord::Schema.define(version: 20190604093129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -222,22 +222,22 @@ ActiveRecord::Schema.define(version: 20190524063020) do
 
   create_table "employees", force: :cascade do |t|
     t.integer  "school_id"
-    t.string   "first_name",           default: "",             null: false
-    t.string   "last_name",            default: "",             null: false
-    t.string   "middle_name",          default: "",             null: false
-    t.string   "prefix",               default: "",             null: false
-    t.integer  "sex",                  default: 0,              null: false
-    t.string   "position",             default: ""
-    t.string   "personal_id",          default: ""
-    t.string   "passport_number",      default: ""
-    t.string   "race",                 default: ""
-    t.string   "nationality",          default: ""
-    t.string   "bank_name",            default: ""
-    t.string   "bank_branch",          default: ""
-    t.string   "account_number",       default: ""
-    t.decimal  "salary",               default: "0.0",          null: false
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.string   "first_name",                           default: "",             null: false
+    t.string   "last_name",                            default: "",             null: false
+    t.string   "middle_name",                          default: "",             null: false
+    t.string   "prefix",                               default: "",             null: false
+    t.integer  "sex",                                  default: 0,              null: false
+    t.string   "position",                             default: ""
+    t.string   "personal_id",                          default: ""
+    t.string   "passport_number",                      default: ""
+    t.string   "race",                                 default: ""
+    t.string   "nationality",                          default: ""
+    t.string   "bank_name",                            default: ""
+    t.string   "bank_branch",                          default: ""
+    t.string   "account_number",                       default: ""
+    t.decimal  "salary",                               default: "0.0",          null: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
     t.string   "first_name_thai"
     t.string   "last_name_thai"
     t.string   "prefix_thai"
@@ -248,7 +248,7 @@ ActiveRecord::Schema.define(version: 20190524063020) do
     t.string   "tel"
     t.string   "status"
     t.string   "email"
-    t.string   "employee_type",        default: "ลูกจ้างประจำ", null: false
+    t.string   "employee_type",                        default: "ลูกจ้างประจำ", null: false
     t.boolean  "pay_social_insurance"
     t.boolean  "pay_pvf"
     t.string   "pin"
@@ -260,10 +260,30 @@ ActiveRecord::Schema.define(version: 20190524063020) do
     t.datetime "img_url_updated_at"
     t.datetime "deleted_at"
     t.integer  "classroom_id"
+    t.string   "encrypted_password",                   default: "",             null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                        default: 0,              null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.integer  "leave_allowance",                      default: 0
+    t.string   "note"
+    t.string   "comment"
     t.string   "name"
     t.string   "full_name"
+    t.integer  "sick_leave_maximum_days_per_year"
+    t.integer  "personal_leave_maximum_days_per_year"
+    t.integer  "switching_day_maximum_days_per_year"
+    t.integer  "work_at_home_maximum_days_per_week"
+    t.boolean  "switching_day_allow"
+    t.boolean  "work_at_home_allow"
     t.index ["classroom_id"], name: "index_employees_on_classroom_id", using: :btree
     t.index ["deleted_at"], name: "index_employees_on_deleted_at", using: :btree
+    t.index ["email"], name: "index_employees_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true, using: :btree
     t.index ["school_id"], name: "index_employees_on_school_id", using: :btree
   end
 
@@ -277,9 +297,9 @@ ActiveRecord::Schema.define(version: 20190524063020) do
 
   create_table "expense_items", force: :cascade do |t|
     t.integer "expense_id"
-    t.string  "detail",     null: false
-    t.integer "amount",     null: false
-    t.float   "cost",       null: false
+    t.string  "detail"
+    t.integer "amount"
+    t.float   "cost"
     t.index ["expense_id"], name: "index_expense_items_on_expense_id", using: :btree
   end
 
@@ -296,9 +316,9 @@ ActiveRecord::Schema.define(version: 20190524063020) do
   end
 
   create_table "expenses", force: :cascade do |t|
-    t.datetime "effective_date",       null: false
+    t.datetime "effective_date"
     t.string   "expenses_id"
-    t.string   "detail",               null: false
+    t.string   "detail"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.datetime "deleted_at"
@@ -540,7 +560,9 @@ ActiveRecord::Schema.define(version: 20190524063020) do
     t.string   "img_url_content_type"
     t.integer  "img_url_file_size"
     t.datetime "img_url_updated_at"
+    t.integer  "school_id"
     t.index ["deleted_at"], name: "index_parents_on_deleted_at", using: :btree
+    t.index ["school_id"], name: "index_parents_on_school_id", using: :btree
   end
 
   create_table "payment_methods", force: :cascade do |t|
@@ -628,8 +650,6 @@ ActiveRecord::Schema.define(version: 20190524063020) do
     t.string   "round"
     t.string   "check_date"
     t.integer  "list_id"
-    t.datetime "deleted_at"
-    t.index ["deleted_at"], name: "index_roll_calls_on_deleted_at", using: :btree
     t.index ["list_id"], name: "index_roll_calls_on_list_id", using: :btree
     t.index ["student_id", "list_id", "check_date", "round"], name: "index_roll_calls_uniq_roll", unique: true, using: :btree
     t.index ["student_id"], name: "index_roll_calls_on_student_id", using: :btree
@@ -661,7 +681,6 @@ ActiveRecord::Schema.define(version: 20190524063020) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.text     "payroll_slip_header"
-    t.string   "account_number"
     t.string   "name_eng"
     t.string   "note"
     t.string   "subdomain_name"
@@ -683,10 +702,12 @@ ActiveRecord::Schema.define(version: 20190524063020) do
     t.boolean "export_ktb_payroll",                   default: false
     t.boolean "outstanding_notification",             default: false
     t.boolean "slip_carbon",                          default: false
-    t.boolean "export_kbank_payroll",                 default: false
     t.string  "default_locale",                       default: "th"
     t.boolean "enable_expenses",                      default: false
     t.string  "expense_tag_tree"
+    t.boolean "enable_quotation",                     default: false
+    t.boolean "export_kbank_payroll",                 default: false
+    t.string  "bank_account"
   end
 
   create_table "skills", force: :cascade do |t|
@@ -729,6 +750,7 @@ ActiveRecord::Schema.define(version: 20190524063020) do
     t.integer  "img_url_file_size"
     t.datetime "img_url_updated_at"
     t.integer  "classroom_id"
+    t.string   "nationality"
     t.index ["classroom_id"], name: "index_students_on_classroom_id", using: :btree
     t.index ["deleted_at"], name: "index_students_on_deleted_at", using: :btree
     t.index ["school_id"], name: "index_students_on_school_id", using: :btree
@@ -896,8 +918,9 @@ ActiveRecord::Schema.define(version: 20190524063020) do
   add_foreign_key "individuals", "employees", column: "friend_id"
   add_foreign_key "individuals", "employees", column: "parent_id"
   add_foreign_key "individuals", "employees", column: "spouse_id"
+  add_foreign_key "parents", "schools"
   add_foreign_key "roll_calls", "lists"
-  add_foreign_key "school_settings", "schools"
+  add_foreign_key "school_settings", "school_settings", column: "school_id"
   add_foreign_key "students", "classrooms", on_delete: :nullify
   add_foreign_key "students", "schools"
   add_foreign_key "users", "schools"

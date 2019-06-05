@@ -528,6 +528,7 @@ th:
   save_falied: "ไม่สามารถบันทึกข้อมูลได้"
   email_uniqueness: "อีเมลนี้ถูกใช้งานแล้ว"
   subdomain_uniqueness: "subdomain นี้ถูกใช้งานแล้ว"
+  user_not_in_school: "อีเมลนี้ไม่ได้อยู่ในโรงเรียน"
   start: "เริ่มใช้งาน"
 
   # School Setting

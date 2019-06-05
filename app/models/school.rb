@@ -2,6 +2,8 @@ class School < ApplicationRecord
   has_many :employees
   has_many :users
   has_many :school_settings
+  has_many :students
+  has_many :parents
   
   has_attached_file :logo, styles: { medium: "200x200>", thumb: "100x100>" }, default_url: "/somsri_logo.png"
   validates_attachment_content_type :logo, content_type: ["image/jpeg", "image/jpg", "image/png"]

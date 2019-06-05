@@ -26,4 +26,8 @@ class User < ApplicationRecord
   def finance_officer?
     self.has_role? :finance_officer
   end
+
+  def school_id
+    self.school.id
+  end  
 end

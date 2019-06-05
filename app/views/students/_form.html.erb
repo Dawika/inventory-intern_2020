@@ -23,6 +23,7 @@
       <div class="row add-st-pr">
         <div class="col-md-6">
           <div class="form-group">
+            <%= f.hidden_field :school_id, :class => 'form-control' , autocomplete: "off", value: current_user.school.id %>
             <%= f.label :full_name, :class => 'control-label'%>
             <div class="col-md-12">
               <%= f.text_field :full_name, :class => 'form-control' , autocomplete: "off" %>

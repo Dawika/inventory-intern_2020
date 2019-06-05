@@ -1,10 +1,11 @@
 class EmployeesController < ApplicationController
   load_and_authorize_resource except: [:slip, :show]
   skip_before_action :verify_authenticity_token, :only => [:update, :create, :destroy]
+  before_action :load_resource  
 
   # GET /employees
   def index
-    employee = Employee.order('employees.deleted_at DESC ,employees.start_date ASC, employees.created_at ASC')
+    employee = @employees.order('employees.deleted_at DESC ,employees.start_date ASC, employees.created_at ASC')
                               .as_json(employee_list: true)
     render json: employee, status: :ok
   end
@@ -222,6 +223,10 @@ class EmployeesController < ApplicationController
       :classroom_id
     ]).to_h
     return result
+  end
+
+  def load_resource
+    @employees = @employees.where(school_id: current_user.school.id)
   end
 
   def payroll_params

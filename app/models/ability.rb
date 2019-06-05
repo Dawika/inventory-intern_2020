@@ -4,15 +4,15 @@ class Ability
   def initialize(user)
     if user && user.admin?
       can :access, :rails_admin
-      can :dashboard
-      can :manage, :all
+      # can :dashboard
+      can :manage, :all #, school_id: user.school.id
       can :manage, SiteConfig
     elsif  user && user.finance_officer?
       can :manage, :menu
       can :manage, Invoice
       can :manage, DailyReport
       can :read, Grade
-      can :manage, Student
+      can :manage, Student 
       can :manage, Parent
       can :read, School
       can :manage, :setting

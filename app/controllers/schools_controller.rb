@@ -1,5 +1,5 @@
 class SchoolsController < ApplicationController
-  
+
     def new
       @school = School.new
       @school.users.build
@@ -10,8 +10,7 @@ class SchoolsController < ApplicationController
       @school = School.new(school_params)
       if @school.save!
         @school.users.first.add_role('admin')
-        sign_in(:user, @school.users.first)
-        redirect_to "http://localhost:3000/.#{@school.subdomain_name}"
+        redirect_to subdomain_url(@school.subdomain_name, new_user_session_path)
       else
         redirect_to new_school_path
       end

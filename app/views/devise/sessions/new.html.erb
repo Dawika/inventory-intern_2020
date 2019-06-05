@@ -10,7 +10,7 @@
     <div class="col-md-12">
 
       <div class="form-sign-in">
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="row">
             <div class="col-xs-12">
               <%= image_tag School.first.logo_url, class: "img-responsive logo-login" %>
@@ -18,12 +18,8 @@
           </div>
           <div class="row">
             <div class="field form-group">
-              <%= f.email_field :email, autofocus: true, class: "form-control input-login" ,placeholder:"User name" %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="field form-group">
-              <%= f.password_field :password, autocomplete: "off", class: "form-control input-login",placeholder:"Password",style:"margin-top:10px;" %>
+              <%= f.input :email, autofocus: true, label: false, input_html: { class: "form-control input-login", placeholder:"User name", onkeyup: "validateUserBySubdomain('#{user_by_subdomain_check_validates_path}', this.id)" } %>
+              <%= f.input :password, autocomplete: "off", label: false, input_html: { class: "form-control input-login", placeholder:"Password", style:"margin-top:10px;" } %>
             </div>
           </div>
           <div class="row">
@@ -36,7 +32,7 @@
           </div>
           <div class="row">
             <div class="sign-in actions">
-              <%= f.submit "Sign in", class: "btn btn-signin" %>
+              <%= f.button :submit, 'Sign in', class: "btn btn-signin", disabled: true %>
             </div>
           </div>
           <% if (SiteConfig.get_cache.enable_rollcall) && (Figaro.env.ROLLCALL_APK_URL)  %>

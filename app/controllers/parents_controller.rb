@@ -2,22 +2,29 @@ class ParentsController < ApplicationController
   before_action :set_parent, only: [:edit, :update, :destroy]
   before_action :authenticate_user!
   load_and_authorize_resource
+  # before_action :test
+
+  # def test
+  #   @parents = Parent.where(school_id: current_user.school.id)
+  # end
+
   # GET /parents
   # GET /parents.json
+  
   def index
-    students = Student.all.order("classroom_id ASC")
-
+    filter_parents
     grade_select = (params[:grade_select] || 'All')
     class_select = (params[:class_select] || 'All')
     @classroom_display = Classroom.order("id ASC").select(:name).map(&:name).uniq.compact
-    @parents = get_parents(class_select, grade_select, params[:search], params[:page], params[:per_page], params[:sort], params[:order])
-
+    total = @parents.count
+    @parents = @parents.limit(params[:limit]).offset(params[:offset])
     @menu = t('parent')
+
     respond_to do |f|
       f.html { render "parents/index", layout: "application_invoice" }
       f.json {
         render json: {
-          total: @parents.total_entries,
+          total: total,
           rows: @parents.as_json({ index: true })
         }
       }
@@ -29,7 +36,7 @@ class ParentsController < ApplicationController
   def new
     @menu = t('parent')
     @parent = Parent.new
-    @students = Student.all
+    @students =  Student.where(school_id: current_user.school.id)
     @relations = Relationship.all
 
     render "parents/new", layout: "application_invoice"
@@ -38,7 +45,7 @@ class ParentsController < ApplicationController
   # GET /parents/1/edit
   def edit
     @menu = t('parent')
-    @students = Student.all
+    @students = Student.where(school_id: current_user.school.id)
     @relations = Relationship.all
 
     render "parents/edit", layout: "application_invoice"
@@ -47,7 +54,7 @@ class ParentsController < ApplicationController
   # POST /parents
   # POST /parents.json
   def create
-    @parent = Parent.new(parent_params)
+    @parent = Parent.new(parent_params.merge(school_id: current_user.school.id))
     student_assign
     if @parent.save
       relation_assign
@@ -159,80 +166,107 @@ class ParentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_parent
-      @parent = Parent.includes([:students, :relationships]).find(params[:id])
+
+  def filter_parents
+    @parents = Parent.where(school_id: current_user.school_id)
+    if params[:search].present?
+      search = "%#{params[:search]}%"
+      @parents = @parents.where('full_name LIKE :search OR
+                                  mobile LIKE :search OR
+                                  email LIKE :search',
+                                  search: search)
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def parent_params
-      params.require(:parent).permit(:full_name, :nickname, :id_card_no, :mobile, :email, :line_id, :img_url )
-    end
+    @parents = @parents.joins(students: [:grade]).where('grades.name = ?', params[:grade_select]) if params[:grade_select] != 'all'
 
-    def relation_assign
-      @parent.students.clear
-      @parent.students << @students
-      @students.each_with_index do |student, index|
-        std_parent = StudentsParent.find_by_student_id_and_parent_id(student.id, @parent.id)
-        std_parent.relationship_id = @relationships[index]
-        std_parent.save
+    # sort and order
+    if params[:sort].present?
+      case params[:sort]
+      when 'parents.full_name'
+        @parents = @parents.order(full_name: params[:order])
+      when 'parents.mobile'
+        @parents = @parents.order(mobile: params[:order])
+      when 'parents.email'
+        @parents = @parents.order(email: params[:order])
+      # when 'relationships.name'
+      #   @parents = @parents.joins(:relationships).order(name: params[:order])
+      when 'students.full_name'
+        @parents = @parents.order(full_name: params[:order])
       end
     end
+  end  
+  # Use callbacks to share common setup or constraints between actions.
+  def set_parent
+    @parent = Parent.includes([:students, :relationships]).find(params[:id])
+  end
 
-    def student_assign
-      std_params = params[:student]
-      rel_params = params[:relationship]
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def parent_params
+    params.require(:parent).permit(:full_name, :nickname, :id_card_no, :mobile, :email, :line_id, :img_url )
+  end
 
-      std_rel = Hash.new
-      if !std_params.nil? && !rel_params.nil?
-        std_params.each_with_index { |value, index| std_rel[value] = rel_params[index] }
-      end
-      std_params = std_rel.keys
-      @relationships = std_rel.values
+  def relation_assign
+    @parent.students.clear
+    @parent.students << @students
+    @students.each_with_index do |student, index|
+      std_parent = StudentsParent.find_by_student_id_and_parent_id(student.id, @parent.id)
+      std_parent.relationship_id = @relationships[index]
+      std_parent.save
+    end
+  end
 
-      @students = Array.new
-      if !std_params.nil?
-        std_params.each_with_index.map do |s, index|
-          if s.to_i != 0
-            begin
-              std = Student.find(s)
-            rescue
-              std = Student.find_or_create_by(full_name: s)
-            end
-            @students.push(std)
-          elsif s.length > 0 && s.to_i == 0
-            new_std = Student.find_or_create_by(full_name: std_params[index])
-            @students.push(new_std)
+  def student_assign
+    std_params = params[:student]
+    rel_params = params[:relationship]
+
+    std_rel = Hash.new
+    if !std_params.nil? && !rel_params.nil?
+      std_params.each_with_index { |value, index| std_rel[value] = rel_params[index] }
+    end
+    std_params = std_rel.keys
+    @relationships = std_rel.values
+
+    @students = Array.new
+    if !std_params.nil?
+      std_params.each_with_index.map do |s, index|
+        if s.to_i != 0
+          begin
+            std = Student.find(s)
+          rescue
+            std = Student.find_or_create_by(full_name: s)
           end
+          @students.push(std)
+        elsif s.length > 0 && s.to_i == 0
+          new_std = Student.find_or_create_by(full_name: std_params[index])
+          @students.push(new_std)
         end
       end
     end
-
-    def upload_photo_params
-      params.require(:parent).permit(:img_url)
-    end
-
-    def get_parents(class_select, grade_select, search, page, per_page, sort, order)
-      if grade_select.downcase == 'all' && class_select.downcase != 'all'
-        classroom = Classroom.where(name: class_select).first
-        qry_filter = "and classrooms.id = #{classroom.id}"
-        qry_filter2 = "classrooms.id = #{classroom.id} and"
-      elsif grade_select.downcase != 'all' && class_select.downcase == 'all'
-        grade = Grade.where(name: grade_select).first
-        qry_filter = "and grades.id = #{grade.id}"
-        qry_filter2 = "grades.id = #{grade.id} and"
-      elsif grade_select.downcase != 'all' && class_select.downcase != 'all'
-        grade = Grade.where(name: grade_select).first
-        classroom = Classroom.where(name: class_select).first
-        qry_filter = "and (grades.id = #{grade.id} AND classrooms.id = #{classroom.id})"
-        qry_filter2 = "(grades.id = #{grade.id} AND classrooms.id = #{classroom.id}) and"
-      end
-
-      where_sql = " where parents.deleted_at IS NULL AND ( #{qry_filter2} (parents.full_name LIKE '%#{search}%' OR parents.full_name_english LIKE '%#{search}%' OR parents.email LIKE '%#{search}%' OR parents.mobile LIKE '%#{search}%' OR students.full_name LIKE '%#{search}%' OR students.full_name_english LIKE '%#{search}%') )"
-      order_sql = sort || order ? " order by #{sort || ''} #{order || ''}" : ""
-      arr_parents = Parent.find_by_sql("select parents.id, parents.full_name ,parents.mobile,parents.email,relationships.name, students.full_name as student_name, students.id as student_id from parents left outer join students_parents on students_parents.id IN ( select students_parents.id from students_parents left join students on students_parents.student_id = students.id left join grades on students.grade_id = grades.id left join classrooms on students.classroom_id = classrooms.id where students_parents.parent_id = parents.id #{qry_filter} limit 1) left join students on students_parents.student_id = students.id left join relationships on relationships.id=students_parents.relationship_id left join grades on students.grade_id = grades.id left join classrooms on students.classroom_id = classrooms.id" + where_sql + order_sql).paginate(page: page, per_page: per_page)
-
-      return arr_parents
-    end
-
   end
+
+  def upload_photo_params
+    params.require(:parent).permit(:img_url)
+  end
+
+  def get_parents(class_select, grade_select, search, page, per_page, sort, order)
+    if grade_select.downcase == 'all' && class_select.downcase != 'all'
+      classroom = Classroom.where(name: class_select).first
+      qry_filter = "and classrooms.id = #{classroom.id}"
+      qry_filter2 = "classrooms.id = #{classroom.id} and"
+    elsif grade_select.downcase != 'all' && class_select.downcase == 'all'
+      grade = Grade.where(name: grade_select).first
+      qry_filter = "and grades.id = #{grade.id}"
+      qry_filter2 = "grades.id = #{grade.id} and"
+    elsif grade_select.downcase != 'all' && class_select.downcase != 'all'
+      grade = Grade.where(name: grade_select).first
+      classroom = Classroom.where(name: class_select).first
+      qry_filter = "and (grades.id = #{grade.id} AND classrooms.id = #{classroom.id})"
+      qry_filter2 = "(grades.id = #{grade.id} AND classrooms.id = #{classroom.id}) and"
+    end
+
+    where_sql = " where parents.deleted_at IS NULL AND ( #{qry_filter2} (parents.full_name LIKE '%#{search}%' OR parents.full_name_english LIKE '%#{search}%' OR parents.email LIKE '%#{search}%' OR parents.mobile LIKE '%#{search}%' OR students.full_name LIKE '%#{search}%' OR students.full_name_english LIKE '%#{search}%') )"
+    order_sql = sort || order ? " order by #{sort || ''} #{order || ''}" : ""
+    arr_parents = Parent.find_by_sql("select parents.id, parents.full_name ,parents.mobile,parents.email,relationships.name, students.full_name as student_name, students.id as student_id from parents left outer join students_parents on students_parents.id IN ( select students_parents.id from students_parents left join students on students_parents.student_id = students.id left join grades on students.grade_id = grades.id left join classrooms on students.classroom_id = classrooms.id where students_parents.parent_id = parents.id #{qry_filter} limit 1) left join students on students_parents.student_id = students.id left join relationships on relationships.id=students_parents.relationship_id left join grades on students.grade_id = grades.id left join classrooms on students.classroom_id = classrooms.id" + where_sql + order_sql).paginate(page: page, per_page: per_page)
+    return arr_parents
+  end
+end
