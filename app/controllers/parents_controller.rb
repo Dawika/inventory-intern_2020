@@ -17,12 +17,17 @@ class ParentsController < ApplicationController
     class_select = (params[:class_select] || 'All')
     @classroom_display = Classroom.order("id ASC").select(:name).map(&:name).uniq.compact
     @parents = get_parents(class_select, grade_select, params[:search], params[:page], params[:per_page], params[:sort], params[:order])
+    @parents = Parent.all
+    total = @parents.count
+    ap params[:page] == 1 ? 0 : "#{params[:page]}0".to_i
+    @parents = @parents.limit(params[:limit]).offset(params[:offset])
+ 
     @menu = t('parent')
     respond_to do |f|
       f.html { render "parents/index", layout: "application_invoice" }
       f.json {
         render json: {
-          total: @parents.total_entries,
+          total: total,
           rows: @parents.as_json({ index: true })
         }
       }
@@ -52,7 +57,7 @@ class ParentsController < ApplicationController
   # POST /parents
   # POST /parents.json
   def create
-    @parent = Parent.new(parent_params)
+    @parent = Parent.new(parent_params.merge(school_id: current_user.school.id))
     student_assign
     if @parent.save
       relation_assign
