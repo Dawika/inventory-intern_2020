@@ -57,7 +57,7 @@ class InvoicesController < ApplicationController
     last_invoice_id = Invoice.last ? Invoice.last.id : 0
 
     # get stduent info
-    students = Student.all.to_a
+    students = Student.where(school_id: current_user.school.id).to_a
     student_info = []
     student_code = []
     students.each do |student|
@@ -78,7 +78,7 @@ class InvoicesController < ApplicationController
     end
 
     # get parent info
-    parents = Parent.all.to_a
+    parents = Parent.where(school_id: current_user.school.id).to_a
     parent_info = []
     parents.each do |parent|
       fullname_display = parent.invoice_screen_full_name_display
@@ -113,13 +113,13 @@ class InvoicesController < ApplicationController
       default_credit_card_payment_method: SiteConfig.get_cache.default_credit_card_payment_method,
       default_cheque_payment_method: SiteConfig.get_cache.default_cheque_payment_method,
       default_transfer_payment_method: SiteConfig.get_cache.default_transfer_payment_method,
-      school_year: SchoolSetting.school_year,
+      school_year: current_user.school_setting.school_year,
       last_invoice_id: last_invoice_id,
       student_info: student_info,
       parent_info: parent_info,
       grades: Grade.names,
       line_items_info: line_items_info,
-      current_semester: SchoolSetting.current_semester
+      current_semester: current_user.school_setting.current_semester
     }, status: :ok
   end
 
@@ -564,7 +564,7 @@ class InvoicesController < ApplicationController
       qry_invoices = Invoice.where(invoice_status_id: InvoiceStatus.find_by_name('Active').id)
       data_field = Invoice.arel_table[:created_at]
       qry_invoices = qry_date_range(qry_invoices, data_field, start_date, end_date)
-      return qry_invoices
+      return qry_invoices.joins(user: [:school]).where("schools.id = #{current_user.school.id}")
     end
 
     def get_invoices(grade_select, search_keyword, start_date, end_date, page, sort, order, export, invoice_status_id, student_id)
@@ -590,7 +590,7 @@ class InvoicesController < ApplicationController
         qry_invoices = qry_invoices.paginate(page: page, per_page: 10)
       end
 
-      return qry_invoices.to_a
+      return qry_invoices.joins(user: [:school]).where("schools.id = #{current_user.school.id}").to_a
     end
 
     # Use callbacks to share common setup or constraints between actions.

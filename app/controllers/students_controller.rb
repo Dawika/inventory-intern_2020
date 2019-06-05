@@ -16,11 +16,12 @@ class StudentsController < ApplicationController
     semester_select = params[:semester_select]
     invoice_status = params[:status]
     student_index = Array.new
+    students = Student.where(school_id: current_user.school.id)
     if grade_select.downcase == 'all'
-      @students_all = Student.order("student_number ASC").search(params[:search]).with_deleted.to_a
+      @students_all = students.order("student_number ASC").search(params[:search]).with_deleted.to_a
     else
       grade = Grade.where(name: grade_select).first
-      @students_all = Student.where(grade_id: grade.id).order("classroom_id ASC, classroom_number ASC").search(params[:search]).with_deleted.to_a
+      @students_all = students.where(grade_id: grade.id).order("classroom_id ASC, classroom_number ASC").search(params[:search]).with_deleted.to_a
     end
 
     datas = []

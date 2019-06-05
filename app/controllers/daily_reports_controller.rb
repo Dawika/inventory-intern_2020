@@ -38,7 +38,7 @@ class DailyReportsController < ApplicationController
     end_time = nil
     end_time = DateTime.parse(params[:end_time]) if params[:end_time]
     end_time = DateTime.now if !end_time
-    invoice_ids = Invoice.where(created_at: start_time..end_time, invoice_status_id: InvoiceStatus.find_by_name('Active')).ids
+    invoice_ids = Invoice.joins(user: [:school]).where("schools.id = #{current_user.school.id}").where(created_at: start_time..end_time, invoice_status_id: InvoiceStatus.find_by_name('Active')).ids
 
     Invoice.where(created_at: Date.today.beginning_of_day..Date.today.end_of_day)
     PaymentMethod.where(invoice_id: invoice_ids).each do |pm|
