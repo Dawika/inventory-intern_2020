@@ -24,13 +24,13 @@
           </ul>
         </li>
       </ul>
-      <ul class="nav navbar-nav navbar-right dropdown" role="menu" aria-labelledby="dLabel">
+      <ul class="nav navbar-nav navbar-right dropdown" id="dropdownMenu" onclick="showDropdown(this.id)">
           <% if user_signed_in? %>
             <a class="nav-user avatar" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= current_user.name.blank? ? current_user.email : current_user.name %>
               <i class="fa fa-angle-down"></i>
             </a>
-            <div class="dropdown-menu on-nav-bar" aria-labelledby="navbarDropdownMenuLink">
+            <div class="dropdown-menu on-nav-bar">
               <% if (SiteConfig.get_cache.enable_rollcall) && (Figaro.env.ROLLCALL_APK_URL) %>
                 <li><a class="dropdown-item" href="<%= Figaro.env.ROLLCALL_APK_URL %>" target="_blank">
                 <i class="fa fa-download"></i> Download Rollcall</a></li>

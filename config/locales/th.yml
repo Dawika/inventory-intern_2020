@@ -448,7 +448,8 @@ th:
   # Profile
   password: รหัสผ่าน
   change_password: เปลี่ยนรหัสผ่าน
-  school_name: ชื่อโรงเรียน
+  school_name_thai: ชื่อโรงเรียน (ไทย)
+  school_name_eng: ชื่อโรงเรียน (อังกฤษ)
   school_email: อีเมล์โรงเรียน
   tax_number: เลขประจำตัวผู้เสียภาษี
   fax: โทรสาร
@@ -539,7 +540,7 @@ th:
       name_eng: "ชื่อโรงเรียน(ภาษาอังกฤษ)"
       phone: "หมายเลขโทรศัพท์"
       fax: "หมายเลขแฟกซ์"
-      email: "อีเมล"
+      email: "อีเมลโรงเรียน"
       schoolyear: "ปีการศึกษา"
       semesters: "จำนวนเทอม"
       tax_id: "เลขประจำตัวผู้เสียภาษี"

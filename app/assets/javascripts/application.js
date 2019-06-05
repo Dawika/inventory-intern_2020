@@ -29,7 +29,6 @@
 //= require angular-input-masks
 //= require angular-xeditable/dist/js/xeditable
 //= require bootstrap-table
-//= require bootstrap-select/js/bootstrap-select
 //= require extensions/bootstrap-table-multiple-sort.js
 //= require angular-ui-bootstrap-fontawesome
 //= require extensions/bootstrap-table-export.js
@@ -38,6 +37,11 @@
 $(document).ready(function() {
   $('form[data-client-side-validations]').validate();
 })
+
+function showDropdown(id) {
+  ul = $('#' + id)
+  ul.hasClass('open') ? ul.removeClass('open') : ul.addClass('open')
+}
 
 function validateUniqueness(url, id) {
   input = $('#' + id);
