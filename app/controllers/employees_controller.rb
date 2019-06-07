@@ -92,6 +92,7 @@ class EmployeesController < ApplicationController
   end
 
   def create
+    @employee = Employee.new(employee_params.merge(school_id: current_user.school.id))
     if @employee.save
       render json: {
         employee: @employee
@@ -194,6 +195,7 @@ class EmployeesController < ApplicationController
   def employee_params
     result = params.require(:employee).permit([
       :prefix_thai,
+      :school_id,
       :first_name_thai,
       :last_name_thai,
       :prefix,
@@ -226,7 +228,7 @@ class EmployeesController < ApplicationController
   end
 
   def load_resource
-    @employees = @employees.where(school_id: current_user.school.id)
+    @employees = Employee.where(school_id: current_user.school.id)
   end
 
   def payroll_params
