@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
   end
 
   def subdomain_url(name, path)
-    "#{name}.lvh.me:3000#{path}"
+    "http://#{name}.lvh.me:3000#{path}"
   end  
 
   protected
