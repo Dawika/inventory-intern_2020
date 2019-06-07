@@ -15,7 +15,7 @@
             <div class="form-sign-in" id="formSingUp">
               <div class="row">
                 <div class="col-xs-12">
-                  <%= image_tag '/somsri_logo.png', class: "img-responsive logo-login" %>
+                  <%= image_tag @school.logo, class: "img-responsive logo-login" %>
                 </div>
               </div>
               <div class="row text-center start-signup">
@@ -167,7 +167,7 @@
                           </div>
                           <div class="col-md-3">
                             <div class="form-group">
-                              <%= f.input :logo, label: false, as: :file, multiple: true, accept:'image/*', input_html: { onChange: 'changeLogo(event, "logoSchool")', class: 'hide'} %>
+                              <%= f.input :logo, label: false, as: :file, multiple: true, accept:'image/*', input_html: { onChange: 'changeLogo(event, "logoSchool")', class: 'hide'}, required: true %>
                               <br /><br /><br />*File type support .JPEG, .JPG, .PNG Size 200 x 200px under 2MB
                             </div>
                           </div>

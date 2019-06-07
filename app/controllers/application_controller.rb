@@ -73,6 +73,10 @@ class ApplicationController < ActionController::Base
     "http://#{name}.lvh.me:3000#{path}"
   end  
 
+  def school_image
+    
+  end
+
   protected
     def verified_request?
       super || valid_authenticity_token?(session, request.headers['X-XSRF-TOKEN'])
