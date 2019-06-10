@@ -73,8 +73,8 @@ class ApplicationController < ActionController::Base
     "http://#{name}.lvh.me:3000#{path}"
   end  
 
-  def school_image
-    
+  def school_image(school)
+    ap '>>>>>>>>>>'
   end
 
   protected

@@ -29,6 +29,7 @@
 //= require angular-input-masks
 //= require angular-xeditable/dist/js/xeditable
 //= require bootstrap-table
+//= require bootstrap-select/js/bootstrap-select
 //= require extensions/bootstrap-table-multiple-sort.js
 //= require angular-ui-bootstrap-fontawesome
 //= require extensions/bootstrap-table-export.js
@@ -110,7 +111,6 @@ function inValid(id, errorMessage) {
   input.removeClass('is-valid');
   input.addClass('is-invalid');
   $('.' + id + ':first').append('<div class="invalid-feedback text-right" style="display:block;">' + errorMessage + '</div>');
-  disabledOrEnableSubmitForm(input.closest('form'));
 }
 
 function valid(id) {
@@ -119,16 +119,6 @@ function valid(id) {
     $('.' + id + ':first .invalid-feedback').remove();
     input.removeClass('is-invalid');
     input.addClass('is-valid');
-    disabledOrEnableSubmitForm(input.closest('form'));
-  }
-}
-
-function disabledOrEnableSubmitForm(form) {
-  // disabled buntton save when input validate blank
-  if (form.find('input.required.is-valid').length === form.find('input.required').length) {
-    form.find(':submit').attr('disabled', false);
-  } else {
-    form.find(':submit').attr('disabled', true);
   }
 }
 
@@ -136,6 +126,16 @@ function enableButton(formID, id) {
   form = $('#' + formID);
   button = $('#' + id);
   if (form.find('input.validate-sign-in.is-valid').length === form.find('input.validate-sign-in.required').length) {
+    button.attr('disabled', false);
+  } else {
+    button.attr('disabled', true);
+  }
+}
+
+function enableButton2(formID, id) {
+  form = $('#' + formID);
+  button = $('#' + id);
+  if (form.find('input.validate-sign-up.is-valid').length === form.find('input.validate-sign-up.required').length) {
     button.attr('disabled', false);
   } else {
     button.attr('disabled', true);

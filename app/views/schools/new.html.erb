@@ -61,7 +61,7 @@
               </div>
               <% end %>
             <div class="new-school" id="formSchool">
-            <h1>School Setting</h1>
+            <u><h1>เกือบเสร็จแล้ว! กรุณากรอกข้อมูลโรงเรียนเพื่อเริ่มใช้งาน</h1></u><br>
               <div class="row">
                 <div class="col-lg-12">
                   <div class="col-md-6">
@@ -74,24 +74,24 @@
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group">
-                            <%= f.input :name, label: t('.name_thai'), required: true %>
+                            <%= f.input :name, label: t('.name_thai'), input_html:{class: 'validate-sign-up'}, required: true %>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
-                            <%= f.input :address, label: t('.address'), required: true %>
+                            <%= f.input :address, label: t('.address'), input_html:{class: 'validate-sign-up'}, required: true %>
                           </div>
                         </div>  
                       </div>
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group">
-                            <%= f.input :name_eng, label: t('.name_eng'), required: true %>
+                            <%= f.input :name_eng, label: t('.name_eng'), input_html:{class: 'validate-sign-up'}, required: true %>
                           </div>
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
-                            <%= f.input :phone, label: t('.phone'), as: :integer, required: true %>
+                            <%= f.input :phone, label: t('.phone'), as: :integer, input_html:{class: 'validate-sign-up'}, required: true %>
                           </div>
                         </div>
                         <div class="col-md-3">
@@ -104,7 +104,7 @@
                         <div class="col-md-3">
                           <div class="form-group">
                             <%= f.input :subdomain_name, label: 'Subdomain name', 
-                            input_html: { onkeyup: "validateUniqueness2('#{subdomain_uniqueness_check_validates_path}', this.id)" }, required: true %>
+                            input_html: { onkeyup: "validateUniqueness2('#{subdomain_uniqueness_check_validates_path}', this.id)", class: 'validate-sign-up' }, required: true %>
                           </div>
                         </div>
                         <div class="col-md-3">
@@ -115,7 +115,7 @@
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
-                            <%= f.input :email, label: t('.email'), required: true %>
+                            <%= f.input :email, label: t('.email'), input_html:{class: 'validate-sign-up'}, required: true %>
                           </div>
                         </div>
                       </div>
@@ -123,12 +123,12 @@
                           <div class="row">
                             <div class="col-md-3">
                               <div class="form-group">
-                                <%= school_setting_form.input :school_year, label: t('.schoolyear'), input_html: { id: 'school_school_settings_school_year' }, as: :integer, required: true %>
+                                <%= school_setting_form.input :school_year, label: t('.schoolyear'), input_html: { id: 'school_school_settings_school_year', class: 'validate-sign-up' }, as: :integer, required: true %>
                               </div>
                             </div>
                             <div class="col-md-3">
                               <div class="form-group">
-                                <%= school_setting_form.input :semesters, collection: 1..3, selected: 2, input_html: { id: 'school_school_settings_semesters' } %>
+                                <%= school_setting_form.input :semesters, collection: 1..3, selected: 2, input_html: { id: 'school_school_settings_semesters', class: 'validate-sign-up' } %>
                               </div>
                             </div>
                         <% end %>
@@ -178,15 +178,28 @@
                           </div>
                         </div>
                         <div class="row">
-                          <div class="text-go-right">
-                            <%= f.button :submit, 'Save', class: 'btn-bg-blue', disabled: false %>
-                            <%= link_to 'Cancel', new_school_path, class: 'btn-bg-grey' %>
+                          <div class="text-center">
+                            <%= button_tag "เริ่มใช้งาน", type: 'button', class: 'btn-bg-blue', id: 'new_modal', disabled: true %>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <!-- Modal -->
+                <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                  <div class="modal-dialog"  role="document">
+                    <div class="modal-content">
+                      <%= image_tag @school.logo, class: "img-responsive logo-login" %>
+                      <h3 class="text-center">ยินดีต้อนรับ เข้าสู่ระบบสมศรี </h3>
+                      <h3 class="text-center">ท่านสามารถทดลองใช้งานฟรี <font color="orange"> 3 เดือน</font></h3>
+                      <h3 class="text-center">สำหรับ<font color="orange">ความช่วยเหลือ </font>ในการนำข้อมูลเข้าระบบเช่น บุคลากร, นักเรียน</h3>
+                      <h3 class="text-center">สามารถติดต่อทีมงานได้ที่ เบอร์ <font color="orange">053-200-078</font></h3><br>
+                      <div class="text-center"><%= f.button :submit, 'เริ่มต้นใช้งาน', class: "btn-bg-submit" %></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Modal -->
             <% end %>
         </div>
       </div>
@@ -215,9 +228,16 @@
 <script>
   $(document).ready(function() {
     $('#formSchool').hide();
+    $('#formModal').hide();
     $('#school_school_settings_semesters').removeClass('is-valid')
     $('.validate-sign-in').keyup(function() {
-      enableButton('new_school', 'newStep');
+      enableButton('new_school','newStep');
+    })
+    $('.validate-sign-up').keyup(function() {
+      enableButton2('new_school','new_modal');
+    })
+    $('#new_modal').click(function() {
+      $('#myModal').modal({backdrop: 'static', keyboard: false})
     })
   });
 </script>
