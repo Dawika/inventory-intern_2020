@@ -128,7 +128,7 @@
                             </div>
                             <div class="col-md-3">
                               <div class="form-group">
-                                <%= school_setting_form.input :semesters, collection: 1..3, selected: 2, input_html: { id: 'school_school_settings_semesters', class: 'validate-sign-up' } %>
+                                <%= school_setting_form.input :semesters, collection: 1..3, selected: 2, input_html: { id: 'school_school_settings_semesters' } %>
                               </div>
                             </div>
                         <% end %>
@@ -167,7 +167,7 @@
                           </div>
                           <div class="col-md-3">
                             <div class="form-group">
-                              <%= f.input :logo, label: false, as: :file, multiple: true, accept:'image/*', input_html: { onChange: 'changeLogo(event, "logoSchool")', class: 'hide'}, required: true %>
+                              <%= f.input :logo, label: false, as: :file, multiple: true, accept:'image/*', input_html: { onChange: 'changeLogo(event, "logoSchool")'} %>
                               <br /><br /><br />*File type support .JPEG, .JPG, .PNG Size 200 x 200px under 2MB
                             </div>
                           </div>
