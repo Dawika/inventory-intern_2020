@@ -19,7 +19,8 @@
                 </div>
               </div>
               <div class="row text-center start-signup">
-                <b><%= t('start')%></b>
+                <b>สมัครใช้งานวันนี้ ใช้ฟรี 3 เดือน</b><br>
+                <b>ไม่จำกัดจำนวนนักเรียน ไม่จำกัดจำนวนบุคลากร</b><br><br>
               </div>    
               <%= f.simple_fields_for :users, validate: true do |user_form| %>
                 <div class="row">
@@ -55,7 +56,7 @@
                 </div>
                 <div class="row">
                   <div class="form-actions py-3">
-                    <%= button_tag "Sign up", class: 'btn-bg-signup', type: 'button', id: 'newStep', onclick: 'showNewSchool()', disabled: true %>
+                    <%= button_tag "สมัครใช้งานเลย", class: 'btn-bg-signup', type: 'button', id: 'newStep', onclick: 'showNewSchool()', disabled: true %>
                   </div>
                 </div>
               </div>

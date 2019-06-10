@@ -174,4 +174,6 @@ Rails.application.routes.draw do
   %w( 404 ).each do |code|
     get code, :to => 'error#show', :code => code
   end
+
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

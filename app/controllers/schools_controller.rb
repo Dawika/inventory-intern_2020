@@ -9,6 +9,7 @@ class SchoolsController < ApplicationController
     def create
       @school = School.new(school_params)
       if @school.save!
+        SchoolMailer.school_notification(@school).deliver
         @school.users.first.add_role('admin')
         redirect_to subdomain_url(@school.subdomain_name, new_user_session_path)
       else
