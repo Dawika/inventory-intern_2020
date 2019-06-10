@@ -231,10 +231,10 @@
     $('#formModal').hide();
     $('#school_school_settings_semesters').removeClass('is-valid')
     $('.validate-sign-in').keyup(function() {
-      enableButton('new_school','newStep');
+      enableButtonFormAdmin('new_school', 'newStep');
     })
     $('.validate-sign-up').keyup(function() {
-      enableButton2('new_school','new_modal');
+      enableButtonFormSchool('new_school','new_modal');
     })
     $('#new_modal').click(function() {
       $('#myModal').modal({backdrop: 'static', keyboard: false})
