@@ -111,7 +111,7 @@ function inValid(id, errorMessage) {
   input.removeClass('is-valid');
   input.addClass('is-invalid');
   $('.' + id + ':first').append('<div class="invalid-feedback text-right" style="display:block;">' + errorMessage + '</div>');
-  disabledOrEnableSubmitForm(input.closest('form'));
+  disabledOrEnableSubmitForm(input.closest('form'), input.hasClass('validate-sign-up'));
 }
 
 function valid(id) {
@@ -120,23 +120,37 @@ function valid(id) {
     $('.' + id + ':first .invalid-feedback').remove();
     input.removeClass('is-invalid');
     input.addClass('is-valid');
-    disabledOrEnableSubmitForm(input.closest('form'));
+    disabledOrEnableSubmitForm(input.closest('form'), input.hasClass('validate-sign-up'));
   }
 }
 
-function disabledOrEnableSubmitForm(form) {
+function disabledOrEnableSubmitForm(form, enableSubmit) {
+  console.log(form.find('input.required.is-valid').length, form.find('input.required').length)
   // disabled buntton save when input validate blank
   if (form.find('input.required.is-valid').length === form.find('input.required').length) {
     form.find(':submit').attr('disabled', false);
   } else {
     form.find(':submit').attr('disabled', true);
   }
+  if (enableSubmit) {
+    enableButtonFormSchool('new_school', 'new_modal');
+  }
 }
 
-function enableButton(formID, id) {
+function enableButtonFormAdmin(formID, id) {
   form = $('#' + formID);
   button = $('#' + id);
   if (form.find('input.validate-sign-in.is-valid').length === form.find('input.validate-sign-in.required').length) {
+    button.attr('disabled', false);
+  } else {
+    button.attr('disabled', true);
+  }
+}
+
+function enableButtonFormSchool(formID, id) {
+  form = $('#' + formID);
+  button = $('#' + id);
+  if (form.find('input.validate-sign-up.is-valid').length === form.find('input.validate-sign-up.required').length) {
     button.attr('disabled', false);
   } else {
     button.attr('disabled', true);
@@ -154,17 +168,31 @@ function changeLogo(event, img_logo) {
   FileType =event.target.files[0]
   FileSize = event.target.files[0].size / 1024 / 1024; // in MB
   error = $('#errorMessage')
+  requireimg = $('#requireimg')
+  input = $('.required#school_logo')
   if (FileType.name.match(/\.(jpg|jpeg|png)$/) ) {
     if (FileSize > 2) {
       $('#' + img_logo).attr('src', 'http://chittagongit.com/images/icon-file-size/icon-file-size-10.jpg');
       error.show()
+      requireimg.hide()
+      inValid('school_logo', '')
+      $('#img-sc-true').addClass('hide');
+      $('#img-sc-false').removeClass('hide');
       error.html('*ไฟล์รูปภาพขนาดเกิน 2 Mb')
     } else {
       error.hide()
+      requireimg.hide()
+      valid('school_logo')
+      $('#img-sc-true').removeClass('hide');
+      $('#img-sc-false').addClass('hide');
   }
 } else {
   $('#' + img_logo).attr('src', 'http://chittagongit.com/images/icon-file-size/icon-file-size-10.jpg');
   error.show()
+  requireimg.hide()
+  inValid('school_logo', '')
+  $('#img-sc-true').addClass('hide');
+  $('#img-sc-false').removeClass('hide');
   error.html('*ต้องเป็นไฟล์รูปภาพเท่านั้น')
   }
 }

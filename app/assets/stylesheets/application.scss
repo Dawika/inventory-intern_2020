@@ -43,6 +43,14 @@ body {
   width: 100%;
 }
 
+.new-modal{
+  background: #fff;
+  padding: 50px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+  margin: auto;
+  width: 70%;
+}
+
 .form-type {
   background: #fff;
   padding: 20px;
@@ -506,6 +514,21 @@ ul.nav.navbar-nav.navbar-right.dropdown {
   width: 100%;
 }
 
+.btn-bg-submit {
+  background-color: rgb(228, 152, 37);
+  border: none;
+  color: rgb(255, 255, 255);
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 14px 2px;
+  cursor: pointer;
+  border-radius: 2px;
+  width: 30%;
+}
+
 .text-go-right{
   text-align: right;
 }
@@ -524,4 +547,6 @@ ul.nav.navbar-nav.navbar-right.dropdown {
   border-radius: 2px;
 }
 
-
+.modal-dialog{
+  width: 1000px;
+}
