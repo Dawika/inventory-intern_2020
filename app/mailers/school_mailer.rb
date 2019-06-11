@@ -3,8 +3,8 @@ class SchoolMailer < ApplicationMailer
     
     def school_notification(school)
         @school = school
-        # @name = "#{@school.users.email}"
-        mail(to: 'asdasd', subject: 'sssss')
+        @email = "#{@school.users.first.email}"
+        mail(to: @email, subject: 'test')
     
     end
 
