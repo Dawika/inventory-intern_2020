@@ -9,7 +9,7 @@ class School < ApplicationRecord
   validates_attachment_content_type :logo, content_type: ["image/jpeg", "image/jpg", "image/png"]
   accepts_nested_attributes_for :users
   accepts_nested_attributes_for :school_settings
-  validates :name, :address, :name_eng, :phone, presence: true, allow_blank: false
+  validates :name, :address, :name_eng, :phone, :logo, presence: true, allow_blank: false
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :subdomain_name, presence: true, allow_blank: false, uniqueness: true
 
