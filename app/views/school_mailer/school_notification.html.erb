@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+        <link href="https://fonts.googleapis.com/css?family=Akronim" rel="stylesheet">
+        <%= render 'layouts/mailer_stylesheet' %>
+  </head>
+  <body>
+   <div class="tab-content content-wall">
+   <img src = "/somsri_logo.png"><br>
+    <% t =  Time.now + 3.month %>
+   ขอบคุณที่สมัครเข้าใช้งานระบบ somsri.io  <br>
+   ท่านได้รับสิทธิใช้งานฟรี 3 เดือน ตั้งแต่วันที่ <p class = "f"><%="#{Time.now.strftime("%d/%m/%Y เวลา %H:%M")} ถึง #{t.strftime("%d/%m/%Y เวลา %H:%M")}"%></p><br>
+   สามารถเข้าระบบได้ที่ 
+   <a href = "<%="http://#{@school.subdomain_name}.lvh.me:3000/users/sign_in"%>"><button class ="btn">Click here</button></a><br>
+    <%="Email : #{@school.users.first.email}       Password : "%><br>
+   สำหรับความในการนำข้อมูลเข้าระบบเช่น บุคคลากร หรือ นักเรียน<br>
+   สมารถติดต่อทีมงานได้ที่ เบอร์ 053-200078<br>
+
+</div>
+  </body>
+</html>
