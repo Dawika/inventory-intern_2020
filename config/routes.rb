@@ -168,6 +168,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :subdomains do
+    member do
+      get 'change'
+    end
+  end
+
   comfy_route :cms, :path => '/homepage', :sitemap => false
   comfy_route :cms_admin, :path => '/cms_admin'
 
