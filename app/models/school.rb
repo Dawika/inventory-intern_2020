@@ -38,4 +38,7 @@ class School < ApplicationRecord
     return self.payroll_slip_header
   end
 
+  def user
+    self.users.first
+  end  
 end
