@@ -17,6 +17,11 @@ class SchoolsController < ApplicationController
         redirect_to new_school_path
       end
     end
+
+    def update
+      @school = School.find_by(id: params[:id])
+      @school.update(params[:logo])
+    end  
   
     private
   

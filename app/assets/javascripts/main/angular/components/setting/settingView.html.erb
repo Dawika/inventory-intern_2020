@@ -1,4 +1,4 @@
-<form name="passwordForm" ng-submit="setting.submit(setting.datas)">
+<form id="passwordForm" name="passwordForm" enctype="multipart/form-data" ng-submit="setting.submit(setting.datas)">
   <div class="container setting" style="width: 960px;">
     <div class="row paragraph bg-setting">
       <div class="col-md-12">
@@ -13,6 +13,12 @@
             <div class="form-group">
               <label for="email">{{ 'email' | translate }}</label>
               <input type="text" class="form-control" id="useremail" ng-model="setting.datas.user.email">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <img id="s_logo" src="{{ setting.datas.school_logo }}" alt="your image" width="100px" onclick="$('#file-upload').trigger('click')"/><br>
+                <input type="file" id="file-upload" onchange="angular.element(this).scope().fileChange(event, 's_logo')" file-model="setting.datas.school.logo">
             </div>
           </div>
         </div>
@@ -43,8 +49,8 @@
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label for="name">{{ 'school_name_eng' | translate }}</label>
-                <input type="text" class="form-control white-bg" id="name" ng-model="setting.datas.school.name_eng">
+                <label for="name_eng">{{ 'school_name_eng' | translate }}</label>
+                <input type="text" class="form-control white-bg" id="name_eng" ng-model="setting.datas.school.name_eng">
               </div>
             </div>
             <div class="col-md-4">
@@ -95,7 +101,7 @@
     </div>
     <div class="footer-menu row" style="margin-right: -30px;">
       <div class="col-md-offset-8 col-md-2 text-right">
-        <button type="submit" class="btn btn-custom btn-green btn-block">{{ 'save' | translate }}</button>
+        <button type="submit" class="btn btn-custom btn-green btn-block" >{{ 'save' | translate }}</button>
       </div>
       <div class="col-md-2 text-right">
         <button type="button" class="btn btn-custom btn-gray btn-block" ng-click="openRoot()">{{ 'cancel' | translate }}</button>

@@ -16,5 +16,9 @@
       return $http.get('/users/site_config');
     };
 
+    this.saveLogo = function(id, logo) {
+      return $http.patch('/schools/'+ id +'/?logo='+ logo +'');
+    };
+
   }]);
 })();

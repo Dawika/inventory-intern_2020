@@ -12,13 +12,15 @@ class SettingsController < ApplicationController
     User.transaction do
       update_school_status = true
       if self.can? :update, School
-        update_school_status = School.first.update(params_school)
+        update_school_status = current_user.school.update(params_school)
       end
-      if current_user.update(params_user) && update_school_status
-        render json: getSetting(), status: :ok
-      else
-        render json: {error: "Cannot update settings."}, status: :bad_request
-      end
+      # if current_user.update(params_user) && update_school_status 
+      #   render json: getSetting(), status: :ok
+      # else
+      #   render json: {error: "Cannot update settings."}, status: :bad_request
+      # end
+      ap params_school[:logo_file_name]
+      render json: getSetting(), status: :ok
     end
   end
 
@@ -37,7 +39,8 @@ class SettingsController < ApplicationController
     def getSetting
       {
         user: current_user,
-        school: current_user.school
+        school: current_user.school,
+        school_logo: current_user.school.logo.url
       }
     end
 
@@ -46,10 +49,10 @@ class SettingsController < ApplicationController
     end
 
     def params_school
-      params.require(:school).permit(:name, :name_eng, :tax_id, :address, :zip_code, :phone, :fax, :email)
+      params.require(:school).permit(:name, :name_eng, :tax_id, :logo, :address, :zip_code, :email, :phone, :fax)
     end
 
     def params_user
-      params.require(:user).permit(:name, :email)
+      params.require(:user).permit(:full_name, :email, :password)
     end
 end
