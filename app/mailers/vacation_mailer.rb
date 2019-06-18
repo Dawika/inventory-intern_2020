@@ -15,7 +15,7 @@ class VacationMailer < ApplicationMailer
   end
 
   def self.vacation_leave_request(user, vacation)
-    recipients = Employee.with_role(:approver)
+    recipients = Employee.with_any_role(:approver, :admin, :human_resource)
     recipients.each do |recipient|
       send_vacation_leave_request(recipient, user, vacation).deliver
     end
