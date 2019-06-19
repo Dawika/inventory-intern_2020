@@ -72,6 +72,7 @@ Rails.application.routes.draw do
       get 'payrolls'
       get 'calculate_deduction'
       patch 'upload_photo'
+      post 'invite'
     end
     post 'restore'
     post 'archive'

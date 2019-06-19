@@ -70,6 +70,13 @@
       $rootScope.openEmployeeDetails(id);
     }
 
+    ctrl.sendMailRequest = function (id) {
+      console.log(id)
+      employeeService.invite(id).then(function(resp) {
+        console.log(resp);
+      });
+    }
+
     function salary(value, row, index){
       if (value) {
         return '<div class="text-blue text-right" ><span class="numberic">'+ value.toLocaleString() +'</span> ' + I18n.t("baht") + '</div>';
@@ -104,6 +111,10 @@
         return '<a href="javascript:void(0)" class="td-edit-employee-link text-center" onclick="'+ angularScopeEmployees +'.openEmployeeDetails('+row.id+')">'+ value +'</a>';
       }
       return '-'
+    }
+
+    function sendMail(value, row, index){
+      return '<a href="javascript:void(0)" class="" onclick="'+ angularScopeEmployees +'.sendMailRequest('+row.id+')">Send Mail</a>';
     }
 
     function imgTag(value, row, index){
@@ -167,6 +178,12 @@
         field: 'fee',
         align: 'right',
         formatter: fee,
+        sortable: true,
+      },{
+        title: "sendMail",
+        field: 'sendMail',
+        align: 'right',
+        formatter: sendMail,
         sortable: true,
       },{
         title: '',

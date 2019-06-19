@@ -9,6 +9,13 @@ class EmployeesController < ApplicationController
     render json: employee, status: :ok
   end
 
+  # POST /employees/:id/invite
+  def invite
+    employee = Employee.find(params[:id])
+
+    render json: employee
+  end
+
   # GET /employees/:id/slip
   def slip
     authorize! :manage, Employee
