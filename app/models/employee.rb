@@ -23,7 +23,7 @@ class Employee < ApplicationRecord
   has_one :taxReduction
 
   has_many :payrolls
-  after_create :create_tax_reduction
+  after_create :create_tax_reduction, :send_mail_employee
   before_create :new_payroll
   after_save :update_rollcall_list
   before_save :assign_pin
@@ -369,6 +369,11 @@ class Employee < ApplicationRecord
     max_leave += (!self.personal_leave_maximum_days_per_year.nil?) ? self.personal_leave_maximum_days_per_year : vacation_setting.personal_leave_maximum_days_per_year
 
     return max_leave
+  end
+
+  def send_mail_employee(id)
+    EmployeeMailer.send_employee_invite(self).deliver
+    render json: employee, status: :ok
   end
 
   private
