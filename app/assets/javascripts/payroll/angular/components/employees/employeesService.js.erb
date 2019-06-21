@@ -9,7 +9,7 @@
     };
 
     this.invite = function(id) {
-      return $http.post('/employees/' + id + '/invite')
+      return $http.post('/employees/' + id + '/invite');
     }
 
     this.getEmployeeDeduction = function(id, payroll_id, data) {

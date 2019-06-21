@@ -878,6 +878,10 @@
         <div class="pull-right text-right padding-left10">
           <button type="submit" class="btn btn-custom btn-green" ng-show="employee.showSaveButton" ng-disabled="employee.isSubmit">{{ "save" | translate }}</button>
         </div>
+
+        <div class="pull-right text-right padding-left10">
+          <button type="button" class="btn btn-custom btn-yellow" ng-show="employee.showInviteButton" ng-click="employee.invite(employee.empId)">invite</button>
+        </div>
       </div>
     </div>
   </form>

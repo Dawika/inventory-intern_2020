@@ -31,6 +31,15 @@
       ctrl.get_role = []
       ctrl.can_edit = true
 
+      if (ctrl.empId != 0) {
+        ctrl.showInviteButton = true
+        service.getEmployee(ctrl.empId).then(function(resp) {
+          ctrl.employee = resp.data.employee
+          ctrl.encrypted_password = resp.data.encrypted_password
+          if (resp.data.encrypted_password != "")
+            ctrl.showInviteButton = false
+        });
+      }
 
       ctrl.add_button = "add_new_employee"
       var employee_inventory_table = $('#employee-inventory-table');
@@ -516,6 +525,19 @@
             if(p.fee_etc){ ctrl.total -= p.fee_etc}
             if(p.social_insurance){ ctrl.total -= p.social_insurance}
           });
+        }
+      }
+
+      ctrl.invite = function(id) {
+        if (ctrl.employee.email) {
+          openConfirmationModal(translateFilter("confirm_invite_employee"), function() {
+            service.invite(id).then(function(resp) {
+              $rootScope.openEmployees();
+            })
+          }, function(){
+          })
+        } else {
+          alert(translateFilter("none_email"))
         }
       }
 
