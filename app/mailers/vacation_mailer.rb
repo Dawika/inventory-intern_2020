@@ -76,4 +76,16 @@ class VacationMailer < ApplicationMailer
     @dashboard_url = "#{ENV['DEFAULT_SITE_URL']}/somsri#/vacation/dashboard/"
   end
 
+  def self.send_mail_to_admin(vacation)
+    recipients = Employee.with_role(:admin)
+    recipients.each do |recipient|
+      send_mail_response_to_admin(recipient, vacation).deliver
+    end
+  end
+
+  def send_mail_response_to_admin(recipient, vacation)
+    @vacation = vacation
+    mail(to: recipient.email, subject: "#{vacation.approver.first_name} ได้ #{I18n.t(@vacation.status)} คำขอของ #{vacation.requester.first_name}")
+  end
+
 end

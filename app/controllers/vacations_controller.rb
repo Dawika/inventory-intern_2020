@@ -98,6 +98,7 @@ class VacationsController < ApplicationController
     else
       # redirect_to '/somsri#/vacation/dashboard/'
     end
+    response_mail_admin(vacation)
   end
 
   def reject
@@ -116,6 +117,11 @@ class VacationsController < ApplicationController
     else
       # redirect_to '/somsri#/vacation/dashboard/'
     end
+    response_mail_admin(vacation)
+  end
+
+  def response_mail_admin(vacation)
+    VacationMailer.send_mail_to_admin(vacation)
   end
 
   private
