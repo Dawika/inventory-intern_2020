@@ -36,7 +36,7 @@
         service.getEmployee(ctrl.empId).then(function(resp) {
           ctrl.employee = resp.data.employee
           ctrl.encrypted_password = resp.data.encrypted_password
-          if (resp.data.encrypted_password != "")
+          if (resp.data.encrypted_password)
             ctrl.showInviteButton = false
         });
       }
