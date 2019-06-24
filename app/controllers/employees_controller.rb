@@ -81,6 +81,13 @@ class EmployeesController < ApplicationController
       payroll = @employee.lastest_payroll
     end
 
+    isAdmin = false
+    for adminId in Employee.with_role(:admin).pluck(:id)
+      if (@employee.id == adminId)
+        isAdmin = true
+      end
+    end
+
     vacationSetting = VacationSetting.where(school_id: @employee.school_id).first
     # Set default vacation day
     if @employee.sick_leave_maximum_days_per_year.nil? && !vacationSetting.nil?
@@ -112,6 +119,7 @@ class EmployeesController < ApplicationController
       current_employee: current_user.employee?,
       vacationSetting: vacationSetting,
       current_admin: current_user.admin?,
+      is_admin: isAdmin,
       current_human_resource: current_user.human_resource?,
       has_last_salary: @employee.has_last_salary
     }

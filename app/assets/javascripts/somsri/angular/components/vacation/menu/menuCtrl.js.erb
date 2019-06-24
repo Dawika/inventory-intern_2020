@@ -2,12 +2,24 @@
   'use strict';
   angular.module('somsri.somsri.vacation.menu', [
   ])
-  .controller('vacationMenuCtrl', ['$rootScope', 'translateFilter', function ($rootScope, translateFilter) {
+  .controller('vacationMenuCtrl', ['vacationMenuService', '$rootScope', 'translateFilter', function (service, $rootScope, translateFilter) {
     var ctrl = this;
+    var id = document.getElementById('id').value;
+
+    ctrl.showDashboard = true
+    ctrl.endLine = true
 
     $rootScope.menu = translateFilter('vacation');
     $rootScope.canManage("all", function(canManange) {
       ctrl.isAdmin = canManange
     });
+
+    service.getEmployee(id).then(function(resp) {
+      if (resp.data.is_admin) {
+        ctrl.showDashboard = false
+        ctrl.endLine = false
+      }
+    })
+
   }]);
 })();
