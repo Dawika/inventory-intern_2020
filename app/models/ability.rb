@@ -10,6 +10,7 @@ class Ability
         can :dashboard
         can :manage, :all
 
+        can :manage, :cannot_leave
         can :manage, SiteConfig
         can :update, VacationLeaveRule
 
@@ -90,6 +91,7 @@ class Ability
         can :read, Individual
         can :manage, Employee, id: user.id
         can :manage, InventoryRequest, employee_id: user.id
+
         if user.approver?
           can :manage, VacationConfig
           can [:approve, :reject], Vacation
@@ -121,6 +123,7 @@ class Ability
     manage[:employee_me] = true
     update[:vacation_leave_rules] = true if self.can? :update, VacationLeaveRule
     manage[:supplier_details] = true if self.can :manage, Supplier
+    manage[:cannot_leave] = true if self.can? :manage, :cannot_leave
     result = {
       update: update,
       manage: manage

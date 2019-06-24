@@ -77,6 +77,16 @@
       }
     }
 
+    $rootScope.cannotLeave = function(model, callback) {
+      if ($rootScope.abilities && $rootScope.abilities.length > 0) {
+        checkManage(model, callback);
+      } else {
+        $http.get('/abilities').then(function(resp) {
+          callback(resp.data[0].manage.cannot_leave)
+        });
+      }
+    }
+
     $rootScope.canUpdate = function(model, success, fail) {
       if ($rootScope.abilities && $rootScope.abilities.length > 0) {
         checkManage(model, callback);

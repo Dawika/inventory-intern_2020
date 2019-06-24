@@ -2,9 +2,8 @@
   'use strict';
   angular.module('somsri.somsri.vacation.menu', [
   ])
-  .controller('vacationMenuCtrl', ['vacationMenuService', '$rootScope', 'translateFilter', function (service, $rootScope, translateFilter) {
+  .controller('vacationMenuCtrl', ['$rootScope', 'translateFilter', function ($rootScope, translateFilter) {
     var ctrl = this;
-    var id = document.getElementById('id').value;
 
     ctrl.showDashboard = true
     ctrl.endLine = true
@@ -14,8 +13,8 @@
       ctrl.isAdmin = canManange
     });
 
-    service.getEmployee(id).then(function(resp) {
-      if (resp.data.is_admin) {
+    $rootScope.cannotLeave("cannot_leave", function(cannotLeave) {
+      if (cannotLeave) {
         ctrl.showDashboard = false
         ctrl.endLine = false
       }
