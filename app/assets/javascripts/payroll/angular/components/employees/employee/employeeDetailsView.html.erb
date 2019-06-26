@@ -243,6 +243,14 @@
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
+                <label for="bank_branch">{{ "email" | translate }}</label>
+                <input type="text" class="form-control" id="employee_email" ng-model="employee.datas.employee.email" ng-readonly="!(employee.can_edit)">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
                 <table class="checkbox-group">
                   <tr>
                     <td>
@@ -869,6 +877,10 @@
 
         <div class="pull-right text-right padding-left10">
           <button type="submit" class="btn btn-custom btn-green" ng-show="employee.showSaveButton" ng-disabled="employee.isSubmit">{{ "save" | translate }}</button>
+        </div>
+
+        <div class="pull-right text-right padding-left10">
+          <button type="button" class="btn btn-custom btn-yellow" ng-show="employee.showInviteButton" ng-click="employee.invite(employee.empId)">invite</button>
         </div>
       </div>
     </div>

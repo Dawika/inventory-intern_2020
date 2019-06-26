@@ -8,6 +8,10 @@
       return $http.get('/employees');
     };
 
+    this.invite = function(id) {
+      return $http.post('/employees/' + id + '/invite');
+    }
+
     this.getEmployeeDeduction = function(id, payroll_id, data) {
       data.payroll.note = ''
       return $http.get('/employees/' + id + '/calculate_deduction', 

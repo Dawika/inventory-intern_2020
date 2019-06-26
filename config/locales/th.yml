@@ -313,6 +313,8 @@ th:
   confirm_recovery_employee: "คุณต้องการนำข้อมูลพนักงานกลับมาหรือไม่"
   confirm_delete_employee: "คุณต้องการลบข้อมูลพนักงานออกถาวรหรือไม่?"
   confirm_delete_record: "คุณต้องการลบราการนี้หรือไม่?"
+  confirm_invite_employee: "คุณต้องการส่งอีเมลล์คำเชิญไปยังพนักงานหรือไม่?"
+  none_email: "พนักงานคนนี้ยังไม่มีอีเมลล์"
   first_name_thai: ชื่อ (ไทย)
   last_name_thai: นามสกุล (ไทย)
   first_name_en: ชื่อ (อังกฤษ)

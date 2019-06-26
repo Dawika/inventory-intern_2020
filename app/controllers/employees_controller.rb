@@ -9,6 +9,14 @@ class EmployeesController < ApplicationController
     render json: employee, status: :ok
   end
 
+  #POST /employees/:id/invite
+  def invite
+    @raw, enc = Devise.token_generator.generate(Employee, :reset_password_token)
+    Employee.where(id: params[:id]).update_all(reset_password_token: enc, reset_password_sent_at: Time.now.utc)
+    user = User.find(params[:id])
+    EmployeeMailer.send_employee_invite(user, @raw).deliver
+  end
+
   # GET /employees/:id/slip
   def slip
     authorize! :manage, Employee
@@ -113,7 +121,8 @@ class EmployeesController < ApplicationController
       vacationSetting: vacationSetting,
       current_admin: current_user.admin?,
       current_human_resource: current_user.human_resource?,
-      has_last_salary: @employee.has_last_salary
+      has_last_salary: @employee.has_last_salary,
+      encrypted_password: @employee.encrypted_password?
     }
   end
 
