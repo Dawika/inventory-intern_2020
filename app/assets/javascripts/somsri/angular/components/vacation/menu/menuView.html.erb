@@ -1,6 +1,6 @@
 <div class="container main-menu main">
 
-    <div class="col-xs-4">
+    <div class="col-xs-4" ng-show="menu.showDashboard">
         <div class="menu-btn" ng-click="openVacationDashboard()">
             <div class="wraptocenter">
                 <%= image_tag 'vacation-dashboard-icon.png', class: "" %>
@@ -27,7 +27,7 @@
         <p>{{ 'leave_rules' | translate }}</p>
     </div>
 
-    <div class="col-xs-12 mt-50"></div>
+    <div class="col-xs-12 mt-50" ng-show="menu.endLine"></div>
 
     <div class="col-xs-4" ng-show="menu.isAdmin">
         <div class="menu-btn" ng-click="openVacationSetting()">
