@@ -9,6 +9,7 @@ class InterviewsController < ApplicationController
       interview = Interview.create(interview_params)
       InterviewMailer.interview_notification(interview).deliver      
     end 
+    render json: { status: true }
   end
 
   private

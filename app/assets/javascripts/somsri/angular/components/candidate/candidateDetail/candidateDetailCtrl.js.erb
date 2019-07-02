@@ -7,6 +7,9 @@
       var ctrl = this;
       ctrl.dateTime;
       ctrl.isValidDate = false;
+      ctrl.interviews = [{email: "" }];
+      
+      $rootScope.menu = translateFilter('scout');
       candidateDetailService.getById($state.params.id).then(function(resp) {
         ctrl.datas = resp.data;
         ctrl.datas.candidate.interview.candidate_id = ctrl.datas.candidate.id;
@@ -93,9 +96,15 @@
       opened: false
     };
 
+    function newDateType(){
+      ctrl.datas.candidate.interview.date= new Date(ctrl.datas.candidate.interview.date)
+    }
+    
     ctrl.saveInterview = function() {
       candidateDetailService.saveInterview(ctrl.datas.candidate.interview).then(function(resp) {
         $('#interView').modal('hide');
+        ctrl.datas.candidate.interview.id = resp.data.status
+        
       })
     }
 
@@ -111,12 +120,24 @@
       window.location.href = '/somsri#/candidate';
     }
 
-    function newDateType(){
-      ctrl.datas.candidate.interview.date= new Date(ctrl.datas.candidate.interview.date)
-    }
-
     ctrl.addEamilInterviewer = function(){
       ctrl.datas.candidate.interview.push({})
     }
+
+    ctrl.reset = function () {
+        ctrl.interviews.length = 1;
+        ctrl.interviews[0] =  {email: "" };
+    }; 
+
+    ctrl.addInterview = function(){
+        console.log(ctrl.interviews);
+        ctrl.interviews.push({ email: "" });
+    }
+
+    ctrl.removeInterview = function(index) {
+        ctrl.interviews[index]._destroy = true;
+    }
+
+
   }]);
 })();
