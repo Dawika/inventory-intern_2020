@@ -15,6 +15,12 @@ class InterviewsController < ApplicationController
   private
 
   def interview_params
-    params.require(:interview).permit(:id, :email, :date, :location, :candidate_id)
+    params.require(:interview).permit(
+      :id, 
+      :date, 
+      :location, 
+      :candidate_id, 
+      :category,
+      interviewer_emails_attributes: [:id, :email, :_destroy])
   end
 end

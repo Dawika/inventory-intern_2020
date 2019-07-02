@@ -5,14 +5,16 @@
     'candidateDetailService','$state',  '$uibModal', 'candidateService', '$window', 'candidateEditService',
     function($scope, $rootScope, translateFilter, candidateDetailService, $state,  $uibModal, service, $window, candidateEditService) {
       var ctrl = this;
-      ctrl.dateTime;
+      ctrl.showInterviewDate = false;
       ctrl.isValidDate = false;
       ctrl.interviews = [{email: "" }];
       
       $rootScope.menu = translateFilter('scout');
+      ctrl.categorys = ['ฝึกงาน', 'สหกิจ', 'สมัครงาน']
       candidateDetailService.getById($state.params.id).then(function(resp) {
         ctrl.datas = resp.data;
         ctrl.datas.candidate.interview.candidate_id = ctrl.datas.candidate.id;
+        ctrl.datas.candidate.interview.interviewer_emails_attributes = ctrl.datas.candidate.interviewer_emails_attributes;
     
         if(ctrl.datas.candidate.shortlist){
           ctrl.buttonIcon = "fas fa-star color-yellow";
@@ -21,7 +23,9 @@
         }
         newDateType()
         
-        console.log(ctrl.datas.candidate)
+        if(ctrl.datas.candidate.interview.id != null){
+          ctrl.showInterviewDate = true;
+        }
         
       });
      
@@ -91,6 +95,7 @@
     }
     
     ctrl.saveInterview = function() {
+      ctrl.showInterviewDate = true;
       candidateDetailService.saveInterview(ctrl.datas.candidate.interview).then(function(resp) {
         $('#interView').modal('hide');
         ctrl.datas.candidate.interview.id = resp.data.status

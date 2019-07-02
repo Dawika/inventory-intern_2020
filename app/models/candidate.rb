@@ -33,6 +33,7 @@ class Candidate < ApplicationRecord
         detail: helpers.link_to_path("รายละเอียด", id)
       }
     elsif(options['show_or_edit'])
+      interview_datas = interview.present? ? interview : Interview.new
       {
         id: id || '',
         full_name_and_nick_name: "#{full_name} (#{nick_name})",
@@ -52,13 +53,14 @@ class Candidate < ApplicationRecord
         image_url: image.expiring_url(10),
         deleted: deleted?,
         versions: versions.map{ |v| VersionUtil.with_user(v) },
-        interview: interview.present? ? interview : Interview.new,
         programming_skills_attributes: self.new_record? ? [programming_skills.build.attributes.except('id')] : programming_skills,
         soft_skills_attributes: self.new_record? ? [soft_skills.build.attributes.except('id')] : soft_skills,
         design_skills_attributes: self.new_record? ? [design_skills.build.attributes.except('id')] : design_skills,
         candidate_files_attributes: self.new_record? ? [candidate_files.build.attributes.except('id')]   : candidate_files,
         candidate_files_url: candidate_files.map { |x| x.files.expiring_url(10) },
-        shortlist: shortlist
+        shortlist: shortlist,
+        interview: interview_datas,
+        interviewer_emails_attributes: interview.present? ? interview_datas.interviewer_emails : [interview_datas.interviewer_emails.build]
      }
     else
       super

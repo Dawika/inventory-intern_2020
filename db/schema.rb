@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190628034658) do
+ActiveRecord::Schema.define(version: 20190702093531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -432,11 +432,17 @@ ActiveRecord::Schema.define(version: 20190628034658) do
     t.index ["spouse_id"], name: "index_individuals_on_spouse_id", using: :btree
   end
 
+  create_table "interviewer_emails", force: :cascade do |t|
+    t.string  "email",        null: false
+    t.integer "interview_id"
+    t.index ["interview_id"], name: "index_interviewer_emails_on_interview_id", using: :btree
+  end
+
   create_table "interviews", force: :cascade do |t|
-    t.string   "email"
     t.datetime "date"
-    t.string   "location"
+    t.string   "location",     default: "Banana Office"
     t.integer  "candidate_id"
+    t.string   "category"
     t.index ["candidate_id"], name: "index_interviews_on_candidate_id", using: :btree
   end
 
@@ -996,6 +1002,7 @@ ActiveRecord::Schema.define(version: 20190628034658) do
   add_foreign_key "individuals", "employees", column: "friend_id"
   add_foreign_key "individuals", "employees", column: "parent_id"
   add_foreign_key "individuals", "employees", column: "spouse_id"
+  add_foreign_key "interviewer_emails", "interviews"
   add_foreign_key "interviews", "candidates"
   add_foreign_key "parents", "schools"
   add_foreign_key "programming_skills", "candidates"
