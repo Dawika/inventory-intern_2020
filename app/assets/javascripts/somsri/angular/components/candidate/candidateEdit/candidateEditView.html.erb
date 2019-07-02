@@ -29,25 +29,26 @@
             <img src="{{candidateEdit.datas.candidate.image_url}}" id="pic" class="picture">
           </div>
 
-          <!-- MultipleFiles -->
-            <div class="row" style="padding-top:25px;margin:0px">
-              <label>{{ 'candidate_files' | translate }}</label>
-              <button type="button" class="btn btn-skill" ng-click="candidateEdit.addFile()">+File</button>
-                <div ng-repeat="item in candidateEdit.datas.candidate.candidate_files_attributes">
-                  <div ng-hide="item._destroy">
-                    <div style="padding:2px;">  
-                      <span ng-hide="!item.files_file_name.name">{{ item.files.name }}</span>
-                    </div>
-                    <div style="padding:2px;">
-                      <a ng-show="!item.files_file_name.name" target="_blank" href="{{ candidateEdit.datas.candidate.candidate_files_url[$index] }}">{{ item.files_file_name }}</a>
-                    </div> 
-                    <div class="button btn btn-info" ngf-select="candidateEdit.onFileChange($index, $event)" ng-model="item.files_file_name" name="file">+</div>   
-                      <button type="button" class="close" aria-label="Close" ng-click="candidateEdit.removeCandidateFiles($index)"><span aria-hidden="true">&times;</span></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><br>
+        <!-- MultipleFiles -->
+        <div class="space20"></div>
+        <div class="row margin-0 paddingt-25">
+          <label>{{ 'resumetranscriptPDF' | translate }}</label>
+          <button type="button" class="btn btn-skill" ng-click="candidateEdit.addFile()">+File</button>
+          <div ng-repeat="item in candidateEdit.datas.candidate.candidate_files_attributes" ng-hide="item._destroy">
+            <div class="row margin-0 padding-5">
+              <a ng-show="!item.files_file_name.name" target="_blank" href="{{ candidateEdit.datas.candidate.candidate_files_url[$index] }}">{{ item.files_file_name }}</a>
+            </div>
+            <div class="col-md-11 margin-0 padding-0"> 
+              <div class="btn rectangle text-overflow" ngf-select="candidateEdit.onFileChange($index, $event)" ng-model="item.files_file_name" name="file"><i class="fas fa-file-upload"><span ng-hide="!item.files_file_name.name"> {{ item.files.name }}</span></i></div>   
+            </div>
+            <div class="col-md-1 padding-0 margint-5">
+              <button type="button" class="close" aria-label="Close" ng-click="candidateEdit.removeCandidateFiles($index)"><span aria-hidden="true">&times;</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      
       <!-- From info -->
       <div class="col-md-5">
       
@@ -247,7 +248,7 @@
       <div class="col-md-5">
         <div class="form-group"style="margin:0px">
           <div class="row-head" style="border-bottom: 1px solid #ddd;padding-bottom:10px;;margin:0px">
-            {{ 'NoteE'  | translate }}
+            {{ 'note'  | translate }}
           </div>
           <div class="row" style="padding-top:25px;margin:0px">
             <textarea class="form-control" style="border:solid 1px #ddd;" rows="30" id="note" ng-model="candidateEdit.datas.candidate.note"></textarea>

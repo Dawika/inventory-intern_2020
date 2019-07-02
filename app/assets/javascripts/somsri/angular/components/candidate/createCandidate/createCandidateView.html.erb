@@ -24,6 +24,7 @@
         <div class="space20"></div>
         <div class="row margin-0 paddingt-25">
           <label>{{ 'resumetranscriptPDF' | translate }}</label>
+          <button type="button" class="btn btn-skill" ng-click="createCandidate.addFile()">+File</button>
           <div ng-repeat="item in createCandidate.datas.candidate.candidate_files_attributes" ng-hide="item._destroy">
             <div class="row margin-0 padding-5">
               <a ng-show="!item.files_file_name.name" target="_blank" href="{{ createCandidate.datas.candidate.candidate_files_url[$index] }}">{{ item.files_file_name }}</a>
@@ -35,10 +36,6 @@
               <button type="button" class="close" aria-label="Close" ng-click="createCandidate.removeCandidateFiles($index)"><span aria-hidden="true">&times;</span></button>
             </div>
           </div>
-        </div>
-
-        <div class="row padding-10">
-          <button type="button" class="btn btn-skill" ng-click="createCandidate.addFile()">+File</button>
         </div>
       </div>
 
