@@ -1,6 +1,5 @@
 class CandidateFile < ApplicationRecord
     belongs_to :candidate
     has_attached_file :files, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: ""
-    validates_attachment_content_type :files, content_type: /\Aimage\/.*\z/
-
+    validates_attachment_content_type :files, content_type: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf']
   end
