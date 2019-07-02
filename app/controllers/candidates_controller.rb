@@ -26,8 +26,7 @@ class CandidatesController < ApplicationController
   end
 
   def show
-    @candidate = Candidate.find(params[:id])
-    render json: { candidate: @candidate.as_json('show_or_edit') }, status: :ok
+    render json: { candidate: Candidate.with_deleted.where(id: params[:id]).first.as_json('show_or_edit') }, status: :ok
   end    
 
   def update_candidate
