@@ -14,6 +14,7 @@
       });
 
     ctrl.submit = function(params){
+      ctrl.cannotUpdate = true;
       ctrl.skillEmpty();
       candidateEditService.saveCandidate(ctrl.datas.candidate.id, params).then(function(resp){
         ctrl.goDetail();
