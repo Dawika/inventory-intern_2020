@@ -18,7 +18,6 @@
     function loadNewCandidate() {
       candidateService.new().then(function(resp) {
         ctrl.datas = resp
-        console.log(resp)
         ctrl.datas.candidate.candidate_files_attributes = [];
         ctrl.datas.candidate.programming_skills_attributes[0].skill_point = 0;
         ctrl.datas.candidate.soft_skills_attributes[0].skill_point = 0;
