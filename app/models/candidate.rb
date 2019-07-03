@@ -56,7 +56,7 @@ class Candidate < ApplicationRecord
         soft_skills_attributes: self.new_record? ? [soft_skills.build.attributes.except('id')] : soft_skills,
         design_skills_attributes: self.new_record? ? [design_skills.build.attributes.except('id')] : design_skills,
         candidate_files_attributes: self.new_record? ? [candidate_files.build.attributes.except('id')]   : candidate_files,
-        candidate_files_url: candidate_files.map { |x| x.files },
+        candidate_files_url: candidate_files.map { |x| x.files.expiring_url(10) },
         shortlist: shortlist
      }
     else
