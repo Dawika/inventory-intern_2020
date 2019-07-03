@@ -11,6 +11,7 @@
     $rootScope.loadAndAuthorizeResource("candidate", function(){
       $rootScope.menu = translateFilter('scout');
       ctrl.cannotSubmit = true;
+      ctrl.cannotSubmit = false;
       loadNewCandidate();
     });
 
@@ -25,15 +26,19 @@
     }
 
     ctrl.cancelSubmit = function(){
+      if(ctrl.cannotCancel == false){
         openConfirmationModal(translateFilter("close_without_save"), function(){
-        ctrl.cannotSubmit = true ;
-        window.location.href = "/somsri#/candidate";
+          ctrl.cannotSubmit = true ;
+          ctrl.cannotCancel = true;
+          window.location.href = "/somsri#/candidate";
     });
+    }
   }
 
   ctrl.submit = function(params){
     openConfirmationModal(translateFilter("close_with_save"), function(){
         ctrl.cannotSubmit = true;
+        ctrl.cannotCancel = true;
         ctrl.skillEmpty();
         candidateService.saveCandidate(params).then(function(resp) {
           window.location.href = "/somsri#/candidate";
