@@ -11,13 +11,14 @@
     $rootScope.loadAndAuthorizeResource("candidate", function(){
       $rootScope.menu = translateFilter('scout');
       ctrl.cannotSubmit = true;
-      ctrl.cannotSubmit = false;
+      ctrl.cannotCancel = false;
       loadNewCandidate();
     });
 
     function loadNewCandidate() {
       candidateService.new().then(function(resp) {
         ctrl.datas = resp
+        console.log(resp)
         ctrl.datas.candidate.candidate_files_attributes = [];
         ctrl.datas.candidate.programming_skills_attributes[0].skill_point = 0;
         ctrl.datas.candidate.soft_skills_attributes[0].skill_point = 0;
@@ -29,7 +30,7 @@
       if(ctrl.cannotCancel == false){
         openConfirmationModal(translateFilter("close_without_save"), function(){
           ctrl.cannotSubmit = true ;
-          ctrl.cannotCancel = true;
+          ctrl.cannotCancel = true ;
           window.location.href = "/somsri#/candidate";
     });
     }
