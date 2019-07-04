@@ -1,7 +1,9 @@
 (function() {
   'use strict';
   angular.module('somsri.somsri.candidateEdit', [])
-  .controller('candidateEditCtrl', ['$scope', '$rootScope', 'translateFilter', 'candidateEditService', '$state', function($scope, $rootScope, translateFilter, candidateEditService, $state) {
+  .controller('candidateEditCtrl', ['$scope', '$rootScope', 'translateFilter', 'candidateEditService', '$state', '$uibModal',
+   function($scope, $rootScope, translateFilter, candidateEditService, $state, $uibModal) {
+
     var ctrl = this;
     var imagefile;
     ctrl.points = Array.from(Array(21).keys())
@@ -13,14 +15,24 @@
       });
 
     ctrl.submit = function(params){
+      openConfirmationModal(translateFilter("close_with_update"), function(){
       ctrl.cannotUpdate = true;
       ctrl.cannotCancel = true;
       ctrl.skillEmpty();
       candidateEditService.saveCandidate(ctrl.datas.candidate.id, params).then(function(resp){
         ctrl.goDetail();
       });
-    };
+    });
+  };
     
+    ctrl.cancelUpdate = function(){
+        openConfirmationModal(translateFilter("close_without_update"), function(){
+          ctrl.cannotupdate = true ;
+          ctrl.cannotCancel = true ;
+          ctrl.goDetail();
+    });
+  }
+
     ctrl.goDetail = function(){
       window.location.href = '/somsri#/candidate/detail/' + ctrl.datas.candidate.id;
     }
@@ -100,6 +112,34 @@
         }
       }
     }
+    
+    function openConfirmationModal(message, success, dismiss) {
+      $scope.message = message;
+      $uibModal.open({
+        animation: true,
+        backdrop: 'static',
+        keyboard: false,
+        scope: $scope,
+        templateUrl: "<%= asset_path('payroll/angular/components/modal/confirm/confirmModalView.html') %>",
+        controller: 'confirmModalCtrl as confirm',
+        size: 'md',
+        resolve: {
+          resources: ['$ocLazyLoad', 'ASSETS', function($ocLazyLoad, ASSETS) {
+            return $ocLazyLoad.load([
+              ASSETS.somsri.somsri.confirm_modal
+            ]);
+          }]
+        }
+      }).result.then(function (isConfirm) {
+        if (isConfirm) {
+          if(success){ success() }
+        }else{
+          if(dismiss){ dismiss() }
+        }
+      });
+    }
+
+
     
       });
     }]);

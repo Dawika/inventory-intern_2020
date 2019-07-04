@@ -332,6 +332,8 @@ en:
   print_delivery_money: "Print Delivery Money"
   close_with_save: "Do you want to save?"
   close_without_save: "Do you want to leave this screen?"
+  close_with_update: "Do you want to update?"
+  close_without_update: "Do you want to leave without update?"
 
   hello: "Hello world"
 
