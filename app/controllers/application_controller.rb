@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
   end
 
   def subdomain_url(name, path)
-    "#{request.protocol}#{name}.#{request.host_with_port}#{path}"
+    "http://#{name}.onbananacoding.com#{path}"
   end  
 
   protected
