@@ -36,7 +36,7 @@
 //= require_tree .
 
 $(document).ready(function() {
-  $('form[data-client-side-validations]').validate();
+  $('form[data-client-side-validations]').enableClientSideValidations();
 })
 
 function showDropdown(id) {
@@ -125,7 +125,6 @@ function valid(id) {
 }
 
 function disabledOrEnableSubmitForm(form, enableSubmit) {
-  console.log(form.find('input.required.is-valid').length, form.find('input.required').length)
   // disabled buntton save when input validate blank
   if (form.find('input.required.is-valid').length === form.find('input.required').length) {
     form.find(':submit').attr('disabled', false);
@@ -165,12 +164,12 @@ function showNewSchool() {
 function changeLogo(event, img_logo) {
   logo = URL.createObjectURL(event.target.files[0]);
   $('#' + img_logo).attr('src', logo);
-  FileType =event.target.files[0]
+  FileType = event.target.files[0]
   FileSize = event.target.files[0].size / 1024 / 1024; // in MB
   error = $('#errorMessage')
   requireimg = $('#requireimg')
   input = $('.required#school_logo')
-  if (FileType.name.match(/\.(jpg|jpeg|png)$/) ) {
+  if (FileType.name.match(/\.(jpg|jpeg|png)$/)) {
     if (FileSize > 2) {
       $('#' + img_logo).attr('src', 'http://chittagongit.com/images/icon-file-size/icon-file-size-10.jpg');
       error.show()
@@ -185,15 +184,14 @@ function changeLogo(event, img_logo) {
       valid('school_logo')
       $('#img-sc-true').removeClass('hide');
       $('#img-sc-false').addClass('hide');
-  }
-} else {
-  $('#' + img_logo).attr('src', 'http://chittagongit.com/images/icon-file-size/icon-file-size-10.jpg');
-  error.show()
-  requireimg.hide()
-  inValid('school_logo', '')
-  $('#img-sc-true').addClass('hide');
-  $('#img-sc-false').removeClass('hide');
-  error.html('*ต้องเป็นไฟล์รูปภาพเท่านั้น')
+    }
+  } else {
+    $('#' + img_logo).attr('src', 'http://chittagongit.com/images/icon-file-size/icon-file-size-10.jpg');
+    error.show()
+    requireimg.hide()
+    inValid('school_logo', '')
+    $('#img-sc-true').addClass('hide');
+    $('#img-sc-false').removeClass('hide');
+    error.html('*ต้องเป็นไฟล์รูปภาพเท่านั้น')
   }
 }
-
