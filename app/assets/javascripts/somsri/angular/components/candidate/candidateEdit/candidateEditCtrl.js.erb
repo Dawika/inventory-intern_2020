@@ -10,11 +10,11 @@
       $rootScope.menu = translateFilter('scout');
       candidateEditService.getCandidate($state.params.id).then(function(resp) {
         ctrl.datas = resp;
-        console.log(ctrl.datas)
       });
 
     ctrl.submit = function(params){
       ctrl.cannotUpdate = true;
+      ctrl.cannotCancel = true;
       ctrl.skillEmpty();
       candidateEditService.saveCandidate(ctrl.datas.candidate.id, params).then(function(resp){
         ctrl.goDetail();
