@@ -13,7 +13,9 @@
         <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="row">
             <div class="col-xs-12">
-              <%= image_tag @school&.logo, class: "img-responsive logo-login" %>
+              <% if @school&.logo.present? %>
+                <%= image_tag @school&.logo, class: "img-responsive logo-login" %>
+              <% end %>
             </div>
           </div>
           <div class="row">
