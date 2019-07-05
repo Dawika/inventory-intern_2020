@@ -87,7 +87,7 @@
                 <input type="email" class="form-control input-email" ng-model="item.email" ng-keyup="interviewModal.disableButton(item.email)">
               </div>
               <div class="col-md-1 padding-left0">
-                <button type="button" class="close mt-15" aria-label="Close" ng-click="interviewModal.removeInterViewEmail($index)"><span aria-hidden="true">&times;</span></button>
+                <button type="button" ng-hide="item.id != ''" class="close mt-15" aria-label="Close" ng-click="interviewModal.removeInterViewEmail($index)"><span aria-hidden="true">&times;</span></button>
               </div>
             </div> 
           </div>

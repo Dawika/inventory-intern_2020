@@ -4,9 +4,6 @@ class InterviewsController < ApplicationController
     if interview_params[:id].present?
       interview = Interview.find(interview_params[:id])
       interview.update(interview_params)
-      interview.interviewer_emails.each do |interviewer|
-        InterviewMailer.edit_interview_notification(interview, interviewer.email).deliver
-      end
     else
       interview = Interview.create(interview_params)
     end
