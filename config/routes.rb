@@ -169,7 +169,7 @@ Rails.application.routes.draw do
   end
 
   resources :subdomains do
-    member do
+    collection do
       get 'change'
     end
   end

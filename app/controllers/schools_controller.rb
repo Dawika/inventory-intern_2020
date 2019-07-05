@@ -12,7 +12,7 @@ class SchoolsController < ApplicationController
         SchoolMailer.school_notification(@school).deliver
         user = @school.users.first
         user.add_role('admin')
-        redirect_to subdomain_url(@school.subdomain_name, change_subdomain_path(user))
+        redirect_to change_subdomains_url(subdomain: @school.subdomain_name, id: user)
       else
         redirect_to new_school_path
       end
