@@ -15,18 +15,23 @@
         ctrl.datas = resp.data;
         ctrl.datas.candidate.interview.candidate_id = ctrl.datas.candidate.id;
         ctrl.datas.candidate.interview.interviewer_emails_attributes = ctrl.datas.candidate.interviewer_emails_attributes;
-    
+        
         if(ctrl.datas.candidate.shortlist){
           ctrl.buttonIcon = "fas fa-star color-yellow";
         }else{
           ctrl.buttonIcon = "far fa-star color-yellow";
         }
-        newDateType()
+        
         
         if(ctrl.datas.candidate.interview.id != null){
           ctrl.showInterviewDate = true;
         }
-        
+
+        if( ctrl.datas.candidate.nick_name == null || ctrl.datas.candidate.nick_name == ''){
+          ctrl.datas.candidate.full_name_and_nick_name = ctrl.datas.candidate.full_name
+        }
+
+        console.log(ctrl.datas.candidate)
       });
      
       ctrl.changStatus = function(check){
@@ -47,7 +52,7 @@
         window.location.href = '/somsri#/candidate/' + ctrl.datas.candidate.id + '/edit';
       }
 
-      function openConfirmationModal(message, success, dismiss) {
+    function openConfirmationModal(message, success, dismiss) {
       $scope.message = message;
       $uibModal.open({
         animation: true,
@@ -74,7 +79,7 @@
     }
   
 
-      ctrl.removeCandidate = function(id){
+    ctrl.removeCandidate = function(id){
       openConfirmationModal(translateFilter('confirmdelete'), function(){
         service.removeCandidate(id).then(function(resp) {
            window.location.href = "/somsri#/candidate";
@@ -82,33 +87,14 @@
       })
     } 
 
-    ctrl.openDatePopup = function() {
-      ctrl.datePopup.opened = true;
-    };
-
-    ctrl.datePopup = {
-      opened: false
-    };
-
-    function newDateType(){
-      ctrl.datas.candidate.interview.date= new Date(ctrl.datas.candidate.interview.date)
-    }
-    
-    ctrl.saveInterview = function() {
-      ctrl.showInterviewDate = true;
-      candidateDetailService.saveInterview(ctrl.datas.candidate.interview).then(function(resp) {
-        $('#interView').modal('hide');
-        ctrl.datas.candidate.interview.id = resp.data.status
-        
-      })
-    }
-
-    ctrl.checkDate = function() {
-      ctrl.isValidDate = !isValidDate(ctrl.datas.candidate.interview.date)
-    }
-
-    function isValidDate(date) {
-      return date instanceof Date && !isNaN(date);
+    function displayFlashMessage(message, typeSuccess){
+      ctrl.timeout = false
+      ctrl.message = message;
+      ctrl.typeSuccess = typeSuccess;
+      $window.scrollTo(0, 0);
+      $timeout( function(){
+        ctrl.timeout = true
+      }, 5000);
     }
 
     ctrl.back = function(){
@@ -131,6 +117,30 @@
 
     ctrl.removeInterview = function(index) {
         ctrl.interviews[index]._destroy = true;
+    }
+    ctrl.openInterviewModal = function(){
+      $scope.candidate_id = ctrl.datas.candidate.id
+      $uibModal.open({
+        animation: true,
+        backdrop: 'static',
+        keyboard: false,
+        scope: $scope,
+        templateUrl: "<%= asset_path('somsri/angular/components/candidate/candidateDetail/interviewModal/interviewModalView.html') %>",
+        controller: 'interviewModalCtrl as interviewModal',
+        size: 'md',
+        resolve: {
+          resources: ['$ocLazyLoad', 'ASSETS', function($ocLazyLoad, ASSETS) {
+            return $ocLazyLoad.load([
+              ASSETS.somsri.somsri.interview_modal
+            ]);
+          }]
+        }
+      }).result.then(function (resp) {
+        if (resp) {
+          ctrl.showInterviewDate = true;
+          ctrl.datas.candidate.interview = resp;
+        }
+      });
     }
 
 

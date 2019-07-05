@@ -7,9 +7,8 @@ class InterviewsController < ApplicationController
       InterviewMailer.edit_interview_notification(interview).deliver
     else
       interview = Interview.create(interview_params)
-      InterviewMailer.interview_notification(interview).deliver      
-    end 
-    render json: { status: true }
+    end
+    render json: { candidate: interview.candidate.as_json('show_or_edit') }, status: :ok
   end
 
   private

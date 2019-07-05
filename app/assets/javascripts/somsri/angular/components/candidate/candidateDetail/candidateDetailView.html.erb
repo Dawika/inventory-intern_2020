@@ -1,6 +1,6 @@
 <div class="container-fluid p-50">
-  <div class="row head-sp" style="margin-bottom: 20px;">
-    <p class="back-scout font-candidate color-blue-candidate"><button class="button-arrow" ng-click="candidateDetail.back()"><i class="fas fa-arrow-left" style="padding-right: 10px;"></i></button>Candidate Information</p>
+  <div class="row head-sp mb-20">
+    <p class="back-scout font-candidate color-blue-candidate"><button class="button-arrow" ng-click="candidateDetail.back()"><i class="fas fa-arrow-left pd-l-10"></i></button>Candidate Information</p>
   </div>
   <div class="row paper-white container-fluid padding-30">
     <div class="row mb-15">
@@ -36,7 +36,7 @@
                 <span>Interview date:</span>
               </div>
               <div class="col-md-3 padding-left0" ng-show="candidateDetail.showInterviewDate">
-                <span class="color-blue-candidate">{{candidateDetail.datas.candidate.interview.date | date:"dd/MM/yyyy HH:mm"}}</span>
+                <span class="color-blue-candidate" ng-click="candidateDetail.openInterviewModal()" >{{candidateDetail.datas.candidate.interview.date | date:"dd/MM/yyyy HH:mm"}}</span>
               </div>
             </div>
             <div class="row mb-20 detail-candidate font-candidate">
@@ -76,7 +76,7 @@
       </div>
       <div class="col-sm-2 px-0">
         <div class="margin20">
-          <button type="button" ng-disabled="candidateDetail.datas.candidate.deleted" class="btn btn-custom btn-orange w-100p" data-toggle="modal" data-target="#interView"><i class="fas fa-comment-dots m-5"></i>Interview</button>
+          <button type="button" ng-disabled="candidateDetail.datas.candidate.deleted" class="btn btn-custom color-blue-button w-100p" ng-click="candidateDetail.openInterviewModal()" ng-hide="candidateDetail.showInterviewDate"><i class="fas fa-comment-dots m-5"></i>Interview</button>
         </div>
         <div class="margin20">
           <button type="button" class="btn btn-submit2 w-100p" ng-disabled="candidateDetail.datas.candidate.deleted"><i class="fas fa-pen-square m-5"></i>Edit</button>
@@ -215,132 +215,3 @@
     </div>
   </div>
 </div>
-
-<div class="modal fade" id="interView" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document" style="width: 50%;">
-    <div class="modal-content cyan">
-      <div class="modal-header">
-        <div class="row">
-          <i class="fa fa-close fa-2x pull-right" data-dismiss="modal"></i>
-          <h3 class="modal-title" id="myModalLabel"><i class="fas fa-comment-dots m-20"></i>InterView</h3>
-        </div>
-      </div>
-      <div class="modal-body">
-        <div class="row mb-20">
-          <div class="row"> 
-            <div class="col-md-12">
-              <h4>ประเภท</h4>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div ng-repeat="category in candidateDetail.categorys">
-                <input type="radio" name="occurrences" ng-value="category" ng-model="candidateDetail.datas.candidate.interview.category" />
-                <label>{{ category }}</label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row mb-20">
-          <div class="row">
-            <div class="col-md-12">
-              <h4 style="margin-top: 0px;">location</h4>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <input ng-model="candidateDetail.datas.candidate.interview.location" type="text" class="form-control" style="padding:0px" >
-            </div>
-          </div>
-        </div>
-        <div class="row mb-20">
-          <div class="row">
-            <div class="col-md-12">
-              <h4>วันนัดสัมภาษณ์</h4>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <p class="input-group">
-                  <label>Date</label>
-                  <input id="start_date" type="text" ng-change="candidateDetail.checkDate()" class="form-control numberic" ng-model-options="{timezone: 'bangkok'}" uib-datepicker-popup="dd/MM/yyyy HH:mm" ng-model="candidateDetail.datas.candidate.interview.date" is-open="candidateDetail.datePopup.opened" close-text="Close" >
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="candidateDetail.openDatePopup()"><i class="fa fa-calendar"></i></button>
-                  </span>
-                </p>
-                <span ng-show="candidateDetail.isValidDate" class="col">
-                  กรุณากรอกวันที่ให้ถูกต้อง เช่น 01/07/2019 07:35
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="row">
-            <div class="col-md-12"> 
-              <h4>ผู้สัมภาษณ์</h4>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <label>Email</label>
-              <div ng-repeat="item in candidateDetail.datas.candidate.interview.interviewer_emails_attributes">
-                <div ng-hide="item._destroy">
-                  <input type="email" ng-model="item.email" ng-keyup="candidateDetail.disableButton(item.email)" style="border: 0; border-bottom: 2px solid #ddd; width: 100%;">
-                  <button type="button" class="close" aria-label="Close" ng-click="candidateDetail.removeInterViewEmail($index)"><span aria-hidden="true">&times;</span></button>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <button class="btn btn-submit3" ng-click="candidateDetail.addMoreEmail()">+ invite</button>
-            </div>
-          </div>    
-        </div>
-      </div>
-      <div class="modal-footer">
-        <div class="row">
-          <div class="col-md-4 pull-right">
-            <button type="button" class="btn btn-block btn-custom btn-gray" data-dismiss="modal">{{ "close" | translate }}</button>
-          </div>
-          <div class="col-md-4 pull-right">
-            <button type="button" id="saveInterview" ng-click="candidateDetail.saveInterview()" ng-disabled="candidateDetail.isValidDate || candidateDetail.invalidEmail" class="btn btn-block btn-custom btn-green">{{ "save" | translate }}</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal" id="myModal" close="cancel()">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <div class="row-head" style="border-bottom: 1px solid #ddd;padding-bottom:10px;margin:0px">
-            <i class="fas fa-comment-dots"></i>&nbsp; Interview form
-        </div>
-      </div>
-      <div class="modal-body">
-        <p class="text-blue">ผู้สัมภาษณ์</p>
-        <label for="nick_name">Email</label>&nbsp;
-        <button type="button" class ="btn btn-interview-add" ng-click="candidateDetail.addInterview()">+{{ 'Add'  | translate }}</button>
-        <div ng-repeat="item in candidateDetail.interviews" class="row"> 
-          <div ng-hide="item._destroy">
-            <div class="col-md-6">
-                <input type="text" class="form-control" id="skillname" ng-model="item.email">
-            </div>
-            <div class="col-md-1">
-                <button type="button" class="close" aria-label="Close" ng-click="candidateDetail.removeInterview($index)"><span aria-hidden="true">&times;</span></button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-interview-send" data-dismiss="modal" >Send</button>
-        <button type="button" class="btn btn-interview-reset" ng-click="candidateDetail.reset()"><i class="fas fa-trash-alt"></i>&nbsp; Reset</button>
-      </div>
-    </div>
-  </div>
-</div>
-
