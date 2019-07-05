@@ -79,7 +79,7 @@
           <button type="button" ng-disabled="candidateDetail.datas.candidate.deleted" class="btn btn-custom color-blue-button w-100p" ng-click="candidateDetail.openInterviewModal()" ng-hide="candidateDetail.showInterviewDate"><i class="fas fa-comment-dots m-5"></i>Interview</button>
         </div>
         <div class="margin20">
-          <button type="button" class="btn btn-submit2 w-100p" ng-disabled="candidateDetail.datas.candidate.deleted"><i class="fas fa-pen-square m-5"></i>Edit</button>
+          <button type="button" class="btn btn-submit2 w-100p" ng-disabled="candidateDetail.datas.candidate.deleted" ng-click="candidateDetail.toEdit()"><i class="fas fa-pen-square m-5"></i>Edit</button>
         </div>
         <div class="margin20">
           <button type="button" ng-disabled="candidateDetail.datas.candidate.deleted" class="btn btn-cancel2 w-100p" ng-click="candidateDetail.removeCandidate(candidateDetail.datas.candidate.id)"><i class="fas fa-trash-alt m-5"></i>Delete</button> 

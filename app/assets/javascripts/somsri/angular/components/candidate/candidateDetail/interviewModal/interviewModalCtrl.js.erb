@@ -74,7 +74,7 @@
 
     }
     ctrl.save = function(){
-      openConfirmationModal(translateFilter('save_with_close'), function(){
+      openConfirmationModal(translateFilter('close_with_save'), function(){
         ctrl.saveInterview();
       })
     }
@@ -94,13 +94,13 @@
         backdrop: 'static',
         keyboard: false,
         scope: $scope,
-        templateUrl: "<%= asset_path('somsri/angular/components/modal/minimalConfirmModal/minimalConfirmModalView.html') %>",
-        controller: 'minimalConfirmModalCtrl as confirm',
+        templateUrl: "<%= asset_path('payroll/angular/components/modal/confirm/confirmModalView.html') %>",
+        controller: 'confirmModalCtrl as confirm',
         size: 'md',
         resolve: {
           resources: ['$ocLazyLoad', 'ASSETS', function($ocLazyLoad, ASSETS) {
             return $ocLazyLoad.load([
-              ASSETS.somsri.somsri.minimal_confirm_modal
+              ASSETS.somsri.somsri.confirm_modal
             ]);
           }]
         }
