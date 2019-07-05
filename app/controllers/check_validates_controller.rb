@@ -12,7 +12,11 @@ class CheckValidatesController < ApplicationController
 
   def user_by_subdomain
     school = School.find_by('lower(subdomain_name) = ?', subdomain.downcase)
-    user_in_school = !school.users.where(email: params[:email]).count.zero?
+    user_in_school = if school.present?
+                      !school.users.where(email: params[:email]).count.zero?
+                     else
+                      false
+                     end
     render json: { status: user_in_school, message: t('user_not_in_school') }
   end
 end

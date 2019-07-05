@@ -181,5 +181,7 @@ Rails.application.routes.draw do
     get code, :to => 'error#show', :code => code
   end
 
+  root 'home#index'
+
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

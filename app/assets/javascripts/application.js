@@ -35,9 +35,6 @@
 //= require extensions/bootstrap-table-export.js
 //= require_tree .
 
-$(document).ready(function() {
-  $('form[data-client-side-validations]').enableClientSideValidations();
-})
 
 function showDropdown(id) {
   ul = $('#' + id)
