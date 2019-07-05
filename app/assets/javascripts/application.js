@@ -29,7 +29,6 @@
 //= require angular-input-masks
 //= require angular-xeditable/dist/js/xeditable
 //= require bootstrap-table
-//= require bootstrap-select/js/bootstrap-select
 //= require extensions/bootstrap-table-multiple-sort.js
 //= require angular-ui-bootstrap-fontawesome
 //= require extensions/bootstrap-table-export.js
@@ -147,8 +146,12 @@ function enableButtonFormSchool(formID, id) {
   form = $('#' + formID);
   button = $('#' + id);
   if (form.find('input.validate-sign-up.is-valid').length === form.find('input.validate-sign-up.required').length) {
+    $('#new_modal').removeClass('btn-bg-grey')
+    $('#new_modal').addClass('btn-bg-blue')
     button.attr('disabled', false);
   } else {
+    $('#new_modal').removeClass('btn-bg-blue')
+    $('#new_modal').addClass('btn-bg-grey')
     button.attr('disabled', true);
   }
 }
@@ -160,6 +163,7 @@ function showNewSchool() {
 
 function changeLogo(event, img_logo) {
   logo = URL.createObjectURL(event.target.files[0]);
+  console.log(logo)
   $('#' + img_logo).attr('src', logo);
   FileType = event.target.files[0]
   FileSize = event.target.files[0].size / 1024 / 1024; // in MB

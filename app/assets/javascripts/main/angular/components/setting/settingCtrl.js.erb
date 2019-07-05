@@ -16,9 +16,17 @@
       },function(){});
 
       ctrl.submit = function(parm){
+      console.log('>>>>>>>>>>>>>>>>>>>>>>')
+      console.log(parm);
         service.saveSetting(parm).then(function(resp) {
           $rootScope.openRoot();
         });
+      }
+
+      $scope.fileChange = function(event, img_logo){
+        var logo = event.target.files[0]
+        var logo_url = URL.createObjectURL(logo);
+        $('#' + img_logo).attr('src', logo_url);
       }
 
       ctrl.changePassword = function(){
@@ -45,7 +53,5 @@
       }
 
     });
-
-
   }]);
 })();

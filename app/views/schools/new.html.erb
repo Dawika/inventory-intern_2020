@@ -62,9 +62,9 @@
               </div>
               <% end %>
             <div class="new-school" id="formSchool">
-            <u><h1>เกือบเสร็จแล้ว! กรุณากรอกข้อมูลโรงเรียนเพื่อเริ่มใช้งาน</h1></u><br>
+            <h1><%= t('.header') %></h1><br>
               <div class="row">
-                <div class="col-lg-12">
+                <div class="col-md-12">
                   <div class="col-md-6">
                     <h4><%= t('.Message1') %></h4>
                   </div>
@@ -105,7 +105,7 @@
                         <div class="col-md-3">
                           <div class="form-group">
                             <%= f.input :subdomain_name, label: 'Subdomain name', 
-                            input_html: { onkeyup: "validateUniqueness2('#{subdomain_uniqueness_check_validates_path}', this.id)" }, required: true %>
+                            input_html: { onkeyup: "validateUniqueness2('#{subdomain_uniqueness_check_validates_path}', this.id)", class: 'validate-sign-up' }, required: true %>
                           </div>
                         </div>
                         <div class="col-md-3">
@@ -202,7 +202,7 @@
                       <h3 class="text-center">ท่านสามารถทดลองใช้งานฟรี <font color="orange"> 3 เดือน</font></h3>
                       <h3 class="text-center">สำหรับ<font color="orange">ความช่วยเหลือ </font>ในการนำข้อมูลเข้าระบบเช่น บุคลากร, นักเรียน</h3>
                       <h3 class="text-center">สามารถติดต่อทีมงานได้ที่ เบอร์ <font color="orange">053-200-078</font></h3><br>
-                      <div class="text-center"><%= f.button :submit, 'เริ่มต้นใช้งาน', class: "btn-bg-submit", disabled: true %></div>
+                      <div class="text-center"><%= f.button :submit, t('start'), class: "btn-bg-submit", disabled: true %></div>
                     </div>
                   </div>
                 </div>
