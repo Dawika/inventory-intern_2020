@@ -1,0 +1,93 @@
+<div class="container-fluid blue-bg">
+  <!-- Head -->
+  <div class="row-head-sp justify-content-between">
+     <i class="fas fa-arrow-left employee-view-icon.active" ng-click="createCandidate.cancelSubmit()"></i> &nbsp; {{ 'แบบประเมินหลังการสัมภาษณ์ Candidate' | translate }}
+  </div>
+
+  <!--Content Evaluate Form -->
+  <div class="content-scout">
+    <form name="evaluateCandidateForm" ng-submit="evaluateCandidate.submit(evaluateCandidate.datas)">
+      <!-- First row -->
+      <div class="row m-0">
+
+        <!-- First -->
+        <div class="col-md-7 font-21">
+          <!-- Name interviewee / Email interviewer -->
+          <div class="col-md-6 p-0">
+            <div class="row m-0">
+              {{ 'Interviewee name' | translate }}<br>
+              <label>Supawit Sricharoendham</label>
+              <hr>
+            </div>
+            <div class="row m-0">
+              {{ 'Interviewer name' | translate }}<br>
+              <label>John Smilt</label>
+              <hr>
+            </div>
+          </div>
+          <!-- Type -->
+          <div class="col-md-6 pl-20">
+            <b>{{ 'Type' | translate }}</b>
+            <div class="radio">
+              <label><input id="1" type="radio" value="internship" ng-model="evaluateCandidate.datas.candidate.type">&nbsp;&nbsp;{{ 'Internship' | translate }}</label>
+            </div>
+            <div class="radio">
+              <label><input id="2" type="radio" value="cooperative" ng-model="evaluateCandidate.datas.candidate.type">&nbsp;&nbsp;{{ 'Cooperative Education' | translate }}</label>
+            </div>
+            <div class="radio">
+              <label><input id="3" type="radio" value="apprentice" ng-model="evaluateCandidate.datas.candidate.type">&nbsp;&nbsp;{{ 'Apprentice' | translate }}</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="col Btn-group">
+          <button type="submit" class ="btn btn-submit2" ng-disabled="evaluateCandidate.cannotSubmit"><i class="fas fa-file-import"></i>&nbsp;{{ 'Submit' | translate }}</button>
+        </div>
+
+      </div>
+      <!-- End First row -->
+
+      <!-- Second row -->
+      <div class="row mt-35 m-0">
+
+        <!-- Current Ability - ประเมินความรู้ความสามารถ -->
+        <div class="col-md-4">
+          <div class="row-head">
+            {{ 'Current Ability - ประเมินความรู้ความสามารถ' | translate }}
+          </div>
+
+          <div class="row mt-10">
+            <p> {{ 'ประเมินความรู้ Frontend (HTML, CSS, Bootstrap, Angular, ReactJS)' | translate }} </p>
+          
+
+          </div>
+
+        </div>
+        <!-- End Current Ability -->
+
+      </div>
+      <!-- End Second row -->
+
+
+
+      <!-- Learn Ability - ประเมินความสามารถในการเรียนรู้ -->
+
+      <!-- Attraction - ความใส่ใจ -->
+
+      <!-- Conclusion - สรุป -->
+
+      <!-- Submit - ส่ง -->
+    
+
+
+
+
+
+
+  <!--/Content Evaluate Form -->
+    </div>
+  </div>
+
+
+</div>

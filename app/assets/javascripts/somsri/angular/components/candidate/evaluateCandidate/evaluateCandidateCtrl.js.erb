@@ -1,0 +1,14 @@
+(function() {
+  'use strict';
+    angular.module('somsri.somsri.evaluate_candidate', [])
+    .controller('evaluateCandidateCtrl', ['$scope', '$rootScope', 'translateFilter',
+                '$uibModal', 'candidateService',   
+                 function($scope, $rootScope, translateFilter, $uibModal, candidateService) {
+
+    var ctrl = this;
+    ctrl.categoty = ['ฝึกงาน', 'สหกิจ', 'สมัครงาน']
+    ctrl.points = Array.from(Array(21).keys())
+
+
+  }]);
+})();

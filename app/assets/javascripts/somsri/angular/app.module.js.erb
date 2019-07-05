@@ -405,6 +405,18 @@
           }]
         }
     }).state({
+        url: '/candidate/evaluate',
+        name: 'evaluate_candidate',
+        templateUrl: "<%= asset_path('somsri/angular/components/candidate/evaluateCandidate/evaluateCandidateView.html') %>",
+        controller: 'evaluateCandidateCtrl as evaluateCandidate',
+        resolve: {
+          resources: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              ASSETS.somsri.somsri.evaluate_candidate
+            ]);
+          }]
+        }
+    }).state({
       url: '/candidate/detail/:id',
         name: 'candidate_detail',
         templateUrl: "<%= asset_path('somsri/angular/components/candidate/candidateDetail/candidateDetailView.html') %>",
