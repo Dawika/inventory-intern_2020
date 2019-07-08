@@ -5,298 +5,271 @@
   </div>
 
   <!--Content Evaluate Form -->
-  <div class="content-scout">
+  <div class="content-scout pt-0 mx-15p">
     <form name="evaluateCandidateForm" ng-submit="evaluateCandidate.submit(evaluateCandidate.datas)">
-      <!-- First row -->
-      <div class="row m-0">
+      
+      <!-- Info row -->
+      <div class=" row mx-0 mt-0 font-21">
 
-        <!-- First -->
-        <div class="col-lg-7 font-21">
-          <!-- Name interviewee / Email interviewer -->
-          <div class="col-lg-6 p-0">
-            <div class="row m-0">
-              {{ 'Interviewee name' | translate }}<br>
-              <label>Supawit Sricharoendham</label>
-              <hr>
-            </div>
-            <div class="row m-0">
-              {{ 'Interviewer name' | translate }}<br>
-              <label>John Smilt</label>
-              <hr>
-            </div>
+        <div class="row-head2 mt-0 mb-30">
+          {{ 'Interview Info' | translate }}
+        </div>
+
+        <!-- Name interviewee / Email interviewer -->
+        <div class="col-lg-6 p-0">
+          <div class="row m-0">
+            {{ 'Interviewee name' | translate }}<br>
+            <label>Supawit Sricharoendham</label>
+            <hr>
           </div>
-          <!-- Type -->
-          <div class="col-lg-6 pl-20">
-            <b>{{ 'Type' | translate }}</b>
-            <div class="radio">
-              <label><input id="1" type="radio" value="internship" ng-model="evaluateCandidate.datas.candidate.type">&nbsp;&nbsp;{{ 'Internship' | translate }}</label>
-            </div>
-            <div class="radio">
-              <label><input id="2" type="radio" value="cooperative" ng-model="evaluateCandidate.datas.candidate.type">&nbsp;&nbsp;{{ 'Cooperative Education' | translate }}</label>
-            </div>
-            <div class="radio">
-              <label><input id="3" type="radio" value="apprentice" ng-model="evaluateCandidate.datas.candidate.type">&nbsp;&nbsp;{{ 'Apprentice' | translate }}</label>
-            </div>
+          <div class="row m-0">
+            {{ 'Interviewer name' | translate }}<br>
+            <label>John Smilt</label>
+            <hr>
           </div>
         </div>
 
-        <!-- Submit -->
-        <div class="col Btn-group">
-          <button type="submit" class ="btn btn-submit2" ng-disabled="evaluateCandidate.cannotSubmit"><i class="fas fa-file-import"></i>&nbsp;{{ 'Submit' | translate }}</button>
+        <!-- Type -->
+        <div class="col-lg-6 pl-20">
+          <b>{{ 'Type' | translate }}</b>
+          <div class="radio">
+            <label><input id="1" type="radio" value="internship" ng-model="evaluateCandidate.datas.candidate.type">&nbsp;&nbsp;{{ 'Internship' | translate }}</label>
+          </div>
+          <div class="radio">
+            <label><input id="2" type="radio" value="cooperative" ng-model="evaluateCandidate.datas.candidate.type">&nbsp;&nbsp;{{ 'Cooperative Education' | translate }}</label>
+          </div>
+          <div class="radio">
+            <label><input id="3" type="radio" value="apprentice" ng-model="evaluateCandidate.datas.candidate.type">&nbsp;&nbsp;{{ 'Apprentice' | translate }}</label>
+          </div>
         </div>
 
       </div>
-      <!-- End First row -->
+      <!-- End Info row -->
 
-      <!-- Second row -->
-      <div class="row mt-35 m-0">
+      <!-- Current Ability row -->
+      <div class="row mt-35 m-0 font-18">
 
         <!-- Current Ability - ประเมินความรู้ความสามารถ -->
-        <div class="col-lg-4">
-          <div class="row-head hr-1">
-            {{ 'Current Ability - ประเมินความรู้ความสามารถ' | translate }}
-          </div>
+        <div class="row-head2">
+          {{ 'Current Ability - ประเมินความรู้ความสามารถ' | translate }}
+        </div>
 
-          <!-- frontend -->
-          <div class="row mx-0 mt-35">
+        <!-- frontend -->
+        <div class="row mx-0 mt-35">
+          <div class="col-md-10 mt-10">
             <label>{{ 'ประเมินความรู้ Frontend (HTML, CSS, Bootstrap, Angular, ReactJS)' | translate }}</label>
-            <div class="row m-0 justify-content-center">
-              <div ng-repeat="point in evaluateCandidate.points" class="">
-                <div class="col m-10">
-                  <label class="">{{ point }}</label><br>
-                  <input type="radio" name="frontend" ng-value="point" ng-model="evaluateCandidate.datas.candidate.frontend">
-                </div>
-              </div>
-            </div>
           </div>
+          <div class="col-md-2">
+            <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="frontend" ng-model="evaluateCandidate.datas.candidate.frontend">
+            </select>
+          </div>
+        </div>
 
-          <!-- dotnet -->
-          <div class="row mx-0 mt-35">
+
+        <!-- dotnet -->
+        <div class="row mx-0 mt-35">
+          <div class="col-md-10 mt-10">
             <label>{{ 'ประเมินความรู้ .Net' | translate }}</label>
-            <div class="row m-0 justify-content-center">
-              <div ng-repeat="point in evaluateCandidate.points" class="">
-                <div class="col-lg-1">
-                  <label class="">{{ point }}</label><br>
-                  <input type="radio" name="dotnet" ng-value="point" ng-model="evaluateCandidate.datas.candidate.dotnet">
-                </div>
-              </div>
-            </div>
           </div>
+          <div class="col-md-2">
+            <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="dotnet" ng-model="evaluateCandidate.datas.candidate.dotnet">
+            </select>
+          </div>
+        </div>
 
-          <!-- dotnet core -->
-          <div class="row mx-0 mt-35">
+
+        <!-- dotnet core -->
+        <div class="row mx-0 mt-35">
+          <div class="col-md-10 mt-10">
             <label>{{ 'ประเมินความรู้ .Net Core' | translate }}</label>
-            <div class="row m-0 justify-content-center">
-              <div ng-repeat="point in evaluateCandidate.points" class="">
-                <div class="col-lg-1">
-                  <label class="">{{ point }}</label><br>
-                  <input type="radio" name="dotnetcore" ng-value="point" ng-model="evaluateCandidate.datas.candidate.dotnetcore">
-                </div>
-              </div>
-            </div>
           </div>
+          <div class="col-md-2">
+            <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="dotnetcore" ng-model="evaluateCandidate.datas.candidate.dotnetcore">
+            </select>
+          </div>
+        </div>
 
-          <!-- ruby -->
-          <div class="row mx-0 mt-35">
+        <!-- ruby -->
+        <div class="row mx-0 mt-35">
+          <div class="col-md-10 mt-10">
             <label>{{ 'ประเมินความรู้ Ruby on Rails' | translate }}</label>
-            <div class="row m-0 justify-content-center">
-              <div ng-repeat="point in evaluateCandidate.points" class="">
-                <div class="col-lg-1">
-                  <label class="">{{ point }}</label><br>
-                  <input type="radio" name="ruby" ng-value="point" ng-model="evaluateCandidate.datas.candidate.ruby">
-                </div>
-              </div>
-            </div>
           </div>
+          <div class="col-md-2">
+            <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="ruby" ng-model="evaluateCandidate.datas.candidate.ruby">
+            </select>
+          </div>
+        </div>
 
-          <!-- kotlin -->
-          <div class="row mx-0 mt-35">
+        <!-- kotlin -->
+        <div class="row mx-0 mt-35">
+          <div class="col-md-10 mt-10">
             <label>{{ 'ประเมินความรู้ Kotlin' | translate }}</label>
-            <div class="row m-0 justify-content-center">
-              <div ng-repeat="point in evaluateCandidate.points" class="">
-                <div class="col-lg-1">
-                  <label class="">{{ point }}</label><br>
-                  <input type="radio" name="kotlin" ng-value="point" ng-model="evaluateCandidate.datas.candidate.kotlin">
-                </div>
-              </div>
-            </div>
           </div>
+          <div class="col-md-2">
+            <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="kotlin" ng-model="evaluateCandidate.datas.candidate.kotlin">
+            </select>
+          </div>
+        </div>
 
-          <!-- swift -->
-          <div class="row mx-0 mt-35">
+        <!-- swift -->
+        <div class="row mx-0 mt-35">
+          <div class="col-md-10 mt-10">
             <label>{{ 'ประเมินความรู้ Swift' | translate }}</label>
-            <div class="row m-0 justify-content-center">
-              <div ng-repeat="point in evaluateCandidate.points" class="">
-                <div class="col-lg-1">
-                  <label class="">{{ point }}</label><br>
-                  <input type="radio" name="swift" ng-value="point" ng-model="evaluateCandidate.datas.candidate.swift">
-                </div>
-              </div>
-            </div>
           </div>
-
-          <!-- ability_note -->
-          <div class="row mx-0 mt-35">
-            <label>{{ 'ประเมินความรู้อื่นๆ' | translate }}</label>
-            <textarea class="form-control border-textarea" rows="15" id="note" ng-model="evaluateCandidate.datas.candidate.current_ability_note"></textarea>
+          <div class="col-md-2">
+            <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="swift" ng-model="evaluateCandidate.datas.candidate.swift">
+            </select>
           </div>
-          
         </div>
-        <!-- End Current Ability -->
+
+        <!-- ability_note -->
+        <div class="row mx-0 px-20 mt-35">
+          <label>{{ 'ประเมินความรู้อื่นๆ' | translate }}</label>
+          <textarea class="form-control border-textarea mt-30" rows="15" id="note" ng-model="evaluateCandidate.datas.candidate.current_ability_note"></textarea>
+        </div>
+
+      </div>
+      <!-- End Current Ability -->
 
 
-        <!-- Learn Ability - ประเมินความสามารถในการเรียนรู้ -->
-        <div class="col-lg-4">
-          <div class="row-head hr-1">
-            {{ 'Learn Ability - ประเมินความสามารถในการเรียนรู้' | translate }}
-          </div>
+      <!-- Learn Ability - ประเมินความสามารถในการเรียนรู้ -->
+      <div class="row mt-35 m-0 font-18">
+        <div class="row-head2">
+          {{ 'Learn Ability - ประเมินความสามารถในการเรียนรู้' | translate }}
+        </div>
 
-          <!-- problem_solving -->
-          <div class="row mx-0 mt-35">
+        <!-- problem_solving -->
+        <div class="row mx-0 mt-35">
+          <div class="col-md-10 mt-10">
             <label>{{ 'ประเมินการแก้ปัญหา (Problem Solving)' | translate }}</label>
-            <div class="row m-0 justify-content-center">
-              <div ng-repeat="point in evaluateCandidate.points" class="">
-                <div class="col-lg-1">
-                  <label class="">{{ point }}</label><br>
-                  <input type="radio" name="problem_solving" ng-value="point" ng-model="evaluateCandidate.datas.candidate.problem_solving">
-                </div>
-              </div>
-            </div>
           </div>
-
-          <!-- indepentdent -->
-          <div class="row mx-0 mt-35">
-            <label>{{ 'ประเมินการทำงานด้วยตัวเอง (Indepentdent)' | translate }}</label>
-            <div class="row m-0 justify-content-center">
-              <div ng-repeat="point in evaluateCandidate.points" class="">
-                <div class="col-lg-1">
-                  <label class="">{{ point }}</label><br>
-                  <input type="radio" name="indepentdent" ng-value="point" ng-model="evaluateCandidate.datas.candidate.indepentdent">
-                </div>
-              </div>
-            </div>
+          <div class="col-md-2">
+            <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="problem_solving" ng-model="evaluateCandidate.datas.candidate.problem_solving">
+            </select>
           </div>
-
-          <!-- comunication -->
-          <div class="row mx-0 mt-35">
-            <label>{{ 'ประเมินการสื่อสาร ถาม-ตอบ (Comunication)' | translate }}</label>
-            <div class="row m-0 justify-content-center">
-              <div ng-repeat="point in evaluateCandidate.points" class="">
-                <div class="col-lg-1">
-                  <label class="">{{ point }}</label><br>
-                  <input type="radio" name="comunication" ng-value="point" ng-model="evaluateCandidate.datas.candidate.comunication">
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-          <!-- End Learn Ability -->
-
-
-          <!-- Attraction - ประเมินความใส่ใจ -->
-          <div class="row-head hr-1 mt-50">
-            {{ 'Attraction - ประเมินความใส่ใจ' | translate }}
-          </div>
-
-          <!-- attraction_banana -->
-          <div class="row mx-0 mt-35">
-            <label>{{ 'คะแนนความกระตือรือร้นที่จะร่วมงานกับ Banana' | translate }}</label>
-            <div class="row m-0 justify-content-center">
-              <div ng-repeat="point in evaluateCandidate.points" class="">
-                <div class="col-lg-1">
-                  <label class="">{{ point }}</label><br>
-                  <input type="radio" name="attraction_banana" ng-value="point" ng-model="evaluateCandidate.datas.candidate.attraction_banana">
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row mx-0 mt-35">
-            <b>{{ 'ความตรงต่อเวลา - punctual' | translate }}</b>
-            <div class="radio ml-35 mt-20 ">
-              <label><input id="1" type="radio" value="ontime" ng-model="evaluateCandidate.datas.candidate.type">&nbsp;&nbsp;{{ 'ตรงเวลานัด' | translate }}</label>
-            </div>
-            <div class="radio ml-35 mt-20">
-              <label><input id="2" type="radio" value="late" ng-model="evaluateCandidate.datas.candidate.type">&nbsp;&nbsp;{{ 'ไม่ตรงเวลานัด' | translate }}</label>
-            </div>
-          </div>
-
-
-          <!-- teamwork -->
-          <div class="row mx-0 mt-35">
-            <label>{{ 'ประเมินความสามารถทำงานร่วมกับทีม' | translate }}</label>
-            <div class="row m-0 justify-content-center">
-              <div ng-repeat="point in evaluateCandidate.points" class="">
-                <div class="col-lg-1">
-                  <label class="">{{ point }}</label><br>
-                  <input type="radio" name="teamwork" ng-value="point" ng-model="evaluateCandidate.datas.candidate.teamwork">
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-
         </div>
+
+        <!-- indepentdent -->
+        <div class="row mx-0 mt-35">
+          <div class="col-md-10 mt-10">
+            <label>{{ 'ประเมินการทำงานด้วยตัวเอง (Indepentdent)' | translate }}</label>
+          </div>
+          <div class="col-md-2">
+            <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="indepentdent" ng-model="evaluateCandidate.datas.candidate.indepentdent">
+            </select>
+          </div>
+        </div>
+
+        <!-- comunication -->
+        <div class="row mx-0 mt-35">
+          <div class="col-md-10 mt-10">
+            <label>{{ 'ประเมินการสื่อสาร ถาม-ตอบ (Comunication)' | translate }}</label>
+          </div>
+          <div class="col-md-2">
+            <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="comunication" ng-model="evaluateCandidate.datas.candidate.comunication">
+            </select>
+          </div>
+        </div>
+
+      </div>
+      <!-- End Learn Ability -->
+
+
+      <!-- Attraction - ประเมินความใส่ใจ -->
+      <div class="row mt-35 m-0 font-18">
+        <div class="row-head2">
+          {{ 'Attraction - ประเมินความใส่ใจ' | translate }}
+        </div>
+
+        <!-- attraction_banana -->
+        <div class="row mx-0 mt-35">
+          <div class="col-md-10 mt-10">
+            <label>{{ 'คะแนนความกระตือรือร้นที่จะร่วมงานกับ Banana' | translate }}</label>
+          </div>
+          <div class="col-md-2">
+            <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="attraction_banana" ng-model="evaluateCandidate.datas.candidate.attraction_banana">
+            </select>
+          </div>
+        </div>
+        
+
+        <div class="row mx-0 px-20 mt-35">
+          <b>{{ 'ความตรงต่อเวลา - punctual' | translate }}</b>
+          <div class="radio ml-35 mt-20 ">
+            <label><input id="1" type="radio" value="ontime" ng-model="evaluateCandidate.datas.candidate.type">&nbsp;&nbsp;{{ 'ตรงเวลานัด' | translate }}</label>
+          </div>
+          <div class="radio ml-35 mt-20">
+            <label><input id="2" type="radio" value="late" ng-model="evaluateCandidate.datas.candidate.type">&nbsp;&nbsp;{{ 'ไม่ตรงเวลานัด' | translate }}</label>
+          </div>
+        </div>
+
+
+        <!-- teamwork -->
+        <div class="row mx-0 mt-35">
+          <div class="col-md-10 mt-10">
+            <label>{{ 'ประเมินความสามารถทำงานร่วมกับทีม' | translate }}</label>
+          </div>
+          <div class="col-md-2">
+            <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="teamwork" ng-model="evaluateCandidate.datas.candidate.teamwork">
+            </select>
+          </div>
+        </div>
+
+      </div>
         <!-- End Learn Ability -->
 
 
 
-        <!-- Conclusion - สรุป -->
-        <div class="col-lg-4">
-          <div class="row-head hr-1">
-            {{ 'Conclusion - สรุป' | translate }}
-          </div>
-
-          <!-- compatibility -->
-          <div class="row mx-0 mt-35">
-            <label>{{ 'ความเข้ากันได้กับวัฒนธรรมองค์กร' | translate }}</label>
-            <div class="row m-0 justify-content-center">
-              <div ng-repeat="point in evaluateCandidate.points" class="">
-                <div class="col-lg-1">
-                  <label class="">{{ point }}</label><br>
-                  <input type="radio" name="compatibility" ng-value="point" ng-model="evaluateCandidate.datas.candidate.compatibility">
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- note -->
-          <div class="row mx-0 mt-35">
-            <label>{{ 'อื่นๆ' | translate }}</label>
-            <textarea class="form-control border-textarea" rows="15" id="note" ng-model="evaluateCandidate.datas.candidate.note"></textarea>
-          </div>
-
-          <!-- join -->
-          <div class="row mx-0 mt-35">
-            <b>{{ 'ถ้าท่านต้องร่วมงานกับผู้ถูกสัมภาษณ์ ท่านยินดีหรือไม่' | translate }}</b>
-            <div class="radio ml-35 mt-20 ">
-              <label><input id="1" type="radio" value="pleased" ng-model="evaluateCandidate.datas.candidate.join">&nbsp;&nbsp;{{ 'ยินดี' | translate }}</label>
-            </div>
-            <div class="radio ml-35 mt-20">
-              <label><input id="2" type="radio" value="soso" ng-model="evaluateCandidate.datas.candidate.join">&nbsp;&nbsp;{{ 'เฉยๆ' | translate }}</label>
-            </div>
-            <div class="radio ml-35 mt-20">
-              <label><input id="3" type="radio" value="displeased" ng-model="evaluateCandidate.datas.candidate.join">&nbsp;&nbsp;{{ 'ไม่ยินดี' | translate }}</label>
-            </div>
-          </div>
-
-
-
-
+      <!-- Conclusion - สรุป -->
+      <div class="row mt-35 m-0 font-18">
+        <div class="row-head2">
+          {{ 'Conclusion - สรุป' | translate }}
         </div>
-        <!-- End Conclusion -->
 
+        <!-- compatibility -->
+        <div class="row mx-0 mt-35">
+          <div class="col-md-10 mt-10">
+            <label>{{ 'ความเข้ากันได้กับวัฒนธรรมองค์กร' | translate }}</label>
+          </div>
+          <div class="col-md-2">
+            <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="compatibility" ng-model="evaluateCandidate.datas.candidate.compatibility">
+            </select>
+          </div>
+        </div>
 
+        <!-- note -->
+        <div class="row mx-0 px-20 mt-35">
+          <label>{{ 'อื่นๆ' | translate }}</label>
+          <textarea class="form-control border-textarea mt-30" rows="15" id="note" ng-model="evaluateCandidate.datas.candidate.note"></textarea>
+        </div>
+
+        <!-- join -->
+        <div class="row mx-0 px-20 mt-35">
+          <b>{{ 'ถ้าท่านต้องร่วมงานกับผู้ถูกสัมภาษณ์ ท่านยินดีหรือไม่' | translate }}</b>
+          <div class="radio ml-35 mt-20 ">
+            <label><input id="1" type="radio" value="pleased" ng-model="evaluateCandidate.datas.candidate.join">&nbsp;&nbsp;{{ 'ยินดี' | translate }}</label>
+          </div>
+          <div class="radio ml-35 mt-20">
+            <label><input id="2" type="radio" value="soso" ng-model="evaluateCandidate.datas.candidate.join">&nbsp;&nbsp;{{ 'เฉยๆ' | translate }}</label>
+          </div>
+          <div class="radio ml-35 mt-20">
+            <label><input id="3" type="radio" value="displeased" ng-model="evaluateCandidate.datas.candidate.join">&nbsp;&nbsp;{{ 'ไม่ยินดี' | translate }}</label>
+          </div>
+        </div>
 
       </div>
-      <!-- End Second row -->
+      <!-- End Conclusion -->
+
+
+      <!-- Submit -->
+      <div class="row m-0 mt-100 Btn-group">
+        <button type="submit" class ="btn btn-submit2" ng-disabled="evaluateCandidate.cannotSubmit"><i class="fas fa-file-import"></i>&nbsp;{{ 'Submit' | translate }}</button>
+      </div>
 
 
 
 
-  <!--/Content Evaluate Form -->
+    <!--/Content Evaluate Form -->
     </div>
   </div>
 
