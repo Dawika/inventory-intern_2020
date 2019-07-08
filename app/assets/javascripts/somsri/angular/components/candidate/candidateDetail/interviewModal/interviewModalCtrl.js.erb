@@ -76,7 +76,7 @@
       ctrl.datas.candidate.interview.category = ctrl.category;
       ctrl.datas.candidate.interview.location = ctrl.location;
       ctrl.datas.candidate.interview.interviewer_emails_attributes = ctrl.interviewer_emails_attributes;
-      console.log(ctrl.datas.candidate.interview)
+      
 
       interviewModalService.saveInterview(ctrl.datas.candidate.interview).then(function(resp) {
         ctrl.datas = resp.data;
