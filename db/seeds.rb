@@ -571,5 +571,5 @@ end
 
 if Candidate.count.zero?
   array = (1..50).to_a
-  array.map { |x| Candidate.create(full_name: "test-#{x}") }
+  array.map { |x| Candidate.create(full_name: "test-#{x}", current_ability: 10, learn_ability: 10, attention: 10) }
 end

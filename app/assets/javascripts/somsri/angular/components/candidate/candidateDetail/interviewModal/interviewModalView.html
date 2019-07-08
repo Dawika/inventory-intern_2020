@@ -15,7 +15,7 @@
       <div class="row">
         <div class="col-md-6">
           <div ng-repeat="category in interviewModal.categorys" class="pl-10">
-            <input type="radio" name="occurrences" ng-value="category" ng-model="interviewModal.datas.candidate.interview.category" />
+            <input type="radio" name="occurrences" ng-value="category" ng-model="interviewModal.category" />
             <label>{{ category }}</label>
           </div>
         </div>
@@ -29,7 +29,7 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <input ng-model="interviewModal.datas.candidate.interview.location" type="text" class="form-control" >
+          <input ng-model="interviewModal.location" type="text" class="form-control" >
         </div>
       </div>
     </div>
@@ -44,7 +44,7 @@
           <div class="form-group">
             <p class="input-group">
               <label>Date</label>
-              <input id="start_date" type="text" ng-change="interviewModal.checkDate()" class="form-control numberic" ng-model-options="{timezone: 'bangkok'}" uib-datepicker-popup="dd/MM/yyyy" ng-model="interviewModal.datas.candidate.interview.date" is-open="interviewModal.datePopup.opened" close-text="Close" >
+              <input id="start_date" type="text" ng-change="interviewModal.checkDate()" class="form-control numberic" ng-model-options="{timezone: 'bangkok'}" uib-datepicker-popup="dd/MM/yyyy" ng-model="interviewModal.date" is-open="interviewModal.datePopup.opened" close-text="Close" >
               <span class="input-group-btn ">
                 <button type="button" class="btn btn-default mt-20" ng-click="interviewModal.openDatePopup()"><i class="fa fa-calendar"></i></button>
               </span>
@@ -81,7 +81,7 @@
       <div class="row">
         <div class="col-md-6">
           <label>Email</label>
-          <div ng-repeat="item in interviewModal.datas.candidate.interview.interviewer_emails_attributes">
+          <div ng-repeat="item in interviewModal.interviewer_emails_attributes">
             <div class="row" ng-hide="item._destroy">
               <div class="col-md-11">
                 <input type="email" class="form-control input-email" ng-model="item.email" ng-keyup="interviewModal.disableButton(item.email)">

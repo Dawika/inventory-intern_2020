@@ -17,20 +17,24 @@
 
     $rootScope.loadAndAuthorizeResource("interview", function() {
       loadInterview()
+
     });
 
     function loadInterview() {
       interviewModalService.getInterview(ctrl.candidate_id).then(function(resp) {
+        
         ctrl.datas = resp.data;
         ctrl.datas.candidate.interview.candidate_id = ctrl.datas.candidate.id;
         ctrl.datas.candidate.interview.interviewer_emails_attributes = ctrl.datas.candidate.interviewer_emails_attributes;
+        ctrl.category = ctrl.datas.candidate.interview.category;
+        ctrl.location = ctrl.datas.candidate.interview.location;
         newDateType()
+        ctrl.date = ctrl.datas.candidate.interview.date;
+        ctrl.interviewer_emails_attributes = ctrl.datas.candidate.interview.interviewer_emails_attributes
+
+        
       });
     }
-
-    ctrl.ok = function () {
-      $uibModalInstasaveInterviewnce.close(widthtrue);
-    };
 
     ctrl.close = function () {
       $uibModalInstance.close();
@@ -58,15 +62,22 @@
     }
 
     ctrl.addMoreEmail = function(){
-      ctrl.datas.candidate.interview.interviewer_emails_attributes.push({ id: "", email: "" });
+      ctrl.interviewer_emails_attributes.push({ id: "", email: "" });
     }
 
     ctrl.removeInterViewEmail = function(index) {
-      ctrl.datas.candidate.interview.interviewer_emails_attributes[index]._destroy = true
+      ctrl.interviewer_emails_attributes[index]._destroy = true
     }
 
     ctrl.saveInterview = function() {
-      ctrl.datas.candidate.interview.date.setHours(ctrl.hour,ctrl.minute)
+  
+      ctrl.date.setHours(ctrl.hour,ctrl.minute)
+      ctrl.datas.candidate.interview.date = ctrl.date;
+      ctrl.datas.candidate.interview.category = ctrl.category;
+      ctrl.datas.candidate.interview.location = ctrl.location;
+      ctrl.datas.candidate.interview.interviewer_emails_attributes = ctrl.interviewer_emails_attributes;
+      console.log(ctrl.datas.candidate.interview)
+
       interviewModalService.saveInterview(ctrl.datas.candidate.interview).then(function(resp) {
         ctrl.datas = resp.data;
         $uibModalInstance.close(ctrl.datas.candidate.interview);
@@ -79,11 +90,13 @@
       })
     }
     ctrl.checkSave = function(){
-      if(ctrl.hour == "" || ctrl.minute == "" || ctrl.datas.candidate.interview.date == null){
+
+      if(ctrl.hour == "" || ctrl.minute == "" || ctrl.date == null){
         return true
       }else{
         return false
       }
+     
 
     }
     
@@ -94,13 +107,13 @@
         backdrop: 'static',
         keyboard: false,
         scope: $scope,
-        templateUrl: "<%= asset_path('payroll/angular/components/modal/confirm/confirmModalView.html') %>",
-        controller: 'confirmModalCtrl as confirm',
+        templateUrl: "<%= asset_path('somsri/angular/components/modal/minimalConfirmSave/minimalConfirmSaveView.html') %>",
+        controller: 'minimalConfirmSaveModalCtrl as confirm',
         size: 'md',
         resolve: {
           resources: ['$ocLazyLoad', 'ASSETS', function($ocLazyLoad, ASSETS) {
             return $ocLazyLoad.load([
-              ASSETS.somsri.somsri.confirm_modal
+              ASSETS.somsri.somsri.minimal_confirm_save_modal
             ]);
           }]
         }
