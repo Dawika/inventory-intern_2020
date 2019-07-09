@@ -1,7 +1,7 @@
 <div class="container-fluid blue-bg">
   <!-- Head -->
   <div class="row-head-sp justify-content-between">
-     <i class="fas fa-arrow-left employee-view-icon.active" ng-click="createCandidate.cancelSubmit()"></i> &nbsp; {{ 'แบบประเมินหลังการสัมภาษณ์ Candidate' | translate }}
+     <i class="fas fa-arrow-left employee-view-icon.active" ng-click="createCandidate.cancelSubmit()"></i> &nbsp; {{ 'evaluate_candidate' | translate }}
   </div>
 
   <!--Content Evaluate Form -->
@@ -16,18 +16,18 @@
       <div class=" row mx-0 mt-0 font-21">
 
         <div class="row-head2 mt-0 mb-30">
-          {{ 'Interview Info' | translate }}
+          {{ 'interview_information' | translate }}
         </div>
 
         <!-- Name interviewee / Email interviewer -->
         <div class="col-lg-6 p-0">
           <div class="row m-0">
-            {{ 'Interviewee name' | translate }}<br><br>
+            {{ 'interviewee_name' | translate }}<br><br>
             <label>{{evaluateCandidate.datas.candidate.full_name}}</label>
             <hr>
           </div>
           <div class="row m-0">
-            {{ 'Interviewer name' | translate }}<br><br>
+            {{ 'interviewer_email' | translate }}<br><br>
             <label>{{evaluateCandidate.datas.candidate.email}}</label>
             <hr>
           </div>
@@ -35,7 +35,7 @@
 
         <!-- Type -->
         <div class="col-lg-6 pl-20">
-          <b>{{ 'Type' | translate }}</b>
+          <b>{{ 'interviewee_type' | translate }}</b>
           <div class="radio font-14">
             <label><input id="1" type="radio" value="internship" ng-model="evaluateCandidate.datas.candidate.type"><p class="font-21">&nbsp;&nbsp;{{ 'Internship' | translate }}</p></label>
           </div>
@@ -55,13 +55,13 @@
 
         <!-- Current Ability - ประเมินความรู้ความสามารถ -->
         <div class="row-head2">
-          {{ 'Current Ability - ประเมินความรู้ความสามารถ' | translate }}
+          {{ 'evaluate_current_ability' | translate }}
         </div>
 
         <!-- frontend -->
         <div class="row mx-0 mt-35">
           <div class="col-md-12 mt-10">
-            <label>{{ 'ประเมินความรู้ Frontend (HTML, CSS, Bootstrap, Angular, ReactJS)' | translate }}</label>
+            <label>{{ 'evaluate_frontend' | translate }}</label>
           </div>
           <div class="col-md-2">
             <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="frontend" ng-model="evaluateCandidate.datas.candidate.frontend">
@@ -73,7 +73,7 @@
         <!-- dotnet -->
         <div class="row mx-0 mt-35">
           <div class="col-md-12 mt-10">
-            <label>{{ 'ประเมินความรู้ .Net' | translate }}</label>
+            <label>{{ 'evaluate_dot_net' | translate }}</label>
           </div>
           <div class="col-md-2">
             <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="dotnet" ng-model="evaluateCandidate.datas.candidate.dotnet">
@@ -85,7 +85,7 @@
         <!-- dotnet core -->
         <div class="row mx-0 mt-35">
           <div class="col-md-12 mt-10">
-            <label>{{ 'ประเมินความรู้ .Net Core' | translate }}</label>
+            <label>{{ 'evaluate_dot_net_core' | translate }}</label>
           </div>
           <div class="col-md-2">
             <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="dotnetcore" ng-model="evaluateCandidate.datas.candidate.dotnetcore">
@@ -96,7 +96,7 @@
         <!-- ruby -->
         <div class="row mx-0 mt-35">
           <div class="col-md-12 mt-10">
-            <label>{{ 'ประเมินความรู้ Ruby on Rails' | translate }}</label>
+            <label>{{ 'evaluate_ruby_on_rails' | translate }}</label>
           </div>
           <div class="col-md-2">
             <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="ruby" ng-model="evaluateCandidate.datas.candidate.ruby">
@@ -107,7 +107,7 @@
         <!-- kotlin -->
         <div class="row mx-0 mt-35">
           <div class="col-md-12 mt-10">
-            <label>{{ 'ประเมินความรู้ Kotlin' | translate }}</label>
+            <label>{{ 'evaluate_kotlin' | translate }}</label>
           </div>
           <div class="col-md-2">
             <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="kotlin" ng-model="evaluateCandidate.datas.candidate.kotlin">
@@ -118,7 +118,7 @@
         <!-- swift -->
         <div class="row mx-0 mt-35">
           <div class="col-md-12 mt-10">
-            <label>{{ 'ประเมินความรู้ Swift' | translate }}</label>
+            <label>{{ 'evaluate_swift' | translate }}</label>
           </div>
           <div class="col-md-2">
             <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="swift" ng-model="evaluateCandidate.datas.candidate.swift">
@@ -128,7 +128,7 @@
 
         <!-- ability_note -->
         <div class="row mx-0 px-20 mt-35">
-          <label>{{ 'ประเมินความรู้อื่นๆ' | translate }}</label>
+          <label>{{ 'evaluate_other_ability' | translate }}</label>
           <textarea class="form-control border-textarea mt-30" rows="15" id="note" ng-model="evaluateCandidate.datas.candidate.current_ability_note"></textarea>
         </div>
 
@@ -139,13 +139,13 @@
       <!-- Learn Ability - ประเมินความสามารถในการเรียนรู้ -->
       <div class="row mt-35 m-0 font-18">
         <div class="row-head2">
-          {{ 'Learn Ability - ประเมินความสามารถในการเรียนรู้' | translate }}
+          {{ 'evaluate_learn_ability' | translate }}
         </div>
 
         <!-- problem_solving -->
         <div class="row mx-0 mt-35">
           <div class="col-md-12 mt-10">
-            <label>{{ 'ประเมินการแก้ปัญหา (Problem Solving)' | translate }}</label>
+            <label>{{ 'evaluate_problem_solving)' | translate }}</label>
           </div>
           <div class="col-md-2">
             <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="problem_solving" ng-model="evaluateCandidate.datas.candidate.problem_solving">
@@ -156,7 +156,7 @@
         <!-- indepentdent -->
         <div class="row mx-0 mt-35">
           <div class="col-md-12 mt-10">
-            <label>{{ 'ประเมินการทำงานด้วยตัวเอง (Indepentdent)' | translate }}</label>
+            <label>{{ 'evaluate_indepentdent' | translate }}</label>
           </div>
           <div class="col-md-2">
             <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="indepentdent" ng-model="evaluateCandidate.datas.candidate.indepentdent">
@@ -167,7 +167,7 @@
         <!-- comunication -->
         <div class="row mx-0 mt-35">
           <div class="col-md-12 mt-10">
-            <label>{{ 'ประเมินการสื่อสาร ถาม-ตอบ (Comunication)' | translate }}</label>
+            <label>{{ 'evaluate_comunication' | translate }}</label>
           </div>
           <div class="col-md-2">
             <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="comunication" ng-model="evaluateCandidate.datas.candidate.comunication">
@@ -182,13 +182,13 @@
       <!-- Attraction - ประเมินความใส่ใจ -->
       <div class="row mt-35 m-0 font-18">
         <div class="row-head2">
-          {{ 'Attraction - ประเมินความใส่ใจ' | translate }}
+          {{ 'evaluate_attraction' | translate }}
         </div>
 
         <!-- attraction_banana -->
         <div class="row mx-0 mt-35">
           <div class="col-md-12 mt-10">
-            <label>{{ 'คะแนนความกระตือรือร้นที่จะร่วมงานกับ Banana' | translate }}</label>
+            <label>{{ 'attention_to_bananan' | translate }}</label>
           </div>
           <div class="col-md-2">
             <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="attraction_banana" ng-model="evaluateCandidate.datas.candidate.attraction_banana">
@@ -198,12 +198,12 @@
         
 
         <div class="row mx-0 px-20 mt-35 font-14">
-          <b>{{ 'ความตรงต่อเวลา - punctual' | translate }}</b>
+          <b>{{ 'on_time' | translate }}</b>
           <div class="radio ml-35 mt-20 ">
-            <label><input id="1" type="radio" value="ontime" ng-model="evaluateCandidate.datas.candidate.type"><p class="font-18">&nbsp;&nbsp;{{ 'ตรงเวลานัด' | translate }}</p></label>
+            <label><input id="1" type="radio" value="ontime" ng-model="evaluateCandidate.datas.candidate.type"><p class="font-18">&nbsp;&nbsp;{{ 'on_time_true' | translate }}</p></label>
           </div>
           <div class="radio ml-35 mt-20">
-            <label><input id="2" type="radio" value="late" ng-model="evaluateCandidate.datas.candidate.type"><p class="font-18">&nbsp;&nbsp;{{ 'ไม่ตรงเวลานัด' | translate }}</p></label>
+            <label><input id="2" type="radio" value="late" ng-model="evaluateCandidate.datas.candidate.type"><p class="font-18">&nbsp;&nbsp;{{ 'on_time_false' | translate }}</p></label>
           </div>
         </div>
 
@@ -211,7 +211,7 @@
         <!-- teamwork -->
         <div class="row mx-0 mt-35">
           <div class="col-md-12 mt-10">
-            <label>{{ 'ประเมินความสามารถทำงานร่วมกับทีม' | translate }}</label>
+            <label>{{ 'evaluate_teamwork' | translate }}</label>
           </div>
           <div class="col-md-2">
             <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="teamwork" ng-model="evaluateCandidate.datas.candidate.teamwork">
@@ -227,13 +227,13 @@
       <!-- Conclusion - สรุป -->
       <div class="row mt-35 m-0 font-18">
         <div class="row-head2">
-          {{ 'Conclusion - สรุป' | translate }}
+          {{ 'conclusion' | translate }}
         </div>
 
         <!-- compatibility -->
         <div class="row mx-0 mt-35">
           <div class="col-md-12 mt-10">
-            <label>{{ 'ความเข้ากันได้กับวัฒนธรรมองค์กร' | translate }}</label>
+            <label>{{ 'evaluate_compatibility' | translate }}</label>
           </div>
           <div class="col-md-2">
             <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="compatibility" ng-model="evaluateCandidate.datas.candidate.compatibility">
@@ -243,21 +243,21 @@
 
         <!-- note -->
         <div class="row mx-0 px-20 mt-35">
-          <label>{{ 'อื่นๆ' | translate }}</label>
+          <label>{{ 'note' | translate }}</label>
           <textarea class="form-control border-textarea mt-30" rows="15" id="note" ng-model="evaluateCandidate.datas.candidate.note"></textarea>
         </div>
 
         <!-- join -->
         <div class="row mx-0 px-20 mt-35">
-          <b>{{ 'ถ้าท่านต้องร่วมงานกับผู้ถูกสัมภาษณ์ ท่านยินดีหรือไม่' | translate }}</b>
+          <b>{{ 'glad' | translate }}</b>
           <div class="radio ml-35 mt-20 font-14">
-            <label><input id="1" type="radio" value="pleased" ng-model="evaluateCandidate.datas.candidate.join"><p class="font-18">&nbsp;&nbsp;{{ 'ยินดี' | translate }}</p></label>
+            <label><input id="1" type="radio" value="pleased" ng-model="evaluateCandidate.datas.candidate.join"><p class="font-18">&nbsp;&nbsp;{{ 'pleased' | translate }}</p></label>
           </div>
           <div class="radio ml-35 mt-20 font-14">
-            <label><input id="2" type="radio" value="soso" ng-model="evaluateCandidate.datas.candidate.join"><p class="font-18">&nbsp;&nbsp;{{ 'เฉยๆ' | translate }}</p></label>
+            <label><input id="2" type="radio" value="soso" ng-model="evaluateCandidate.datas.candidate.join"><p class="font-18">&nbsp;&nbsp;{{ 'so_so' | translate }}</p></label>
           </div>
           <div class="radio ml-35 mt-20 font-14">
-            <label><input id="3" type="radio" value="displeased" ng-model="evaluateCandidate.datas.candidate.join"><p class="font-18">&nbsp;&nbsp;{{ 'ไม่ยินดี' | translate }}</p></label>
+            <label><input id="3" type="radio" value="displeased" ng-model="evaluateCandidate.datas.candidate.join"><p class="font-18">&nbsp;&nbsp;{{ 'displeased' | translate }}</p></label>
           </div>
         </div>
 
@@ -284,18 +284,18 @@
     <div class=" row mx-0 mt-0 font-21">
 
       <div class="row-head2 mt-0 mb-30">
-        {{ 'Interview Info' | translate }}
+        {{ 'interview_information' | translate }}
       </div>
 
       <!-- Name interviewee / Email interviewer -->
       <div class="col-lg-6 p-0">
         <div class="row m-0">
-          {{ 'Interviewee name' | translate }}<br><br>
+          {{ 'interviewee_name' | translate }}<br><br>
           <label>{{evaluateCandidate.datas.candidate.full_name}}</label>
           <hr>
         </div>
         <div class="row m-0">
-          {{ 'Interviewer Email' | translate }}<br><br>
+          {{ 'interviewer_email' | translate }}<br><br>
           <label>John Smilt</label>
           <hr>
         </div>

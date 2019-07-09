@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get "/somsri" => "menu#landing_somsri"
   get "/main" => "menu#landing_main"
   get "/language" => "home#language"
+  get "/locale" => "home#locale"
   get "/evaluate" => "home#evaluate"
   get 'holiday.ics' => 'holidays#share'
 
