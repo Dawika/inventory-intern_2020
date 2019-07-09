@@ -343,16 +343,16 @@ ActiveRecord::Schema.define(version: 20190709043737) do
     t.integer  "dot_net",              default: 0
     t.integer  "dot_net_core",         default: 0
     t.integer  "ruby_on_rails",        default: 0
-    t.integer  "kotlin"
-    t.integer  "swift"
+    t.integer  "kotlin",               default: 0
+    t.integer  "swift",                default: 0
     t.string   "other_ability"
-    t.integer  "problem_solving"
-    t.integer  "indepentdent"
-    t.integer  "comunication"
-    t.integer  "attention"
+    t.integer  "problem_solving",      default: 0
+    t.integer  "indepentdent",         default: 0
+    t.integer  "comunication",         default: 0
+    t.integer  "attention",            default: 0
     t.boolean  "on_time"
-    t.integer  "teamwork"
-    t.integer  "compatibility"
+    t.integer  "teamwork",             default: 0
+    t.integer  "compatibility",        default: 0
     t.string   "note"
     t.string   "glad"
     t.boolean  "is_submit"
