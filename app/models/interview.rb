@@ -1,6 +1,7 @@
 class Interview < ApplicationRecord
   belongs_to :candidate
   has_many :interviewer_emails
+  has_many :evaluates
   accepts_nested_attributes_for :interviewer_emails, reject_if: :all_blank, allow_destroy: true
   after_update :send_mail_to_interviewers
 

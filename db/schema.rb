@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190702093531) do
+ActiveRecord::Schema.define(version: 20190709043737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -338,6 +338,32 @@ ActiveRecord::Schema.define(version: 20190702093531) do
     t.index ["role_id"], name: "index_employees_roles_on_role_id", using: :btree
   end
 
+  create_table "evaluates", force: :cascade do |t|
+    t.integer  "frontend",             default: 0
+    t.integer  "dot_net",              default: 0
+    t.integer  "dot_net_core",         default: 0
+    t.integer  "ruby_on_rails",        default: 0
+    t.integer  "kotlin"
+    t.integer  "swift"
+    t.string   "other_ability"
+    t.integer  "problem_solving"
+    t.integer  "indepentdent"
+    t.integer  "comunication"
+    t.integer  "attention"
+    t.boolean  "on_time"
+    t.integer  "teamwork"
+    t.integer  "compatibility"
+    t.string   "note"
+    t.string   "glad"
+    t.boolean  "is_submit"
+    t.integer  "interview_id"
+    t.integer  "interviewer_email_id"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.index ["interview_id"], name: "index_evaluates_on_interview_id", using: :btree
+    t.index ["interviewer_email_id"], name: "index_evaluates_on_interviewer_email_id", using: :btree
+  end
+
   create_table "expense_items", force: :cascade do |t|
     t.integer "expense_id"
     t.string  "detail"
@@ -617,9 +643,7 @@ ActiveRecord::Schema.define(version: 20190702093531) do
     t.string   "img_url_content_type"
     t.integer  "img_url_file_size"
     t.datetime "img_url_updated_at"
-    t.integer  "school_id"
     t.index ["deleted_at"], name: "index_parents_on_deleted_at", using: :btree
-    t.index ["school_id"], name: "index_parents_on_school_id", using: :btree
   end
 
   create_table "payment_methods", force: :cascade do |t|
@@ -720,11 +744,9 @@ ActiveRecord::Schema.define(version: 20190702093531) do
   end
 
   create_table "school_settings", force: :cascade do |t|
-    t.string  "school_year",      default: ""
-    t.string  "semesters"
-    t.string  "current_semester"
-    t.integer "school_id"
-    t.index ["school_id"], name: "index_school_settings_on_school_id", using: :btree
+    t.string "school_year",      default: ""
+    t.string "semesters"
+    t.string "current_semester"
   end
 
   create_table "schools", force: :cascade do |t|
@@ -745,10 +767,6 @@ ActiveRecord::Schema.define(version: 20190702093531) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.text     "payroll_slip_header"
-    t.string   "name_eng"
-    t.string   "note"
-    t.string   "subdomain_name"
-    t.string   "branch"
   end
 
   create_table "site_configs", force: :cascade do |t|
@@ -997,6 +1015,8 @@ ActiveRecord::Schema.define(version: 20190702093531) do
   add_foreign_key "employee_skills", "employees"
   add_foreign_key "employee_skills", "skills"
   add_foreign_key "employees", "classrooms", on_delete: :nullify
+  add_foreign_key "evaluates", "interviewer_emails"
+  add_foreign_key "evaluates", "interviews"
   add_foreign_key "individuals", "employees", column: "child_id"
   add_foreign_key "individuals", "employees", column: "emergency_call_id"
   add_foreign_key "individuals", "employees", column: "friend_id"
@@ -1004,10 +1024,8 @@ ActiveRecord::Schema.define(version: 20190702093531) do
   add_foreign_key "individuals", "employees", column: "spouse_id"
   add_foreign_key "interviewer_emails", "interviews"
   add_foreign_key "interviews", "candidates"
-  add_foreign_key "parents", "schools"
   add_foreign_key "programming_skills", "candidates"
   add_foreign_key "roll_calls", "lists"
-  add_foreign_key "school_settings", "school_settings", column: "school_id"
   add_foreign_key "soft_skills", "candidates"
   add_foreign_key "students", "classrooms", on_delete: :nullify
   add_foreign_key "students", "schools"
