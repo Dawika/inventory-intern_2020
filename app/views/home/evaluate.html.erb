@@ -1,3 +1,6 @@
+<%= form_for @parent do |f| %>
+
+
 <div class="container-fluid blue-bg">
   <!-- Head -->
   <div class="row-head-sp justify-content-between">
@@ -64,6 +67,7 @@
             <label>{{ 'ประเมินความรู้ Frontend (HTML, CSS, Bootstrap, Angular, ReactJS)' | translate }}</label>
           </div>
           <div class="col-md-2">
+            <%= f.select :aaa, ((0..500).map {|i| [i,i] } << ["No limit",nil]) %>
             <select class="form-control text-blue font-21 pl-30p h-45" ng-options='point as point for point in evaluateCandidate.points' name="frontend" ng-model="evaluateCandidate.datas.candidate.frontend">
             </select>
           </div>
@@ -310,3 +314,4 @@
 
 
 </div>
+<% end %>

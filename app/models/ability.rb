@@ -99,7 +99,7 @@ class Ability
           can :read, VacationConfig
         end
       end
-    end
+    end    
   end
 
   def as_json(options={})

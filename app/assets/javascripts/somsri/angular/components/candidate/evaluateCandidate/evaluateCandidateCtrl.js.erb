@@ -2,12 +2,70 @@
   'use strict';
     angular.module('somsri.somsri.evaluate_candidate', [])
     .controller('evaluateCandidateCtrl', ['$scope', '$rootScope', 'translateFilter',
-                '$uibModal', 'candidateService',   
-                 function($scope, $rootScope, translateFilter, $uibModal, candidateService) {
+                '$uibModal', 'candidateService', 'candidateDetailService' , 
+                 function($scope, $rootScope, translateFilter, $uibModal, candidateService, candidateDetailService) {
 
     var ctrl = this;
-    ctrl.categoty = ['ฝึกงาน', 'สหกิจ', 'สมัครงาน']
-    ctrl.points = Array.from(Array(21).keys())
+    ctrl.categoty = ['ฝึกงาน', 'สหกิจ', 'สมัครงาน'];
+    ctrl.points = Array.from(Array(21).keys());
+    ctrl.points1 = [0,1,2,3,4,5,6,7,8,9,10];
+    ctrl.points2 = [11,12,13,14,15,16,17,18,19,20];
+    ctrl.hide = false;
+
+    $rootScope.loadAndAuthorizeResource("candidate", function(){
+      $rootScope.menu = translateFilter('scout');
+      loadNewCandidate();
+    });
+
+    function loadNewCandidate() {
+      candidateDetailService.getById(49).then(function(resp) {
+        ctrl.datas = resp.data;
+        console.log(resp);
+      });
+    }
+
+    ctrl.formshow = function(){
+      ctrl.hide = false;
+    }
+
+    ctrl.formhide = function(){
+      ctrl.hide = true;
+    }
+
+    ctrl.submit = function(params){
+      openConfirmationModal(translateFilter("close_with_save"), function(){
+        ctrl.cannotSubmit = true;
+        candidateService.saveCandidate(params).then(function(resp) {
+          window.location.href = "/somsri#/candidate";
+          });
+      });
+    }
+
+  function openConfirmationModal(message, success, dismiss) {
+    $scope.message = message;
+    $uibModal.open({
+      animation: true,
+      backdrop: 'static',
+      keyboard: false,
+      scope: $scope,
+      templateUrl: "<%= asset_path('payroll/angular/components/modal/confirm/confirmModalView.html') %>",
+      controller: 'confirmModalCtrl as confirm',
+      size: 'md',
+      resolve: {
+        resources: ['$ocLazyLoad', 'ASSETS', function($ocLazyLoad, ASSETS) {
+          return $ocLazyLoad.load([
+            ASSETS.somsri.somsri.confirm_modal
+          ]);
+        }]
+      }
+    }).result.then(function (isConfirm) {
+      if (isConfirm) {
+        if(success){ success() }
+      }else{
+        if(dismiss){ dismiss() }
+      }
+    });
+  }
 
 
   }]);
