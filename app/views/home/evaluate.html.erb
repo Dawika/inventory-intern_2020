@@ -4,7 +4,7 @@
 <div class="container-fluid blue-bg">
   <!-- Head -->
   <div class="row-head-sp justify-content-between">
-     <i class="fas fa-arrow-left employee-view-icon.active" ng-click="createCandidate.cancelSubmit()"></i> &nbsp; {{ 'แบบประเมินหลังการสัมภาษณ์ Candidate' | translate }}
+     <i class="fas fa-arrow-left employee-view-icon.active" ng-click="createCandidate.cancelSubmit()"></i> &nbsp; {{ 'evaluate_candidate' | translate }}
   </div>
 
   <!--Content Evaluate Form -->
@@ -25,12 +25,12 @@
         <!-- Name interviewee / Email interviewer -->
         <div class="col-lg-6 p-0">
           <div class="row m-0">
-            {{ 'Interviewee name' | translate }}<br><br>
+            {{ 'interviewee_name' | translate }}<br><br>
             <label>{{evaluateCandidate.datas.candidate.full_name}}</label>
             <hr>
           </div>
           <div class="row m-0">
-            {{ 'Interviewer name' | translate }}<br><br>
+            {{ 'interviewer_email' | translate }}<br><br>
             <label>{{evaluateCandidate.datas.candidate.email}}</label>
             <hr>
           </div>
