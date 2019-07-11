@@ -54,7 +54,7 @@
                 </div>
                 <div class="tbody">
                     <div class="trow" ng-repeat="(index, employee) in payroll.employees" ng-mouseover="hoverIn(employee.code)" ng-class="{'hilight': sel==employee.code}">
-                        <span class="code">{{employee.code}}</span>
+                        <span class="code">{{index+1}}</span>
                         <span class="name">
                           <div ng-switch on="employee.deleted">
                             <div ng-switch-when="true">

@@ -3,15 +3,14 @@
   angular.module('somsri.payroll.report', [
   ])
   .controller('reportCtrl', ['$compile', '$scope', '$window', '$filter', '$rootScope', 'reportService', 'slipService', '$timeout', '$sce', 'translateFilter', function($compile, $scope, $window, $filter, $rootScope, reportService, slipService, $timeout, $sce, translateFilter) {
-    $rootScope.menu = translateFilter("report");
     var ctrl = this
     $rootScope.loadAndAuthorizeResource("payroll", function() {
+    $rootScope.menu = translateFilter("report");
       ctrl.total = 0
       ctrl.employees
       ctrl.effectiveDates = []
       ctrl.currentDateString = ""
       ctrl.slipsUrl = "?"
-
       ctrl.slip_carbon = false
       $rootScope.getSiteConfig("slip_carbon").then(function(resp) {
         ctrl.slip_carbon = resp.data
