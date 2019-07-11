@@ -1,6 +1,6 @@
 describe 'expense', js: true do
-  let(:school) { school = School.make!({ name: "โรงเรียนแห่งหนึ่ง" }) }
-  let(:user) { User.make!({ school_id: school.id }) }
+  let(:school) { School.make!() }
+  let(:user) { User.make!() }
   let(:site_config) do
     expense_tag_tree = [
       { id: expense_tags[0].id, cost: 0, lv: 2 },

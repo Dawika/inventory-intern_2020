@@ -1,13 +1,10 @@
 describe 'Classroom Edit', js: true do
 
   let(:school) do
-    School.make!({ name: "โรงเรียนแห่งหนึ่ง" })
+    School.make!()
   end
 
-  let(:user) { user = User.create!({
-    email: 'test@mail.com',
-    password: '123456789'
-  })}
+  let(:user) { User.make!() }
 
   let(:grades) do
     [
@@ -143,7 +140,7 @@ describe 'Classroom Edit', js: true do
     sleep(1)
     click_link("นักเรียน")
     sleep(1)
-    eventually { expect(page).to have_content("สมศรี3 ใบเสร็จ สมศรี2 ใบเสร็จ สมศรี1 ใบเสร็จ") }
+    eventually { expect(page).to have_content("สมศรี3 ใบเสร็จ\nสมศรี2 ใบเสร็จ\nสมศรี1 ใบเสร็จ") }
     eventually { expect(page).to have_content("จำนวน 3 คน") }
   end
 

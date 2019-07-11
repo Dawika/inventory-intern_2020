@@ -1,22 +1,28 @@
 require 'machinist/active_record'
 
+School.blueprint do
+  logo { File.open(Rails.root.join('public', 'somsri_logo.png')) }
+  name { "โรงเรียนแห่งหนึ่ง" }
+  subdomain_name { "school" }
+  name_eng { "School" }
+  email { "school@gmail.com" }
+  address { Faker::Address.street_address }
+  phone { Faker::PhoneNumber.cell_phone }
+end
+
 User.blueprint do
+  full_name {Faker::Name.name}
   name { Faker::Name.first_name }
   email { Faker::Internet.email }
   password { 'password' }
-end
-
-School.blueprint do
-  name { Faker::Lorem.word }
-  address { Faker::Address.street_address }
-  phone { Faker::PhoneNumber.cell_phone }
+  school_id { School.first.id }
 end
 
 Employee.blueprint do
   school_id  { object.school ? object.school.id : School.make!.id }
   first_name { Faker::Name.first_name }
   last_name { Faker::Name.last_name }
-  prefix { Faker::Name.title }
+  prefix { Faker::Name.name }
   first_name_thai { Faker::Name.first_name }
   last_name_thai { Faker::Name.last_name }
   prefix_thai { Faker::Name.title }
@@ -74,6 +80,7 @@ end
 Parent.blueprint do
   full_name { Faker::Name.name }
   mobile { Faker::PhoneNumber.cell_phone }
+  school_id { School.first.id }
 end
 
 StudentList.blueprint do

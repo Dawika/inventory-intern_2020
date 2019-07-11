@@ -1,13 +1,10 @@
 describe 'Student Promote', js: true do
 
   let(:school) do
-    School.make!({ name: "โรงเรียนแห่งหนึ่ง" })
+    School.make!()
   end
 
-  let(:user) { user = User.create!({
-    email: 'test@mail.com',
-    password: '123456789'
-  })}
+  let(:user) { User.make!()}
 
   let(:grades) do
     [
@@ -65,11 +62,12 @@ describe 'Student Promote', js: true do
     end
 
     it 'should display clickable promote button' do
-      eventually { expect(page).to have_content("1A 0 1") }
-      eventually { expect(page).to have_content("1B 0 2") }
-      eventually { expect(page).to have_content("2A 0 3") }
-      eventually { expect(page).to have_content("2B 0 4") }
-      eventually { expect(page).to have_content("3A 0 5") }
+      sleep(1)
+      eventually { expect(page).to have_content("1A\t0\t1") }
+      eventually { expect(page).to have_content("1B\t0\t2") }
+      eventually { expect(page).to have_content("2A\t0\t3") }
+      eventually { expect(page).to have_content("2B\t0\t4") }
+      eventually { expect(page).to have_content("3A\t0\t5") }
       eventually { expect(page).to have_button('เลื่อนชั้นเรียน', disabled: false) }
     end
 
@@ -97,11 +95,11 @@ describe 'Student Promote', js: true do
       find('button[ng-click="next.studentPromote()"]').click
       sleep(1)
       click_button("ตกลง")
-      eventually { expect(page).to have_content("1A 0 0") }
-      eventually { expect(page).to have_content("1B 0 0") }
-      eventually { expect(page).to have_content("2A 0 1") }
-      eventually { expect(page).to have_content("2B 0 2") }
-      eventually { expect(page).to have_content("3A 0 3") }
+      eventually { expect(page).to have_content("1A\t0\t0") }
+      eventually { expect(page).to have_content("1B\t0\t0") }
+      eventually { expect(page).to have_content("2A\t0\t1") }
+      eventually { expect(page).to have_content("2B\t0\t2") }
+      eventually { expect(page).to have_content("3A\t0\t3") }
 
       eventually { expect(Alumni.all.count).to eq 9 }
       eventually { expect(Alumni.where(student_id: students[14].id).exists?).to eq true }
@@ -111,11 +109,11 @@ describe 'Student Promote', js: true do
       sleep(1)
       find('button', text: 'ยกเลิก').click
       sleep(1)
-      eventually { expect(page).to have_content("1A 0 1") }
-      eventually { expect(page).to have_content("1B 0 2") }
-      eventually { expect(page).to have_content("2A 0 3") }
-      eventually { expect(page).to have_content("2B 0 4") }
-      eventually { expect(page).to have_content("3A 0 5") }
+      eventually { expect(page).to have_content("1A\t0\t1") }
+      eventually { expect(page).to have_content("1B\t0\t2") }
+      eventually { expect(page).to have_content("2A\t0\t3") }
+      eventually { expect(page).to have_content("2B\t0\t4") }
+      eventually { expect(page).to have_content("3A\t0\t5") }
     end
 
     it 'should change next classroom order and promote student' do
@@ -125,11 +123,11 @@ describe 'Student Promote', js: true do
       find('button[ng-click="next.studentPromote()"]').click
       click_button("ตกลง")
       sleep(1)
-      eventually { expect(page).to have_content("1A 0 0") }
-      eventually { expect(page).to have_content("1B 0 1") }
-      eventually { expect(page).to have_content("2A 0 0") }
-      eventually { expect(page).to have_content("2B 0 2") }
-      eventually { expect(page).to have_content("3A 0 3") }
+      eventually { expect(page).to have_content("1A\t0\t0") }
+      eventually { expect(page).to have_content("1B\t0\t1") }
+      eventually { expect(page).to have_content("2A\t0\t0") }
+      eventually { expect(page).to have_content("2B\t0\t2") }
+      eventually { expect(page).to have_content("3A\t0\t3") }
 
       eventually { expect(Alumni.all.count).to eq 9 }
       eventually { expect(Alumni.where(student_id: students[14].id).exists?).to eq true }
@@ -152,11 +150,11 @@ describe 'Student Promote', js: true do
       find('button[ng-click="next.studentPromote()"]').click
       click_button("ตกลง")
       sleep(5)
-      eventually { expect(page).to have_content("1A 0 1") }
-      eventually { expect(page).to have_content("1B 0 2") }
-      eventually { expect(page).to have_content("2A 0 3") }
-      eventually { expect(page).to have_content("2B 0 4") }
-      eventually { expect(page).to have_content("3A 0 5") }
+      eventually { expect(page).to have_content("1A\t0\t1") }
+      eventually { expect(page).to have_content("1B\t0\t2") }
+      eventually { expect(page).to have_content("2A\t0\t3") }
+      eventually { expect(page).to have_content("2B\t0\t4") }
+      eventually { expect(page).to have_content("3A\t0\t5") }
 
       eventually { expect(Alumni.all.count).to eq 0 }
       students.each do |student|

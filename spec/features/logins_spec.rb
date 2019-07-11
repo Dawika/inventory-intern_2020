@@ -2,15 +2,15 @@ describe 'Login', js: true do
 
   let(:schools) do
     [
-      School.make!({ name: "โรงเรียนแห่งหนึ่ง" }),
-      School.make!({ name: "โรงเรียนแห่งสอง" })
+      School.make!(name: "โรงเรียนแห่งหนึ่ง", name_eng: "School", email: "school@gmail.com", subdomain_name: "school"),
+      School.make!(name: "โรงเรียนแห่งสอง", name_eng: "School", email: "school2@gmail.com", subdomain_name: "school2")
     ]
   end
 
   let(:users) do
     [
-      User.make!({ school_id: schools[0].id }),
-      User.make!({ school_id: schools[1].id })
+      User.make!({ school_id: schools[0].id, full_name: "user1" }),
+      User.make!({ school_id: schools[1].id, full_name: "user2" })
     ]
   end
 
