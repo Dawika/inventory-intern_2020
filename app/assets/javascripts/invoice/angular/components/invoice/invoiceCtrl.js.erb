@@ -12,8 +12,8 @@
       }
     }
 
-    $rootScope.menu = translateFilter('invoice_form');
     $rootScope.loadAndAuthorizeResource("invoice", function(){
+    $rootScope.menu = translateFilter('invoice_form');
       ctrl.title = 'Invoice';
        function isPaymentMethodMoreThanOne(){
          var count = 0;

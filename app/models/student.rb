@@ -5,10 +5,10 @@ class Student < ApplicationRecord
   belongs_to :grade
   belongs_to :classroom
   belongs_to :gender
-  belongs_to :school
+  belongs_to :school, -> { with_deleted }
   has_and_belongs_to_many :parents, join_table: 'students_parents'
   has_and_belongs_to_many :relationships, join_table: "students_parents"
-  has_many :invoices
+  has_many :invoices, -> { with_deleted }
 
   has_many :roll_calls
   has_many :student_lists, dependent: :destroy
