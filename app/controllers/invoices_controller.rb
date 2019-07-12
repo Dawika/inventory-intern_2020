@@ -589,7 +589,6 @@ class InvoicesController < ApplicationController
       elsif page
         qry_invoices = qry_invoices.paginate(page: page, per_page: 10)
       end
-
       return qry_invoices.joins(user: [:school]).where("schools.id = #{current_user.school.id}").to_a
     end
 

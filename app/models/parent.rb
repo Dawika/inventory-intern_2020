@@ -5,8 +5,8 @@ class Parent < ApplicationRecord
   has_many :students_parents, dependent: :destroy
   has_and_belongs_to_many :students, join_table: "students_parents"
   has_and_belongs_to_many :relationships, join_table: "students_parents"
-  has_many :invoices
-  belongs_to :school
+  has_many :invoices, -> { with_deleted }
+  belongs_to :school, -> { with_deleted }
 
   acts_as_paranoid
 

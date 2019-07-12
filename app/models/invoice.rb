@@ -1,7 +1,7 @@
 class Invoice < ApplicationRecord
   belongs_to :user
-  belongs_to :student
-  belongs_to :parent
+  belongs_to :student, -> { with_deleted }
+  belongs_to :parent, -> { with_deleted }
   belongs_to :invoice_status
   has_many :line_items
   has_many :payment_methods
@@ -87,13 +87,11 @@ class Invoice < ApplicationRecord
 
   def self.search(keyword)
     if keyword.to_s != ''
-      joins(:parent, :student).where(
-        "CAST(invoices.id AS TEXT) LIKE ? OR students.full_name LIKE ? OR students.nickname LIKE ? OR parents.full_name LIKE ?",
-        "%#{keyword}%",
-        "%#{keyword}%",
-        "%#{keyword}%",
-        "%#{keyword}%"
-      )
+      search = "%#{keyword}%"
+      self.joins(:parent, :student).where("CAST(invoices.id AS TEXT) LIKE :search OR
+                                  students.full_name LIKE :search OR
+                                  students.nickname LIKE :search OR
+                                  parents.full_name LIKE :search", search: search)
     else
       self.all
     end

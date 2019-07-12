@@ -232,7 +232,7 @@ class StudentsController < ApplicationController
   def new
     @menu = t('student')
     @student = Student.new
-    @parents = Parent.all
+    @parents = Parent.where(school_id: current_user.school_id)
     @relations = Relationship.all
     render "students/new", layout: "application_invoice"
   end
@@ -240,7 +240,7 @@ class StudentsController < ApplicationController
   # GET /students/1/edit
   def edit
     @menu = t('student')
-    @parents = Parent.all
+    @parents = Parent.where(school_id: current_user.school_id)
     @relations = Relationship.all
 
     render "students/edit", layout: "application_invoice"
