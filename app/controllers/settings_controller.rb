@@ -40,7 +40,7 @@ class SettingsController < ApplicationController
       {
         user: current_user,
         school: current_user.school,
-        school_logo: current_user.school.logo_url.path(:medium)
+        school_logo: current_user.school.logo.expiring_url(10, :medium)
       }
     end
 
