@@ -36,19 +36,11 @@ class SettingsController < ApplicationController
   end
 
   private
-  logo = ""
-  if current_user.school.logo.exists?
-    if Paperclip::Attachment.default_options[:storage] == :s3
-      logo = current_user.school.logo.expiring_url(10, :medium)
-    elsif Paperclip::Attachment.default_options[:storage] == :filesystem
-      logo = current_user.school.logo.path(:medium)
-    end
-  end
     def getSetting
       {
         user: current_user,
         school: current_user.school,
-        school_logo: logo
+        school_logo: current_user.school.logo_url
       }
     end
 
