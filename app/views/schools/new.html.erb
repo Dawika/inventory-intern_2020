@@ -15,7 +15,7 @@
             <div class="form-sign-in" id="formSingUp">
               <div class="row">
                 <div class="col-xs-12">
-                  <%= image_tag @school.logo.expiring_url(3600, :medium), class: "img-responsive logo-login" if @school.logo.exists? %>
+                  <%= image_tag @school.logo_url, class: "img-responsive logo-login" if @school.logo.exists? %>
                 </div>
               </div>
               <div class="row text-center start-signup">
@@ -23,7 +23,7 @@
                 <b>ไม่จำกัดจำนวนนักเรียน ไม่จำกัดจำนวนบุคลากร</b><br><br>
               </div>    
               <%= f.simple_fields_for :users, validate: true do |user_form| %>
-                <div class="row">
+                <div class="row"> 
                   <div class="field form-group">
                     <%= user_form.input :full_name, label: false, autofocus: true, placeholder: t('full_name'),
                     input_html: { class: 'validate-sign-in', id: 'school_users_full_name'}, required: true %>
