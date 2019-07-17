@@ -26,6 +26,8 @@
 //= require angular-sanitize
 //= require ng-csv
 //= require angular-ui-bootstrap-fontawesome
+//= require ng-file-upload-shim
+//= require ng-file-upload
 
 //= require angular-translate/angular-translate
 //= require angular-translate-loader-url/angular-translate-loader-url
