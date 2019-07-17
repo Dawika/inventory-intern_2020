@@ -148,6 +148,7 @@ Gender.create([{ name: 'Male'},{ name: 'Female'}]) if Gender.count == 0
 Grade.create([{ name: 'Preschool' },{ name: 'Kindergarten 1' },{ name: 'Kindergarten 2' },{ name: 'Kindergarten 3' }]) if Grade.count == 0
 Relationship.create([{ name: 'Father' }, { name: 'Mother' }, { name: 'Grandfather' }, { name: 'Grandmother' }, { name: 'Uncle' }, { name: 'Aunt' }, { name: 'Cousin' }]) if Relationship.count == 0
 InvoiceStatus.create([{ name: 'Active' }, { name: 'Canceled' }]) if InvoiceStatus.count == 0
+Score.create([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]) if Score.count == 0
 
 #roll calls
 if Student.where(student_number: 2001..2040).count == 0 && Student.where(student_number: 1001..1040).count == 0

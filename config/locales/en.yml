@@ -872,6 +872,47 @@ en:
   add_to_shortlist: "Add to shortlist"
   submit: "Submit"
 
+  evaluate_candidate: "แบบประเมินหลังการสัมภาษณ์ Candidate"
+
+  interview_information: "Interview Information"
+  interviewer_email: "อีเมลผู้สัมภาษณ์"
+  interviewee_name: "ชื่อผู้ถูกสัมภาษณ์"
+  interviewee_type: "ประเภทผู้ถูกสัมภาษณ์"
+  internship: "Internship"
+  cooperative_education: "Cooperative Education"
+  apprentice: "Apprentice"
+
+  evaluate_current_ability: "Current Ability - ประเมินความรู้ความสามารถ"
+  evaluate_frontend: "ประเมินความรู้ Frontend (HTML, CSS, Bootstrap, Angular, ReactJS)"
+  evaluate_dot_net: "ประเมินความรู้ .NET"
+  evaluate_dot_net_core: "ประเมินความรู้ .NET Core"
+  evaluate_dot_ruby_on_rails: "ประเมินความรู้ Ruby on Rails"
+  evaluate_kotlin: "ประเมินความรู้ Kotlin"
+  evaluate_swift: "ประเมินความรู้ Swift"
+  evaluate_other_ability: "ประเมินความรู้อื่นๆ"
+  
+  evaluate_learn_ability: "Learn Ability - ประเมินความสามารถในการเรียนรู้"
+  evaluate_problem_solving: "ประเมินการแก้ปัญหา(Problem Solving)"
+  evaluate_indepentdent: "ประเมินการทำงานด้วยตัวเอง (Indepentdent)"
+  evaluate_comunication: "ประเมินการสื่อสาร ถาม-ตอบ (Comunication)"
+
+  evaluate_attraction: "Attraction - ประเมินความใส่ใจ"
+  attention_to_bananan: "คะแนนความกระตือรือร้นที่จะร่วมงานกับ Banana"
+  on_time: "ความตรงต่อเวลา - punctual"
+  on_time_true: "ตรงเวลานัด"
+  on_time_false: "ไม่ตรงเวลานัด"
+  evaluate_teamwork: "ประเมินความสามารถทำงานร่วมกับทีม"
+
+  conclusion: "Conclusion - สรุป"
+  evaluate_compatibility: "ประเมินความเข้ากันได้กับวัฒนธรรมองค์กร"
+  note: "หมายเหตุ"
+  glad: "ถ้าท่านต้องร่วมงานกับผู้ถูกสัมภาษณ์ ท่านยินดีหรือไม่"
+  pleased: "ยินดี"
+  so_so: "เฉยๆ"
+  displeased: "ไม่ยินดี"
+
+  form_issubmit_already: "ได้ทำการส่งแบบประเมินไปเป็นที่เรียบร้อยแล้ว"
+
 
 
 

@@ -44,6 +44,15 @@ class HomeController < ApplicationController
     render json: { errors: "Invalid PIN" }, status: 422 and return
   end
 
+  # GET /evaluate/56/1/
   def evaluate
+    @candidate = Candidate.find(56)
+    @interview = @candidate.interview
+    @interview_email = @interview.interviewer_emails.find(1)
+    @evaluate = @interview_email.evaluate
+    respond_to do |f|
+      f.html { render "evaluate", layout: "application_invoice" }
+    end
   end
+
 end
