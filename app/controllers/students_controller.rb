@@ -240,10 +240,11 @@ class StudentsController < ApplicationController
   # GET /students/1/edit
   def edit
     @menu = t('student')
+    student = Student.where(id: params[:id], school_id: current_user.school_id)
     @parents = Parent.where(school_id: current_user.school_id)
     @relations = Relationship.all
 
-    if @student.present?
+    if student.present?
       render "students/edit", layout: "application_invoice"
     else
       redirect_to students_path
