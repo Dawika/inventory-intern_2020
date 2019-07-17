@@ -18,7 +18,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <img id="s_logo" src="{{ setting.datas.school_logo }}" alt="your image" width="100px" onclick="$('#file-upload').trigger('click')"/><br>
-                <input type="file" id="file-upload" onchange="angular.element(this).scope().fileChange(event, 's_logo')" file-model="setting.datas.school.logo">
+              <input type="file" id="file-upload" onchange="angular.element(this).scope().fileChange(event, 's_logo')">
             </div>
           </div>
         </div>

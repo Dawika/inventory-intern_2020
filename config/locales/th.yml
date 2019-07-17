@@ -183,6 +183,9 @@ th:
   grade: "ชั้น"
   item_no: "ลำดับที่"
   item_desc: "รายการ"
+  account_number: "เลขประจำตัวผู้เสียภาษี"
+  faxx: "แฟซ์"
+  call: "โทร"
 
   invoice_form: "แบบชำระเงิน"
   date1: "วันที่"

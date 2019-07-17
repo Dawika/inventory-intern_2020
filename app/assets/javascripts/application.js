@@ -32,6 +32,8 @@
 //= require extensions/bootstrap-table-multiple-sort.js
 //= require angular-ui-bootstrap-fontawesome
 //= require extensions/bootstrap-table-export.js
+//= require ng-file-upload-shim
+//= require ng-file-upload
 //= require_tree .
 
 

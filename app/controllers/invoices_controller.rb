@@ -284,6 +284,15 @@ class InvoicesController < ApplicationController
       remark: @invoice.remark,
       grade_name: grade_name,
       receiver_name: @invoice.user.name,
+      school: {
+        display_name: current_user.school.name,
+        address:  current_user.school.address,
+        phone:  current_user.school.phone,
+        fax:  current_user.school.fax,
+        email:  current_user.school.email,
+        account_number:  current_user.school.account_number,
+        branch:  current_user.school.branch
+      },
       parent: {
         display_name: @invoice.parent.full_name
       },
