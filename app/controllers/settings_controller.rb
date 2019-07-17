@@ -19,7 +19,6 @@ class SettingsController < ApplicationController
       # else
       #   render json: {error: "Cannot update settings."}, status: :bad_request
       # end
-      ap params_school[:logo_file_name]
       render json: getSetting(), status: :ok
     end
   end

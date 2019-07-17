@@ -243,7 +243,11 @@ class StudentsController < ApplicationController
     @parents = Parent.where(school_id: current_user.school_id)
     @relations = Relationship.all
 
-    render "students/edit", layout: "application_invoice"
+    if @student.present?
+      render "students/edit", layout: "application_invoice"
+    else
+      redirect_to students_path
+    end  
   end
 
   # POST /students
@@ -495,7 +499,8 @@ class StudentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_student
-      @student = Student.includes([:parents, :relationships]).find(params[:id])
+      @student = Student.includes([:parents, :relationships]).find_by(id: params[:id])
+      redirect_to students_path if @student.nil?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
