@@ -23,7 +23,7 @@
                 <b>ไม่จำกัดจำนวนนักเรียน ไม่จำกัดจำนวนบุคลากร</b><br><br>
               </div>    
               <%= f.simple_fields_for :users, validate: true do |user_form| %>
-                <div class="row">
+                <div class="row"> 
                   <div class="field form-group">
                     <%= user_form.input :full_name, label: false, autofocus: true, placeholder: t('full_name'),
                     input_html: { class: 'validate-sign-in', id: 'school_users_full_name'}, required: true %>
