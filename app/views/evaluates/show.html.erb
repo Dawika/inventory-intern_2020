@@ -1,4 +1,4 @@
-<%= form_for @evaluate , :html => { :class => "form-horizontal evaluate" } do |f| %>
+<%= form_for @evaluate, :html => { :class => "form-horizontal evaluate" } do |f| %>
 
 <div class="container-fluid blue-bg">
   <!-- Head -->
@@ -6,6 +6,7 @@
      <i class="fas fa-arrow-left employee-view-icon.active" ng-click="createCandidate.cancelSubmit()"></i> &nbsp; <%= f.label t('evaluate_candidate'), :class => 'control-label' %>
   </div>
 
+<% if @evaluate.is_submit != true %>
   <!-- content when not submit -->
   <div class="content-scout pt-0 mx-15p">
     <form name="evaluateCandidateForm">
@@ -21,12 +22,12 @@
         <div class="col-lg-6 p-0">
           <div class="row m-0">
             <%= f.label t('interviewee_name'), :class => 'control-label' %><br><br>
-            <label> <%= @candidate.full_name %> </label>
+            <label> <%= @interview.candidate.full_name %> </label>
             <hr>
           </div>
           <div class="row m-0">
             <%= f.label t('interviewer_email'), :class => 'control-label' %><br><br>
-            <label> <%= @interview_email.email %> </label>
+            <label> <%= @evaluate.interviewer_email.email %> </label>
             <hr>
           </div>
         </div>
@@ -56,7 +57,7 @@
             <label><%= f.label t('evaluate_frontend'), :class => 'control-label' %></label>
           </div>
           <div class="col-md-2">
-            <%= f.select :frontend, options_for_select((0..20).map {|str| str.to_i}), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+            <%= f.select :frontend, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
           </div>
         </div>
 
@@ -67,7 +68,7 @@
             <label><%= f.label t('evaluate_dot_net'), :class => 'control-label' %></label>
           </div>
           <div class="col-md-2">
-           <%= f.select :dot_net, options_for_select((0..20).map {|str| str.to_i}), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+           <%= f.select :dot_net, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
           </div>
         </div>
 
@@ -78,7 +79,7 @@
             <label><%= f.label t('evaluate_dot_net_core'), :class => 'control-label' %></label>
           </div>
           <div class="col-md-2">
-           <%= f.select :dot_net_core, options_for_select((0..20).map {|str| str.to_i}), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+           <%= f.select :dot_net_core, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
           </div>
         </div>
 
@@ -88,7 +89,7 @@
             <label><%= f.label t('evaluate_ruby_on_rails'), :class => 'control-label' %></label>
           </div>
           <div class="col-md-2">
-           <%= f.select :ruby_on_rails, options_for_select((0..20).map {|str| str.to_i}), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+           <%= f.select :ruby_on_rails, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
           </div>
         </div>
 
@@ -98,7 +99,7 @@
             <label><%= f.label t('evaluate_kotlin'), :class => 'control-label' %></label>
           </div>
           <div class="col-md-2">
-           <%= f.select :kotlin, options_for_select((0..20).map {|str| str.to_i}), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+           <%= f.select :kotlin, options_for_select(@listnum, :selected => f.object.kotlin), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
           </div>
         </div>
 
@@ -108,7 +109,7 @@
             <label><%= f.label t('evaluate_swift'), :class => 'control-label' %></label>
           </div>
           <div class="col-md-2">
-           <%= f.select :swift, options_for_select((0..20).map {|str| str.to_i}), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+           <%= f.select :swift, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
           </div>
         </div>
 
@@ -134,7 +135,7 @@
             <label><%= f.label t('evaluate_problem_solving'), :class => 'control-label' %></label>
           </div>
           <div class="col-md-2">
-           <%= f.select :problem_solving, options_for_select((0..20).map {|str| str.to_i}), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+           <%= f.select :problem_solving, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
           </div>
         </div>
 
@@ -144,7 +145,7 @@
             <label><%= f.label t('evaluate_indepentdent'), :class => 'control-label' %></label>
           </div>
           <div class="col-md-2">
-           <%= f.select :indepentdent, options_for_select((0..20).map {|str| str.to_i}), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+           <%= f.select :indepentdent, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
           </div>
         </div>
 
@@ -154,7 +155,7 @@
             <label><%= f.label t('evaluate_comunication'), :class => 'control-label' %></label>
           </div>
           <div class="col-md-2">
-           <%= f.select :comunication, options_for_select((0..20).map {|str| str.to_i}), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+           <%= f.select :comunication, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
           </div>
         </div>
 
@@ -174,7 +175,7 @@
             <label><%= f.label t('attention_to_bananan'), :class => 'control-label' %></label>
           </div>
           <div class="col-md-2">
-           <%= f.select :attention, options_for_select((0..20).map {|str| str.to_i}), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+           <%= f.select :attention, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
           </div>
         </div>
         
@@ -196,7 +197,7 @@
             <label><%= f.label t('evaluate_teamwork'), :class => 'control-label' %></label>
           </div>
           <div class="col-md-2">
-           <%= f.select :teamwork, options_for_select((0..20).map {|str| str.to_i}), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+           <%= f.select :teamwork, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
           </div>
         </div>
 
@@ -217,7 +218,7 @@
             <label><%= f.label t('evaluate_compatibility'), :class => 'control-label' %></label>
           </div>
           <div class="col-md-2">
-           <%= f.select :compatibility, options_for_select((0..20).map {|str| str.to_i}), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+           <%= f.select :compatibility, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
           </div>
         </div>
 
@@ -256,8 +257,9 @@
     <!--/Content Evaluate Form -->
     </div>
   </div>
+<% end %>
 
-
+<% if @evaluate.is_submit == true %>
   <!-- content when submit already -->
   <div class="content-scout pt-0 mx-15p" >
     <!-- warnnig row -->
@@ -271,12 +273,12 @@
         <div class="col-lg-6 p-0">
           <div class="row m-0">
             <%= f.label t('interviewee_name'), :class => 'control-label' %><br><br>
-            <label> <%= @candidate.full_name %> </label>
+            <label> <%= @interview.candidate.full_name %> </label>
             <hr>
           </div>
           <div class="row m-0">
             <%= f.label t('interviewer_email'), :class => 'control-label' %><br><br>
-            <label> <%= @interview_email.email %> </label>
+            <label> <%= @evaluate.interviewer_email.email %> </label>
             <hr>
           </div>
         </div>
@@ -287,7 +289,7 @@
 
     </div>
   </div>
-
+<% end %>
 
 </div>
 
