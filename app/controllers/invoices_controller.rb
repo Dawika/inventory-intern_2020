@@ -290,7 +290,7 @@ class InvoicesController < ApplicationController
         phone:  current_user.school.phone,
         fax:  current_user.school.fax,
         email:  current_user.school.email,
-        account_number:  current_user.school.account_number,
+        tax_id:  current_user.school.tax_id,
         branch:  current_user.school.branch
       },
       parent: {

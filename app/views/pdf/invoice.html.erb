@@ -10,7 +10,7 @@
         <div class="row"><%= @results[:school][:address] %></div>
         <div class="row"><b><%=I18n.t('call') + '/' + I18n.t('faxx') + ':  '%></b><%= @results[:school][:phone]%> , <%= @results[:school][:fax] %></div>
         <div class="row"><b><%=I18n.t('email') + ':  '%></b><%= @results[:school][:email] %></div>
-        <div class="row"><b><%=I18n.t('account_number') + ':  '%></b><%= @results[:school][:account_number] %><b>   <%='  '+I18n.t('branch') + ':  '%></b><%= @results[:school][:branch] %></div>
+        <div class="row"><b><%=I18n.t('account_number') + ':  '%></b><%= @results[:school][:tax_id] %><b>   <%='  '+I18n.t('branch') + ':  '%></b><%= @results[:school][:branch] %></div>
       </div>
       <div class="col-xs-2 font-9">
         <div class="row">
