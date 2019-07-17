@@ -17,7 +17,7 @@
 
       ctrl.submit = function(params){
         service.saveSetting(params).then(function(resp) {
-          
+          $rootScope.openRoot();
         });
       }
 

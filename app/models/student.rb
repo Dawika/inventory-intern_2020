@@ -30,6 +30,8 @@ class Student < ApplicationRecord
   before_save :clean_full_name
   after_destroy :manual_destroy_recursively
 
+  default_scope { where(school_id: User.find(28).school_id) }
+
   def update_rollcall_list
     if self.classroom_id && self.classroom_id_changed?
       # add or update list
