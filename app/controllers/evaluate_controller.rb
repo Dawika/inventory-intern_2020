@@ -1,8 +1,5 @@
 class EvaluateController < HomeController
-
-
-
-  # GET /evaluate/56/1/
+  # GET /evaluate/1/update
   def evaluate
     @evaluate = Evaluate.find(params[:id])
     @interview_email = InterviewerEmail.find(@evaluate.interviewer_email_id)
