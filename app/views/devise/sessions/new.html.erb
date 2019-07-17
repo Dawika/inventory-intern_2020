@@ -14,7 +14,7 @@
           <div class="row">
             <div class="col-xs-12">
               <% if @school&.logo.present? %>
-                <%= image_tag @school&.logo, class: "img-responsive logo-login" %>
+                <%= image_tag @school&.logo_url, class: "img-responsive logo-login" %>
                 <% else %>
                 <%= image_tag School.first.logo_url, class: "img-responsive logo-login" %>
               <% end %>
