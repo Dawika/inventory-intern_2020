@@ -45,10 +45,14 @@ class ParentsController < ApplicationController
   # GET /parents/1/edit
   def edit
     @menu = t('parent')
+    parent = Parent.where(id: params[:id], school_id: current_user.school_id)
     @students = Student.where(school_id: current_user.school.id)
     @relations = Relationship.all
-
+    if parent.present?
     render "parents/edit", layout: "application_invoice"
+    else
+      redirect_to parents_path
+    end
   end
 
   # POST /parents
