@@ -168,7 +168,7 @@ class ClassroomsController < ApplicationController
     if Classroom.where("lower(name) = ?", classroom.downcase).where(grade_id: grade_id).count > 0
       render json: { dupplicate: true }, status: :ok
     else
-      classroom =  Classroom.create(name: classroom, grade_id: grade_id)
+      classroom =  Classroom.create(name: classroom, grade_id: grade_id, school_id: current_user.school_id)
       classroom.next_id = classroom.id
       classroom.save
       render json: { head: :no_content }, status: :ok
