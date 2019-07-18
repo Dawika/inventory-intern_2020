@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20190718032543) do
+=======
+ActiveRecord::Schema.define(version: 20190718085305) do
+>>>>>>> edit classroom in school
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,8 +85,10 @@ ActiveRecord::Schema.define(version: 20190718032543) do
     t.string   "name",       default: "", null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "school_id"
     t.index ["grade_id"], name: "index_classrooms_on_grade_id", using: :btree
     t.index ["next_id"], name: "index_classrooms_on_next_id", using: :btree
+    t.index ["school_id"], name: "index_classrooms_on_school_id", using: :btree
   end
 
   create_table "comfy_cms_blocks", force: :cascade do |t|
@@ -894,6 +900,7 @@ ActiveRecord::Schema.define(version: 20190718032543) do
   add_foreign_key "class_permisions", "employees"
   add_foreign_key "class_permisions", "lists"
   add_foreign_key "classrooms", "classrooms", column: "next_id", on_delete: :nullify
+  add_foreign_key "classrooms", "schools"
   add_foreign_key "employee_skills", "employees"
   add_foreign_key "employee_skills", "skills"
   add_foreign_key "employees", "classrooms", on_delete: :nullify
