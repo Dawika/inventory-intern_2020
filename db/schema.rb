@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190604093129) do
+ActiveRecord::Schema.define(version: 20190718032543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -452,6 +452,9 @@ ActiveRecord::Schema.define(version: 20190604093129) do
     t.string   "student_name"
     t.string   "parent_name"
     t.string   "user_name"
+    t.integer  "slip_id"
+    t.integer  "school_id"
+    t.index ["school_id"], name: "index_invoices_on_school_id", using: :btree
   end
 
   create_table "line_item_quotations", force: :cascade do |t|
@@ -731,6 +734,7 @@ ActiveRecord::Schema.define(version: 20190604093129) do
     t.integer  "img_url_file_size"
     t.datetime "img_url_updated_at"
     t.integer  "classroom_id"
+    t.integer  "school_student_id"
     t.index ["classroom_id"], name: "index_students_on_classroom_id", using: :btree
     t.index ["deleted_at"], name: "index_students_on_deleted_at", using: :btree
     t.index ["school_id"], name: "index_students_on_school_id", using: :btree
@@ -898,6 +902,7 @@ ActiveRecord::Schema.define(version: 20190604093129) do
   add_foreign_key "individuals", "employees", column: "friend_id"
   add_foreign_key "individuals", "employees", column: "parent_id"
   add_foreign_key "individuals", "employees", column: "spouse_id"
+  add_foreign_key "invoices", "schools"
   add_foreign_key "parents", "schools"
   add_foreign_key "roll_calls", "lists"
   add_foreign_key "school_settings", "schools"

@@ -7,7 +7,10 @@ class Invoice < ApplicationRecord
   has_many :payment_methods
 
   self.per_page = 10
-
+  
+  scope :in_school, -> (school_id) { where(school_id: school_id)
+                                     .where("date_part('year', created_at) = ?", Date.today.year)
+                                   }
   scope :latest, -> { order("created_at DESC").first }
 
   def helper
