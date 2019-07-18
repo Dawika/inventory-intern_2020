@@ -484,6 +484,7 @@ class StudentsController < ApplicationController
     gender_id = Gender.male.id if ["เด็กชาย", "ด.ช.", "master"].include?(splited[0].downcase)
 
     student = Student.create({
+      school_id: current_user.school_id,
       gender_id: gender_id,
       full_name: fullname,
       nickname: nickname

@@ -54,7 +54,6 @@ class ClassroomsController < ApplicationController
         student_count: student_count
       }
     end
-    ap classrooms
     render json: classrooms, status: :ok
   end
 
@@ -77,7 +76,7 @@ class ClassroomsController < ApplicationController
     teachers = []
     classroom_id = params[:id]
     exclude_ids = JSON.parse params[:exclude_ids]
-    Employee.where(classroom_id: [nil, '', classroom_id])
+    Employee.where(classroom_id: [nil, '', classroom_id], school_id: current_user.school_id)
             .where.not(id: exclude_ids).each do |teacher|
       teachers << {
         img: teacher.img_url.exists? ? teacher.img_url.expiring_url(10, :medium) : nil,
@@ -107,7 +106,7 @@ class ClassroomsController < ApplicationController
     students = []
     classroom_id = params[:id]
     exclude_ids = JSON.parse params[:exclude_ids]
-    Student.where(classroom_id: [nil, '', classroom_id])
+    Student.where(classroom_id: [nil, '', classroom_id], school_id: current_user.school_id)
            .where.not(id: exclude_ids).each do |student|
       students << {
         img: student.img_url.exists? ? student.img_url.expiring_url(10, :medium) : nil,
