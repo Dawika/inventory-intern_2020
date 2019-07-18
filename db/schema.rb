@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20190718032543) do
-=======
 ActiveRecord::Schema.define(version: 20190718085305) do
->>>>>>> edit classroom in school
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
