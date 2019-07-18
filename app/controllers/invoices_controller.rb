@@ -193,6 +193,8 @@ class InvoicesController < ApplicationController
       end
 
       invoice = Invoice.new(invoice_hash)
+      invoice.school_id = current_user.school.id
+      invoice.slip_id = (Invoice.in_school(current_user.school.id).maximum('slip_id') || 0) + 1
       invoice.parent_id = parent.id
       invoice.parent_name = parent.full_name
       invoice.student_id = student.id
@@ -273,7 +275,7 @@ class InvoicesController < ApplicationController
       header: school.invoice_header_with_logo,
       footer: school.invoice_footer,
       logo: current_user.school.logo_url,
-      slip_id: @invoice.id,
+      slip_id: @invoice.slip_id,
       thai_now_date: I18n.l(@invoice.created_at, format: "%d %B #{@invoice.created_at.year + 543}"),
       eng_now_date: @invoice.created_at.strftime("%d %B %Y"),
       semester: @invoice.semester,
