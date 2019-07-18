@@ -43,7 +43,7 @@ class ClassroomsController < ApplicationController
   # GET /classrooms/classroom_list
   def classroom_list
     classrooms = []
-    Classroom.where(school_id: current_user.school_id).to_a.each do |classroom|
+    Classroom.where(school_id: current_user.school_id).each do |classroom|
       teacher_count = Employee.where(classroom_id: classroom.id).count
       student_count = Student.where(classroom_id: classroom.id).count
       classrooms << {
