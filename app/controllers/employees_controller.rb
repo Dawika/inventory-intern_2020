@@ -182,6 +182,7 @@ class EmployeesController < ApplicationController
 
     name = Employee.split_name(fullname)
     name[:nickname] = nickname
+    name[:school_id] = current_user.school_id
     employee = Employee.create(name)
     result = {
       img: employee.img_url.exists? ? employee.img_url.expiring_url(10, :medium) : nil,

@@ -43,7 +43,7 @@ class ClassroomsController < ApplicationController
   # GET /classrooms/classroom_list
   def classroom_list
     classrooms = []
-    Classroom.all.to_a.each do |classroom|
+    Classroom.where(school_id: current_user.school_id).each do |classroom|
       teacher_count = Employee.where(classroom_id: classroom.id).count
       student_count = Student.where(classroom_id: classroom.id).count
       classrooms << {
@@ -76,7 +76,7 @@ class ClassroomsController < ApplicationController
     teachers = []
     classroom_id = params[:id]
     exclude_ids = JSON.parse params[:exclude_ids]
-    Employee.where(classroom_id: [nil, '', classroom_id])
+    Employee.where(classroom_id: [nil, '', classroom_id], school_id: current_user.school_id)
             .where.not(id: exclude_ids).each do |teacher|
       teachers << {
         img: teacher.img_url.exists? ? teacher.img_url.expiring_url(10, :medium) : nil,
@@ -106,7 +106,7 @@ class ClassroomsController < ApplicationController
     students = []
     classroom_id = params[:id]
     exclude_ids = JSON.parse params[:exclude_ids]
-    Student.where(classroom_id: [nil, '', classroom_id])
+    Student.where(classroom_id: [nil, '', classroom_id], school_id: current_user.school_id)
            .where.not(id: exclude_ids).each do |student|
       students << {
         img: student.img_url.exists? ? student.img_url.expiring_url(10, :medium) : nil,
@@ -168,7 +168,7 @@ class ClassroomsController < ApplicationController
     if Classroom.where("lower(name) = ?", classroom.downcase).where(grade_id: grade_id).count > 0
       render json: { dupplicate: true }, status: :ok
     else
-      classroom =  Classroom.create(name: classroom, grade_id: grade_id)
+      classroom =  Classroom.create(name: classroom, grade_id: grade_id, school_id: current_user.school_id)
       classroom.next_id = classroom.id
       classroom.save
       render json: { head: :no_content }, status: :ok
