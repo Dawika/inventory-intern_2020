@@ -36,7 +36,7 @@
                 <span ng-click="candidateDetail.openInterviewModal()">Interview date:</span>
               </div>
               <div class="col-md-3 padding-left0" ng-show="candidateDetail.showInterviewDate">
-                <span class="color-blue-candidate" ng-click="candidateDetail.openInterviewModal()" >{{candidateDetail.datas.candidate.interview.date | date:"dd/MM/yyyy HH:mm"}}</span>
+                <span class="color-blue-candidate" ng-click="candidateDetail.openInterviewModal()">{{candidateDetail.datas.candidate.interview.date | date:"dd/MM/yyyy HH:mm"}}</span>
               </div>
             </div>
             <div class="row mb-20 detail-candidate font-candidate">
@@ -165,22 +165,36 @@
                   <div class="progress-bar bar-skill" role="progressbar" style="width: {{item.skill_point * 5}}%;"></div>
                 </div>
               </div>
-              <div class="col-md-2 break-word padding-left0">
+              <div class="col-md-2 padding-left0">
                 <span>({{item.skill_point}}/20)</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div ng-show="!candidateDetail.datas.candidate.interview.id" class="col-md-6">
+      <div ng-show="!candidateDetail.datas.candidate.interview.id && !candidateDetail.datas.candidate.evaluate" class="col-md-6">
         <h3 class="hr-2 heading-candidate color-blue-candidate">Note</h3>
         <div class="note-cadidate">
           {{candidateDetail.datas.candidate.note}}
         </div>
       </div>
-      <div ng-show="candidateDetail.datas.candidate.interview.id" class="col-md-6">
+      <div ng-show="candidateDetail.datas.candidate.interview.id && !candidateDetail.datas.candidate.evaluate" class="col-md-6">
         <h3 class="hr-2 heading-candidate color-blue-candidate">Interview Score</h3>
-          <button type="button" class ="btn btn-interview-form"  data-toggle="modal" data-target="#myModal"> Send interview form </button>
+          <button type="button" class ="btn btn-interview-form" ng-click="candidateDetail.openSentEmailModal()"> Send interview form </button>
+      </div>
+      <div ng-show="candidateDetail.datas.candidate.evaluate" class="col-md-6">
+        <h3 class="hr-2 heading-candidate color-blue-candidate">มีผู้ตอบแบบฟอร์มแล้วทั้งหมด {{candidateDetail.submited.length}} of {{candidateDetail.allSubmit}} คน</h3>
+        <div class="col-md-12 pl-20">
+          <div ng-repeat="item in candidateDetail.submited">
+            <span class="heading-candidate font-18">{{item.email}}</span><span class="heading-candidate font-18 color-light-green ml-10">(ตอบแล้ว)</span>
+          </div>
+          <div ng-repeat="item in candidateDetail.notSubmited">
+            <span class="heading-candidate font-18">{{item.email}}</span><span class="heading-candidate font-18 color-red ml-10">(ยังไม่ตอบ)</span>
+          </div>
+          <div class="mt-20" ng-show="candidateDetail.submited.length > 0">
+            <button type="button" class ="btn btn-interview-form" ng-click="candidateDetail.toConclusion()">Conclusion</button>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">

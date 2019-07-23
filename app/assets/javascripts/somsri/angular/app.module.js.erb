@@ -14,7 +14,9 @@
     'ui.select',
     'ngSanitize',
     'ui.tree',
-    'ng.ckeditor'
+    'ng.ckeditor',
+    'chart.js'
+    
   ]);
 
   var check_permission = function(permission){
@@ -411,6 +413,18 @@
           resources: ['$ocLazyLoad', function($ocLazyLoad) {
             return $ocLazyLoad.load([
               ASSETS.somsri.somsri.candidate_detail
+            ]);
+          }]
+        }
+    }).state({
+      url: '/candidate/evaluate_conclusion/:id',
+        name: 'evaluate_conclusion',
+        templateUrl: "<%= asset_path('somsri/angular/components/candidate/evaluateConclusion/evaluateConclusionView.html') %>",
+        controller: 'evaluateConclusionCtrl as evaluateConclusion',
+        resolve: {
+          resources: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              ASSETS.somsri.somsri.evaluate_conclusion
             ]);
           }]
         }

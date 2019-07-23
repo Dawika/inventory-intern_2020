@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190709043737) do
+ActiveRecord::Schema.define(version: 20190723065747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -350,16 +350,17 @@ ActiveRecord::Schema.define(version: 20190709043737) do
     t.integer  "indepentdent",         default: 0
     t.integer  "comunication",         default: 0
     t.integer  "attention",            default: 0
-    t.boolean  "on_time"
+    t.boolean  "on_time",              default: false
     t.integer  "teamwork",             default: 0
     t.integer  "compatibility",        default: 0
     t.string   "note"
-    t.string   "glad"
-    t.boolean  "is_submit"
+    t.integer  "glad",                 default: 1
+    t.boolean  "is_submit",            default: false
     t.integer  "interview_id"
     t.integer  "interviewer_email_id"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "link"
     t.index ["interview_id"], name: "index_evaluates_on_interview_id", using: :btree
     t.index ["interviewer_email_id"], name: "index_evaluates_on_interviewer_email_id", using: :btree
   end

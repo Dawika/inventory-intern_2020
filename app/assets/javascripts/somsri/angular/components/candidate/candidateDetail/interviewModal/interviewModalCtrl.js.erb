@@ -14,6 +14,7 @@
     ctrl.hour = '00';
     ctrl.candidate_id = $scope.candidate_id;
     ctrl.datas;
+    ctrl.interviewer_emails_attributes = null;
 
     $rootScope.loadAndAuthorizeResource("interview", function() {
       loadInterview()
@@ -31,7 +32,7 @@
         newDateType()
         ctrl.date = ctrl.datas.candidate.interview.date;
         ctrl.interviewer_emails_attributes = ctrl.datas.candidate.interview.interviewer_emails_attributes
-
+        console.log(ctrl.datas)
         
       });
     }
@@ -77,29 +78,45 @@
       ctrl.datas.candidate.interview.location = ctrl.location;
       ctrl.datas.candidate.interview.interviewer_emails_attributes = ctrl.interviewer_emails_attributes;
       
-
       interviewModalService.saveInterview(ctrl.datas.candidate.interview).then(function(resp) {
         ctrl.datas = resp.data;
         $uibModalInstance.close(ctrl.datas.candidate.interview);
       });
 
     }
+
     ctrl.save = function(){
       openConfirmationModal(translateFilter('close_with_save'), function(){
         ctrl.saveInterview();
       })
     }
+    
     ctrl.checkSave = function(){
-
-      if(ctrl.hour == "" || ctrl.minute == "" || ctrl.date == null){
+      
+      if(ctrl.hour == "" || ctrl.minute == "" || ctrl.date == null || ctrl.validateEmail() || ctrl.validateCategoryAndLocation()){
         return true
       }else{
         return false
       }
      
-
     }
-    
+
+    ctrl.validateEmail = function(){
+
+      var email = ctrl.interviewer_emails_attributes
+      var checkUndefind;
+      var checkEmpty;
+      if(email != null){
+        checkUndefind = email.filter(emails => !emails._destroy && (emails.email == undefined)).length > 0 ? true : false
+        checkEmpty = email.filter(emails => !emails._destroy && emails.email != undefined && emails.email != "").length > 0 ? false : true
+      }
+      return checkUndefind || checkEmpty
+    }
+
+    ctrl.validateCategoryAndLocation = function(){
+      return ctrl.category ? false : true || ctrl.location != "" ? false : true
+    }
+
     function openConfirmationModal(message, success, dismiss) {
       $scope.message = message;
       $uibModal.open({

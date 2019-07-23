@@ -10,6 +10,11 @@ class InterviewsController < ApplicationController
     render json: { candidate: interview.candidate.as_json('show_or_edit') }, status: :ok
   end
 
+  def show
+    interview = Candidate.find(params[:id]).as_json('interviewer_email')
+    render json: {result: interview}, status: :ok
+  end
+
   private
 
   def interview_params

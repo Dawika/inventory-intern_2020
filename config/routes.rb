@@ -248,5 +248,14 @@ Rails.application.routes.draw do
 
   resources :interviews
 
+  resources :evaluates do
+
+    # POST: /evaluateds/:evaluate_id/save_invite
+    member do
+      post 'save_invite'
+      get 'show_conclusion'
+    end
+  end
+
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

@@ -10,4 +10,10 @@ class InterviewMailer < ApplicationMailer
     @interview = interview
     mail(to: email, subject: "ขอแก้ไขนัดสัมภาษณ์  #{@interview.candidate.full_name}")
   end
+
+  def evaluate_notification(interview, evaluate, email)
+    @interview = interview
+    @evaluate = evaluate
+    mail(to: email, subject: "แบบฟอร์มสัมภาษณ์ #{@interview.candidate.full_name}")
+  end
 end

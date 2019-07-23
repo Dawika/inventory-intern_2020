@@ -1,0 +1,261 @@
+<div class="container-fluid padding30">
+  <ul class="nav nav-tabs main">
+    <li class="active">
+      <a class="tab-label" ng-click="evaluateConclusion.activeTab = 'table'; evaluateConclusion.selectTab(false)" data-toggle="tab" href="javascript:void(0)"><i class="fas fa-chart-line"></i> Graph</a>
+    </li>
+    <li>
+      <a class="tab-label" ng-click="evaluateConclusion.activeTab = 'test'; evaluateConclusion.selectTab(true)" data-toggle="tab" href="javascript:void(0)"><i class="far fa-list-alt"></i> conclusion</a>
+    </li>
+  </ul>
+  <div ng-class="{ 'in active' : evaluateConclusion.activeTab === 'table' }" class="tab-pane fade in active">
+    <div class="container-fluid" ng-hide="evaluateConclusion.hide">
+      <div class="row paper-white container-fluid padding-30">
+        <div class="row mt-30">
+          <div class="col-md-6">
+            <span class="heading-candidate color-blue-candidate font-36">Current Ability</span>
+          </div>
+        </div>
+        <div class="row mt-20">
+          <div class="col-md-10 col-md-offset-1">
+            <canvas id="currentAbility" class="chart chart-bar"
+                chart-data="evaluateConclusion.datasCurrentAbility" chart-labels="evaluateConclusion.labelsCurrentAbility" chart-series="evaluateConclusion.series" chart-options="evaluateConclusion.options" 
+                chart-dataset-override="evaluateConclusion.datasetOverrideCurrentAbility">
+            </canvas>
+          </div>
+        </div>
+        <div class="row mt-30">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-6 col-md-offset-2">
+                <span class="heading-candidate color-blue-candidate font-24">Other Ability</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-md-offset-3">
+                <div class="heading-candidate font-21 mt-15 hr-2" ng-repeat="item in evaluateConclusion.datas.evaluate_is_submit" ng-show="item.evaluates.other_ability != null">
+                  {{item.email}} : {{item.evaluates.other_ability}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-30">
+          <div class="col-md-6">
+            <span class="heading-candidate color-blue-candidate font-36">Learn Ability</span>
+          </div>
+        </div>
+        <div class="row mt-20">
+          <div class="col-md-10 col-md-offset-1">
+            <canvas id="learnAbility" class="chart chart-bar"
+                chart-data="evaluateConclusion.datasLearnAbility" chart-labels="evaluateConclusion.labelsLearnAbility" chart-series="evaluateConclusion.series" chart-options="evaluateConclusion.options" chart-dataset-override="evaluateConclusion.datasetOverrideLearnAbility">
+            </canvas>
+          </div>
+        </div>
+        <div class="row mt-30">
+          <div class="col-md-6">
+            <span class="heading-candidate color-blue-candidate font-36">Attraction</span>
+          </div>
+        </div>
+        <div class="row mt-20">
+          <div class="col-md-10 col-md-offset-1">
+            <canvas id="learnAbility" class="chart chart-bar"
+                chart-data="evaluateConclusion.datasAttraction" chart-labels="evaluateConclusion.labelsAttraction" chart-series="evaluateConclusion.series" chart-options="evaluateConclusion.options" chart-dataset-override="evaluateConclusion.datasetOverrideAttraction">
+            </canvas>
+          </div>
+        </div>
+        <div class="row mt-30">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-6 col-md-offset-2">
+                <span class="heading-candidate color-blue-candidate font-24">On time</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8 col-md-offset-2">
+                <div class="row">
+                  <div class="col-md-12">
+                    <canvas id="learnAbility" class="chart chart-doughnut"
+                      chart-data="evaluateConclusion.onTime" chart-labels="evaluateConclusion.labelsDoughnutOnTime" chart-options="evaluateConclusion.optionsDoughnut">
+                    </canvas>
+                  </div>
+                </div>
+                <div class="row mt-10">
+                  <div class="col-md-6 col-md-offset-3">
+                    <div class="mt-15 heading-candidate font-21 hr-2 break-word" ng-repeat="item in evaluateConclusion.datas.evaluate_is_submit">
+                     {{item.email}} : {{item.evaluates.on_time ? "ตรงเวลา" : "ไม่ตรงเวลา"}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-30">
+          <div class="col-md-6">
+            <span class="heading-candidate color-blue-candidate font-36">Conclusion</span>
+          </div>
+        </div>
+        <div class="row mt-30">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-6 col-md-offset-2">
+                <span class="heading-candidate color-blue-candidate font-24">Average:</span>
+                <span class="heading-candidate font-24 hr-2 pb-0-ml-10">{{evaluateConclusion.averageCompatibility}}</span>
+              </div>
+            </div>
+            <div class="row mt-20">
+              <div class="col-md-8 col-md-offset-2">
+                <canvas id="learnAbility" class="chart chart-bar"
+                    chart-data="evaluateConclusion.datasCompatibility" chart-labels="evaluateConclusion.labelsCompatibility" chart-series="evaluateConclusion.seriesCompatibility" chart-options="evaluateConclusion.options">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-30">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-6 col-md-offset-2">
+                <span class="heading-candidate color-blue-candidate font-24">Note</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-md-offset-3">
+                <div class="heading-candidate font-21 mt-15 hr-2" ng-repeat="item in evaluateConclusion.datas.evaluate_is_submit" ng-show="item.evaluates.note != null">
+                  {{item.email}} : {{item.evaluates.note}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-30">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-6 col-md-offset-2">
+                <span class="heading-candidate color-blue-candidate font-24">ถ้าท่านต้องร่วมงานกับผู้ถูกสัมภาษณ์ ท่านยินดีหรือไม่</span>
+              </div>
+            </div>
+            <div class="row mt-15">
+              <div class="col-md-8 col-md-offset-2">
+                <div class="row">
+                  <div class="col-md-12">
+                    <canvas id="learnAbility" class="chart chart-doughnut"
+                      chart-data="evaluateConclusion.glad" chart-labels="evaluateConclusion.labelsDoughnutGlad" chart-options="evaluateConclusion.optionsDoughnut">
+                    </canvas>
+                  </div>
+                </div>
+                <div class="row mt-10">
+                  <div class="col-md-6 col-md-offset-3">
+                    <div class="mt-15 heading-candidate font-21 hr-2 break-word" ng-repeat="item in evaluateConclusion.datas.evaluate_is_submit">
+                      {{item.email}} : {{item.glad}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div ng-class="{ 'in active' : evaluateConclusion.activeTab === 'test' }" class="tab-pane fade">
+    <div class="container-fluid " ng-hide="evaluateConclusion.hide2">
+      <div class="row paper-white container-fluid">
+        <div class="row p-50">
+          <div class="col-md-2">
+            <select class="form-control" ng-model="evaluateConclusion.model" ng-options="options.email for options in evaluateConclusion.datas.evaluate_is_submit">
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="content-scout pt-0 mx-15p">
+              <div class="row mt-35 m-0 font-18">
+
+                <!-- Current Ability - ประเมินความรู้ความสามารถ -->
+                <div class="row-head2">
+                  {{ 'evaluate_current_ability' | translate }}
+                </div>
+
+                <!-- frontend -->
+                <div class="row mx-0 mt-35">
+                  <div class="col-md-12 mt-10">
+                    <label>{{ 'evaluate_frontend' | translate }}</label>
+                  </div>
+                  <div class="col-md-2">
+                    {{evaluateConclusion.model.evaluates.frontend}}
+                  </div>
+                </div>
+
+
+                <!-- dotnet -->
+                <div class="row mx-0 mt-35">
+                  <div class="col-md-12 mt-10">
+                    <label>{{ 'evaluate_dot_net' | translate }}</label>
+                  </div>
+                  <div class="col-md-2">
+                     {{evaluateConclusion.model.evaluates.dot_net}}
+                  </div>
+                </div>
+
+
+                <!-- dotnet core -->
+                <div class="row mx-0 mt-35">
+                  <div class="col-md-12 mt-10">
+                    <label>{{ 'evaluate_dot_net_core' | translate }}</label>
+                  </div>
+                  <div class="col-md-2">
+                    {{evaluateConclusion.model.evaluates.dot_net_core}}
+                  </div>
+                </div>
+
+                <!-- ruby -->
+                <div class="row mx-0 mt-35">
+                  <div class="col-md-12 mt-10">
+                    <label>{{ 'evaluate_ruby_on_rails' | translate }}</label>
+                  </div>
+                  <div class="col-md-2">
+                    {{evaluateConclusion.model.evaluates.ruby_on_rails}}
+                  </div>
+                </div>
+
+                <!-- kotlin -->
+                <div class="row mx-0 mt-35">
+                  <div class="col-md-12 mt-10">
+                    <label>{{ 'evaluate_kotlin' | translate }}</label>
+                  </div>
+                  <div class="col-md-2">
+                    {{evaluateConclusion.model.evaluates.kotlin}}
+                  </div>
+                </div>
+
+                <!-- swift -->
+                <div class="row mx-0 mt-35">
+                  <div class="col-md-12 mt-10">
+                    <label>{{ 'evaluate_swift' | translate }}</label>
+                  </div>
+                  <div class="col-md-2">
+                    {{evaluateConclusion.model.evaluates.swift}}
+                  </div>
+                </div>
+
+                <!-- ability_note -->
+                <div class="row mx-0 px-20 mt-35">
+                  <label>{{ 'evaluate_other_ability' | translate }}</label>
+                  {{evaluateConclusion.model.evaluates.other_ability}}
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+   <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link href="https://fonts.googleapis.com/css?family=Akronim" rel="stylesheet">
+                    <%=  stylesheet_link_tag 'application_main', media: 'all' %>
+    <%=  stylesheet_link_tag 'application_somsri', media: 'all' %>
+    <%=  stylesheet_link_tag 'application_vacation', media: 'all' %>
+    <%=  javascript_include_tag 'application_somsri' %>
+  </head>
+  <body>
+    <div class="row">
+      <div class="col-md-12">
+        <img src = "/somsri_logo.png"><br>
+        สวัสดีค่ะ<br>
+        เนื่องจากการสัมภาษณ์ของ<br>
+        <%= @interview.candidate.full_name %> ในวันที่ <%= @interview.date.strftime("%d/%m/%Y เวลา %H:%M") %> สถานที่ <%= @interview.location %><br>
+        จึงขอให้ท่านกรอกแบบประเมินการสัมภาษณ์ ตามลิ้งข้างล่าง<br>
+        <a href="#">link evaluate</a><br>
+        ขอบคุณค่ะ<br>
+        HR @BananaCoding <br>
+      </div>
+    </div>
+  </body>
+</html>

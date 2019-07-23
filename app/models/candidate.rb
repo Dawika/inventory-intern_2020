@@ -60,8 +60,22 @@ class Candidate < ApplicationRecord
         candidate_files_url: candidate_files.map { |x| x.files.expiring_url(10) },
         shortlist: shortlist,
         interview: interview_datas,
-        interviewer_emails_attributes: interview.present? ? interview_datas.interviewer_emails : [interview_datas.interviewer_emails.build]
-     }
+        interviewer_emails_attributes: interview.present? ? interview_datas.interviewer_emails : [interview_datas.interviewer_emails.build],
+        evaluate: interview&.evaluates&.present?,
+        evaluate_is_submit: interview&.evaluates&.present? ? interview.interviewer_emails.is_submited.map { |x| [email: x.email, evaluates: x.evaluate][0] } : nil,
+        evaluate_is_not_submit: interview&.evaluates&.present? ? interview.interviewer_emails.is_not_submited.map { |x| [email: x.email, evaluates: x.evaluate][0] } : nil
+      }
+    elsif(options['evaluates'])
+      {
+        evaluate: interview&.evaluates&.present?,
+        evaluate_is_submit: interview&.evaluates&.present? ? interview.interviewer_emails.is_submited.map { |x| [email: x.email, evaluates: x.evaluate][0] } : nil,
+        evaluate_is_not_submit: interview&.evaluates&.present? ? interview.interviewer_emails.is_not_submited.map { |x| [email: x.email, evaluates: x.evaluate][0] } : nil
+      }
+    elsif(options['interviewer_email'])
+      {
+        interview_data: interview.present? ? interview : nil,
+        interviewer_emails_attributes: interview.present? ? interview.interviewer_emails : []
+      }
     else
       super
     end

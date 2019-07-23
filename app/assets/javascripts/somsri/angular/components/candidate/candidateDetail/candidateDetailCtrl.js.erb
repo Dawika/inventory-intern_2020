@@ -7,7 +7,9 @@
       var ctrl = this;
       ctrl.showInterviewDate = false;
       ctrl.isValidDate = false;
-      ctrl.interviews = [{email: "" }];
+      ctrl.submited;
+      ctrl.notSubmited;
+      ctrl.allSubmit
       
       $rootScope.menu = translateFilter('scout');
       ctrl.categorys = ['ฝึกงาน', 'สหกิจ', 'สมัครงาน']
@@ -31,6 +33,14 @@
           ctrl.datas.candidate.full_name_and_nick_name = ctrl.datas.candidate.full_name
         }
 
+        if(ctrl.datas.candidate.evaluate_is_submit){
+          ctrl.submited = ctrl.datas.candidate.evaluate_is_submit;
+          ctrl.notSubmited = ctrl.datas.candidate.evaluate_is_not_submit;
+          ctrl.allSubmit = ctrl.submited.length + ctrl.notSubmited.length;
+        }
+
+        console.log(ctrl.datas)
+
       });
      
       ctrl.changStatus = function(check){
@@ -49,6 +59,10 @@
       
       ctrl.toEdit = function() {
         window.location.href = '/somsri#/candidate/' + ctrl.datas.candidate.id + '/edit';
+      }
+
+      ctrl.toConclusion = function(){
+        window.location.href = '/somsri#/candidate/evaluate_conclusion/' + $state.params.id;
       }
 
     function openConfirmationModal(message, success, dismiss) {
@@ -100,45 +114,61 @@
       window.location.href = '/somsri#/candidate';
     }
 
-    ctrl.addEamilInterviewer = function(){
-      ctrl.datas.candidate.interview.push({})
-    }
-
-    ctrl.reset = function () {
-        ctrl.interviews.length = 1;
-        ctrl.interviews[0] =  {email: "" };
-    }; 
-
-    ctrl.addInterview = function(){
-        ctrl.interviews.push({ email: "" });
-    }
-
-    ctrl.removeInterview = function(index) {
-        ctrl.interviews[index]._destroy = true;
-    }
     ctrl.openInterviewModal = function(){
+      if(!ctrl.datas.candidate.evaluate){
+        $scope.candidate_id = ctrl.datas.candidate.id
+        $uibModal.open({
+          animation: true,
+          backdrop: 'static',
+          keyboard: false,
+          scope: $scope,
+          templateUrl: "<%= asset_path('somsri/angular/components/candidate/candidateDetail/interviewModal/interviewModalView.html') %>",
+          controller: 'interviewModalCtrl as interviewModal',
+          size: 'md',
+          resolve: {
+            resources: ['$ocLazyLoad', 'ASSETS', function($ocLazyLoad, ASSETS) {
+              return $ocLazyLoad.load([
+                ASSETS.somsri.somsri.interview_modal
+              ]);
+            }]
+          }
+        }).result.then(function (resp) {
+          if (resp) {
+            ctrl.showInterviewDate = true;
+            ctrl.datas.candidate.interview = resp;
+          }
+        });
+      }
+    }
+
+    ctrl.openSentEmailModal = function(){
       $scope.candidate_id = ctrl.datas.candidate.id
       $uibModal.open({
         animation: true,
         backdrop: 'static',
         keyboard: false,
         scope: $scope,
-        templateUrl: "<%= asset_path('somsri/angular/components/candidate/candidateDetail/interviewModal/interviewModalView.html') %>",
-        controller: 'interviewModalCtrl as interviewModal',
+        templateUrl: "<%= asset_path('somsri/angular/components/candidate/candidateDetail/sentEmailModal/sentEmailModalView.html') %>",
+        controller: 'sentEmailModalCtrl as sentEmailModal',
         size: 'md',
         resolve: {
           resources: ['$ocLazyLoad', 'ASSETS', function($ocLazyLoad, ASSETS) {
             return $ocLazyLoad.load([
-              ASSETS.somsri.somsri.interview_modal
+              ASSETS.somsri.somsri.sent_email_modal
             ]);
           }]
         }
       }).result.then(function (resp) {
         if (resp) {
-          ctrl.showInterviewDate = true;
-          ctrl.datas.candidate.interview = resp;
+          console.log("------------")
+          console.log(resp)
+          ctrl.datas.candidate.evaluate = resp.result.evaluate
+          ctrl.submited = resp.result.evaluate_is_submit;
+          ctrl.notSubmited = resp.result.evaluate_is_not_submit;
+          ctrl.allSubmit = ctrl.submited.length + ctrl.notSubmited.length;
         }
       });
+      
     }
 
 
