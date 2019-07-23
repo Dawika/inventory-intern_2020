@@ -3,8 +3,28 @@ require 'securerandom'
 class EvaluatesController < ApplicationController
   # GET /evaluate/1/update
   def show
+    @evaluate = Evaluate.find(params[:id])
+    @interview = @evaluate.interviewer_email.interview
+    @listnum = (0..20).map
+  end
 
-<<<<<<< HEAD
+  def update
+    @evaluate = Evaluate.find_by(id: params[:id])
+    @evaluate.is_submit = true
+    @evaluate.update(evaluate_params)
+    @interview = @evaluate.interviewer_email.interview
+    redirect_to "/somsri#/candidate/detail/#{@interview.candidate_id}"  
+
+  end
+
+  def evaluate_params
+    params.require(:evaluate).permit(:frontend, :dot_net, :dot_net_core,
+     :ruby_on_rails, :kotlin, :swift, :other_ability, :problem_solving,
+     :indepentdent, :comunication, :attention, :on_time, :teamwork,
+     :compatibility, :note, :glad, :is_submit)
+  end
+
+
   def show_conclusion
     candidate = Candidate.find(params[:id]).as_json('evaluates')
 
@@ -40,28 +60,4 @@ class EvaluatesController < ApplicationController
       interviewer_emails_attributes: [:id, :email, :skip_send_email, :_destroy]
     )
   end
-
-  
-=======
-    @evaluate = Evaluate.find(params[:id])
-    @interview = @evaluate.interviewer_email.interview
-    @listnum = (0..20).map
-  end
-
-  def update
-    @evaluate = Evaluate.find_by(id: params[:id])
-    @evaluate.is_submit = true
-    @evaluate.update(evaluate_params)
-    @interview = @evaluate.interviewer_email.interview
-    redirect_to "/somsri#/candidate/detail/#{@interview.candidate_id}"  
-
-  end
-
-  def evaluate_params
-    params.require(:evaluate).permit(:frontend, :dot_net, :dot_net_core,
-     :ruby_on_rails, :kotlin, :swift, :other_ability, :problem_solving,
-     :indepentdent, :comunication, :attention, :on_time, :teamwork,
-     :compatibility, :note, :glad, :is_submit)
-  end
->>>>>>> evaluate can update and cannot edit after submit (complete)
 end

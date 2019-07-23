@@ -886,7 +886,7 @@ en:
   evaluate_frontend: "Frontend Skill (HTML, CSS, Bootstrap, Angular, ReactJS)"
   evaluate_dot_net: ".NET Skill"
   evaluate_dot_net_core: ".NET Core Skill"
-  evaluate_dot_ruby_on_rails: "Ruby on Rails Skill"
+  evaluate_ruby_on_rails: "Ruby on Rails Skill"
   evaluate_kotlin: "Kotlin Skill"
   evaluate_swift: "Swift Skill"
   evaluate_other_ability: "Other Skills"

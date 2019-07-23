@@ -95,6 +95,10 @@ body {
   width: 150px !important;
 }
 
+.w-960 {
+  width: 960px !important;
+}
+
 .w-10p {
   width: 10% !important;
 }
@@ -420,6 +424,14 @@ body {
   margin-top: 100px !important;
 }
 
+.mt-125 {
+  margin-top: 125px !important;
+}
+
+.mt-150 {
+  margin-top: 150px !important;
+}
+
 .my-10 {
   margin-top: 10px !important;
   margin-bottom: 10px !important;
@@ -623,6 +635,10 @@ body {
 
 .color-transparent {
   color: transparent !important;
+}
+
+.color-white{
+  color: #FFFFFF !important;
 }
 
 .color-light-green {
@@ -1577,14 +1593,14 @@ tags-input .tags .tag-item .remove-button {
   padding: 8px 40px;
   margin-right: 15px;
   letter-spacing: 1px;
-  border: 1px solid #FFAB04;
+  border: 1px solid #FFAB04 !important;
   border-radius: 0px;
   transition: all 0.25s ease;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
   &:hover {
     background-color: transparent;
-    border: 2px solid #FFAB04;
-    color: #FFAB04;
+    border: 2px solid #FFAB04 !important;
+    color: #FFAB04 !important;
   }
 }
 
@@ -1671,7 +1687,7 @@ tags-input .tags .tag-item .remove-button {
   margin-left: -30px;
   margin-right: -30px;
   font-size: 24px;
-  background: #FFAB04;
+  background: #3fa0e6e3;
   font-weight: bold;
   color: white;
 }
