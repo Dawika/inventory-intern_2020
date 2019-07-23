@@ -38,9 +38,6 @@
           ctrl.notSubmited = ctrl.datas.candidate.evaluate_is_not_submit;
           ctrl.allSubmit = ctrl.submited.length + ctrl.notSubmited.length;
         }
-
-        console.log(ctrl.datas)
-
       });
      
       ctrl.changStatus = function(check){
@@ -160,8 +157,6 @@
         }
       }).result.then(function (resp) {
         if (resp) {
-          console.log("------------")
-          console.log(resp)
           ctrl.datas.candidate.evaluate = resp.result.evaluate
           ctrl.submited = resp.result.evaluate_is_submit;
           ctrl.notSubmited = resp.result.evaluate_is_not_submit;

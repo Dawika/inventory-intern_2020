@@ -10,7 +10,7 @@ class EvaluatesController < ApplicationController
 
   def save_invite
     @interview = Interview.find(params[:id])
-    ap params[:interview]
+    #เป็น temp code ที่ต้องใช้
     # interview.attributes = interviewer_email_params
     # interview.save
     send_email
@@ -23,10 +23,9 @@ class EvaluatesController < ApplicationController
     evaluates = @interview.interviewer_emails
     evaluates.each do |x|
       link_random = SecureRandom.uuid
+      #เป็น temp code ที่ต้องใช้
       # x.evaluate.create(link: link_random, interview_id: @interview.id)
       # InterviewMailer.evaluate_notification(@interview, x.evaluate, x.email).deliver
-      ap link_random 
-      ap x.email
     end
   end
 

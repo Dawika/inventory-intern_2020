@@ -7,7 +7,6 @@
 
     var ctrl = this;
     
-
     $rootScope.loadAndAuthorizeResource("interview", function() {
       loadInterview()
     });
@@ -76,7 +75,6 @@
         checkUndefind = email.filter(emails => !emails._destroy && (emails.email == undefined)).length > 0 ? true : false
       }
       return checkUndefind 
-
     }
     
   }]);
