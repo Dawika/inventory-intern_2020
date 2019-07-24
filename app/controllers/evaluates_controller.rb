@@ -1,9 +1,10 @@
 require 'securerandom'
 
 class EvaluatesController < ApplicationController
-  # GET /evaluate/1/update
+  # GET /evaluates/1
   def show
-    @evaluate = Evaluate.find(params[:id])
+    # @evaluate = Evaluate.find_by(link: params[:link])
+    @evaluate = Evaluate.find_by(id: params[:id])
     @interview = @evaluate.interviewer_email.interview
     @listnum = (0..20).map
   end
@@ -12,8 +13,8 @@ class EvaluatesController < ApplicationController
     @evaluate = Evaluate.find_by(id: params[:id])
     @evaluate.is_submit = true
     @evaluate.update(evaluate_params)
-    @interview = @evaluate.interviewer_email.interview
-    redirect_to "/somsri#/candidate/detail/#{@interview.candidate_id}"  
+    # redirect_to "/evaluates/#{@evaluate.id}"  
+    redirect_to "/evaluates/#{@evaluate.id}"  
 
   end
 
