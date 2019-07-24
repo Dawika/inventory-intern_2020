@@ -3,7 +3,7 @@
 <div class="container-fluid blue-bg">
   <!-- Head -->
 
-<% if @evaluate.is_submit != true %>
+<% if @evaluate.is_submit != true%>
   <!-- content when not submit -->
   <div class="container w-960 ">
 
@@ -235,13 +235,13 @@
           <div class="row mx-0 px-20 mt-35">
             <b><%= f.label t('glad'), :class => 'control-label' %></b>
             <div class="row ml-35 mt-20">
-              <%= f.radio_button :glad, 0 %><%= f.label :glad_0, t('pleased'), {class: "ml-35"} %>
+              <%= f.radio_button :glad, :pleased %><%= f.label :glad_pleased, t('pleased'), {class: "ml-35"} %>
             </div>
             <div class="row ml-35 mt-20">
-              <%= f.radio_button :glad , 1 ,checked: true%><%= f.label :glad_1, t('so_so'), {class: "ml-35"} %>
+              <%= f.radio_button :glad , :so_so ,checked: true%><%= f.label :glad_1, t('so_so'), {class: "ml-35"} %>
             </div>
             <div class="row ml-35 mt-20">
-              <%= f.radio_button :glad, 2 %><%= f.label :glad_2, t('displeased'), {class: "ml-35"} %>
+              <%= f.radio_button :glad, :displeased %><%= f.label :glad_2, t('displeased'), {class: "ml-35"} %>
             </div>
           </div>
 
