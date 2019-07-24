@@ -4,13 +4,16 @@ class EvaluatesController < ApplicationController
   # GET /evaluates/1
   def show
     # @evaluate = Evaluate.find_by(link: params[:link])
-    @evaluate = Evaluate.find_by(id: params[:id])
+    @evaluate = Evaluate.find_by(link: params[:id])
+    if (@evaluate.blank?)
+      redirect_to '/404.html' and return 
+    end
     @interview = @evaluate.interviewer_email.interview
     @listnum = (0..20).map
   end
 
   def update
-    @evaluate = Evaluate.find_by(id: params[:id])
+    @evaluate = Evaluate.find_by(link: params[:link])
     @evaluate.is_submit = true
     @evaluate.update(evaluate_params)
     # redirect_to "/evaluates/#{@evaluate.id}"  

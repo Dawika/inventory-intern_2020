@@ -16,7 +16,7 @@
         เนื่องจากการสัมภาษณ์ของ<br>
         <%= @interview.candidate.full_name %> ในวันที่ <%= @interview.date.strftime("%d/%m/%Y เวลา %H:%M") %> สถานที่ <%= @interview.location %><br>
         จึงขอให้ท่านกรอกแบบประเมินการสัมภาษณ์ ตามลิ้งข้างล่าง<br>
-        <a href="#"><%= @evaluate.link %></a><br>
+        <a href="/evaluates/<%= @evaluate.link %>">evaluates/<%= @evaluate.link %>"</a><br>
         ขอบคุณค่ะ<br>
         HR @BananaCoding <br>
       </div>
