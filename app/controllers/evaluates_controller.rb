@@ -11,8 +11,8 @@ class EvaluatesController < ApplicationController
   def save_invite
     @interview = Interview.find(params[:id])
     #เป็น temp code ที่ต้องใช้
-    # interview.attributes = interviewer_email_params
-    # interview.save
+    @interview.attributes = interviewer_email_params
+    @interview.save
     send_email
     id_candidate = @interview.candidate_id
     render json: {result: Candidate.find(id_candidate).as_json('evaluates')}, status: :ok
@@ -20,12 +20,11 @@ class EvaluatesController < ApplicationController
   end
 
   def send_email
-    evaluates = @interview.interviewer_emails
-    evaluates.each do |x|
+    @interview.interviewer_emails.each do |interviewer_email|
       link_random = SecureRandom.uuid
       #เป็น temp code ที่ต้องใช้
-      # x.evaluate.create(link: link_random, interview_id: @interview.id)
-      # InterviewMailer.evaluate_notification(@interview, x.evaluate, x.email).deliver
+      Evaluate.create(link: link_random, interviewer_email_id: interviewer_email.id, interview_id: @interview.id)
+      InterviewMailer.evaluate_notification(@interview, interviewer_email.evaluate, interviewer_email.email).deliver
     end
   end
 
