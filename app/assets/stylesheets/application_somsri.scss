@@ -1585,7 +1585,7 @@ tags-input .tags .tag-item .remove-button {
   padding-top: 50px;
 }
 
-.btn-submit2 {
+.btn-submit-scout {
   font-family: 'Maitree', serif;
   background-color: #FFAB04;
   color: #fff;
@@ -1623,7 +1623,7 @@ tags-input .tags .tag-item .remove-button {
   }
 }
 
-.btn-cancel2 {
+.btn-cancel-scout {
   background-color: transparent;
   font-family: 'Maitree', serif;
   padding: 8px 40px;
@@ -1641,15 +1641,6 @@ tags-input .tags .tag-item .remove-button {
     border: 2px solid #9D9D9D;
     color: #9D9D9D;
   }
-}
-
-.icons-default-img2 {
-  color: rgba(0, 0, 0, 0.637);
-  font-size: 3.5em;
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .fa-arrow-left {
@@ -1961,7 +1952,7 @@ tags-input .tags .tag-item .remove-button {
   word-break: break-all;
 }
 
-.btn-submit3 {
+.btn-invite {
   font-family: Prompt;
   background-color: #7ED321;
   color: #fff;
