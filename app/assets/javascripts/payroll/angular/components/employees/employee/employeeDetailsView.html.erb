@@ -906,7 +906,7 @@
             <tr ng-repeat="payroll in employee.employeePayrolls">
               <td width="40%" class="text-left">
                 {{payroll.date}}
-               <button ng-show="payroll.note" uib-popover-html="payroll.note" popover-title='{{ "note" | translate }}' type="button" class="btn btn-note-bell for-display" style="padding-top: 0px !important;" popover-class="note-popover for-display">
+                <button ng-show="payroll.note" uib-popover-html="payroll.note" popover-title='{{ "note" | translate }}' type="button" class="btn btn-note-bell for-display" style="padding-top: 0px !important;" popover-class="note-popover for-display">
                 <i class="fa fa-bell" aria-hidden="true"></i>
                 </button>
               </td>
