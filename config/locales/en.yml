@@ -810,6 +810,7 @@ en:
   candidate: "Candidate"
   candidateshortlist: "Shortlist"
   schoolyear: "Student Year"
+  detail: "Detail"
 
   #create new candidate
   create_new_candidate: "Create New Candidate"
@@ -849,7 +850,7 @@ en:
   time: "Time"
   interviewer: "Interviewer"
   edit: "Edit"
-
+  was_delete: "This candidate has been deleted."
   delete: "Delete"
   invite: "Invite"
   save: "Save"
@@ -859,19 +860,17 @@ en:
   send: "Send"
 
   #interview
-  send_interview_form: "Send interview form"
-  interview_score: "Interview Score" 
-  comment: "Comment"
-  history_log: "History Log"
+  schedule_interview: "Schedule an interview"
+  type: "Type"
+  location: "Location"
+  interviewdate: "Interview date"
+  date: "Date"
+  date_warning: "Please enter the correct format date, such as 01/07/2019 07:35"
+  time: "Time"
+  interviewer: "Interviewer"
+  +invite: "+ Invite"
 
-  starting_date: "Starting date"
-  position: "Position"
-  probation_date: "Probation date"
-  formdate: "From date"
-  todate: "To date"
-  add_to_shortlist: "Add to shortlist"
-  submit: "Submit"
-
+  #evaluate
   evaluate_candidate: "Evaluate Candidate"
 
   interview_information: "Interview Information"
@@ -915,13 +914,18 @@ en:
 
   #evaluate_email
   mail_hello: "Hello"
-  mail_cause: "Because you have acted as an interviewer for"
+  mail_cause_evaluate: "Because you have acted as an interviewer for"
+  mail_cause_interview: "Because you have been assigned to act as an interviewer"
+  mail_cause_edit: "Due to "
+  mail_date_edit: "'s schedule interview was change to"
   mail_date: "On"
   mail_time: "at"
   mail_place: "at"
-  mail_so: "So we therefore ask you to fill out an evaluate interview form."
-  mail_bylink: "by follow this link"
-  mail_thank: "Thank"
+  mail_so_evaluate: "So we therefore ask you to fill out an evaluate interview form."
+  mail_so_interview: "So we therefore ask you to prepare for the appointment."
+  mail_so_edit: "So we therefore ask you to prepare for the new appointment."
+  mail_bylink: "By follow this link."
+  mail_thank: "Thank."
   goto_evaluate_form: "Fill Evaluate Form"
 
 

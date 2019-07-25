@@ -9,13 +9,24 @@
     <%=  javascript_include_tag 'application_somsri' %>
   </head>
   <body>
-   <img src = "/somsri_logo.png"><br>
-    สวัสดีค่ะ<br>
-    เนื่องจากนัดหมายของ<br>
-    <%= @interview.candidate.full_name %> ได้ถูกแก้ไขเป็น วันที่ <%= @interview.date.strftime("%d/%m/%Y เวลา %H:%M") %> สถานที่ <%= @interview.location %> 
-    จึงขอให้เตรียมพร้อมสำหรับเวลานัดหมายดังกล่าวด้วย<br>
-    ขอบคุณค่ะ<br>
-    HR @BananaCoding <br>
+    <div class="container text-center align-self-stretch mt-125">
+      <div class="content-scout pt-0 m-0 border-radius border-1 border-width-thin">
+
+        <div class="row bg-orange mx-m30 py-15 custom-shadow">
+          <img class="max-w-100" src = "/somsri_logo.png">
+        </div>
+
+        <div class="row mb-30">
+          <h1 class="py-10 color-black"> <%= t('mail_hello') %></h1>  
+          <p><%= t('mail_cause_edit') %> <%= @interview.candidate.full_name %><%= t('mail_date_edit') %> </p>
+          <p><%= @interview.date.strftime("%d/%m/%Y") %> <%= t('mail_time') %> <%= @interview.date.strftime("%H:%M") %> <%= t('mail_place') %> <%= @interview.location %></p>
+          <p><%= t('mail_so_edit') %></p>
+          <p class="row mt-30"><%= t('mail_thank') %></p>
+          <p>HR @BananaCoding</p>
+        </div>
+
+      </div>
+    </div>
 
     <div class="container-fluid p-50">
       <div class="row paper-white container-fluid padding-30">

@@ -18,9 +18,9 @@
 
         <div class="row mb-30">
           <h1 class="py-10 color-black"> <%= t('mail_hello') %></h1>  
-          <p><%= t('mail_cause') %> <%= @interview.candidate.full_name %></p>
+          <p><%= t('mail_cause_evaluate') %> <%= @interview.candidate.full_name %></p>
           <p><%= t('mail_date') %> <%= @interview.date.strftime("%d/%m/%Y") %> <%= t('mail_time') %> <%= @interview.date.strftime("%H:%M") %> <%= t('mail_place') %> <%= @interview.location %></p>
-          <p><%= t('mail_so') %></p>
+          <p><%= t('mail_so_evaluate') %></p>
           <p><%= t('mail_bylink') %></p><br>
           <a href="/evaluates/<%= @evaluate.link %>"> <button type="button" class ="btn btn-submit-scout border-radius m-0"> <%= t('evaluate_form') %> </button> </a><br><br>
           <p class="row mt-10"><%= t('mail_thank') %></p>

@@ -13,7 +13,7 @@
             <div class="row">
               <div class="col-md-12">
                 <p class="name-candidate color-red" ng-if="candidateDetail.datas.candidate.deleted == true">
-                {{candidateDetail.datas.candidate.full_name_and_nick_name}} รายชื่อนี้ถูกลบแล้ว
+                {{candidateDetail.datas.candidate.full_name_and_nick_name}} {{ 'was_delete'  | translate }}
                  <i ng-hide="candidateDetail.datas.candidate.deleted" 
                  ng-click="candidateDetail.changStatus(candidateDetail.datas.candidate.shortlist)" 
                  ng-class="candidateDetail.buttonIcon"></i> 
@@ -27,21 +27,21 @@
             </div>
             <div class="row mb-20 detail-candidate font-candidate">
               <div class="col-md-2 text-right">
-                <span>Email:</span>
+                <label>{{ 'email'  | translate }}:</label>
               </div>
               <div class="col-md-3 break-word padding-left0">
                 <span class="color-blue-candidate">{{candidateDetail.datas.candidate.email}}</span>
               </div>
               <div class="col-md-2 text-right padding-left0" ng-show="candidateDetail.showInterviewDate">
-                <span ng-click="candidateDetail.openInterviewModal()">Interview date:</span>
+                <label>{{ 'interviewdate'  | translate }}:</label>
               </div>
               <div class="col-md-3 padding-left0" ng-show="candidateDetail.showInterviewDate">
-                <span class="color-blue-candidate" ng-click="candidateDetail.openInterviewModal()">{{candidateDetail.datas.candidate.interview.date | date:"dd/MM/yyyy HH:mm"}}</span>
+                <span class="color-blue-candidate cursor-pointer" ng-click="candidateDetail.openInterviewModal()">{{candidateDetail.datas.candidate.interview.date | date:"dd/MM/yyyy HH:mm"}}</span>
               </div>
             </div>
             <div class="row mb-20 detail-candidate font-candidate">
               <div class="col-md-2 text-right padding-left0">
-                <span>Phone Number:</span>
+                <label>{{ 'phone_number'  | translate }}:</label>
               </div>
               <div class="col-md-4 padding-left0">
                 <span class="color-blue-candidate">{{candidateDetail.datas.candidate.phone}}</span>
@@ -49,7 +49,7 @@
             </div>
             <div class="row mb-20 detail-candidate font-candidate">
               <div class="col-md-2 text-right">
-                <span>Form:</span>
+                <label>{{ 'from'  | translate }}:</label>
               </div>
               <div class="col-md-6 padding-left0">
                 <span class="color-blue-candidate">{{candidateDetail.datas.candidate.from}}</span>
@@ -57,7 +57,7 @@
             </div>
             <div class="row mb-20 detail-candidate font-candidate">
               <div class="col-md-2 text-right">
-                <span>Year:</span>
+                <label>{{ 'school_year'  | translate }}:</label>
               </div>
               <div class="col-md-6 padding-left0">
                  <span class="color-blue-candidate">{{candidateDetail.datas.candidate.school_year}}</span>
@@ -65,7 +65,7 @@
             </div>
             <div class="row mb-20 detail-candidate font-candidate">
               <div class="col-md-2 text-right">
-                 <span>Interest:</span>
+                 <label>{{ 'interest'  | translate }}:</label>
               </div>
               <div class="col-md-6 padding-left0">
                 <span class="color-blue-candidate">{{candidateDetail.datas.candidate.interest}}</span>

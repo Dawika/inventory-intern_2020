@@ -972,6 +972,7 @@ th:
   candidateshortlist: "รายชื่อผู้ที่ได้รับความสนใจ"
   schoolyear: "ปีที่เข้าเรียน"
   delete_success: "ลบข้อมูลสำเร็จ"
+  detail: "รายละเอียด"
 
   #create new candidate
   create_new_candidate: "Create New Candidate"
@@ -1014,7 +1015,7 @@ th:
   time: "เวลา"
   interviewer: "ผู้ัมภาษณ์"
   edit: "แก้ไข"
-
+  was_delete: "รายชื่อนี้ถูกลบแล้ว"
   delete: "ลบ"
   invite: "เชิญ"
   save: "บันทึก"
@@ -1024,18 +1025,15 @@ th:
   send: "ส่ง"
 
   #interview
-  send_interview_form: "ส่งแบบสัมภาษณ์"
-  interview_score: "คะแนนสัมภาษณ์" 
-  comment: "ความคิดเห็น"
-  history_log: "ประวัติการแก้ไข"
-
-  startingdate: "วันที่เข้าทำงาน"
-  position: "ตำแนห่ง"
-  probationdate: "ช่วงเวลาทดลองงาน"
-  formdate: "ตั้งแต่วันที่"
-  todate: "ถึงวันที่"
-  add_to_shortlist: "เพิ่มในรายชื่อผู้ที่ได้รับความสนใจ"
-  submit: "เสนอ"
+  schedule_interview: "นัดวันสัมภาษณ์"
+  type: "ประเภท"
+  location: "สถานที่"
+  interviewdate: "วันนัดสัมภาษณ์"
+  date: "วัน"
+  date_warning: "กรุณากรอกวันที่ให้ถูกต้อง เช่น 01/07/2019 07:35"
+  time: "เวลา"
+  interviewer: "ผู้สัมภาษณ์"
+  +invite: "+ เชิญ"
 
   #evaluate
   evaluate_candidate: "แบบประเมินหลังการสัมภาษณ์ Candidate"
@@ -1081,11 +1079,16 @@ th:
 
   #evaluate_email
   mail_hello: "สวัสดีค่ะ"
-  mail_cause: "เนื่องจากคุณได้ทำหน้าที่ผู้สัมภาษณ์ให้กับ"
+  mail_cause_evaluate: "เนื่องจากคุณได้ทำหน้าที่ผู้สัมภาษณ์ให้กับ"
+  mail_cause_interview: "เนื่องจากคุณได้ถูกมอบหมายให้ทำหน้าที่ผู้สัมภาษณ์"
+  mail_cause_edit: "เนื่องจากกำหนดการ การสัมภาษณ์ของ"
+  mail_date_edit: " ได้ถูกแก้ไขเป็นวันที่"
   mail_date: "ในวันที่"
   mail_time: "เวลา"
   mail_place: "ที่"
-  mail_so: "ทางเราจึงขอให้ท่านกรอกแบบประเมินการสัมภาษณ์"
+  mail_so_evaluate: "ทางเราจึงขอให้ท่านกรอกแบบประเมินการสัมภาษณ์"
+  mail_so_interview: "ทางเราจึงขอให้เตรียมพร้อมสำหรับเวลานัดหมายดังกล่าวด้วย"
+  mail_so_edit: "ทางเราจึงขอให้เตรียมพร้อมสำหรับเวลานัดหมายอันใหม่ด้วย"
   mail_bylink: "ตามลิ้งข้างล่าง"
   mail_thank: "ขอบคุณค่ะ"
   goto_evaluate_form: "กรอกแบบประเมิน"
