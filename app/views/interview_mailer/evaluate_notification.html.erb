@@ -3,22 +3,30 @@
    <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
     <link href="https://fonts.googleapis.com/css?family=Akronim" rel="stylesheet">
-                    <%=  stylesheet_link_tag 'application_main', media: 'all' %>
+    <%=  stylesheet_link_tag 'application_main', media: 'all' %>
     <%=  stylesheet_link_tag 'application_somsri', media: 'all' %>
     <%=  stylesheet_link_tag 'application_vacation', media: 'all' %>
     <%=  javascript_include_tag 'application_somsri' %>
   </head>
-  <body>
-    <div class="row">
-      <div class="col-md-12">
-        <img src = "/somsri_logo.png"><br>
-        สวัสดีค่ะ<br>
-        เนื่องจากการสัมภาษณ์ของ<br>
-        <%= @interview.candidate.full_name %> ในวันที่ <%= @interview.date.strftime("%d/%m/%Y เวลา %H:%M") %> สถานที่ <%= @interview.location %><br>
-        จึงขอให้ท่านกรอกแบบประเมินการสัมภาษณ์ ตามลิ้งข้างล่าง<br>
-        <a href="/evaluates/<%= @evaluate.link %>">evaluates/<%= @evaluate.link %>"</a><br>
-        ขอบคุณค่ะ<br>
-        HR @BananaCoding <br>
+  <body class="blue-bg">
+    <div class="container text-center align-self-stretch mt-125">
+      <div class="content-scout pt-0 m-0 border-radius border-1 border-width-thin">
+
+        <div class="row bg-orange mx-m30 py-15 custom-shadow">
+          <img class="max-w-100" src = "/somsri_logo.png">
+        </div>
+
+        <div class="row mb-30">
+          <h1 class="py-10 color-black"> <%= t('mail_hello') %></h1>  
+          <p><%= t('mail_cause') %> <%= @interview.candidate.full_name %></p>
+          <p><%= t('mail_date') %> <%= @interview.date.strftime("%d/%m/%Y") %> <%= t('mail_time') %> <%= @interview.date.strftime("%H:%M") %> <%= t('mail_place') %> <%= @interview.location %></p>
+          <p><%= t('mail_so') %></p>
+          <p><%= t('mail_bylink') %></p><br>
+          <a href="/evaluates/<%= @evaluate.link %>"> <button type="button" class ="btn btn-submit-scout border-radius m-0"> <%= t('evaluate_form') %> </button> </a><br><br>
+          <p class="row mt-10"><%= t('mail_thank') %></p>
+          <p>HR @BananaCoding</p>
+        </div>
+
       </div>
     </div>
   </body>

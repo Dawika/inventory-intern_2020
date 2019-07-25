@@ -1078,3 +1078,13 @@ th:
   displeased: "ไม่ยินดี"
 
   form_issubmit_already: "ได้ทำการส่งแบบประเมินไปเป็นที่เรียบร้อยแล้ว"
+
+  #evaluate_email
+  mail_hello: "สวัสดีค่ะ"
+  mail_cause: "เนื่องจากคุณได้ทำหน้าที่ผู้สัมภาษณ์ให้กับ"
+  mail_date: "ในวันที่"
+  mail_time: "เวลา"
+  mail_place: "ที่"
+  mail_so: "ทางเราจึงขอให้ท่านกรอกแบบประเมินการสัมภาษณ์"
+  mail_bylink: "ตามลิ้งข้างล่าง"
+  mail_thank: "ขอบคุณค่ะ"

@@ -913,6 +913,16 @@ en:
 
   form_issubmit_already: "This form is already submitted"
 
+  #evaluate_email
+  mail_hello: "Hello"
+  mail_cause: "Because you have acted as an interviewer for"
+  mail_date: "On"
+  mail_time: "at"
+  mail_place: "at"
+  mail_so: "So we therefore ask you to fill out an evaluate interview form."
+  mail_bylink: "by follow this link"
+  mail_thank: "Thank"
+
 
 
 
