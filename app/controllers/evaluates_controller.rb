@@ -13,7 +13,6 @@ class EvaluatesController < ApplicationController
 
   def update
     @evaluate = Evaluate.find_by(id: params[:id])
-    ap @evaluate
     @evaluate.is_submit = true
     @evaluate.update(evaluate_params)
     redirect_to "/evaluates/#{@evaluate.link}"  
