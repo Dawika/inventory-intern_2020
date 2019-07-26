@@ -160,8 +160,8 @@ body {
 }
 
 .px-0 {
-  padding-left: 0px;
-  padding-right: 0px;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 }
 
 .px-5 {
@@ -2016,13 +2016,5 @@ tags-input .tags .tag-item .remove-button {
 
 .pb-0{
   padding-bottom: 0px;
-}
-
-.pd-tb12-lr0{
-  padding: 12px 0px;
-}
-.pl-10-pr-0{
-  padding-left: 10px;
-  padding-right: 0px;
 }
 

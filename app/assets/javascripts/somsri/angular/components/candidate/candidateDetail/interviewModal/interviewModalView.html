@@ -59,12 +59,12 @@
               <label>{{ 'time'  | translate }}</label>
           </div>
           <div class="row">
-            <input ng-model="interviewModal.hour" maxlength="2" type="text" class="form-control input-time pl-10-pr-0" list="hours">
+            <input ng-model="interviewModal.hour" maxlength="2" type="text" class="form-control input-time pl-10 pr-0" list="hours">
             <datalist id="hours">
               <option ng-repeat="item in interviewModal.listHours" value="{{item}}">
             </datalist>
             <span>:</span>
-            <input ng-model="interviewModal.minute" maxlength="2" type="text" class="form-control input-time pl-10-pr-0" list="minute">
+            <input ng-model="interviewModal.minute" maxlength="2" type="text" class="form-control input-time pl-10 pr-0" list="minute">
             <datalist id="minute">
               <option ng-repeat="item in interviewModal.listMinutes" value="{{item}}">
             </datalist>
