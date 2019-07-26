@@ -912,21 +912,6 @@ en:
 
   form_issubmit_already: "This form is already submitted"
 
-  #evaluate_email
-  mail_hello: "Hello"
-  mail_cause_evaluate: "Because you have acted as an interviewer for"
-  mail_cause_interview: "Because you have been assigned to act as an interviewer"
-  mail_cause_edit: "Due to "
-  mail_date_edit: "'s schedule interview was change to"
-  mail_date: "On"
-  mail_time: "at"
-  mail_place: "at"
-  mail_so_evaluate: "So we therefore ask you to fill out an evaluate interview form."
-  mail_so_interview: "So we therefore ask you to prepare for the appointment."
-  mail_so_edit: "So we therefore ask you to prepare for the new appointment."
-  mail_bylink: "By follow this link."
-  mail_thank: "Thank."
-  goto_evaluate_form: "Fill Evaluate Form"
 
 
 

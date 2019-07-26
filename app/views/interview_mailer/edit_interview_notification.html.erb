@@ -10,18 +10,18 @@
   </head>
   <body>
     <div class="container text-center align-self-stretch mt-125">
-      <div class="content-scout pt-0 m-0 border-radius border-1 border-width-thin">
+      <div class="content-scout p-0 m-0 border-radius border-1 border-width-thin">
 
-        <div class="row bg-orange mx-m30 py-15 custom-shadow">
+        <div class="row bg-orange m-0 py-15 custom-shadow">
           <img class="max-w-100" src = "/somsri_logo.png">
         </div>
 
         <div class="row mb-30">
-          <h1 class="py-10 color-black"> <%= t('mail_hello') %></h1>  
-          <p><%= t('mail_cause_edit') %> <%= @interview.candidate.full_name %><%= t('mail_date_edit') %> </p>
-          <p><%= @interview.date.strftime("%d/%m/%Y") %> <%= t('mail_time') %> <%= @interview.date.strftime("%H:%M") %> <%= t('mail_place') %> <%= @interview.location %></p>
-          <p><%= t('mail_so_edit') %></p>
-          <p class="row mt-30"><%= t('mail_thank') %></p>
+          <h1 class="py-10 color-black">สวัสดีค่ะ</h1>  
+          <p>เนื่องจากกำหนดการ การสัมภาษณ์ของ <%= @interview.candidate.full_name %> ได้ถูกแก้ไข</p>
+          <p>เป็นวันที่ <%= @interview.date.strftime("%d/%m/%Y") %> เวลา <%= @interview.date.strftime("%H:%M") %> ที่ <%= @interview.location %></p>
+          <p>ทางเราจึงขอให้เตรียมพร้อมสำหรับเวลานัดหมายอันใหม่ด้วย</p>
+          <p class="row mt-30">ขอบคุณค่ะ</p>
           <p>HR @BananaCoding</p>
         </div>
 
