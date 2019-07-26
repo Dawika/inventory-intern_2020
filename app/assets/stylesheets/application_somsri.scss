@@ -1904,7 +1904,7 @@ tags-input .tags .tag-item .remove-button {
 
 .back-scout {
   font-size: 24px;
-  font-weight: 400;
+  font-weight: bold;
   line-height: 29px;
   text-align: left;
 }
@@ -1915,14 +1915,14 @@ tags-input .tags .tag-item .remove-button {
 
 .name-candidate {
   color: #4A90E2;
-  font-family: Prompt;
+  font-family: 'Prompt', sans-serif;
   font-size: 32px;
   font-weight: 400;
   line-height: 38px;
 }
 
 .font-candidate {
-  font-family: Prompt;
+  font-family: 'Prompt', sans-serif;
 }
 
 .detail-candidate {
@@ -1948,9 +1948,9 @@ tags-input .tags .tag-item .remove-button {
 }
 
 .heading-candidate {
-  font-family: Prompt;
+  font-family: 'Prompt', sans-serif;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: bold;
   line-height: 22px;
 }
 
@@ -1973,7 +1973,7 @@ tags-input .tags .tag-item .remove-button {
 }
 
 .btn-invite {
-  font-family: Prompt;
+  font-family: 'Prompt', sans-serif;
   background-color: #7ED321;
   color: #fff;
   font-size: 16px;
@@ -1992,7 +1992,7 @@ tags-input .tags .tag-item .remove-button {
 }
 
 .input-time{
-  width:15%; display: inline;
+  width:17%; display: inline;
 }
 
 .input-email{
@@ -2013,3 +2013,16 @@ tags-input .tags .tag-item .remove-button {
   padding-bottom: 0px;
   margin-left: 10px;
 }
+
+.pb-0{
+  padding-bottom: 0px;
+}
+
+.pd-tb12-lr0{
+  padding: 12px 0px;
+}
+.pl-10-pr-0{
+  padding-left: 10px;
+  padding-right: 0px;
+}
+

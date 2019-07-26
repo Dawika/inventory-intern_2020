@@ -10,8 +10,8 @@
     ctrl.listHours = ['00', '01', '02', '03', '04', '05', '06','07', '08', '09',
     '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
     ctrl.listMinutes = ['00','05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55']
-    ctrl.minute = '00';
-    ctrl.hour = '00';
+    ctrl.minute;
+    ctrl.hour;
     ctrl.candidate_id = $scope.candidate_id;
     ctrl.datas;
     ctrl.interviewer_emails_attributes = null;
@@ -89,9 +89,8 @@
         ctrl.saveInterview();
       })
     }
-    
+
     ctrl.checkSave = function(){
-      
       if(ctrl.hour == "" || ctrl.minute == "" || ctrl.date == null || ctrl.validateEmail() || ctrl.validateCategoryAndLocation()){
         return true
       }else{
@@ -113,7 +112,7 @@
     }
 
     ctrl.validateCategoryAndLocation = function(){
-      return ctrl.category ? false : true || ctrl.location != "" ? false : true
+      return ctrl.category == null ? true : false || ctrl.location == "" ? true : false
     }
 
     function openConfirmationModal(message, success, dismiss) {
