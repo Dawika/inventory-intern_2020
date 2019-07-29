@@ -12,7 +12,7 @@
       <div class="col-lg-12">
         <div>
           <%= simple_form_for @school, action: @school.new_record? ? 'create' : 'update', validate: true do |f| %>
-            <div class="form-sign-in" id="formSingUp">
+            <div class="form-sign-in" id="formSingUp" hidden>
               <div class="row">
                 <div class="col-xs-12">
                   <%= image_tag @school.logo, class: "img-responsive logo-login" %>
@@ -56,143 +56,13 @@
                 </div>
                 <div class="row">
                   <div class="form-actions py-3">
-                    <%= button_tag "สมัครใช้งานเลย", class: 'btn-bg-signup', type: 'button', id: 'newStep', onclick: 'showNewSchool()', disabled: true %>
+                    <%= button_tag "สมัครใช้งานเลย", class: 'btn-bg-signup', type: 'button', id: 'newStep', onclick: 'showNewSchool("setting")', disabled: true %>
                   </div>
                 </div>
               </div>
               <% end %>
-            <div class="new-school" id="formSchool">
-            <h1><%= t('.header') %></h1><br>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="col-md-6">
-                    <h4><%= t('.Message1') %></h4>
-                  </div>
-                  <div class="col-md-6">
-                    <h4><%= t('.Message2') %></h4>
-                  </div>
-                  <div class="controls content">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <%= f.input :name, label: t('.name_thai'), input_html: { class: 'validate-sign-up' }, required: true %>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <%= f.input :address, label: t('.address'), input_html: { class: 'validate-sign-up' }, required: true %>
-                          </div>
-                        </div>  
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <%= f.input :name_eng, label: t('.name_eng'), input_html: { class: 'validate-sign-up' }, required: true %>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <div class="form-group">
-                            <%= f.input :phone, label: t('.phone'), as: :integer, input_html: { class: 'validate-sign-up' }, required: true %>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <div class="form-group">
-                            <%= f.input :fax, label: t('.fax'), as: :integer %>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <div class="form-group">
-                            <%= f.input :subdomain_name, label: 'Subdomain name', 
-                            input_html: { onkeyup: "validateUniqueness2('#{subdomain_uniqueness_check_validates_path}', this.id)", class: 'validate-sign-up' }, required: true %>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <div class="form-group">
-                            <br>
-                            <h4>.somsri.io</h4>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <%= f.input :email, label: t('.email'), input_html: { class: 'validate-sign-up' }, required: true %>
-                          </div>
-                        </div>
-                      </div>
-                        <%= f.simple_fields_for :school_settings, validate: true do |school_setting_form| %>
-                          <div class="row">
-                            <div class="col-md-3">
-                              <div class="form-group">
-                                <%= school_setting_form.input :school_year, label: t('.schoolyear'), input_html: { id: 'school_school_settings_school_year', class: 'validate-sign-up' }, required: true %>
-                              </div>
-                            </div>
-                            <div class="col-md-3">
-                              <div class="form-group">
-                                <%= school_setting_form.input :semesters, collection: 1..3, selected: 2, input_html: { id: 'school_school_settings_semesters' } %>
-                              </div>
-                            </div>
-                        <% end %>
-                          <div class="col-md-4">
-                            <div class="form-group">
-                              <%= f.input :tax_id, label: t('.tax_id'), as: :integer %>
-                            </div>
-                          </div>
-                          <div class="col-md-2">
-                            <div class="form-group">
-                              <%= f.input :branch, label: t('.branch'), as: :integer %>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <h4><%= t('.Message3') %>&nbsp;
-                              <%= image_tag 'https://pngimage.net/wp-content/uploads/2018/06/icon-true-png-1.png', id: 'img-sc-true', class: 'hide', :size => "30x30" %>
-                              <%= image_tag 'https://cdn2.iconfinder.com/data/icons/user-needs-19/16/45_false_delete_remove_cross_wrong_2-512.png', id: 'img-sc-false', class: 'hide', :size => "30x30" %>
-                              </h4>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <h4><%= t('.Message4') %></h4>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <div class="dropzone" >
-                                <%= image_tag '/icon-file.jpg', id: 'logoSchool', class: 'img-lg' %>
-                              </div><br><br>
-                              <button type="button" class="btn btn-info btn-lg" onclick="$('#school_logo').trigger('click')">Choose file</button>
-                            </div>
-                            <div id="requireimg" class="invalid-feedback" style="display: show;">*จำเป็นต้องใส่</div>
-                            <div id="errorMessage" class="invalid-feedback" style="display: none;"></div>
-                          </div>
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <%= f.input :logo, label: false, as: :file, multiple: true, accept:'image/*', input_html: { onChange: 'changeLogo(event, "logoSchool")', class: 'validate-sign-up' }, required: true %>
-                              <br /><br /><br />*File type support .JPEG, .JPG, .PNG Size 200 x 200px under 2MB
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <%= f.input :note, label: t('.note'), input_html: { id: 'user_school_note' } %>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                        <div class="col-md-5">
-                        </div>
-                          <div class="col-md-3">
-                            <%= button_tag "เริ่มใช้งาน", type: 'button', class: 'btn btn-info btn-lg', id: 'new_modal', disabled: true %>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <%= render 'setting_school_setting',f: f %>
+              <%= render 'select_plan',f: f %>
                 <!-- Modal -->
                 <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                   <div class="modal-dialog"  role="document">
@@ -212,20 +82,6 @@
       </div>
   </div>
 </div>
-<% if SiteConfig.get_cache.display_username_password_on_login %>
-  <div class="container">
-    <div class="col-md-offset-2 col-md-7 form-type">
-      <div class="col-md-12">
-        <p><button class="status_type_login">ฝ่ายบุคคล</button>&nbsp;&nbsp;&nbsp;<strong> User name:</strong> admin@bananacoding.com
-          <strong>Password:</strong> password</p>
-      </div>
-      <div class="col-md-12" style="margin-top: 10px;">
-        <p><button class="status_type_login">ฝ่ายการเงิน</button>&nbsp;&nbsp;<strong> User name:</strong> finance@bananacoding.com
-          <strong>Password:</strong> password</p>
-      </div>
-    </div>
-  </div>
-<% end %>
 <footer id="footer">
   <div class="container">
     <p class="text-center">© Copyright somsri.io</p>
@@ -237,12 +93,13 @@
     $('form.simple_form').enableClientSideValidations();
     $('#formSchool').hide();
     $('#formModal').hide();
+    $('#formplan').hide();
     $('#school_school_settings_semesters').removeClass('is-valid')
     $('.validate-sign-in').keyup(function() {
       enableButtonFormAdmin('new_school', 'newStep');
     })
-    $('#new_modal').click(function() {
-      $('#myModal').modal({backdrop: 'static', keyboard: false})
-    })
+   // $('#new_modal').click(function() {
+   //   $('#myModal').modal({backdrop: 'static', keyboard: false})
+   // })
   });
 </script>

@@ -1,0 +1,146 @@
+<div class="container plan" id="formplans">
+  <div class="select-plan">
+    <div class="row">
+      <h1 class="font-slyte">Select Plan</h1>
+    </div>
+    <section class="sec_4">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+              <div class="row text-center">
+                <div class="col-md-6">
+                  <div class="col-md-10 col-md-offset-1">
+                    <h3>แบบรายเดือน</h3>
+                    <p>แบบรายเดือนเหมาะสำหรับโรงเรียนที่สามารถเข้าถึงอินเตอร์เน็ตได้ และไม่ต้องการดูแลอุปกรณ์</p>
+                    <h3 class="price-l">990 บาท/เดือน</h3><br>
+                    <p>ใช้งานแบบออนไลน์ผ่านทาง สมศรี Cloud สามารถเข้าถึงได้จากทั้งที่โรงเรียนและที่บ้าน ข้อมูลไม่สูญหาย ระบบ backup ให้ อัตโนมัติ รับประกันตลอดอายุการใช้งาน </p><br>
+                    <%= f.input :plan_id, as: :radio_buttons, collection: [['Select', 1 ]], input_html: { onclick: "disable_and_enable('disable')"} %>
+                  </div>
+                </div>
+                <div class="test"></div>
+                <div id="select_year" class="col-md-6">
+                  <div class="col-md-10 col-md-offset-1">
+                    <h3>แบบรายปี</h3>
+                    <p>แบบรายปีเหมาะสำหรับโรงเรียนที่สามารถเข้าถึงอินเตอร์เน็ตได้ และไม่ต้องการดูแลอุปกรณ์ </p>
+                    <h3 class="price-r">10,000 บาท/ปี</h3><br>
+                    <p>ใช้งานแบบออนไลน์ผ่านทาง สมศรี Cloud สามารถเข้าถึงได้ จากทั้งที่โรงเรียนและที่บ้าน ข้อมูลไม่สูญหาย ระบบ backup ให้ อัตโนมัติ รับประกันตลอดอายุการใช้งาน </p><br>
+                    <%= f.input :plan_id, as: :radio_buttons, collection: [['Select', 2 ]], checked: ['Select', 2 ], input_html:{ onclick: 'disable_and_enable()'} %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </section>
+      <section class="sec_5">
+        <div class="row container">
+          <div class="col-md-6 border-r layout">
+            <div class="row text-center">
+              <h3 class="font-slyte">วิธีชำระเงิน</h3>
+            </div>
+            <div class="row">
+              <ul class="nav nav-tabs nav-fill">
+                <li class="nav-item nav-link boder active text-center"><a class="tab-label" data-toggle="tab" href="#transfer-money"><i class="fa fa-money" aria-hidden="true"></i><br>โอนเงิน</a></li>
+                <li class="nav-item nav-link  border text-center"><a class="tab-labe" data-toggle="tab" href="#credit" onclick="enablevalidate()"><i class="fa fa-credit-card" aria-hidden="true"></i><br>บัตรเครดิต </a></li>
+              </ul>
+            </div>
+            <div class="row">
+              <div class="tab-content">
+                <div id="transfer-money" class="tab-pane fade in active">
+                  <div class="row">
+                    <h3>รายระเอียดการชำระเงิน</h3>
+                  </div>
+                </div>
+                <div id="credit" class="tab-pane fade"><br>
+                  <%=f.simple_fields_for :payment_method_schools, validate: true do |payment_form| %>
+                    <div class="row">
+                      <div class="col-md-7">
+                        <%= payment_form.hidden_field :payment_method, value: 'credit' %>
+                          <%= payment_form.input :cardholder, input_html: { id: 'school_payment_method_schools_cardholder', class: 'plan-select' }, required: true  %>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-7">
+                        <%= payment_form.input :card_number, input_html: { id: 'school_payment_method_schools_card_number', class: 'plan-select' }, required: true %>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2">
+                        <%= payment_form.input :exp_month,input_html: { id: 'school_payment_method_schools_exp_month', class: 'plan-select' }, required: true %>
+                      </div>
+                      <div class="col-md-2">
+                        <%= payment_form.input :exp_year,input_html: { id: 'school_payment_method_schools_exp_year', class: 'plan-select' }, required: true %>
+                      </div>
+                      <div class="col-md-2">
+                        <%= payment_form.input :cvv,input_html: { id: 'school_payment_method_schools_cvv', class: 'plan-select' }, required: true %>
+                      </div>
+                    </div>
+                    <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-1">
+          </div>
+          <div class="col-md-5 layout2">
+            <div class="row">
+              <h3 class="font-slyte">Billing info</h3>
+            </div>
+            <div class="row">
+
+              <ul class="nav nav-tabs">
+                <li class="nav-item nav-link boder text-center active" id="showBr" onclick="branch(this.id)"><a class="tab-label">นิติบุคคล</a></li>
+                <li class="nav-item nav-link  border text-center" id="hideBr" onclick="branch(this.id)"><a class="tab-labe" onclick="disable_and_enable_bil()">บุคคลธรรมดา </a></li>
+              </ul>
+            </div>
+            <div class="row">
+              <div class="tab-content"><br>
+                <%= f.simple_fields_for :bils, validate: true do |bil_form| %>
+                  <div class="row">
+                    <div class="col-md-10">
+                      <%= bil_form.input :name, placeholder: 'ชื่อ - สกุล', input_html: { id: 'school_bils_name', class: 'plan-select'}, required: true %>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-10">
+                      <%= bil_form.input :address, placeholder: 'xx/xx', input_html: { id: 'school_bils_address', class: 'plan-select' }, required: true %>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-5">
+                      <%= bil_form.input :district, placeholder: 'ตำบล', input_html: { id: 'school_bils_district', class: 'plan-select' }, required: true  %>
+                    </div>
+                    <div class="col-md-5">
+                      <%= bil_form.input :province, placeholder: 'จังหวัด', input_html: { id: 'school_bils_province', class: 'plan-select' }, required: true  %>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-5">
+                      <%= bil_form.input :zip_code, placeholder: '', input_html: { id: 'school_bils_zip_code', class: 'plan-select' }, required: true  %>
+                    </div>
+                    <div class="col-md-5">
+                      <%= bil_form.input :phone_number, placeholder: '', input_html: { id: 'school_bils_phone_number', class: 'plan-select' }, required: true  %>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-8">
+                      <%= bil_form.input :tax_number, placeholder: '', input_html: { id: 'school_bils_tax_number', class: 'plan-select' }, required: true  %>
+                    </div>
+                    <div class="col-md-2">
+                      <%= bil_form.input :branch, placeholder: '', input_html: { id: 'school_bils_branch'} %>
+                    </div>
+                  </div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="row">
+        <div class="col-xs-8"></div>
+        <div class="col-xs-4">
+          <%= button_tag "create", type: 'button', class: 'btn btn-getStarted animated fadeInDown', id: 'modal' , disabled: true%>
+            <%= button_tag "skip", type: 'button', class: 'btn btn-getStarted animated fadeInDown btn-gray' ,id: 'modal-skip'%>
+        </div>
+     </div>
+ </div>
+ </div>

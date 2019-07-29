@@ -8,6 +8,9 @@ class SchoolsController < ApplicationController
   
     def create
       @school = School.new(school_params)
+      # params[:li].each do |l|
+      #   @user.li.create(pa)
+      # end  
       if @school.save!
         SchoolMailer.school_notification(@school).deliver
         user = @school.users.first

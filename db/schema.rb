@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190718085305) do
+ActiveRecord::Schema.define(version: 20190726042248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -459,6 +459,15 @@ ActiveRecord::Schema.define(version: 20190718085305) do
     t.index ["school_id"], name: "index_invoices_on_school_id", using: :btree
   end
 
+  create_table "licenses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "school_id"
+    t.integer  "plan_id"
+    t.index ["plan_id"], name: "index_licenses_on_plan_id", using: :btree
+    t.index ["school_id"], name: "index_licenses_on_school_id", using: :btree
+  end
+
   create_table "line_item_quotations", force: :cascade do |t|
     t.string   "detail"
     t.float    "amount"
@@ -550,6 +559,25 @@ ActiveRecord::Schema.define(version: 20190718085305) do
     t.index ["school_id"], name: "index_parents_on_school_id", using: :btree
   end
 
+  create_table "payment_method_schools", force: :cascade do |t|
+    t.string  "payment_method"
+    t.string  "cardholder_name"
+    t.string  "card_number"
+    t.string  "exp_month"
+    t.string  "exp_year"
+    t.integer "cvv"
+    t.string  "name"
+    t.string  "address"
+    t.string  "district"
+    t.string  "province"
+    t.string  "zip_code"
+    t.string  "phone"
+    t.string  "tax_id"
+    t.string  "branch"
+    t.integer "license_id"
+    t.index ["license_id"], name: "index_payment_method_schools_on_license_id", using: :btree
+  end
+
   create_table "payment_methods", force: :cascade do |t|
     t.string  "payment_method"
     t.string  "cheque_bank_name"
@@ -585,6 +613,12 @@ ActiveRecord::Schema.define(version: 20190718085305) do
     t.boolean  "closed"
     t.index ["deleted_at"], name: "index_payrolls_on_deleted_at", using: :btree
     t.index ["employee_id"], name: "index_payrolls_on_employee_id", using: :btree
+  end
+
+  create_table "plans", force: :cascade do |t|
+    t.string  "package_name"
+    t.string  "description"
+    t.decimal "price"
   end
 
   create_table "quotation_invoices", force: :cascade do |t|
@@ -673,6 +707,8 @@ ActiveRecord::Schema.define(version: 20190718085305) do
     t.string   "note"
     t.string   "subdomain_name"
     t.string   "branch"
+    t.integer  "plan_id"
+    t.index ["plan_id"], name: "index_schools_on_plan_id", using: :btree
   end
 
   create_table "site_configs", force: :cascade do |t|
@@ -906,9 +942,13 @@ ActiveRecord::Schema.define(version: 20190718085305) do
   add_foreign_key "individuals", "employees", column: "parent_id"
   add_foreign_key "individuals", "employees", column: "spouse_id"
   add_foreign_key "invoices", "schools"
+  add_foreign_key "licenses", "plans"
+  add_foreign_key "licenses", "schools"
   add_foreign_key "parents", "schools"
+  add_foreign_key "payment_method_schools", "licenses"
   add_foreign_key "roll_calls", "lists"
   add_foreign_key "school_settings", "schools"
+  add_foreign_key "schools", "plans"
   add_foreign_key "students", "classrooms", on_delete: :nullify
   add_foreign_key "students", "schools"
   add_foreign_key "users", "schools"

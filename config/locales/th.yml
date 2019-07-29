@@ -536,7 +536,7 @@ th:
 
   # School Setting
   schools:
-    new:
+    setting_school_setting:
       name_thai: "ชื่อโรงเรียน(ภาษาไทย)"
       address: "ที่อยู่"
       name_eng: "ชื่อโรงเรียน(ภาษาอังกฤษ)"

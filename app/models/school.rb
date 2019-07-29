@@ -5,10 +5,13 @@ class School < ApplicationRecord
   has_many :students
   has_many :parents
   has_many :invoices
+  has_one :payment_method_school
+  belongs_to :plan
   has_attached_file :logo, styles: { medium: "200x200>", thumb: "100x100>" }, default_url: "/somsri_logo.png"
   validates_attachment_content_type :logo, content_type: ["image/jpeg", "image/jpg", "image/png"]
   accepts_nested_attributes_for :users
   accepts_nested_attributes_for :school_settings
+  accepts_nested_attributes_for :payment_method_school
   validates :name, :address, :name_eng, :phone, :logo, presence: true, allow_blank: false
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :subdomain_name, presence: true, allow_blank: false, uniqueness: true

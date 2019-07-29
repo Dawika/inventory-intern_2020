@@ -158,9 +158,15 @@ function enableButtonFormSchool(formID, id) {
   }
 }
 
-function showNewSchool() {
-  $('#formSingUp').hide();
-  $('#formSchool').show();
+function showNewSchool(value) {
+  if(value == 'setting'){
+    $('#formSingUp').hide();
+    $('#formSchool').show();
+  }else{
+    $('#formSingUp').hide();
+    $('#formSchool').hide();
+    $('#formplan').show();
+  }
 }
 
 function changeLogo(event, img_logo) {
