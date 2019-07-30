@@ -39,7 +39,7 @@
           <div class="col-md-6 pl-20">
             <%= f.label t('interviewee_type'), :class => 'control-label' %>
             <div class="row ml-20 mt-10 font-21">
-              <%= @interview.category %>
+              <%= t(@interview.category) %>
             </div>
           </div>
 
@@ -238,10 +238,10 @@
               <%= f.radio_button :glad, :pleased %><%= f.label :glad_pleased, t('pleased'), {class: "ml-35"} %>
             </div>
             <div class="row ml-35 mt-20">
-              <%= f.radio_button :glad , :so_so ,checked: true%><%= f.label :glad_1, t('so_so'), {class: "ml-35"} %>
+              <%= f.radio_button :glad , :so_so ,checked: true%><%= f.label :glad_so_so, t('so_so'), {class: "ml-35"} %>
             </div>
             <div class="row ml-35 mt-20">
-              <%= f.radio_button :glad, :displeased %><%= f.label :glad_2, t('displeased'), {class: "ml-35"} %>
+              <%= f.radio_button :glad, :displeased %><%= f.label :glad_displeased, t('displeased'), {class: "ml-35"} %>
             </div>
           </div>
 

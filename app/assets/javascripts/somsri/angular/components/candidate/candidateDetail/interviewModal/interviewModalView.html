@@ -16,7 +16,7 @@
         <div class="col-md-6">
           <div ng-repeat="category in interviewModal.categorys" class="pl-10">
             <input type="radio" name="occurrences" ng-value="category" ng-model="interviewModal.category" />
-            <label>{{ category }}</label>
+            <label>{{ category | translate }}</label>
           </div>
         </div>
       </div>

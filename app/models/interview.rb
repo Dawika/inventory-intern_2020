@@ -5,7 +5,7 @@ class Interview < ApplicationRecord
   accepts_nested_attributes_for :interviewer_emails, reject_if: :all_blank, allow_destroy: true
   after_update :send_mail_to_interviewers
 
-  # enum category: [:internship, :cooperative_education, :apprentice]
+  enum category: [:internship, :cooperative_education, :apprentice]
 
   def send_mail_to_interviewers
     if self.changed?

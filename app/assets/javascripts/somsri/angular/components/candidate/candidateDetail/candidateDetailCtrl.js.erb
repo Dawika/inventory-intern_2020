@@ -12,7 +12,6 @@
       ctrl.allSubmit
       
       $rootScope.menu = translateFilter('scout');
-      ctrl.categorys = ['ฝึกงาน', 'สหกิจ', 'สมัครงาน']
       candidateDetailService.getById($state.params.id).then(function(resp) {
         ctrl.datas = resp.data;
         ctrl.datas.candidate.interview.candidate_id = ctrl.datas.candidate.id;
