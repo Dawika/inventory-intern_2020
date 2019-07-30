@@ -113,7 +113,7 @@
               <div class="progress-bar-skill">
                 <div class="progress-bar bar-skill" 
                      role="progressbar" 
-                     style="width: <%= @interview.candidate.current_ability || 0 * 5 %>%" 
+                     style="width: <%= @interview.candidate.current_ability*5 %>%" 
                      aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                 </div>
               </div>
@@ -130,7 +130,7 @@
                 <div class="progress-bar-skill">
                   <div class="progress-bar bar-skill" 
                        role="progressbar" 
-                       style="width: <%= @interview.candidate.learn_ability || 0 * 5 %>%" 
+                       style="width: <%= @interview.candidate.learn_ability*5 %>%" 
                        aria-valuenow="25" 
                        aria-valuemin="0" 
                        aria-valuemax="100">
@@ -147,7 +147,7 @@
               </div>
               <div class="col-md-4 mt-5">
                 <div class="progress-bar-skill">
-                  <div class="progress-bar bar-skill" role="progressbar" style="width: <%= @interview.candidate.attention || 0 * 5 %>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar bar-skill" role="progressbar" style="width: <%= @interview.candidate.attention *5 %>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
               <div class="col-md-2">
