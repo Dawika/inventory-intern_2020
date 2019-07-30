@@ -1,6 +1,6 @@
 <div class="container-fluid p-50">
   <div class="row head-sp mb-20">
-    <p class="back-scout font-candidate color-blue-candidate"><span class="button-arrow cursor-pointer" ng-click="candidateDetail.back()"><i class="fas fa-arrow-left pd-l-10"></i></span>Candidate Information</p>
+    <p class="back-scout font-candidate color-blue-candidate"><span class="button-arrow cursor-pointer" ng-click="candidateDetail.back()"><i class="fas fa-arrow-left pd-l-10"></i></span>{{ 'candidate_informatiom'  | translate }}</p>
   </div>
   <div class="row paper-white container-fluid padding-30">
     <div class="row mb-15">
@@ -88,7 +88,7 @@
     </div>
     <div class="row">
       <div class="col-md-2 break-word">
-        <p class="heading-candidate">Resume/Transcript</p>
+        <p class="heading-candidate">{{ 'resumetranscriptPDF' | translate }}</p>
         <p ng-repeat="item in candidateDetail.datas.candidate.candidate_files_attributes">
           <a ng-href="{{candidateDetail.datas.candidate.candidate_files_url[$index]}}" class="font-candidate detail-candidate" target="_blank">{{ item.files_file_name}}</a>
         </p>
@@ -96,7 +96,7 @@
       <div class="col-md-6">
         <div class="row detail-candidate font-candidate mb-15">
           <div class="col-md-3 text-right">
-            <span>Current Ability</span>
+            <span>{{ 'current_ability' | translate }}</span>
           </div>
           <div class="col-md-4 mt-5">
             <div class="progress progress-bar-skill">
@@ -109,7 +109,7 @@
         </div>
         <div class="row detail-candidate font-candidate mb-15">
           <div class="col-md-3 text-right">
-            <span>Learn Ability</span>
+            <span>{{ 'learn_ability' | translate }}</span>
           </div>
           <div class="col-md-4 mt-5">
             <div class="progress progress-bar-skill">
@@ -122,7 +122,7 @@
         </div>
         <div class="row detail-candidate font-candidate">
           <div class="col-md-3 text-right">
-            <span>Attention</span>
+            <span>{{ 'attention' | translate }}</span>
           </div>
           <div class="col-md-4 mt-5">
             <div class="progress progress-bar-skill">
@@ -139,7 +139,7 @@
       <div class="col-md-6">
         <div class="row">
           <div class="col-md-6">
-            <h3 class="hr-2 heading-candidate color-blue-candidate mb-30">Programming skill</h3>
+            <h3 class="hr-2 heading-candidate color-blue-candidate mb-30">{{ 'programing_skill'  | translate }}</h3>
             <div class="row detail-skill font-candidate mb-15" ng-repeat="item in candidateDetail.datas.candidate.programming_skills_attributes">
               <div class="col-md-3 text-right break-word padding-right0">
                 <span>{{item.skill_name}}</span>
@@ -155,7 +155,7 @@
             </div>
           </div>
           <div class="col-md-6">
-            <h3 class="hr-2 heading-candidate color-blue-candidate mb-30">Soft skill</h3>
+            <h3 class="hr-2 heading-candidate color-blue-candidate mb-30">{{ 'soft_skill'  | translate }}</h3>
             <div class="row detail-skill font-candidate mb-15" ng-repeat="item in candidateDetail.datas.candidate.soft_skills_attributes">
               <div class="col-sm-3 text-right break-word padding-right0">
                 <span>{{item.skill_name}}</span>
@@ -173,26 +173,26 @@
         </div>
       </div>
       <div ng-show="!candidateDetail.datas.candidate.interview.id && !candidateDetail.datas.candidate.evaluate" class="col-md-6">
-        <h3 class="hr-2 heading-candidate color-blue-candidate">Note</h3>
+        <h3 class="hr-2 heading-candidate color-blue-candidate">{{ 'note'  | translate }}</h3>
         <div class="note-cadidate">
           {{candidateDetail.datas.candidate.note}}
         </div>
       </div>
       <div ng-show="candidateDetail.datas.candidate.interview.id && !candidateDetail.datas.candidate.evaluate" class="col-md-6">
-        <h3 class="hr-2 heading-candidate color-blue-candidate">Interview Score</h3>
-          <button type="button" class ="btn btn-interview-form" ng-click="candidateDetail.openSentEmailModal()"> Send interview form </button>
+        <h3 class="hr-2 heading-candidate color-blue-candidate">{{ 'interview_score'  | translate }}</h3>
+          <button type="button" class ="btn btn-interview-form" ng-click="candidateDetail.openSentEmailModal()">{{ 'distribute_evaluate_form'  | translate }}</button>
       </div>
       <div ng-show="candidateDetail.datas.candidate.evaluate" class="col-md-6">
-        <h3 class="hr-2 heading-candidate color-blue-candidate">มีผู้ตอบแบบฟอร์มแล้วทั้งหมด {{candidateDetail.submited.length}} of {{candidateDetail.allSubmit}} คน</h3>
+        <h3 class="hr-2 heading-candidate color-blue-candidate">{{ 'has_ans'  | translate }} {{candidateDetail.submited.length}} {{ 'of'  | translate }} {{candidateDetail.allSubmit}} {{ 'man'  | translate }}</h3>
         <div class="col-md-12 pl-20">
           <div ng-repeat="item in candidateDetail.submited">
-            <span class="heading-candidate font-18">{{item.email}}</span><span class="heading-candidate font-18 color-light-green ml-10">(ตอบแล้ว)</span>
+            <span class="heading-candidate font-18">{{item.email}}</span><span class="heading-candidate font-18 color-light-green ml-10">({{ 'ans_already'  | translate }})</span>
           </div>
           <div ng-repeat="item in candidateDetail.notSubmited">
-            <span class="heading-candidate font-18">{{item.email}}</span><span class="heading-candidate font-18 color-red ml-10">(ยังไม่ตอบ)</span>
+            <span class="heading-candidate font-18">{{item.email}}</span><span class="heading-candidate font-18 color-red ml-10">({{ 'ans_yet'  | translate }})</span>
           </div>
           <div class="mt-20" ng-show="candidateDetail.submited.length > 0">
-            <button type="button" class ="btn btn-interview-form" ng-click="candidateDetail.toConclusion()">Conclusion</button>
+            <button type="button" class ="btn btn-interview-form" ng-click="candidateDetail.toConclusion()">{{ 'conclusionbtn'  | translate }}</button>
           </div>
         </div>
       </div>
@@ -200,7 +200,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="col-md-6 pull-right">
-          <h3 class="hr-2 heading-candidate color-blue-candidate mb-30">Design skill</h3>
+          <h3 class="hr-2 heading-candidate color-blue-candidate mb-30">{{ 'design_skill'  | translate }}</h3>
           <div class="row detail-skill font-candidate mb-15" ng-repeat="item in candidateDetail.datas.candidate.design_skills_attributes">
             <div class="col-sm-3 text-right break-word padding-right0">
               <span>{{item.skill_name}}</span>

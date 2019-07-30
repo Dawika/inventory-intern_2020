@@ -1,6 +1,6 @@
 <div class="container-fluid blue-bg"style="margin-left:0px;">
   <div class="row-head-sp justify-content-between">
-     <i class="fas fa-arrow-left employee-view-icon.active" ng-click="candidateEdit.goDetail()"></i> &nbsp; Edit Candidate
+     <i class="fas fa-arrow-left employee-view-icon.active" ng-click="candidateEdit.goDetail()"></i> &nbsp; {{ 'edit_candidate' | translate }}
   </div>
   <%= javascript_include_tag 'preview_image' %>
   <script src="https://kit.fontawesome.com/1ffa964d13.js"></script>
@@ -33,7 +33,7 @@
         <div class="space20"></div>
         <div class="row margin-0 paddingt-25">
           <label>{{ 'resumetranscriptPDF' | translate }}</label>
-          <button type="button" class="btn btn-skill" ng-click="candidateEdit.addFile()">+File</button>
+          <button type="button" class="btn btn-skill" ng-click="candidateEdit.addFile()">{{ '+file'  | translate }}</button>
           <div ng-repeat="item in candidateEdit.datas.candidate.candidate_files_attributes" ng-hide="item._destroy">
             <div class="row margin-0 padding-5">
               <a ng-show="!item.files_file_name.name" target="_blank" href="{{ candidateEdit.datas.candidate.candidate_files_url[$index] }}">{{ item.files_file_name }}</a>
@@ -116,7 +116,7 @@
         <div class="row">
           <div class="col-md-4" style="padding-left:0px; padding-rigth:0px;">
             <div class="form-group">
-              <label>Current Ability</label>
+              <label>{{ 'current_ability'  | translate }}</label>
               <div class="col-md-12" style="padding-left:0px; padding-rigth:0px;">
                 <select class="form-control text-blue somsri-select" id="current_ability" ng-options='point as point for point in candidateEdit.points' ng-model="candidateEdit.datas.candidate.current_ability">
                 </select>
@@ -125,7 +125,7 @@
           </div>
           <div class="col-md-4" style="padding-left:0px; padding-rigth:0px;">
             <div class="form-group">
-              <label>Learn Ability</label>
+              <label>{{ 'learn_ability'  | translate }}</label>
               <div class="col-md-12" style="padding-left:0px; padding-rigth:0px;">
                 <select class="form-control text-blue somsri-select" id="learn_ability" ng-options='point as point for point in candidateEdit.points' ng-model="candidateEdit.datas.candidate.learn_ability">
                 </select>
@@ -134,7 +134,7 @@
           </div>
           <div class="col-md-4" style="padding-left:0px; padding-rigth:0px;">
             <div class="form-group">
-              <label>Attention Ability</label>
+              <label>{{ 'attention'  | translate }}</label>
               <div class="col-md-12" style="padding-left:0px; padding-rigth:0px;">
                 <select class="form-control text-blue somsri-select" id="attention" 
                 ng-model="candidateEdit.datas.candidate.attention"
@@ -161,8 +161,8 @@
       <!-- Btn -->
       <div class="col-md-5">
         <div class="form-group somsri-invoice Btn-group">
-          <button type="submit" class ="btn btn-update" ng-disabled="candidateEdit.cannotUpdate"><i class="fas fa-file-import"></i>&nbsp;Update </button><br><br>
-          <button type="button" class ="btn btn-cancel-scout" ng-disabled="candidateEdit.cannotCancel" ng-click="candidateEdit.cancelUpdate()""><i class="fas fa-trash-alt"></i>&nbsp;Cancel</button>
+          <button type="submit" class ="btn btn-update" ng-disabled="candidateEdit.cannotUpdate"><i class="fas fa-file-import"></i>&nbsp;{{ 'update' | translate }}</button><br><br>
+          <button type="button" class ="btn btn-cancel-scout" ng-disabled="candidateEdit.cannotCancel" ng-click="candidateEdit.cancelUpdate()""><i class="fas fa-trash-alt"></i>&nbsp;{{ 'cancel' | translate }}</button>
         </div>
       </div>
     </div>
@@ -196,7 +196,7 @@
                 </div>
               </div>
               <div class="row margin-0 paddingt-15">
-                <button type="button" class ="btn btn-skill" ng-click="candidateEdit.addProgrammingskill()">Add</button>
+                <button type="button" class ="btn btn-skill" ng-click="candidateEdit.addProgrammingskill()">{{ '+add'  | translate }}</button>
                 <div class="space20"></div>
               </div>
             </div>
@@ -226,7 +226,7 @@
                 </div>
               </div>
               <div class="row margin-0 paddingt-15">
-                <button type="button" class ="btn btn-skill" ng-click="candidateEdit.addSoftskill()">Add</button>
+                <button type="button" class ="btn btn-skill" ng-click="candidateEdit.addSoftskill()">{{ '+add'  | translate }}</button>
                 <div class="space20"></div>
               </div>
 
@@ -250,7 +250,7 @@
                 </div>
               </div>
               <div class="row margin-0 paddingt-15">
-                <button type="button" class ="btn btn-skill" ng-click="candidateEdit.addDesignskill()">Add</button>
+                <button type="button" class ="btn btn-skill" ng-click="candidateEdit.addDesignskill()">{{ '+add'  | translate }}</button>
                 <div class="space20"></div>
               </div>            
             </div>

@@ -976,7 +976,7 @@ th:
 
   #create new candidate
   create_new_candidate: "Create New Candidate"
-
+  edit_candidate: "Edit Candidate"
   full_name: "ชื่อ-นามสกุล"
   nickname: "ชื่อเล่น"
   email: "อีเมล"
@@ -993,7 +993,7 @@ th:
   new_create: "สร้างผู้ใช้ใหม่"
   CreateNewCandidate: "Create New Candidate"
   resumetranscriptPDF: "Resume/Transcript (PDF)"
-
+  +file: "+ ไฟล์"
   programing_skill: "Programing Skill"
   soft_skill: "Soft Skill"
   design_skill: "Design Skill"
@@ -1001,7 +1001,7 @@ th:
 
   create: "Create"
   cancel: "Cancel"
-
+  update: "Update"
   warning_empty_fullname_nickname: "*กรุณาใส่ชื่อ-นามสกุล หรื่อ ชื่อเล่น "
   warning_empty_email_phone_number: "*กรุณาใส่อีเมล หรื่อ หมายเลขโทรศัพท์"
   warning_empty_from: "*กรุณาใส่ชื่อโรงเรียน"
@@ -1010,7 +1010,7 @@ th:
   #view candidate
   candidate_informatiom: "Candidate Information"
   interview: "สัมภาษณ์"
-  interview_date: "วัน ัมภาษณ์"
+  interview_date: "วันสัมภาษณ์"
   date: "วัน"
   time: "เวลา"
   interviewer: "ผู้ัมภาษณ์"
@@ -1034,6 +1034,14 @@ th:
   time: "เวลา"
   interviewer: "ผู้สัมภาษณ์"
   +invite: "+ เชิญ"
+  distribute_evaluate_form: "แจกแบบสัมภาษณ์"
+  has_ans: "มีผู้ตอบแบบฟอร์มแล้วทั้งหมด"
+  of: "จาก"
+  man: "คน"
+  ans_already: "ตอบแล้ว"
+  ans_yet: "ยังไม่ตอบ"
+  conclusionbtn: "Conclusion"
+  interview_score: "Interview Score"
 
   #evaluate
   evaluate_candidate: "แบบประเมินหลังการสัมภาษณ์ Candidate"
@@ -1054,7 +1062,7 @@ th:
   evaluate_kotlin: "ประเมินความรู้ Kotlin"
   evaluate_swift: "ประเมินความรู้ Swift"
   evaluate_other_ability: "ประเมินความรู้อื่นๆ"
-  
+  other_ability: "ความรู้อื่นๆ"  
   evaluate_learn_ability: "Learn Ability - ประเมินความสามารถในการเรียนรู้"
   evaluate_problem_solving: "ประเมินการแก้ปัญหา(Problem Solving)"
   evaluate_indepentdent: "ประเมินการทำงานด้วยตัวเอง (Indepentdent)"

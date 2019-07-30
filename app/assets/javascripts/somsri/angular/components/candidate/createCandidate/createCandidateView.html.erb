@@ -24,7 +24,7 @@
         <div class="space20"></div>
         <div class="row margin-0 paddingt-25">
           <label>{{ 'resumetranscriptPDF' | translate }}</label>
-          <button type="button" class="btn btn-skill" ng-click="createCandidate.addFile()">+File</button>
+          <button type="button" class="btn btn-skill" ng-click="createCandidate.addFile()">{{ '+file'  | translate }}</button>
           <div ng-repeat="item in createCandidate.datas.candidate.candidate_files_attributes" ng-hide="item._destroy">
             <div class="row margin-0 padding-5">
               <a ng-show="!item.files_file_name.name" target="_blank" href="{{ createCandidate.datas.candidate.candidate_files_url[$index] }}">{{ item.files_file_name }}</a>
@@ -189,7 +189,7 @@
                 </div>
               </div>
               <div class="row margin-0 paddingt-25">
-                <button type="button" class ="btn btn-skill" ng-click="createCandidate.addProgrammingskill()">Add</button>
+                <button type="button" class ="btn btn-skill" ng-click="createCandidate.addProgrammingskill()">{{ '+add'  | translate }}</button>
                 <div class="space20"></div>
               </div>
             </div>
@@ -219,7 +219,7 @@
                 </div>
               </div>
               <div class="row margin-0 paddingt-25">
-                <button type="button" class ="btn btn-skill" ng-click="createCandidate.addSoftskill()">Add</button>
+                <button type="button" class ="btn btn-skill" ng-click="createCandidate.addSoftskill()">{{ '+add'  | translate }}</button>
                 <div class="space20"></div>
               </div>
               
@@ -243,7 +243,7 @@
                 </div>
               </div>
               <div class="row margin-0 paddingt-25">
-                <button type="button" class ="btn btn-skill" ng-click="createCandidate.addDesignskill()">Add</button>
+                <button type="button" class ="btn btn-skill" ng-click="createCandidate.addDesignskill()">{{ '+add'  | translate }}</button>
                 <div class="space20"></div>
               </div>            
             </div>

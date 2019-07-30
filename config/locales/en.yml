@@ -814,7 +814,7 @@ en:
 
   #create new candidate
   create_new_candidate: "Create New Candidate"
-
+  edit_candidate: "Edit Candidate"
   full_name: "Full Name"
   nickname: "Nickname"
   phone_number: "Phone Number"
@@ -826,9 +826,9 @@ en:
   attention: "Attention"
   interest: "Interest"
 
-  resumetranscriptPDF: "Resume/Transcript (PDF)"
   picture: "Picture"
-
+  resumetranscriptPDF: "Resume/Transcript (PDF)"
+  +file: "+ File"
   programing_skill: "Programing Skill"
   soft_skill: "Soft Skill"
   design_skill: "Design Skill"
@@ -836,7 +836,7 @@ en:
   
   create: "Create"
   cancel: "Cancel"
-
+  update: "Update"
   warning_empty_fullname_nickname: "*Please Enter Fullname or Nickname"
   warning_empty_email_phone_number: "*Please Enter Email or Phone Number"
   warning_empty_from: "*Please Enter School's name"
@@ -869,6 +869,14 @@ en:
   time: "Time"
   interviewer: "Interviewer"
   +invite: "+ Invite"
+  distribute_evaluate_form: "Distribute evaluate form"
+  has_ans: "Have the respondents"
+  of: "of"
+  man: ""
+  ans_already: "Responded"
+  ans_yet: "Pending"
+  conclusionbtn: "Conclusion"
+  interview_score: "Interview Score"
 
   #evaluate
   evaluate_candidate: "Evaluate Candidate"
@@ -889,7 +897,7 @@ en:
   evaluate_kotlin: "Kotlin Skill"
   evaluate_swift: "Swift Skill"
   evaluate_other_ability: "Other Skills"
-  
+  other_ability: "Other Skills"
   evaluate_learn_ability: "Learn Ability"
   evaluate_problem_solving: "Problem Solving Skill"
   evaluate_indepentdent: "Indepentdent Skill"
@@ -911,8 +919,3 @@ en:
   displeased: "Not"
 
   form_issubmit_already: "This form is already submitted"
-
-
-
-
-
