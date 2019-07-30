@@ -354,13 +354,13 @@ ActiveRecord::Schema.define(version: 20190726094156) do
     t.integer  "teamwork",             default: 0
     t.integer  "compatibility",        default: 0
     t.string   "note"
+    t.integer  "glad",                 default: 1
     t.boolean  "is_submit",            default: false
     t.integer  "interview_id"
     t.integer  "interviewer_email_id"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
     t.string   "link"
-    t.integer  "glad",                 default: 1
     t.index ["interview_id"], name: "index_evaluates_on_interview_id", using: :btree
     t.index ["interviewer_email_id"], name: "index_evaluates_on_interviewer_email_id", using: :btree
   end
