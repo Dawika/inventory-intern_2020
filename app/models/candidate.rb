@@ -30,7 +30,7 @@ class Candidate < ApplicationRecord
         email: helpers.link_to_path(email, id),
         from: helpers.link_to_path(from, id),
         created_at: helpers.date_formatter(created_at),
-        detail: helpers.link_to_path("รายละเอียด", id)
+        detail: helpers.link_to_path("Detail", id)
       }
     elsif(options['show_or_edit'])
       interview_datas = interview.present? ? interview : Interview.new
