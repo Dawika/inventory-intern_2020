@@ -118,11 +118,11 @@ function valid(id) {
     $('.' + id + ':first .invalid-feedback').remove();
     input.removeClass('is-invalid');
     input.addClass('is-valid');
-    disabledOrEnableSubmitForm(input.closest('form'), input.hasClass('validate-sign-up'));
+    disabledOrEnableSubmitForm(input.closest('form'), input.hasClass('validate-sign-up'), input.hasClass('plan-select'));
   }
 }
 
-function disabledOrEnableSubmitForm(form, enableSubmit) {
+function disabledOrEnableSubmitForm(form, enableSubmit, enableButtonSelectplan) {
   // disabled buntton save when input validate blank
   if (form.find('input.required.is-valid').length === form.find('input.required').length) {
     form.find(':submit').attr('disabled', false);
@@ -131,6 +131,22 @@ function disabledOrEnableSubmitForm(form, enableSubmit) {
   }
   if (enableSubmit) {
     enableButtonFormSchool('new_school', 'new_modal');
+  }
+  if (enableButtonSelectplan) {
+    enableButtonSelectplans('new_school', 'modal');
+  }
+}
+
+function enableButtonSelectplans(formID, id) {
+  form = $('#' + formID);
+  button = $('#' + id);
+  console.log('dasd ' + form.find('input.plan-select').length)
+  console.log(form.find('input.plan-select.is-valid').length)
+  console.log(form.find('input.plan-select.required').length)
+  if (form.find('input.plan-select.is-valid').length === form.find('input.plan-select.required').length) {
+    button.attr('disabled', false);
+  } else {
+    button.attr('disabled', true);
   }
 }
 
@@ -159,10 +175,10 @@ function enableButtonFormSchool(formID, id) {
 }
 
 function showNewSchool(value) {
-  if(value == 'setting'){
+  if (value == 'setting') {
     $('#formSingUp').hide();
     $('#formSchool').show();
-  }else{
+  } else {
     $('#formSingUp').hide();
     $('#formSchool').hide();
     $('#formplan').show();
@@ -203,4 +219,25 @@ function changeLogo(event, img_logo) {
     $('#img-sc-false').removeClass('hide');
     error.html('*ต้องเป็นไฟล์รูปภาพเท่านั้น')
   }
+}
+
+function disable_and_enable(value) {
+  if (value == "disable") {
+    $('#select_year input[type=hidden]').each(function() {});
+
+  } else {
+
+  }
+}
+
+function enablevalidate() {
+  $('#credit div').each(function() {
+    $(this).removeClass("disabled");
+    $('label').removeClass("disabled");
+    $('input').removeClass("disabled");
+    $('input').prop("disabled", false);
+    setTimeout(function() {
+      $('form.simple_form').enableClientSideValidations();
+    }, 200);
+  });
 }

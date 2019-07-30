@@ -15,6 +15,11 @@ class School < ApplicationRecord
   validates :name, :address, :name_eng, :phone, :logo, presence: true, allow_blank: false
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :subdomain_name, presence: true, allow_blank: false, uniqueness: true
+  after_create :create_license
+
+  def create_license
+    payment_method_school.licenses.create(school_id: id, plan_id: plan_id)
+  end
 
   def logo_url
     self.logo.expiring_url(3600, :medium)

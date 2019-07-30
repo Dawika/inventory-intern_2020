@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190726042248) do
+ActiveRecord::Schema.define(version: 20190730034150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -460,10 +460,12 @@ ActiveRecord::Schema.define(version: 20190726042248) do
   end
 
   create_table "licenses", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "school_id"
     t.integer  "plan_id"
+    t.integer  "payment_method_school_id"
+    t.index ["payment_method_school_id"], name: "index_licenses_on_payment_method_school_id", using: :btree
     t.index ["plan_id"], name: "index_licenses_on_plan_id", using: :btree
     t.index ["school_id"], name: "index_licenses_on_school_id", using: :btree
   end
@@ -575,7 +577,9 @@ ActiveRecord::Schema.define(version: 20190726042248) do
     t.string  "tax_id"
     t.string  "branch"
     t.integer "license_id"
+    t.integer "school_id"
     t.index ["license_id"], name: "index_payment_method_schools_on_license_id", using: :btree
+    t.index ["school_id"], name: "index_payment_method_schools_on_school_id", using: :btree
   end
 
   create_table "payment_methods", force: :cascade do |t|
@@ -942,10 +946,12 @@ ActiveRecord::Schema.define(version: 20190726042248) do
   add_foreign_key "individuals", "employees", column: "parent_id"
   add_foreign_key "individuals", "employees", column: "spouse_id"
   add_foreign_key "invoices", "schools"
+  add_foreign_key "licenses", "payment_method_schools"
   add_foreign_key "licenses", "plans"
   add_foreign_key "licenses", "schools"
   add_foreign_key "parents", "schools"
   add_foreign_key "payment_method_schools", "licenses"
+  add_foreign_key "payment_method_schools", "schools"
   add_foreign_key "roll_calls", "lists"
   add_foreign_key "school_settings", "schools"
   add_foreign_key "schools", "plans"

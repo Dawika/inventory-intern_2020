@@ -72,7 +72,21 @@
                       <h3 class="text-center">ท่านสามารถทดลองใช้งานฟรี <font color="orange"> 3 เดือน</font></h3>
                       <h3 class="text-center">สำหรับ<font color="orange">ความช่วยเหลือ </font>ในการนำข้อมูลเข้าระบบเช่น บุคลากร, นักเรียน</h3>
                       <h3 class="text-center">สามารถติดต่อทีมงานได้ที่ เบอร์ <font color="orange">053-200-078</font></h3><br>
-                      <div class="text-center"><%= f.button :submit, t('.start'), class: "btn-bg-submit", disabled: true %></div>
+                      <div class="text-center"><%= f.button :submit, t('.start'), class: "btn-bg-submit" %></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Modal -->
+                <!-- Modal skip -->
+                <div class="modal fade " id="myModal-skip" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                  <div class="modal-dialog"  role="document">
+                    <div class="modal-content">
+                      <%= image_tag @school.logo, class: "img-responsive logo-login" %>
+                      <h3 class="text-center">ยินดีต้อนรับ เข้าสู่ระบบสมศรี </h3>
+                      <h3 class="text-center">ท่านสามารถทดลองใช้งานฟรี <font color="orange"> 3 เดือน</font></h3>
+                      <h3 class="text-center">สำหรับ<font color="orange">ความช่วยเหลือ </font>ในการนำข้อมูลเข้าระบบเช่น บุคลากร, นักเรียน</h3>
+                      <h3 class="text-center">สามารถติดต่อทีมงานได้ที่ เบอร์ <font color="orange">053-200-078</font></h3><br>
+                      <div class="text-center"><%= f.button :submit,'skip', class: "btn-bg-submit" %></div>
                     </div>
                   </div>
                 </div>
@@ -98,8 +112,14 @@
     $('.validate-sign-in').keyup(function() {
       enableButtonFormAdmin('new_school', 'newStep');
     })
-   // $('#new_modal').click(function() {
-   //   $('#myModal').modal({backdrop: 'static', keyboard: false})
-   // })
+    $('#modal').click(function() {
+      $('#myModal').modal({backdrop: 'static', keyboard: false})
+      $('#new_school').find(':submit').attr('disabled', false);
+    })
+    $('#modal-skip').click(function() {
+      $('#myModal-skip').modal({backdrop: 'static', keyboard: false})
+      $('#new_school').find(':submit').attr('disabled', false);
+      $('#formplan input').prop("disabled", true);
+    })
   });
 </script>
