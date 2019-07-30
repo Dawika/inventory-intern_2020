@@ -140,13 +140,19 @@ function disabledOrEnableSubmitForm(form, enableSubmit, enableButtonSelectplan) 
 function enableButtonSelectplans(formID, id) {
   form = $('#' + formID);
   button = $('#' + id);
-  console.log('dasd ' + form.find('input.plan-select').length)
-  console.log(form.find('input.plan-select.is-valid').length)
-  console.log(form.find('input.plan-select.required').length)
-  if (form.find('input.plan-select.is-valid').length === form.find('input.plan-select.required').length) {
-    button.attr('disabled', false);
+  console.log(form.find('input.plan-select.disabled').length)
+  if (form.find('input.plan-select.disabled').length == 5) {
+    if (form.find('input.plan-select.is-valid').length === 7) {
+      button.attr('disabled', false);
+    } else {
+      button.attr('disabled', true);
+    }
   } else {
-    button.attr('disabled', true);
+    if (form.find('input.plan-select.is-valid').length === form.find('input.plan-select.required').length) {
+      button.attr('disabled', false);
+    } else {
+      button.attr('disabled', true);
+    }
   }
 }
 
@@ -176,6 +182,8 @@ function enableButtonFormSchool(formID, id) {
 
 function showNewSchool(value) {
   if (value == 'setting') {
+    $('body').removeClass('backgorund-signup');
+    $('body').addClass('backgorund-signup1');
     $('#formSingUp').hide();
     $('#formSchool').show();
   } else {
@@ -221,16 +229,9 @@ function changeLogo(event, img_logo) {
   }
 }
 
-function disable_and_enable(value) {
-  if (value == "disable") {
-    $('#select_year input[type=hidden]').each(function() {});
 
-  } else {
-
-  }
-}
-
-function enablevalidate() {
+function enablevalidate(value) {
+  valid(value);
   $('#credit div').each(function() {
     $(this).removeClass("disabled");
     $('label').removeClass("disabled");
@@ -240,4 +241,18 @@ function enablevalidate() {
       $('form.simple_form').enableClientSideValidations();
     }, 200);
   });
+}
+
+function branch(id) {
+  if (id == "hideBr") {
+    $('div.school_payment_method_school_branch').hide();
+    $('#hideBr').addClass("active");
+    $('#showBr').removeClass("active");
+  } else if (id == "showBr") {
+    $('div.school_payment_method_school_branch').show();
+    $('#showBr').addClass("active");
+    $('#hideBr').removeClass("active");
+
+  }
+
 }

@@ -8,7 +8,7 @@ class SchoolsController < ApplicationController
     end
   
     def create
-      if params[:commit] == "skip"       
+      if params[:commit] == "เรื่มต้นใช้งาน"       
         @school = School.new(school_params.merge(plan_id: 2))
         @school.payment_method_school = PaymentMethodSchool.new(payment_method: 'transfer money')
         if @school.save(validate: false)
@@ -53,6 +53,7 @@ class SchoolsController < ApplicationController
         :subdomain_name,
         :branch,
         :logo,
+        :plan_id,
         [{ school_settings_attributes: [:id, :school_year, :semesters ] }],
         [{ users_attributes: [:id, :full_name, :email, :password ] }],
         [{ payment_method_school_attributes: [:payment_method, :cardholder_name, :card_number, :exp_month, :exp_year,

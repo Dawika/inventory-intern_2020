@@ -619,7 +619,7 @@ ul.nav.navbar-nav.navbar-right.dropdown {
 }
 
 .container {
-  width: 1500px;
+  width: 1400px;
 }
 
 .layout .nav-pills>li>a,
@@ -693,8 +693,11 @@ ul.nav.navbar-nav.navbar-right.dropdown {
   font-weight: 300;
 }
 
-.plan .font-slyte {
+.plan .font-style {
   color: #3FA1E6;
+  font-family: Maitree;
+  line-height: 22px;
+  text-align: left;
 }
 
 .sec_4 .price-r1 {
@@ -715,12 +718,12 @@ ul.nav.navbar-nav.navbar-right.dropdown {
   font-weight: 400;
 }
 
-.sec_5 .border-r {
+.border-r {
   border-right: 2px solid transparent;
 }
 
 @media (min-width: 768px) {
-  .sec_5 .border-r {
+  .border-r {
     border-right: 2px solid #F5A623;
   }
 }
@@ -790,4 +793,9 @@ input[type="radio"] {
   section {
     flex-direction: column;
   }
+}
+
+.backgorund-signup1 {
+  background: rgb(80, 81, 90);
+  background: linear-gradient(90deg, rgba(80, 81, 90, 1) 0%, rgba(166, 178, 184, 1) 70%);
 }

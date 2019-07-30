@@ -12,7 +12,7 @@
       <div class="col-lg-12">
         <div>
           <%= simple_form_for @school, action: @school.new_record? ? 'create' : 'update', validate: true do |f| %>
-            <div class="form-sign-in" id="formSingUp" hidden>
+            <div class="form-sign-in" id="formSingUp" >
               <div class="row">
                 <div class="col-xs-12">
                   <%= image_tag @school.logo, class: "img-responsive logo-login" %>
@@ -55,8 +55,8 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="form-actions py-3">
-                    <%= button_tag "สมัครใช้งานเลย", class: 'btn-bg-signup', type: 'button', id: 'newStep', onclick: 'showNewSchool("setting")', disabled: true %>
+                  <div class="form-actions py-3 text-center">
+                    <%= button_tag "สมัครใช้งานเลย", class: 'btn btn-getStarted animated fadeInDown', type: 'button', id: 'newStep', onclick: 'showNewSchool("setting")', disabled: true %>
                   </div>
                 </div>
               </div>
@@ -72,7 +72,7 @@
                       <h3 class="text-center">ท่านสามารถทดลองใช้งานฟรี <font color="orange"> 3 เดือน</font></h3>
                       <h3 class="text-center">สำหรับ<font color="orange">ความช่วยเหลือ </font>ในการนำข้อมูลเข้าระบบเช่น บุคลากร, นักเรียน</h3>
                       <h3 class="text-center">สามารถติดต่อทีมงานได้ที่ เบอร์ <font color="orange">053-200-078</font></h3><br>
-                      <div class="text-center"><%= f.button :submit, t('.start'), class: "btn-bg-submit" %></div>
+                      <div class="text-center"><%= f.button :submit,'เริ่มต้นใช้งาน.', class: "btn-bg-submit" %></div>
                     </div>
                   </div>
                 </div>
@@ -86,7 +86,7 @@
                       <h3 class="text-center">ท่านสามารถทดลองใช้งานฟรี <font color="orange"> 3 เดือน</font></h3>
                       <h3 class="text-center">สำหรับ<font color="orange">ความช่วยเหลือ </font>ในการนำข้อมูลเข้าระบบเช่น บุคลากร, นักเรียน</h3>
                       <h3 class="text-center">สามารถติดต่อทีมงานได้ที่ เบอร์ <font color="orange">053-200-078</font></h3><br>
-                      <div class="text-center"><%= f.button :submit,'skip', class: "btn-bg-submit" %></div>
+                      <div class="text-center"><%= f.button :submit,'เริ่มต้นใช้งาน', class: "btn-bg-submit" %></div>
                     </div>
                   </div>
                 </div>
@@ -105,6 +105,7 @@
 <script>
   $(document).ready(function() {
     $('form.simple_form').enableClientSideValidations();
+    $('#new_school abbr').hide()
     $('#formSchool').hide();
     $('#formModal').hide();
     $('#formplan').hide();
