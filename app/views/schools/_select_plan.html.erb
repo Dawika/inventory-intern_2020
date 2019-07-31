@@ -48,8 +48,8 @@
           </div>
           <div class="row">
             <ul class="nav nav-tabs nav-fill">
-              <li class="nav-item nav-link boder active text-center"><a class="tab-label" data-toggle="tab" href="#transfer-money"><i class="fa fa-money" aria-hidden="true"></i><br>โอนเงิน</a></li>
-              <li class="nav-item nav-link  border text-center"><a class="tab-labe" data-toggle="tab" href="#credit" onclick="enablevalidate('school_payment_method_school_cardholder')"><i class="fa fa-credit-card" aria-hidden="true"></i><br>บัตรเครดิต </a></li>
+              <li class="nav-item nav-link boder active text-center"><a class="tab-label" data-toggle="tab" href="#transfer-money" onclick="enablevalidate('false')"><i class="fa fa-money" aria-hidden="true"></i><br>โอนเงิน</a></li>
+              <li class="nav-item nav-link  border text-center"><a class="tab-labe" data-toggle="tab" href="#credit" onclick="enablevalidate('school_payment_method_school_payment_method')"><i class="fa fa-credit-card" aria-hidden="true"></i><br>บัตรเครดิต </a></li>
             </ul>
           </div>
           <div class="row">
@@ -58,7 +58,8 @@
                 <div id="transfer-money" class="tab-pane fade in active">
                   <div class="row">
                     <h3>รายระเอียดการชำระเงิน</h3>
-                    <%= payment_form.hidden_field :payment_method, value: 'transfer money' %>
+                    <%= payment_form.hidden_field :check, value: '' %>
+                      <%= payment_form.hidden_field :payment_method, value: 'transfer money' %>
                   </div>
                 </div>
                 <div id="credit" class="tab-pane fade"><br>
@@ -67,8 +68,9 @@
                   </div><br>
                   <div class="row">
                     <div class="col-md-7">
-                      <%= payment_form.hidden_field :payment_method, value: 'credit', disabled: true %>
-                        <%= payment_form.input :cardholder_name, input_html: { id: 'school_payment_method_school_cardholder', class: 'plan-select' }, required: true, disabled: true%>
+                      <%= payment_form.hidden_field :check, value: 'true', disabled: true %>
+                        <%= payment_form.input :payment_method, as: :hidden, input_html: { id: 'school_payment_method_school_payment_method', class: 'plan-select required', value: 'credit' }, required: true, disabled: true %>
+                          <%= payment_form.input :cardholder_name, input_html: { id: 'school_payment_method_school_cardholder_name', class: 'plan-select' }, required: true, disabled: true%>
                     </div>
                   </div>
                   <div class="row">
@@ -103,7 +105,7 @@
               <li class="nav-item nav-link  border text-center" id="hideBr" onclick="branch(this.id)"><a class="tab-labe">บุคคลธรรมดา </a></li>
             </ul>
           </div>
-          <div class="row">
+          <div class="row" id="validate-bil">
             <div class="tab-content"><br>
               <div class="row">
                 <div class="col-md-10">

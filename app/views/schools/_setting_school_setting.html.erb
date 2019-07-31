@@ -1,132 +1,141 @@
-            <div class="new-school" id="formSchool">
-            <h1><%= t('.header') %></h1><br>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="col-md-6">
-                    <h4><%= t('.Message1') %></h4>
-                  </div>
-                  <div class="col-md-6">
-                    <h4><%= t('.Message2') %></h4>
-                  </div>
-                  <div class="controls content">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <%= f.input :name, label: t('.name_thai'), input_html: { class: 'validate-sign-up' }, required: true %>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <%= f.input :address, label: t('.address'), input_html: { class: 'validate-sign-up' }, required: true %>
-                          </div>
-                        </div>  
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <%= f.input :name_eng, label: t('.name_eng'), input_html: { class: 'validate-sign-up' }, required: true %>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <div class="form-group">
-                            <%= f.input :phone, label: t('.phone'), as: :integer, input_html: { class: 'validate-sign-up' }, required: true %>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <div class="form-group">
-                            <%= f.input :fax, label: t('.fax'), as: :integer %>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-3">
-                          <div class="form-group">
-                            <%= f.input :subdomain_name, label: 'Subdomain name', 
+<div class="new-school" id="formSchool">
+  <h1>
+    <%= t('.header') %>
+  </h1><br>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-6">
+        <h4>
+          <%= t('.Message1') %>
+        </h4>
+      </div>
+      <div class="col-md-6">
+        <h4>
+          <%= t('.Message2') %>
+        </h4>
+      </div>
+      <div class="controls content">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.input :name, label: t('.name_thai'), input_html: { class: 'validate-sign-up' }, required: true %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.input :address, label: t('.address'), input_html: { class: 'validate-sign-up' }, required: true %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.input :name_eng, label: t('.name_eng'), input_html: { class: 'validate-sign-up' }, required: true %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.input :phone, label: t('.phone'), as: :integer, input_html: { class: 'validate-sign-up' }, required: true %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.input :fax, label: t('.fax'), as: :integer %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= f.input :subdomain_name, label: 'Subdomain name', 
                             input_html: { onkeyup: "validateUniqueness2('#{subdomain_uniqueness_check_validates_path}', this.id)", class: 'validate-sign-up' }, required: true %>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <div class="form-group">
-                            <br>
-                            <h4>.somsri.io</h4>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <%= f.input :email, label: t('.email'), input_html: { class: 'validate-sign-up' }, required: true %>
-                          </div>
-                        </div>
-                      </div>
-                        <%= f.simple_fields_for :school_settings, validate: true do |school_setting_form| %>
-                          <div class="row">
-                            <div class="col-md-3">
-                              <div class="form-group">
-                                <%= school_setting_form.input :school_year, label: t('.schoolyear'), input_html: { id: 'school_school_settings_school_year', class: 'validate-sign-up' }, required: true %>
-                              </div>
-                            </div>
-                            <div class="col-md-3">
-                              <div class="form-group">
-                                <%= school_setting_form.input :semesters, collection: 1..3, selected: 2, input_html: { id: 'school_school_settings_semesters' } %>
-                              </div>
-                            </div>
-                        <% end %>
-                          <div class="col-md-4">
-                            <div class="form-group">
-                              <%= f.input :tax_id, label: t('.tax_id'), as: :integer %>
-                            </div>
-                          </div>
-                          <div class="col-md-2">
-                            <div class="form-group">
-                              <%= f.input :branch, label: t('.branch'), as: :integer %>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <h4><%= t('.Message3') %>&nbsp;
-                              <%= image_tag 'https://pngimage.net/wp-content/uploads/2018/06/icon-true-png-1.png', id: 'img-sc-true', class: 'hide', :size => "30x30" %>
-                              <%= image_tag 'https://cdn2.iconfinder.com/data/icons/user-needs-19/16/45_false_delete_remove_cross_wrong_2-512.png', id: 'img-sc-false', class: 'hide', :size => "30x30" %>
-                              </h4>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <h4><%= t('.Message4') %></h4>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <div class="dropzone" >
-                                <%= image_tag '/icon-file.jpg', id: 'logoSchool', class: 'img-lg' %>
-                              </div><br><br>
-                              <button type="button" class="btn btn-info btn-lg" onclick="$('#school_logo').trigger('click')">Choose file</button>
-                            </div>
-                            <div id="requireimg" class="invalid-feedback" style="display: show;">*จำเป็นต้องใส่</div>
-                            <div id="errorMessage" class="invalid-feedback" style="display: none;"></div>
-                          </div>
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <%= f.input :logo, label: false, as: :file, multiple: true, accept:'image/*', input_html: { onChange: 'changeLogo(event, "logoSchool")', class: 'validate-sign-up' }, required: true %>
-                              <br /><br /><br />*File type support .JPEG, .JPG, .PNG Size 200 x 200px under 2MB
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <%= f.input :note, label: t('.note'), input_html: { id: 'user_school_note' } %>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                        <div class="col-md-10">
-                        </div>
-                          <div class="col-md-2">
-                            <%= button_tag "เริ่มใช้งาน", type: 'button', class: 'btn btn-info btn-lg', onclick: 'showNewSchool()', id: 'new_modal', disabled: true %>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <br>
+              <h4>.somsri.io</h4>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.input :email, label: t('.email'), input_html: { class: 'validate-sign-up' }, required: true %>
+            </div>
+          </div>
+        </div>
+        <%= f.simple_fields_for :school_settings, validate: true do |school_setting_form| %>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <%= school_setting_form.input :school_year, label: t('.schoolyear'), input_html: { id: 'school_school_settings_school_year', class: 'validate-sign-up' }, required: true %>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <%= school_setting_form.input :semesters, collection: 1..3, selected: 2, input_html: { id: 'school_school_settings_semesters' } %>
+              </div>
+            </div>
+            <% end %>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <%= f.input :tax_id, label: t('.tax_id'), as: :integer %>
                 </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <%= f.input :branch, label: t('.branch'), as: :integer %>
+                </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <h4>
+                  <%= t('.Message3') %>&nbsp;
+                    <%= image_tag 'https://pngimage.net/wp-content/uploads/2018/06/icon-true-png-1.png', id: 'img-sc-true', class: 'hide', :size => "30x30" %>
+                      <%= image_tag 'https://cdn2.iconfinder.com/data/icons/user-needs-19/16/45_false_delete_remove_cross_wrong_2-512.png', id: 'img-sc-false', class: 'hide', :size => "30x30" %>
+                </h4>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <h4>
+                  <%= t('.Message4') %>
+                </h4>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <div class="dropzone">
+                  <%= image_tag '/icon-file.jpg', id: 'logoSchool', class: 'img-lg' %>
+                </div><br><br>
+                <button type="button" class="btn btn-getStarted animated fadeInDown" onclick="$('#school_logo').trigger('click')">Choose file</button>
+              </div>
+              <div id="requireimg" class="invalid-feedback" style="display: show;">*จำเป็นต้องใส่</div>
+              <div id="errorMessage" class="invalid-feedback" style="display: none;"></div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <%= f.input :logo, label: false, as: :file, multiple: true, accept:'image/*', input_html: { onChange: 'changeLogo(event, "logoSchool")', class: 'validate-sign-up' }, required: true %>
+                  <br /><br /><br />*File type support .JPEG, .JPG, .PNG Size 200 x 200px under 2MB
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= f.input :note, label: t('.note'), input_html: { id: 'user_school_note' } %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-9">
+            </div>
+            <div class="col-md-2">
+              <%= button_tag "Next", type: 'button', class: 'btn btn-getStarted animated fadeInDown', onclick: 'showNewSchool()', id: 'new_modal', disabled: true %>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

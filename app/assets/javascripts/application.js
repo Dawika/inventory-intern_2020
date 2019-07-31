@@ -109,7 +109,7 @@ function inValid(id, errorMessage) {
   input.removeClass('is-valid');
   input.addClass('is-invalid');
   $('.' + id + ':first').append('<div class="invalid-feedback text-right" style="display:block;">' + errorMessage + '</div>');
-  disabledOrEnableSubmitForm(input.closest('form'), input.hasClass('validate-sign-up'));
+  disabledOrEnableSubmitForm(input.closest('form'), input.hasClass('validate-sign-up'), input.hasClass('plan-select'), id);
 }
 
 function valid(id) {
@@ -118,11 +118,11 @@ function valid(id) {
     $('.' + id + ':first .invalid-feedback').remove();
     input.removeClass('is-invalid');
     input.addClass('is-valid');
-    disabledOrEnableSubmitForm(input.closest('form'), input.hasClass('validate-sign-up'), input.hasClass('plan-select'));
+    disabledOrEnableSubmitForm(input.closest('form'), input.hasClass('validate-sign-up'), input.hasClass('plan-select'), id);
   }
 }
 
-function disabledOrEnableSubmitForm(form, enableSubmit, enableButtonSelectplan) {
+function disabledOrEnableSubmitForm(form, enableSubmit, enableButtonSelectplan, id) {
   // disabled buntton save when input validate blank
   if (form.find('input.required.is-valid').length === form.find('input.required').length) {
     form.find(':submit').attr('disabled', false);
@@ -133,26 +133,41 @@ function disabledOrEnableSubmitForm(form, enableSubmit, enableButtonSelectplan) 
     enableButtonFormSchool('new_school', 'new_modal');
   }
   if (enableButtonSelectplan) {
-    enableButtonSelectplans('new_school', 'modal');
+    enableButtonSelectplans('new_school', 'modal', true);
+  }else{
+    if(id =="false"){
+      enableButtonSelectplans('new_school', 'modal', false);
+    }
   }
 }
 
-function enableButtonSelectplans(formID, id) {
-  form = $('#' + formID);
-  button = $('#' + id);
-  console.log(form.find('input.plan-select.disabled').length)
-  if (form.find('input.plan-select.disabled').length == 5) {
-    if (form.find('input.plan-select.is-valid').length === 7) {
+function enableButtonSelectplans(formID, id, check) {
+  if(check){
+    form = $('#' + formID);
+    button = $('#' + id);
+    if (form.find('input.plan-select.disabled').length == 6) {
+      if (form.find('input.plan-select.is-valid').length === form.find('#validate-bil input.plan-select').length) {
+
+        button.attr('disabled', false);
+      } else {
+        button.attr('disabled', true);
+      }
+    } else {
+      if (form.find('input.plan-select.is-valid').length === form.find('input.plan-select.required').length) {
+        button.attr('disabled', false);
+      } else {
+        button.attr('disabled', true);
+      }
+    }
+  }else{
+    form = $('#' + formID);
+    button = $('#' + id);
+    if (form.find('#validate-bil input.plan-select.is-valid').length === form.find('#validate-bil input.plan-select').length) {
       button.attr('disabled', false);
     } else {
       button.attr('disabled', true);
     }
-  } else {
-    if (form.find('input.plan-select.is-valid').length === form.find('input.plan-select.required').length) {
-      button.attr('disabled', false);
-    } else {
-      button.attr('disabled', true);
-    }
+
   }
 }
 
@@ -195,7 +210,6 @@ function showNewSchool(value) {
 
 function changeLogo(event, img_logo) {
   logo = URL.createObjectURL(event.target.files[0]);
-  console.log(logo)
   $('#' + img_logo).attr('src', logo);
   FileType = event.target.files[0]
   FileSize = event.target.files[0].size / 1024 / 1024; // in MB
@@ -230,17 +244,24 @@ function changeLogo(event, img_logo) {
 }
 
 
-function enablevalidate(value) {
-  valid(value);
-  $('#credit div').each(function() {
-    $(this).removeClass("disabled");
-    $('label').removeClass("disabled");
-    $('input').removeClass("disabled");
-    $('input').prop("disabled", false);
-    setTimeout(function() {
-      $('form.simple_form').enableClientSideValidations();
-    }, 200);
-  });
+function enablevalidate(id) {
+  if (id == "school_payment_method_school_payment_method") {
+      $('#credit div').removeClass("disabled");
+      $('#credit label').removeClass("disabled");
+      $('#credit input').removeClass("disabled");
+      $('#credit input').prop("disabled", false);
+      valid(id);
+      setTimeout(function() {
+        $('form.simple_form').enableClientSideValidations();
+      }, 200);
+  } else {
+      $('#credit div').addClass("disabled");
+      $('#credit label').addClass("disabled");
+      $('#credit input').addClass("disabled");
+      $('#credit input').prop("disabled", true);
+      valid(id);
+
+  }
 }
 
 function branch(id) {
