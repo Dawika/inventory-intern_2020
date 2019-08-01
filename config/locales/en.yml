@@ -545,3 +545,16 @@ en:
       Message3: "School symbol"
       Message4: "Information for the receipt(Footer)"
       header: "Almost done!"
+    select_plan:
+      name: "Name"
+      address: "Adress"
+      district: "District"
+      province: "Provience"
+      zip_code: "Zip Code"
+      phone: "Phone"
+      tax_id: "Tax number"
+      branch: "Branch"
+      Billing info: "Billing info"
+      pay detail: "Payment details"
+      how to pay: "Payment method"
+

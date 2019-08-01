@@ -18,7 +18,13 @@ class School < ApplicationRecord
   after_create :create_license
 
   def create_license
-    payment_method_school.licenses.create(school_id: id, plan_id: plan_id)
+    start = Time.now + 3.month
+    if self.plan_id == 1
+      exp = start + 1.month
+    else
+      exp = start + 1.year
+    end
+    payment_method_school.licenses.create(school_id: id, plan_id: plan_id, getting_start: start, expired_date: exp)
   end
 
   def logo_url

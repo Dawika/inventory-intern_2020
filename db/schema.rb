@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190730034150) do
+ActiveRecord::Schema.define(version: 20190801033814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -460,11 +460,14 @@ ActiveRecord::Schema.define(version: 20190730034150) do
   end
 
   create_table "licenses", force: :cascade do |t|
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.integer  "school_id"
     t.integer  "plan_id"
     t.integer  "payment_method_school_id"
+    t.datetime "getting_start"
+    t.datetime "expired_date"
+    t.boolean  "status",                   default: false
     t.index ["payment_method_school_id"], name: "index_licenses_on_payment_method_school_id", using: :btree
     t.index ["plan_id"], name: "index_licenses_on_plan_id", using: :btree
     t.index ["school_id"], name: "index_licenses_on_school_id", using: :btree
