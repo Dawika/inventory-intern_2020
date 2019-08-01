@@ -533,7 +533,8 @@ th:
   email_uniqueness: "อีเมลนี้ถูกใช้งานแล้ว"
   subdomain_uniqueness: "subdomain นี้ถูกใช้งานแล้ว"
   user_not_in_school: "อีเมลนี้ไม่ได้อยู่ในโรงเรียน"
-
+  annual fee: "แบบรายปี"
+  monthly fee: "แบบรายเดือน"
   # School Setting
   schools:
     setting_school_setting:
@@ -554,3 +555,15 @@ th:
       Message4: "ข้อมูลสำหรับท้ายใบเสร็จ"
       header: "เกือบเสร็จแล้ว! กรุณากรอกข้อมูลโรงเรียนเพื่อเริ่มใช้งาน"
       start: "เริ่มต้นใช้งาน"
+    select_plan:
+      name: "ชื่อ"
+      address: "ที่อยู่"
+      district: "อำเภอ/เขต"
+      province: "จังหวัด"
+      zip_code: "รหัสไปรษณีย์"
+      phone: "หมายเลขโทรศัพท์"
+      tax_id: "เลขประจำตัวผู้เสียภาษี"
+      branch: "สาขาที่"
+      Billing info: "ข้อมูลใบเสร็จ"
+      pay detail: "รายระเอียดการชำระเงิน"
+      how to pay: "วิธีชำระเงิน"

@@ -5,6 +5,7 @@ class SchoolsController < ApplicationController
       @school.users.build
       @school.school_settings.build
       @school.build_payment_method_school
+      @plans = Plan.all.order(id: 'asc')
     end
   
     def create

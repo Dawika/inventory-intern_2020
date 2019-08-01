@@ -8,34 +8,23 @@
         <div class="row">
           <div class="col-md-10 col-md-offset-1">
             <div class="row text-center">
+                <fieldset class="form-group radio_buttons optional school_plan_id">
+                 <input type="hidden" name="school[plan_id]" value="">
+              <% @plans.each_with_index do |plan, index| %>
               <div class="col-md-6">
                 <div class="col-md-10 col-md-offset-1">
-                  <h3>แบบรายเดือน</h3>
-                  <p>แบบรายเดือนเหมาะสำหรับโรงเรียนที่สามารถเข้าถึงอินเตอร์เน็ตได้ และไม่ต้องการดูแลอุปกรณ์</p>
-                  <h3 class="price-l">990 บาท/เดือน</h3><br>
-                  <p>ใช้งานแบบออนไลน์ผ่านทาง สมศรี Cloud สามารถเข้าถึงได้จากทั้งที่โรงเรียนและที่บ้าน ข้อมูลไม่สูญหาย ระบบ backup ให้ อัตโนมัติ รับประกันตลอดอายุการใช้งาน </p><br>
-                  <fieldset class="form-group radio_buttons optional school_plan_id">
-                    <input type="hidden" name="school[plan_id]" value="">
+                  <h3><%=  t(plan.package_name) %></h3>
+                  <p><%= plan.description %></p>
+                  <h3 class="price-l"><%= plan.price %> บาท/เดือน</h3><br>
+                  <p>ใช้งานแบบออนไลน์ผ่านทาง สมศรี Cloud สามารถเข้าถึงได้จากทั้งที่โรงเรียนและที่บ้าน ข้อมูลไม่สูญหาย ระบบ backup ให้ อัตโนมัติ รับประกันตลอดอายุการใช้งาน </p><br>  
                     <div class="form-check">
-                      <input class="form-check-input radio_buttons optional" type="radio" value="1" name="school[plan_id]" id="school_plan_id_1">
-                      <label class="collection_radio_buttons" for="school_plan_id_1">Select</label>
+                      <input class="form-check-input radio_buttons optional" type="radio" value="<%= index + 1 %>" <%= 'checked' if plan.package_name == 'annual fee' %> name="school[plan_id]" id="school_plan_id_<%= index + 1 %>">
+                      <label class="collection_radio_buttons" for="school_plan_id_<%= index + 1 %>">Select</label>
                     </div>
                 </div>
               </div>
-              <div class="test"></div>
-              <div id="select_year" class="col-md-6">
-                <div class="col-md-10 col-md-offset-1">
-                  <h3>แบบรายปี</h3>
-                  <p>แบบรายปีเหมาะสำหรับโรงเรียนที่สามารถเข้าถึงอินเตอร์เน็ตได้ และไม่ต้องการดูแลอุปกรณ์ </p>
-                  <h3 class="price-r">10,000 บาท/ปี</h3><br>
-                  <p>ใช้งานแบบออนไลน์ผ่านทาง สมศรี Cloud สามารถเข้าถึงได้ จากทั้งที่โรงเรียนและที่บ้าน ข้อมูลไม่สูญหาย ระบบ backup ให้ อัตโนมัติ รับประกันตลอดอายุการใช้งาน </p><br>
-                  <div class="form-check">
-                    <input class="form-check-input radio_buttons optional" type="radio" value="2" checked="checked" name="school[plan_id]" id="school_plan_id_2">
-                    <label class="collection_radio_buttons" for="school_plan_id_2">Select</label>
-                  </div>
-                  </fieldset>
-                </div>
-              </div>
+              <% end %>
+            </fieldset>
             </div>
           </div>
         </div>
@@ -44,7 +33,7 @@
       <div class="row container">
         <div class="col-md-6 border-r layout">
           <div class="row">
-            <h3 class="font-style">วิธีชำระเงิน</h3>
+            <h3 class="font-style"><%= t('.how to pay')%></h3>
           </div>
           <div class="row">
             <ul class="nav nav-tabs nav-fill">
@@ -57,7 +46,7 @@
               <%=f.simple_fields_for :payment_method_school, validate: true do |payment_form| %>
                 <div id="transfer-money" class="tab-pane fade in active">
                   <div class="row">
-                    <h3>รายระเอียดการชำระเงิน</h3>
+                    <h3><%= t('.pay detail')%></h3>
                     <%= payment_form.hidden_field :check, value: '' %>
                       <%= payment_form.hidden_field :payment_method, value: 'transfer money' %>
                   </div>
@@ -97,7 +86,7 @@
         </div>
         <div class="col-md-5 layout2">
           <div class="row">
-            <h3 class="font-style">Billing info</h3>
+            <h3 class="font-style"><%=t('.Billing info') %></h3>
           </div>
           <div class="row">
             <ul class="nav nav-tabs">
@@ -109,36 +98,36 @@
             <div class="tab-content"><br>
               <div class="row">
                 <div class="col-md-10">
-                  <%= payment_form.input :name, label: 'ชื่อ', input_html: { id: 'school_payment_method_school_name', class: 'plan-select'}, required: true %>
+                  <%= payment_form.input :name, label: t('.name'), input_html: { id: 'school_payment_method_school_name', class: 'plan-select'}, required: true %>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-10">
-                  <%= payment_form.input :address, label: 'ที่อยู่', input_html: { id: 'school_payment_method_school_address', class: 'plan-select' }, required: true %>
+                  <%= payment_form.input :address, label: t('.address'), input_html: { id: 'school_payment_method_school_address', class: 'plan-select' }, required: true %>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-5">
-                  <%= payment_form.input :district, label: 'อำเภอ/เขต', input_html: { id: 'school_payment_method_school_district', class: 'plan-select' }, required: true  %>
+                  <%= payment_form.input :district, label: t('.district'), input_html: { id: 'school_payment_method_school_district', class: 'plan-select' }, required: true  %>
                 </div>
                 <div class="col-md-5">
-                  <%= payment_form.input :province, label: 'จังหวัด', input_html: { id: 'school_payment_method_school_province', class: 'plan-select' }, required: true  %>
+                  <%= payment_form.input :province, label: t('.province'), input_html: { id: 'school_payment_method_school_province', class: 'plan-select' }, required: true  %>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-5">
-                  <%= payment_form.input :zip_code, label: 'รหัสไปรษณีย์', input_html: { id: 'school_payment_method_school_zip_code', class: 'plan-select' }, required: true  %>
+                  <%= payment_form.input :zip_code, label: t('.zip_code'), input_html: { id: 'school_payment_method_school_zip_code', class: 'plan-select' }, required: true  %>
                 </div>
                 <div class="col-md-5">
-                  <%= payment_form.input :phone, label: 'หมายเลขโทรศัพท์', input_html: { id: 'school_payment_method_school_phone_number', class: 'plan-select' }, required: true  %>
+                  <%= payment_form.input :phone, label: t('.phone'), input_html: { id: 'school_payment_method_school_phone_number', class: 'plan-select' }, required: true  %>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-8">
-                  <%= payment_form.input :tax_id, label: 'เลขประจำตัวผู้เสียภาษี', input_html: { id: 'school_payment_method_school_tax_number', class: 'plan-select' }, required: true  %>
+                  <%= payment_form.input :tax_id, label: t('.tax_id'), input_html: { id: 'school_payment_method_school_tax_id', class: 'plan-select' }, required: true  %>
                 </div>
                 <div class="col-md-2">
-                  <%= payment_form.input :branch, label: 'สาขาที่', input_html: { id: 'school_payment_method_school_branch'} %>
+                  <%= payment_form.input :branch, label: t('.branch'), input_html: { id: 'school_payment_method_school_branch'} %>
                 </div>
               </div>
             </div>
@@ -156,3 +145,9 @@
     </div>
     </div>
   </div>
+<!-- 
+                    <div class="form-check">
+                    <input class="form-check-input radio_buttons optional" type="radio" value="2" checked="checked" name="school[plan_id]" id="school_plan_id_2">
+                    <label class="collection_radio_buttons" for="school_plan_id_2">Select</label>
+                  </div>
+                  </fieldset> -->
