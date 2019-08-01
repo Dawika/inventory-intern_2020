@@ -6,7 +6,6 @@ class School < ApplicationRecord
   has_many :parents
   has_many :invoices
   has_one :payment_method_school
-  belongs_to :plan
   has_attached_file :logo, styles: { medium: "200x200>", thumb: "100x100>" }, default_url: "/somsri_logo.png"
   validates_attachment_content_type :logo, content_type: ["image/jpeg", "image/jpg", "image/png"]
   accepts_nested_attributes_for :users
