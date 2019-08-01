@@ -1,0 +1,153 @@
+<div class="container plan" id="formplan">
+  <div class="select-plan">
+    <div class="row">
+      <h1 class="font-slyte">Select Plan</h1>
+    </div>
+    <section class="sec_4">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <div class="row text-center">
+                <fieldset class="form-group radio_buttons optional school_plan_id">
+                 <input type="hidden" name="school[plan_id]" value="">
+              <% @plans.each_with_index do |plan, index| %>
+              <div class="col-md-6">
+                <div class="col-md-10 col-md-offset-1">
+                  <h3><%=  t(plan.package_name) %></h3>
+                  <p><%= plan.description %></p>
+                  <h3 class="price-l"><%= plan.price %> บาท/เดือน</h3><br>
+                  <p>ใช้งานแบบออนไลน์ผ่านทาง สมศรี Cloud สามารถเข้าถึงได้จากทั้งที่โรงเรียนและที่บ้าน ข้อมูลไม่สูญหาย ระบบ backup ให้ อัตโนมัติ รับประกันตลอดอายุการใช้งาน </p><br>  
+                    <div class="form-check">
+                      <input class="form-check-input radio_buttons optional" type="radio" value="<%= index + 1 %>" <%= 'checked' if plan.package_name == 'annual fee' %> name="school[plan_id]" id="school_plan_id_<%= index + 1 %>">
+                      <label class="collection_radio_buttons" for="school_plan_id_<%= index + 1 %>">Select</label>
+                    </div>
+                </div>
+              </div>
+              <% end %>
+            </fieldset>
+            </div>
+          </div>
+        </div>
+    </section>
+    <section class="sec_5">
+      <div class="row container">
+        <div class="col-md-6 border-r layout">
+          <div class="row">
+            <h3 class="font-style"><%= t('.how to pay')%></h3>
+          </div>
+          <div class="row">
+            <ul class="nav nav-tabs nav-fill">
+              <li class="nav-item nav-link boder active text-center"><a class="tab-label" data-toggle="tab" href="#transfer-money" onclick="enablevalidate('false')"><i class="fa fa-money" aria-hidden="true"></i><br>โอนเงิน</a></li>
+              <li class="nav-item nav-link  border text-center"><a class="tab-labe" data-toggle="tab" href="#credit" onclick="enablevalidate('school_payment_method_school_payment_method')"><i class="fa fa-credit-card" aria-hidden="true"></i><br>บัตรเครดิต </a></li>
+            </ul>
+          </div>
+          <div class="row">
+            <div class="tab-content">
+              <%=f.simple_fields_for :payment_method_school, validate: true do |payment_form| %>
+                <div id="transfer-money" class="tab-pane fade in active">
+                  <div class="row">
+                    <h3><%= t('.pay detail')%></h3>
+                    <%= payment_form.hidden_field :check, value: '' %>
+                      <%= payment_form.hidden_field :payment_method, value: 'transfer money' %>
+                  </div>
+                </div>
+                <div id="credit" class="tab-pane fade"><br>
+                  <div class="row">
+                    <h3 class="font-style">Credit crad Info</h3>
+                  </div><br>
+                  <div class="row">
+                    <div class="col-md-7">
+                      <%= payment_form.hidden_field :check, value: 'true', disabled: true %>
+                        <%= payment_form.input :payment_method, as: :hidden, input_html: { id: 'school_payment_method_school_payment_method', class: 'plan-select required', value: 'credit' }, required: true, disabled: true %>
+                          <%= payment_form.input :cardholder_name, input_html: { id: 'school_payment_method_school_cardholder_name', class: 'plan-select' }, required: true, disabled: true%>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-7">
+                      <%= payment_form.input :card_number, input_html: { id: 'school_payment_method_school_card_number', class: 'plan-select' }, required: true, disabled: true %>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-2">
+                      <%= payment_form.input :exp_month, label: 'exp month', input_html: { id: 'school_payment_method_school_exp_month', class: 'plan-select' }, required: true, disabled: true %>
+                    </div>
+                    <div class="col-md-2">
+                      <%= payment_form.input :exp_year, label: 'exp year', input_html: { id: 'school_payment_method_school_exp_year', class: 'plan-select' }, required: true, disabled: true %>
+                    </div>
+                    <div class="col-md-2">
+                      <%= payment_form.input :cvv, label: 'cvv', input_html: { id: 'school_payment_method_school_cvv', class: 'plan-select' }, required: true, disabled: true %>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-5 layout2">
+          <div class="row">
+            <h3 class="font-style"><%=t('.Billing info') %></h3>
+          </div>
+          <div class="row">
+            <ul class="nav nav-tabs">
+              <li class="nav-item nav-link boder text-center active" id="showBr" onclick="branch(this.id)"><a class="tab-label">นิติบุคคล</a></li>
+              <li class="nav-item nav-link  border text-center" id="hideBr" onclick="branch(this.id)"><a class="tab-labe">บุคคลธรรมดา </a></li>
+            </ul>
+          </div>
+          <div class="row" id="validate-bil">
+            <div class="tab-content"><br>
+              <div class="row">
+                <div class="col-md-10">
+                  <%= payment_form.input :name, label: t('.name'), input_html: { id: 'school_payment_method_school_name', class: 'plan-select'}, required: true %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-10">
+                  <%= payment_form.input :address, label: t('.address'), input_html: { id: 'school_payment_method_school_address', class: 'plan-select' }, required: true %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5">
+                  <%= payment_form.input :district, label: t('.district'), input_html: { id: 'school_payment_method_school_district', class: 'plan-select' }, required: true  %>
+                </div>
+                <div class="col-md-5">
+                  <%= payment_form.input :province, label: t('.province'), input_html: { id: 'school_payment_method_school_province', class: 'plan-select' }, required: true  %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5">
+                  <%= payment_form.input :zip_code, label: t('.zip_code'), input_html: { id: 'school_payment_method_school_zip_code', class: 'plan-select' }, required: true  %>
+                </div>
+                <div class="col-md-5">
+                  <%= payment_form.input :phone, label: t('.phone'), input_html: { id: 'school_payment_method_school_phone_number', class: 'plan-select' }, required: true  %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8">
+                  <%= payment_form.input :tax_id, label: t('.tax_id'), input_html: { id: 'school_payment_method_school_tax_id', class: 'plan-select' }, required: true  %>
+                </div>
+                <div class="col-md-2">
+                  <%= payment_form.input :branch, label: t('.branch'), input_html: { id: 'school_payment_method_school_branch'} %>
+                </div>
+              </div>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="row">
+      <div class="col-xs-8"></div>
+      <div class="col-xs-4">
+        <%= button_tag "create", type: 'button', class: 'btn btn-getStarted animated fadeInDown', id: 'modal' , disabled: true%>
+          <%= button_tag "skip", type: 'button', class: 'btn btn-getStarted animated fadeInDown btn-gray' ,id: 'modal-skip'%>
+      </div>
+    </div>
+    </div>
+  </div>
+<!-- 
+                    <div class="form-check">
+                    <input class="form-check-input radio_buttons optional" type="radio" value="2" checked="checked" name="school[plan_id]" id="school_plan_id_2">
+                    <label class="collection_radio_buttons" for="school_plan_id_2">Select</label>
+                  </div>
+                  </fieldset> -->
