@@ -1070,7 +1070,7 @@ th:
 
   evaluate_attraction: "Attraction - ประเมินความใส่ใจ"
   attention_to_bananan: "คะแนนความกระตือรือร้นที่จะร่วมงานกับ Banana"
-  on_time: "ความตรงต่อเวลา - punctual"
+  on_time: "ความตรงต่อเวลา"
   on_time_true: "ตรงเวลานัด"
   on_time_false: "ไม่ตรงเวลานัด"
   evaluate_teamwork: "ประเมินความสามารถทำงานร่วมกับทีม"

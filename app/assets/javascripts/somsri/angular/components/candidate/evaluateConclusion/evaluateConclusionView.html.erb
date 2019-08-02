@@ -85,7 +85,7 @@
                 <div class="row mt-10">
                   <div class="col-md-6 col-md-offset-3">
                     <div class="mt-15 heading-candidate font-21 hr-2 break-word" ng-repeat="item in evaluateConclusion.datas.evaluate_is_submit">
-                     {{item.email}} : {{item.evaluates.on_time ? {{ 'on_time_true' | translate }} : {{ 'on_time_false' | translate }} }}
+                     {{item.email}} : {{item.evaluates.on_time ? ('on_time_true' | translate ) : ('on_time_false' | translate)}}
                     </div>
                   </div>
                 </div>
@@ -150,7 +150,7 @@
                 <div class="row mt-10">
                   <div class="col-md-6 col-md-offset-3">
                     <div class="mt-15 heading-candidate font-21 hr-2 break-word" ng-repeat="item in evaluateConclusion.datas.evaluate_is_submit">
-                      {{item.email}} : {{item.evaluates.glad}}
+                      {{item.email}} : {{item.evaluates.glad | translate}}
                     </div>
                   </div>
                 </div>
@@ -318,6 +318,50 @@
 
               </div>
               <!-- End Learn Ability -->
+
+              <div class="row mt-35 m-0 font-18">
+                <div class="row-head2">
+                  {{ 'evaluate_attraction' | translate }}
+                </div>
+
+                <!-- problem_solving -->
+                <div class="row mx-0 mt-35">
+                  <div class="col-md-12 mt-10">
+                    <label>{{ 'attention_to_bananan' | translate }}</label>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="font-21 hr-2 pb-0 pt-10 text-center">
+                        {{evaluateConclusion.model.evaluates.attention}}
+                    </div>  
+                  </div>
+                </div>
+
+                <!-- indepentdent -->
+                <div class="row mx-0 mt-35">
+                  <div class="col-md-12 mt-10">
+                    <label>{{ 'on_time' | translate }}</label>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="font-21 hr-2 pb-0 pt-10 text-center">
+                      {{evaluateConclusion.model.evaluates.on_time ? ('on_time_true' | translate ) : ('on_time_false' | translate)}}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- comunication -->
+                <div class="row mx-0 mt-35">
+                  <div class="col-md-12 mt-10">
+                    <label>{{ 'evaluate_teamwork' | translate }}</label>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="font-21 hr-2 pb-0 pt-10 text-center">
+                      {{evaluateConclusion.model.evaluates.teamwork}}
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
               
                 <!-- Conclusion - สรุป -->
               <div class="row mt-35 m-0 font-18">

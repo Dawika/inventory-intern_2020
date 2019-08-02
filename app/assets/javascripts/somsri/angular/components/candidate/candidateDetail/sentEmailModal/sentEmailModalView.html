@@ -17,8 +17,8 @@
         <div ng-repeat="item in sentEmailModal.datas.interviewer_emails_attributes">
           <div class="row" ng-hide="item._destroy">
             <div class="col-md-11">
-              <input type="email" class="form-control input-email" ng-model="item.email">
-          <input type="hidden" class="form-control input-email" ng-model="item.skip_send_email">
+              <input type="email" class="form-control input-email" ng-model="item.email" ng-disabled="item.id != ''">
+              <input type="hidden" class="form-control input-email" ng-model="item.skip_send_email">
             </div>
             <div class="col-md-1 padding-left0">
               <button type="button" ng-hide="item.id != ''" class="close mt-15" aria-label="Close" ng-click="sentEmailModal.removeInterViewEmail($index)"><span aria-hidden="true">&times;</span></button>

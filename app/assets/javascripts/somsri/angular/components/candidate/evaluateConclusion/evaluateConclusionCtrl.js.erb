@@ -57,6 +57,7 @@
       evaluateConclusionService.getConclusion($state.params.id).then(function(resp){
 
         ctrl.datas = resp.data.result;
+        console.log(ctrl.datas)
         ctrl.datasCurrentAbility = Array.from(Array(ctrl.datas.evaluate_is_submit.length + 1), () => new Array());
         ctrl.datasLearnAbility = Array.from(Array(ctrl.datas.evaluate_is_submit.length + 1), () => new Array());
         ctrl.datasAttraction = Array.from(Array(ctrl.datas.evaluate_is_submit.length + 1), () => new Array());
