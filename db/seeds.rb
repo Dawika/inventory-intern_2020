@@ -570,7 +570,7 @@ if VacationLeaveRule.count == 0
 end
 
 if Candidate.count.zero?
-  candidate1 = Candidate.create(full_name: "เสือหมอบญาติเสือดำ", nick_name: "น้องกี้", email: "น้องกี้@เสือดำ.com", phone: "0999999999", from: "california", school_year: "4", note: "หิวข้าว and ชาไข่มุข", current_ability: 10, learn_ability: 10, attention: 10, shortlist: true, interest: "ชุปเสือดำ")
+  candidate1 = Candidate.create(full_name: "เสือหมอบญาติเสือดำ", nick_name: "น้องกี้", email: "น้องกี้@เสือดำ.com", phone: "0999999999", from: "california", school_year: "4", note: "หิวข้าว and ชาไข่มุข", current_ability: 10, learn_ability: 10, attention: 10, shortlist: false, interest: "ชุปเสือดำ")
   candidate1.programming_skills.create([{skill_name: "python", skill_point: 18}, {skill_name: "c++", skill_point: 18}])
   candidate1.soft_skills.create([{skill_name: "thai", skill_point: 20}, {skill_name: "english", skill_point: 15}])
   candidate1.design_skills.create([{skill_name: "photoshop", skill_point: 17}, {skill_name: "drawing", skill_point: 19}])
