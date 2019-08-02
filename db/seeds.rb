@@ -148,7 +148,6 @@ Gender.create([{ name: 'Male'},{ name: 'Female'}]) if Gender.count == 0
 Grade.create([{ name: 'Preschool' },{ name: 'Kindergarten 1' },{ name: 'Kindergarten 2' },{ name: 'Kindergarten 3' }]) if Grade.count == 0
 Relationship.create([{ name: 'Father' }, { name: 'Mother' }, { name: 'Grandfather' }, { name: 'Grandmother' }, { name: 'Uncle' }, { name: 'Aunt' }, { name: 'Cousin' }]) if Relationship.count == 0
 InvoiceStatus.create([{ name: 'Active' }, { name: 'Canceled' }]) if InvoiceStatus.count == 0
-Score.create([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]) if Score.count == 0
 
 #roll calls
 if Student.where(student_number: 2001..2040).count == 0 && Student.where(student_number: 1001..1040).count == 0
@@ -571,22 +570,19 @@ if VacationLeaveRule.count == 0
 end
 
 if Candidate.count.zero?
-  array = (1..50).to_aimage_updated_at =
-  array.map { |x| Candidate.create(full_name: "test-#{x}", current_ability: 10, learn_ability: 10, attention: 10) }
-end
-
-if Candidate.count.zero?
-  candidate1 = Candidate.new(full_name: "เสือหมอบญาติเสือดำ", nick_name: "น้องกี้", email: "น้องกี้@เสือดำ.com", phone: "0999999999", from: "california", school_year: "4", note: "หิวข้าว and ชาไข่มุข", current_ability: 10, learn_ability: 10, attention: 10, shortlist: true, interest: "ชุปเสือดำ")
+  candidate1 = Candidate.create(full_name: "เสือหมอบญาติเสือดำ", nick_name: "น้องกี้", email: "น้องกี้@เสือดำ.com", phone: "0999999999", from: "california", school_year: "4", note: "หิวข้าว and ชาไข่มุข", current_ability: 10, learn_ability: 10, attention: 10, shortlist: true, interest: "ชุปเสือดำ")
   candidate1.programming_skills.create([{skill_name: "python", skill_point: 18}, {skill_name: "c++", skill_point: 18}])
   candidate1.soft_skills.create([{skill_name: "thai", skill_point: 20}, {skill_name: "english", skill_point: 15}])
   candidate1.design_skills.create([{skill_name: "photoshop", skill_point: 17}, {skill_name: "drawing", skill_point: 19}])
-  interview1 = candidate1.build_interview(date: Time.zone.now, location: "Banana Office", category: 1).save
+  interview1 = candidate1.build_interview(date: Time.zone.now, location: "Banana Office", category: 1)
+  interview1.save
   interview1.interviewer_emails.create([{email: "interviewer1@bananacoding.com"}, {email: "interviewer2@bananacoding.com"}, {email: "interviewer3@bananacoding.com"}])
 
-  candidate2 = Candidate.new(full_name: "เสือดำญาติเสือหมอบ", nick_name: "น้องเพรช", email: "น้องเพรช@เสือดำ.com", phone: "0999999998", from: "california", school_year: "4", note: "หิวข้าว", current_ability: 10, learn_ability: 10, attention: 10, shortlist: true, interest: "ชุปเสือหมอบ")
+  candidate2 = Candidate.create(full_name: "เสือดำญาติเสือหมอบ", nick_name: "น้องเพรช", email: "น้องเพรช@เสือดำ.com", phone: "0999999998", from: "california", school_year: "4", note: "หิวข้าว", current_ability: 10, learn_ability: 10, attention: 10, shortlist: true, interest: "ชุปเสือหมอบ")
   candidate2.programming_skills.create([{skill_name: "python", skill_point: 17}, {skill_name: "c++", skill_point: 19}])
   candidate2.soft_skills.create([{skill_name: "thai", skill_point: 19}, {skill_name: "english", skill_point: 14}])
   candidate2.design_skills.create([{skill_name: "photoshop", skill_point: 18}])
-  interview2 = candidate2.build_nterview(date: Time.zone.now, location: "Banana Office", category: 0).save
+  interview2 = candidate2.build_interview(date: Time.zone.now, location: "Banana Office", category: 0)
+  interview2.save
   interview2.interviewer_emails.create([{email: "interviewer1@bananacoding.com"}, {email: "interviewer2@bananacoding.com"}, {email: "interviewer3@bananacoding.com"}])
 end
