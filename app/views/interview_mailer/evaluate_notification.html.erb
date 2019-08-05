@@ -22,7 +22,7 @@
           <p>ในวันที่ <%= @interview.date.strftime("%d/%m/%Y") %> เวลา <%= @interview.date.strftime("%H:%M") %> ที่ <%= @interview.location %></p>
           <p>ทางเราจึงขอให้ท่านกรอกแบบประเมินการสัมภาษณ์</p>
           <p>ตามลิ้งด้านล่าง</p><br>
-          <a href="/evaluates/<%= @evaluate.link %>"> <button type="button" class ="btn btn-submit-scout border-radius m-0">กรอกแบบประเมิน</button> </a><br><br>
+          <a href="<%= @url %>"> <button type="button" class ="btn btn-submit-scout border-radius m-0">กรอกแบบประเมิน</button> </a><br><br>
           <p class="row mt-10">ขอบคุณค่ะ</p>
           <p>HR @BananaCoding</p>
         </div>

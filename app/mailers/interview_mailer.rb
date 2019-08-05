@@ -14,6 +14,7 @@ class InterviewMailer < ApplicationMailer
   def evaluate_notification(interview, evaluate, email)
     @interview = interview
     @evaluate = evaluate
+    @url = evaluate_url(@evaluate.link)
     mail(to: email, subject: "แบบฟอร์มสัมภาษณ์ #{@interview.candidate.full_name}")
   end
 end
