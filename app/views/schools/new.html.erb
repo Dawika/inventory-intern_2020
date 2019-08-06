@@ -12,7 +12,7 @@
       <div class="col-lg-12">
         <div>
           <%= simple_form_for @school, action: @school.new_record? ? 'create' : 'update', validate: true do |f| %>
-            <div class="form-sign-in" id="formSingUp" hidden>
+            <div class="form-sign-in" id="formSingUp">
               <div class="row">
                 <div class="col-xs-12">
                   <%= image_tag @school.logo, class: "img-responsive logo-login" %>
