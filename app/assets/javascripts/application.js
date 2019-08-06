@@ -134,15 +134,15 @@ function disabledOrEnableSubmitForm(form, enableSubmit, enableButtonSelectplan, 
   }
   if (enableButtonSelectplan) {
     enableButtonSelectplans('new_school', 'modal', true);
-  }else{
-    if(id =="false"){
+  } else {
+    if (id == "false") {
       enableButtonSelectplans('new_school', 'modal', false);
     }
   }
 }
 
 function enableButtonSelectplans(formID, id, check) {
-  if(check){
+  if (check) {
     form = $('#' + formID);
     button = $('#' + id);
     if (form.find('input.plan-select.disabled').length == 6) {
@@ -159,7 +159,7 @@ function enableButtonSelectplans(formID, id, check) {
         button.attr('disabled', true);
       }
     }
-  }else{
+  } else {
     form = $('#' + formID);
     button = $('#' + id);
     if (form.find('#validate-bil input.plan-select.is-valid').length === form.find('#validate-bil input.plan-select').length) {
@@ -245,32 +245,32 @@ function changeLogo(event, img_logo) {
 
 
 function enablevalidate(id) {
-  if (id == "school_payment_method_school_payment_method") {
-      $('#credit div').removeClass("disabled");
-      $('#credit label').removeClass("disabled");
-      $('#credit input').removeClass("disabled");
-      $('#credit input').prop("disabled", false);
-      valid(id);
-      setTimeout(function() {
-        $('form.simple_form').enableClientSideValidations();
-      }, 200);
+  if (id == "school_bil_info_payment_method") {
+    $('#credit div').removeClass("disabled");
+    $('#credit label').removeClass("disabled");
+    $('#credit input').removeClass("disabled");
+    $('#credit input').prop("disabled", false);
+    valid(id);
+    setTimeout(function() {
+      $('form.simple_form').enableClientSideValidations();
+    }, 200);
   } else {
-      $('#credit div').addClass("disabled");
-      $('#credit label').addClass("disabled");
-      $('#credit input').addClass("disabled");
-      $('#credit input').prop("disabled", true);
-      valid(id);
+    $('#credit div').addClass("disabled");
+    $('#credit label').addClass("disabled");
+    $('#credit input').addClass("disabled");
+    $('#credit input').prop("disabled", true);
+    valid(id);
 
   }
 }
 
 function branch(id) {
   if (id == "hideBr") {
-    $('div.school_payment_method_school_branch').hide();
+    $('div.school_bil_info_branch').hide();
     $('#hideBr').addClass("active");
     $('#showBr').removeClass("active");
   } else if (id == "showBr") {
-    $('div.school_payment_method_school_branch').show();
+    $('div.school_bil_info_branch').show();
     $('#showBr').addClass("active");
     $('#hideBr').removeClass("active");
 

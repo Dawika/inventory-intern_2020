@@ -8,6 +8,7 @@
     $rootScope.loadAndAuthorizeResource("setting", function(){
       service.getSetting().then(function(resp) {
         ctrl.datas = resp.data;
+        console.log(ctrl.datas)
         ctrl.datas.password = "password";
       });
 

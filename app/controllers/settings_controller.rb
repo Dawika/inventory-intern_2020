@@ -39,7 +39,10 @@ class SettingsController < ApplicationController
       {
         user: current_user,
         school: current_user.school,
-        school_logo: current_user.school.logo_url
+        school_logo: current_user.school.logo_url,
+        license: current_user.school.licenses,
+        billing_info: current_user.school.bil_info
+
       }
     end
 

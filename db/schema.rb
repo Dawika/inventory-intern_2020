@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190801033814) do
+ActiveRecord::Schema.define(version: 20190805082404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,32 +47,42 @@ ActiveRecord::Schema.define(version: 20190801033814) do
     t.index ["student_id"], name: "index_alumnis_on_student_id", using: :btree
   end
 
-  create_table "banks", force: :cascade do |t|
-    t.string   "bank_name"
-    t.string   "bank_account"
-    t.string   "account_name"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.string   "bank_id"
+  create_table "bil_infos", force: :cascade do |t|
+    t.string  "name"
+    t.string  "address"
+    t.string  "district"
+    t.string  "province"
+    t.string  "zip_code"
+    t.string  "phone"
+    t.string  "tax_id"
+    t.string  "branch"
+    t.integer "license_id"
+    t.integer "school_id"
+    t.index ["license_id"], name: "index_bil_infos_on_license_id", using: :btree
+    t.index ["school_id"], name: "index_bil_infos_on_school_id", using: :btree
   end
 
-  create_table "categories", force: :cascade do |t|
-    t.integer  "inventory_id"
-    t.string   "category_id"
-    t.string   "category_name"
-    t.string   "category_barcode"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.index ["inventory_id"], name: "index_categories_on_inventory_id", using: :btree
+  create_table "charge_infos", force: :cascade do |t|
+    t.integer "amount"
+    t.string  "currency"
+    t.string  "description"
+    t.boolean "captured"
+    t.string  "transaction_id"
+    t.string  "card_brand"
+    t.string  "card_last_digits"
+    t.string  "failure_code"
+    t.string  "failure_message"
+    t.integer "license_id"
+    t.index ["license_id"], name: "index_charge_infos_on_license_id", using: :btree
   end
 
   create_table "class_permisions", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer  "list_id"
-    t.integer  "employee_id"
-    t.index ["employee_id"], name: "index_class_permisions_on_employee_id", using: :btree
+    t.integer  "user_id"
     t.index ["list_id"], name: "index_class_permisions_on_list_id", using: :btree
+    t.index ["user_id"], name: "index_class_permisions_on_user_id", using: :btree
   end
 
   create_table "classrooms", force: :cascade do |t|
@@ -262,26 +272,16 @@ ActiveRecord::Schema.define(version: 20190801033814) do
     t.datetime "img_url_updated_at"
     t.datetime "deleted_at"
     t.integer  "classroom_id"
-    t.string   "name"
-    t.string   "full_name"
     t.index ["classroom_id"], name: "index_employees_on_classroom_id", using: :btree
     t.index ["deleted_at"], name: "index_employees_on_deleted_at", using: :btree
     t.index ["school_id"], name: "index_employees_on_school_id", using: :btree
   end
 
-  create_table "employees_roles", id: false, force: :cascade do |t|
-    t.integer "employee_id"
-    t.integer "role_id"
-    t.index ["employee_id", "role_id"], name: "index_employees_roles_on_employee_id_and_role_id", using: :btree
-    t.index ["employee_id"], name: "index_employees_roles_on_employee_id", using: :btree
-    t.index ["role_id"], name: "index_employees_roles_on_role_id", using: :btree
-  end
-
   create_table "expense_items", force: :cascade do |t|
     t.integer "expense_id"
-    t.string  "detail",     null: false
-    t.integer "amount",     null: false
-    t.float   "cost",       null: false
+    t.string  "detail"
+    t.integer "amount"
+    t.float   "cost"
     t.index ["expense_id"], name: "index_expense_items_on_expense_id", using: :btree
   end
 
@@ -298,9 +298,9 @@ ActiveRecord::Schema.define(version: 20190801033814) do
   end
 
   create_table "expenses", force: :cascade do |t|
-    t.datetime "effective_date",       null: false
+    t.datetime "effective_date"
     t.string   "expenses_id"
-    t.string   "detail",               null: false
+    t.string   "detail"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.datetime "deleted_at"
@@ -334,13 +334,6 @@ ActiveRecord::Schema.define(version: 20190801033814) do
     t.string "keyword"
   end
 
-  create_table "holidays", force: :cascade do |t|
-    t.string   "name"
-    t.string   "name_en"
-    t.datetime "start_at"
-    t.datetime "end_at"
-  end
-
   create_table "individuals", force: :cascade do |t|
     t.string   "prefix"
     t.string   "first_name"
@@ -369,62 +362,6 @@ ActiveRecord::Schema.define(version: 20190801033814) do
     t.index ["friend_id"], name: "index_individuals_on_friend_id", using: :btree
     t.index ["parent_id"], name: "index_individuals_on_parent_id", using: :btree
     t.index ["spouse_id"], name: "index_individuals_on_spouse_id", using: :btree
-  end
-
-  create_table "inventories", force: :cascade do |t|
-    t.string   "item_name"
-    t.string   "serial_number"
-    t.string   "model"
-    t.string   "description"
-    t.float    "price"
-    t.datetime "date_purchase"
-    t.datetime "date_add"
-    t.datetime "end_warranty"
-    t.integer  "employee_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.integer  "supplier_id"
-    t.index ["supplier_id"], name: "index_inventories_on_supplier_id", using: :btree
-  end
-
-  create_table "inventory_repairs", force: :cascade do |t|
-    t.integer  "inventory_id"
-    t.integer  "inventory_request_id"
-    t.integer  "employee_id"
-    t.string   "employee_name"
-    t.string   "item_name"
-    t.string   "serial_number"
-    t.string   "reason"
-    t.datetime "repair_date"
-    t.datetime "return_date"
-    t.float    "price"
-    t.string   "receipt"
-    t.integer  "repair_status"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.index ["employee_id"], name: "index_inventory_repairs_on_employee_id", using: :btree
-    t.index ["inventory_id"], name: "index_inventory_repairs_on_inventory_id", using: :btree
-    t.index ["inventory_request_id"], name: "index_inventory_repairs_on_inventory_request_id", using: :btree
-  end
-
-  create_table "inventory_requests", force: :cascade do |t|
-    t.string   "user_name"
-    t.string   "item_name"
-    t.string   "description"
-    t.float    "price"
-    t.datetime "request_date"
-    t.integer  "inventory_status"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "comment"
-    t.integer  "employee_id"
-    t.integer  "inventory_id"
-    t.datetime "return_date"
-    t.integer  "request_count"
-    t.string   "request_type"
-    t.datetime "define_return_date"
-    t.index ["employee_id"], name: "index_inventory_requests_on_employee_id", using: :btree
-    t.index ["inventory_id"], name: "index_inventory_requests_on_inventory_id", using: :btree
   end
 
   create_table "invoice_statuses", force: :cascade do |t|
@@ -460,25 +397,15 @@ ActiveRecord::Schema.define(version: 20190801033814) do
   end
 
   create_table "licenses", force: :cascade do |t|
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "school_id"
     t.integer  "plan_id"
-    t.integer  "payment_method_school_id"
     t.datetime "getting_start"
     t.datetime "expired_date"
-    t.boolean  "status",                   default: false
-    t.index ["payment_method_school_id"], name: "index_licenses_on_payment_method_school_id", using: :btree
+    t.boolean  "status",        default: false
     t.index ["plan_id"], name: "index_licenses_on_plan_id", using: :btree
     t.index ["school_id"], name: "index_licenses_on_school_id", using: :btree
-  end
-
-  create_table "line_item_quotations", force: :cascade do |t|
-    t.string   "detail"
-    t.float    "amount"
-    t.integer  "quotation_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -494,53 +421,6 @@ ActiveRecord::Schema.define(version: 20190801033814) do
     t.string   "category",   default: "", null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-  end
-
-  create_table "lt_banks", force: :cascade do |t|
-    t.string "name"
-    t.string "image_path"
-  end
-
-  create_table "manage_inventory_repairs", force: :cascade do |t|
-    t.integer  "inventory_repair_id"
-    t.integer  "step"
-    t.string   "step1_save_by"
-    t.datetime "repair_date"
-    t.string   "supplier_name"
-    t.datetime "appointment_date"
-    t.string   "step2_save_by"
-    t.datetime "return_date"
-    t.float    "price"
-    t.string   "receipt"
-    t.string   "step3_save_by"
-    t.integer  "employee_id"
-    t.string   "step4_save_by"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-    t.index ["inventory_repair_id"], name: "index_manage_inventory_repairs_on_inventory_repair_id", using: :btree
-  end
-
-  create_table "manage_inventory_requests", force: :cascade do |t|
-    t.integer  "inventory_request_id"
-    t.integer  "step"
-    t.string   "save_by"
-    t.string   "accept"
-    t.string   "save_by_step2"
-    t.datetime "date_purchase"
-    t.datetime "date_send"
-    t.string   "price"
-    t.string   "save_by_step3"
-    t.datetime "get_date"
-    t.string   "buy_slip"
-    t.datetime "end_warranty"
-    t.string   "save_by_step4"
-    t.string   "send_to_employee_name"
-    t.string   "send_to_employee_id"
-    t.string   "save_by_step5"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.integer  "inventory_id"
-    t.index ["inventory_request_id"], name: "index_manage_inventory_requests_on_inventory_request_id", using: :btree
   end
 
   create_table "parents", force: :cascade do |t|
@@ -562,27 +442,6 @@ ActiveRecord::Schema.define(version: 20190801033814) do
     t.integer  "school_id"
     t.index ["deleted_at"], name: "index_parents_on_deleted_at", using: :btree
     t.index ["school_id"], name: "index_parents_on_school_id", using: :btree
-  end
-
-  create_table "payment_method_schools", force: :cascade do |t|
-    t.string  "payment_method"
-    t.string  "cardholder_name"
-    t.string  "card_number"
-    t.string  "exp_month"
-    t.string  "exp_year"
-    t.integer "cvv"
-    t.string  "name"
-    t.string  "address"
-    t.string  "district"
-    t.string  "province"
-    t.string  "zip_code"
-    t.string  "phone"
-    t.string  "tax_id"
-    t.string  "branch"
-    t.integer "license_id"
-    t.integer "school_id"
-    t.index ["license_id"], name: "index_payment_method_schools_on_license_id", using: :btree
-    t.index ["school_id"], name: "index_payment_method_schools_on_school_id", using: :btree
   end
 
   create_table "payment_methods", force: :cascade do |t|
@@ -628,29 +487,6 @@ ActiveRecord::Schema.define(version: 20190801033814) do
     t.decimal "price"
   end
 
-  create_table "quotation_invoices", force: :cascade do |t|
-    t.integer "quotation_id"
-    t.integer "invoice_id"
-  end
-
-  create_table "quotations", force: :cascade do |t|
-    t.integer  "student_id"
-    t.integer  "parent_id"
-    t.integer  "user_id"
-    t.integer  "quotation_status"
-    t.text     "remark"
-    t.string   "school_year"
-    t.string   "semester"
-    t.string   "grade_name"
-    t.string   "student_name"
-    t.string   "parent_name"
-    t.string   "user_name"
-    t.date     "payment_date_start"
-    t.date     "payment_date_end"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-  end
-
   create_table "relationships", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -676,8 +512,6 @@ ActiveRecord::Schema.define(version: 20190801033814) do
     t.string   "round"
     t.string   "check_date"
     t.integer  "list_id"
-    t.datetime "deleted_at"
-    t.index ["deleted_at"], name: "index_roll_calls_on_deleted_at", using: :btree
     t.index ["list_id"], name: "index_roll_calls_on_list_id", using: :btree
     t.index ["student_id", "list_id", "check_date", "round"], name: "index_roll_calls_uniq_roll", unique: true, using: :btree
     t.index ["student_id"], name: "index_roll_calls_on_student_id", using: :btree
@@ -709,7 +543,6 @@ ActiveRecord::Schema.define(version: 20190801033814) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.text     "payroll_slip_header"
-    t.string   "account_number"
     t.string   "name_eng"
     t.string   "note"
     t.string   "subdomain_name"
@@ -733,8 +566,7 @@ ActiveRecord::Schema.define(version: 20190801033814) do
     t.boolean "export_ktb_payroll",                   default: false
     t.boolean "outstanding_notification",             default: false
     t.boolean "slip_carbon",                          default: false
-    t.boolean "export_kbank_payroll",                 default: false
-    t.string  "default_locale",                       default: "th"
+    t.string  "default_locale"
     t.boolean "enable_expenses",                      default: false
     t.string  "expense_tag_tree"
   end
@@ -779,7 +611,6 @@ ActiveRecord::Schema.define(version: 20190801033814) do
     t.integer  "img_url_file_size"
     t.datetime "img_url_updated_at"
     t.integer  "classroom_id"
-    t.integer  "school_student_id"
     t.index ["classroom_id"], name: "index_students_on_classroom_id", using: :btree
     t.index ["deleted_at"], name: "index_students_on_deleted_at", using: :btree
     t.index ["school_id"], name: "index_students_on_school_id", using: :btree
@@ -793,15 +624,6 @@ ActiveRecord::Schema.define(version: 20190801033814) do
     t.datetime "updated_at",      null: false
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_students_parents_on_deleted_at", using: :btree
-  end
-
-  create_table "suppliers", force: :cascade do |t|
-    t.string   "name"
-    t.string   "address"
-    t.string   "phone_number"
-    t.string   "email"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
   end
 
   create_table "tax_reductions", force: :cascade do |t|
@@ -875,69 +697,11 @@ ActiveRecord::Schema.define(version: 20190801033814) do
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
   end
 
-  create_table "vacation_configs", force: :cascade do |t|
-    t.integer "vacation_leave_advance_at_least", default: 0
-    t.integer "switch_date_advance_at_least",    default: 0
-    t.integer "work_at_home_unit",               default: 0
-    t.integer "work_at_home_limit",              default: 0
-    t.boolean "can_leave_half_day",              default: true
-  end
-
-  create_table "vacation_leave_rules", force: :cascade do |t|
-    t.text     "message"
-    t.integer  "updated_by_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.index ["updated_by_id"], name: "index_vacation_leave_rules_on_updated_by_id", using: :btree
-  end
-
-  create_table "vacation_settings", force: :cascade do |t|
-    t.integer "school_id"
-    t.integer "sick_leave_maximum_days_per_year",       default: 30
-    t.boolean "sick_leave_require_approval"
-    t.boolean "sick_leave_require_medical_certificate"
-    t.string  "sick_leave_note"
-    t.integer "personal_leave_maximum_days_per_year",   default: 15
-    t.integer "personal_leave_submission_days",         default: 2
-    t.boolean "personal_leave_allow_morning",           default: true
-    t.boolean "personal_leave_allow_afternoon",         default: true
-    t.string  "personal_leave_note"
-    t.boolean "switching_day_allow",                    default: true
-    t.integer "switching_day_maximum_days_per_year",    default: 15
-    t.boolean "switching_day_require_approval",         default: true
-    t.integer "switching_day_submission_days",          default: 2
-    t.string  "switching_day_note"
-    t.boolean "work_at_home_allow",                     default: true
-    t.integer "work_at_home_maximum_days_per_week",     default: 2
-    t.boolean "work_at_home_require_approval"
-    t.integer "work_at_home_submission_days"
-    t.string  "work_at_home_note"
-    t.index ["school_id"], name: "index_vacation_settings_on_school_id", using: :btree
-  end
-
-  create_table "vacation_types", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.float    "deduce_days"
-  end
-
-  create_table "vacations", force: :cascade do |t|
-    t.integer  "approver_id"
-    t.integer  "vacation_type_id"
-    t.integer  "status",           default: 0
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.string   "detail"
-    t.string   "start_date"
-    t.string   "end_date"
-    t.integer  "requester_id"
-    t.index ["approver_id"], name: "index_vacations_on_approver_id", using: :btree
-    t.index ["vacation_type_id"], name: "index_vacations_on_vacation_type_id", using: :btree
-  end
-
-  add_foreign_key "class_permisions", "employees"
+  add_foreign_key "bil_infos", "licenses"
+  add_foreign_key "bil_infos", "schools"
+  add_foreign_key "charge_infos", "licenses"
   add_foreign_key "class_permisions", "lists"
+  add_foreign_key "class_permisions", "users"
   add_foreign_key "classrooms", "classrooms", column: "next_id", on_delete: :nullify
   add_foreign_key "classrooms", "schools"
   add_foreign_key "employee_skills", "employees"
@@ -949,12 +713,9 @@ ActiveRecord::Schema.define(version: 20190801033814) do
   add_foreign_key "individuals", "employees", column: "parent_id"
   add_foreign_key "individuals", "employees", column: "spouse_id"
   add_foreign_key "invoices", "schools"
-  add_foreign_key "licenses", "payment_method_schools"
   add_foreign_key "licenses", "plans"
   add_foreign_key "licenses", "schools"
   add_foreign_key "parents", "schools"
-  add_foreign_key "payment_method_schools", "licenses"
-  add_foreign_key "payment_method_schools", "schools"
   add_foreign_key "roll_calls", "lists"
   add_foreign_key "school_settings", "schools"
   add_foreign_key "schools", "plans"
