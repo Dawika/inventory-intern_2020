@@ -1,5 +1,5 @@
 class SchoolsController < ApplicationController
-
+  
     def new
       @school = School.new
       @school.users.build

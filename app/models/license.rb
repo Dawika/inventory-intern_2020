@@ -5,12 +5,22 @@ class License < ApplicationRecord
   before_create :add_expired_date
 
   def add_expired_date
-    date = Time.zone.now + 3.month
-    self.getting_start = date
-    if plan.package_name == 'annual fee'
-      self.expired_date = date + 1.year
-    elsif plan.package_name == 'monthly fee'
-      self.expired_date = date + 1.month
+    if school.licenses.empty?
+      date = Time.zone.now + 3.month
+      self.getting_start = date
+      if plan.package_name == 'annual fee'
+        self.expired_date = date + 1.year
+      elsif plan.package_name == 'monthly fee'
+        self.expired_date = date + 1.month
+      end
+    else
+      date = Time.zone.now
+      self.getting_start = date
+      if plan.package_name == 'annual fee'
+        self.expired_date = date + 1.year
+      elsif plan.package_name == 'monthly fee'
+        self.expired_date = date + 1.month
+      end
     end
   end
 end
