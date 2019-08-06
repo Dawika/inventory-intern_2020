@@ -8,17 +8,17 @@ class License < ApplicationRecord
     if school.licenses.empty?
       date = Time.zone.now + 3.month
       self.getting_start = date
-      if plan.package_name == 'annual fee'
+      if plan.frequency == 'yearly'
         self.expired_date = date + 1.year
-      elsif plan.package_name == 'monthly fee'
+      elsif plan.frequency == 'monthly'
         self.expired_date = date + 1.month
       end
     else
       date = Time.zone.now
       self.getting_start = date
-      if plan.package_name == 'annual fee'
+      if plan.frequency == 'yearly'
         self.expired_date = date + 1.year
-      elsif plan.package_name == 'monthly fee'
+      elsif plan.frequency == 'monthly'
         self.expired_date = date + 1.month
       end
     end

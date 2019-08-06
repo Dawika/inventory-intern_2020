@@ -15,6 +15,5 @@ class RemoveColumnInPaymentMethodSchool < ActiveRecord::Migration[5.0]
     add_column :payment_method_schools, :exp_month, :string
     add_column :payment_method_schools, :exp_year, :string
     add_column :payment_method_schools, :cvv, :integer
-
   end
 end
