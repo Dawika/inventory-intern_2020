@@ -1,11 +1,4 @@
-<style>
-  body {
-    margin-bottom: 0px !important;
-  }
-  h4{
-  color:rgb(53, 167, 219);
-}
-</style>
+
 <div class="container" id="warp" style="margin-top:100px;">
   <div class="row">
     <%= render 'layouts/messages' %>
@@ -120,7 +113,8 @@
     $('#modal-skip').click(function() {
       $('#myModal-skip').modal({backdrop: 'static', keyboard: false})
       $('#new_school').find(':submit').attr('disabled', false);
-      $('#formplan input').prop("disabled", true);
+      $('.sec_5 input').prop("disabled", true);
+      $('input:radio[name="school[licenses_attributes][0][plan_id]"]').val([<%= Plan.find_by(package_name: 'annual fee').id %>]);
     })
   });
 </script>

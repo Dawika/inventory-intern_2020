@@ -1,17 +1,17 @@
 class SchoolsController < ApplicationController
-
+  
     def new
       @school = School.new
       @school.users.build
       @school.school_settings.build
-      @school.build_payment_method_school
+      @school.build_bil_info
+      @school.licenses.build
       @plans = Plan.all.order(id: 'asc')
     end
   
     def create
       if params[:commit] == "เรื่มต้นใช้งาน"       
-        @school = School.new(school_params.merge(plan_id: 2))
-        @school.payment_method_school = PaymentMethodSchool.new(payment_method: 'transfer money')
+        @school = School.new(school_params)
         if @school.save(validate: false)
           SchoolMailer.school_notification(@school).deliver
           user = @school.users.first
@@ -54,11 +54,10 @@ class SchoolsController < ApplicationController
         :subdomain_name,
         :branch,
         :logo,
-        :plan_id,
         [{ school_settings_attributes: [:id, :school_year, :semesters ] }],
         [{ users_attributes: [:id, :full_name, :email, :password ] }],
-        [{ payment_method_school_attributes: [:payment_method, :cardholder_name, :card_number, :exp_month, :exp_year,
-           :cvv, :name, :address, :district, :province, :zip_code, :phone, :tax_id, :branch ] }]
+        [{ licenses_attributes: [:plan_id ]}],
+        [{ bil_info_attributes: [ :name, :address, :district, :province, :zip_code, :phone, :tax_id, :branch ] }]
       )
     end
   end
