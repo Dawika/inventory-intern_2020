@@ -199,17 +199,15 @@
       <div class="row">
         <label class="style-font">แผน</label>
       </div><br>
-      <div class="row">
+      <div class="row" ng-repeat="data in setting.datas.licenses">
         <div class="col-md-3">
           <div class="form-group">
-            <label for="schoolTaxId">สาขา</label>
-            <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.school.tax_id">
+            <label for="schoolTaxId">{{ data.plan_id }}</label>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="form-group">
-            <label for="schoolTaxId">สาขา</label>
-            <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.school.tax_id">
+            <label for="schoolTaxId">{{ data.getting_start | date:"MM/dd/yyyy" }} - {{ data.expired_date | date:"MM/dd/yyyy"}}</label>
           </div>
         </div>
       </div>
@@ -219,7 +217,8 @@
       </div>
 
     </div>
-  </div><br><br>
+  </div>
+  <br><br>
   <div class="footer-menu row" style="margin-right: 50px;">
     <div class="col-md-offset-8 col-md-2 text-right">
       <button type="submit" class="btn btn-custom btn-blue btn-block">{{ 'save' | translate }}</button>

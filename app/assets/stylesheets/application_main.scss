@@ -319,3 +319,29 @@ table.classroom-table {
 .setting .test {
   border: 1px solid #C0C0C0;
 }
+
+.btn-light-green {
+  background-color: #7ED322;
+  color: #fff !important;
+  border: 2px solid #7ED322;
+  &:hover {
+    border: 2px solid #7ED322;
+    color: #7ED322 !important;
+  }
+  &:focus {
+    color: #fff;
+  }
+}
+
+.color-light-green {
+  color: #7ED322 !important;
+}
+
+.fa-8x {
+  font-size: 8em;
+}
+
+.btn-custom.lg {
+  padding: 10px 48px;
+  font-size: 24px;
+}

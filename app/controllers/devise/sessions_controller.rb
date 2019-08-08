@@ -6,7 +6,7 @@ class Devise::SessionsController < DeviseController
   
     # GET /resource/sign_in
     def new
-      self.resource = resource_class.new(sign_in_params)
+      self.resource = resource_class.new()
       clean_up_passwords(resource)
       @school = School.find_by(subdomain_name: subdomain)
       yield resource if block_given?
