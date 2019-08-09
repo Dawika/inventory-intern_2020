@@ -14,9 +14,6 @@
 </div>
 
 <div style="padding: 0px 15px">
-  <div style="width: 20%">
-    <img src="<%=@interview.candidate.image.expiring_url(10)%>">
-  </div>
   <div style="margin-bottom: 5px">
     <span style="font-weight: 600;">Name :</span><span style="padding-left: 10px;"><%=@interview.candidate.full_name%></span>
   </div>
@@ -37,12 +34,6 @@
   </div>
   <div>
     <span style="font-weight: 600;">Interest :</span><span style="padding-left: 10px;"><%=@interview.candidate.interest%></span>
-  </div>
-  <div>
-    <p style="font-weight: 600;">Resume/Transcript</p>
-    <% @interview.candidate.candidate_files.each do |candidate_file| %>
-      <a href="<%= candidate_file.files.expiring_url(10) %>" class="font-candidate detail-candidate" target="_blank"><%= candidate_file.files_file_name %></a>
-    <% end %>
   </div>
   <div>
     <div style="display: inline-block; width: 120px;">
