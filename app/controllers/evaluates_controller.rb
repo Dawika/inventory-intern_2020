@@ -49,7 +49,8 @@ class EvaluatesController < ApplicationController
       link_random = SecureRandom.uuid
       #เป็น temp code ที่ต้องใช้
       Evaluate.create(link: link_random, interviewer_email_id: interviewer_email.id, interview_id: @interview.id)
-      InterviewMailer.evaluate_notification(@interview, interviewer_email.evaluate, interviewer_email.email).deliver
+      url = evaluate_url(interviewer_email.evaluate.link)
+      InterviewMailer.evaluate_notification(@interview, url, interviewer_email.email).deliver
     end
   end
 
