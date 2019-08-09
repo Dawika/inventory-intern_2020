@@ -5,7 +5,7 @@
         <div class="col-md-6">
           <div class="row">
             <div class="col-md-3">
-              <label for="logo" class="style-font">สัญลักษณ์โรงเรียน</label>
+              <label class="style-font">{{ 'logo_school' | translate }}</label>
               <div class="form-group">
                 <img id="s_logo" src="{{ setting.datas.school_logo }}" alt="your image" width="200px" onclick="$('#file-upload').trigger('click')" /><br>
                 <input type="file" id="file-upload" onchange="angular.element(this).scope().fileChange(event, 's_logo')">
@@ -13,7 +13,7 @@
             </div>
             <div class="col-md-9">
               <div class="row">
-                <label for="data" class="style-font">ข้อมูลทั่วไป</label>
+                <label class="style-font">{{ 'data' | translate }}</label>
               </div><br>
               <div class="row">
                 <div class="col-md-12">
@@ -48,7 +48,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-5">
           <div class="row">
-            <label for="head" class="style-font">ข้อมูลสำหรับหัวใบเสร็จ</label>
+            <label class="style-font">{{ 'billing_info' | translate }}</label>
           </div><br>
           <div class="row">
             <div class="col-md-12">
@@ -89,13 +89,13 @@
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label for="subdoamin">สาขา</label>
+                <label for="subdoamin">{{ 'branch' | translate}}</label>
                 <input type="text" class="form-control white-bg" id="name_eng" ng-model="setting.datas.school.branch">
               </div>
             </div>
           </div><br>
           <div class="row">
-            <label class="style-font">ข้อมูลสำหรับท้ายใบเสร็จ</label>
+            <label class="style-font">{{ 'last_bil' | translate}}</label>
           </div><br>
           <div class="row">
             <div class="col-md-12">
@@ -110,11 +110,11 @@
       </div>
       <!--////////////////////-->
       <div class="row"><br>
-        <label>_____________________________________________________________________________________________________________________________________________________________________________________________________________</label>
+      <hr>
       </div><br>
 
       <div class="row">
-        <label class="style-font">ข้อมูลผู้ติดต่อ</label>
+        <label class="style-font">{{ 'Contact information' | translate }}</label>
       </div> <br>
       <div class="row">
         <div class="col-md-5">
@@ -137,12 +137,12 @@
         </div>
       </div><br>
       <div class="row">
-        <label class="style-font">ที่อยู่ออกใบเสร็จ</label>
+        <label class="style-font">{{ 'bil_address' | translate}}</label>
       </div><br>
       <div class="row">
         <div class="col-md-5">
           <div class="form-group">
-            <label for="schoolTaxId">ชื่อ</label>
+            <label for="schoolTaxId">{{ 'name' | translate}}</label>
             <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.billing_info.name">
           </div>
         </div>
@@ -150,25 +150,25 @@
       <div class="row">
         <div class="col-md-5">
           <div class="form-group">
-            <label for="schoolTaxId">{{ 'ที่อยู่' | translate}}</label>
+            <label for="schoolTaxId">{{ 'address' | translate}}</label>
             <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.billing_info.address">
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            <label for="schoolTaxId">{{ 'อำเภอ/เขต' | translate}}</label>
+            <label for="schoolTaxId">{{ 'district' | translate}}</label>
             <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.billing_info.district">
           </div>
         </div>
         <div class="col-md-2">
           <div class="form-group">
-            <label for="schoolTaxId">{{ 'จังหวัด' | translate}}</label>
+            <label for="schoolTaxId">{{ 'province' | translate}}</label>
             <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.billing_info.province">
           </div>
         </div>
         <div class="col-md-2">
           <div class="form-group">
-            <label for="schoolTaxId">{{ 'รหัสไปรษณีย์' | translate}}</label>
+            <label for="schoolTaxId">{{ 'zip_code' | translate}}</label>
             <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.billing_info.zip_code">
           </div>
         </div>
@@ -176,7 +176,7 @@
       <div class="row">
         <div class="col-md-2">
           <div class="form-group">
-            <label for="schoolTaxId">{{ 'หมายเลขโทรศัพท์' | translate}}</label>
+            <label for="schoolTaxId">{{ 'phone_number' | translate}}</label>
             <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.billing_info.phone">
           </div>
         </div>
@@ -188,16 +188,16 @@
         </div>
         <div class="col-md-1">
           <div class="form-group">
-            <label for="schoolTaxId">สาขา</label>
+            <label for="schoolTaxId">{{ 'branch' | translate}}</label>
             <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.billing_info.branch">
           </div>
         </div>
       </div>
       <div class="row"><br>
-        <label>_____________________________________________________________________________________________________________________________________________________________________________________________________________</label>
+      <hr>
       </div><br>
       <div class="row">
-        <label class="style-font">แผน</label>
+        <label class="style-font">{{ 'plan' | translate}}</label>
       </div><br>
       <div class="row" ng-repeat="data in setting.datas.licenses">
         <div class="col-md-3">
@@ -228,116 +228,3 @@
     </div>
   </div>
 </form>
-
-
-<!-- <form id="passwordForm" name="passwordForm" enctype="multipart/form-data" ng-submit="setting.submit(setting.datas)">
-  <div class="container setting" style="width: 960px;">
-    <div class="row paragraph bg-setting">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="name">{{ 'employee_name' | translate }}</label>
-              <input type="text" class="form-control" id="username" ng-model="setting.datas.user.full_name">
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="email">{{ 'email' | translate }}</label>
-              <input type="text" class="form-control" id="useremail" ng-model="setting.datas.user.email">
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <img id="s_logo" src="{{ setting.datas.school_logo }}" alt="your image" width="100px" onclick="$('#file-upload').trigger('click')" /><br>
-              <input type="file" id="file-upload" onchange="angular.element(this).scope().fileChange(event, 's_logo')">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="password">{{ 'password' | translate }}</label>
-              <input type="password" class="form-control white-bg" id="password" ng-model="setting.datas.password" ng-disabled="true">
-            </div>
-          </div>
-        </div>
-        <div class="space20"></div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-              <button type="button" class="btn btn-custom btn-green btn-block" ng-click="setting.changePassword()">{{ 'change_password' | translate }}</button>
-            </div>
-          </div>
-        </div>
-        <div class="space20"></div>
-        <div ng-show="setting.canUpdateSchool">
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="name">{{ 'school_name_thai' | translate }}</label>
-                <input type="text" class="form-control white-bg" id="name" ng-model="setting.datas.school.name">
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="name_eng">{{ 'school_name_eng' | translate }}</label>
-                <input type="text" class="form-control white-bg" id="name_eng" ng-model="setting.datas.school.name_eng">
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="schoolTaxId">{{ 'tax_number' | translate}}</label>
-                <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.school.tax_id">
-              </div>
-            </div>
-          </div>
-          <div class="space20"></div>
-          <div class="row">
-            <div class="col-md-8">
-              <div class="form-group">
-                <label for="address">{{ 'address' | translate }}</label>
-                <input type="text" class="form-control white-bg" id="address" ng-model="setting.datas.school.address">
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="zipcode">{{ 'zipcode' | translate }}</label>
-                <input type="text" class="form-control white-bg" id="zipcode" ng-model="setting.datas.school.zip_code">
-              </div>
-            </div>
-          </div>
-          <div class="space20"></div>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="email">{{ 'school_email' | translate }}</label>
-                <input type="text" class="form-control white-bg" id="emailSchool" ng-model="setting.datas.school.email">
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="phone">{{ 'phone' | translate }}</label>
-                <input type="text" class="form-control white-bg" id="phone" ng-model="setting.datas.school.phone">
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="fax">{{ 'fax' | translate }}</label>
-                <input type="text" class="form-control white-bg" id="fax" ng-model="setting.datas.school.fax">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer-menu row" style="margin-right: -30px;">
-      <div class="col-md-offset-8 col-md-2 text-right">
-        <button type="submit" class="btn btn-custom btn-green btn-block">{{ 'save' | translate }}</button>
-      </div>
-      <div class="col-md-2 text-right">
-        <button type="button" class="btn btn-custom btn-gray btn-block" ng-click="openRoot()">{{ 'cancel' | translate }}</button>
-      </div>
-    </div>
-  </div>
-</form> -->
