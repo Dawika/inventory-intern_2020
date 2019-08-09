@@ -1,3 +1,4 @@
+
 <div class="container-fluid p-50">
   <div class="row head-sp mb-20">
     <p class="back-scout font-candidate color-blue-candidate"><span class="button-arrow cursor-pointer" ng-click="candidateDetail.back()"><i class="fas fa-arrow-left pd-l-10"></i></span>{{ 'candidate_informatiom'  | translate }}</p>
@@ -157,7 +158,25 @@
           <div class="col-md-6">
             <h3 class="hr-2 heading-candidate color-blue-candidate mb-30">{{ 'soft_skill'  | translate }}</h3>
             <div class="row detail-skill font-candidate mb-15" ng-repeat="item in candidateDetail.datas.candidate.soft_skills_attributes">
-              <div class="col-sm-3 text-right break-word padding-right0">
+              <div class="col-md-3 text-right break-word padding-right0">
+                <span>{{item.skill_name}}</span>
+              </div>
+              <div class="col-md-7 mt-5 padding-right0">
+                <div class="progress progress-bar-skill">
+                  <div class="progress-bar bar-skill" role="progressbar" style="width: {{item.skill_point * 5}}%;"></div>
+                </div>
+              </div>
+              <div class="col-md-2 padding-left0">
+                <span>({{item.skill_point}}/20)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-6">
+            <h3 class="hr-2 heading-candidate color-blue-candidate mb-30">{{ 'design_skill'  | translate }}</h3>
+            <div class="row detail-skill font-candidate mb-15" ng-repeat="item in candidateDetail.datas.candidate.design_skills_attributes">
+              <div class="col-md-3 text-right break-word padding-right0">
                 <span>{{item.skill_name}}</span>
               </div>
               <div class="col-md-7 mt-5 padding-right0">
@@ -193,26 +212,6 @@
           </div>
           <div class="mt-20" ng-show="candidateDetail.submited.length > 0">
             <button type="button" class ="btn btn-interview-form" ng-click="candidateDetail.toConclusion()">{{ 'conclusionbtn'  | translate }}</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="col-md-6 pull-right">
-          <h3 class="hr-2 heading-candidate color-blue-candidate mb-30">{{ 'design_skill'  | translate }}</h3>
-          <div class="row detail-skill font-candidate mb-15" ng-repeat="item in candidateDetail.datas.candidate.design_skills_attributes">
-            <div class="col-sm-3 text-right break-word padding-right0">
-              <span>{{item.skill_name}}</span>
-            </div>
-            <div class="col-md-7 mt-5 padding-right0">
-              <div class="progress progress-bar-skill">
-                <div class="progress-bar bar-skill" role="progressbar" style="width: {{item.skill_point * 5}}%;"></div>
-              </div>
-            </div>
-            <div class="col-md-2 padding-left0">
-              <span>({{item.skill_point}}/20)</span>
-            </div>
           </div>
         </div>
       </div>
