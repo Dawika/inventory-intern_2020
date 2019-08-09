@@ -11,15 +11,12 @@ class SettingsController < ApplicationController
   def update_current_user
     User.transaction do
       update_school_status = true
+      temp_subdomain = current_user.school.subdomain_name
       if self.can? :update, School
         update_school_status = current_user.school.update(params_school)
+        current_user.school.bil_info.update(params_billing)
       end
-      # if current_user.update(params_user) && update_school_status 
-      #   render json: getSetting(), status: :ok
-      # else
-      #   render json: {error: "Cannot update settings."}, status: :bad_request
-      # end
-      render json: getSetting(), status: :ok
+        render json: getSetting(), status: :ok  
     end
   end
 
@@ -40,7 +37,7 @@ class SettingsController < ApplicationController
         user: current_user,
         school: current_user.school,
         school_logo: current_user.school.logo_url,
-        license: current_user.school.licenses,
+        licenses: current_user.school.licenses,
         billing_info: current_user.school.bil_info
 
       }
@@ -51,10 +48,14 @@ class SettingsController < ApplicationController
     end
 
     def params_school
-      params.require(:school).permit(:name, :name_eng, :tax_id, :logo, :address, :zip_code, :email, :phone, :fax)
+      params.require(:school).permit(:name, :name_eng, :tax_id, :logo, :address, :zip_code, :email, :phone, :fax, :subdomain_name, :branch, :note)
     end
 
     def params_user
       params.require(:user).permit(:full_name, :email, :password)
+    end
+
+    def params_billing
+      params.require(:billing_info).permit(:address, :branch, :district, :name, :phone, :province, :tax_id, :zip_code)
     end
 end

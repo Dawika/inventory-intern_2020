@@ -19,11 +19,10 @@
  *= require angular-ui-select
  *= require angular-ui-tree
  */
- 
+
 @import "navigation_menu";
 @import "application_payroll";
-
-.form-control{
+.form-control {
   border-radius: inherit;
   border: inherit;
   border-bottom: 1px solid #ddd;
@@ -31,11 +30,11 @@
   box-shadow: none !important;
 }
 
-.form-control:disabled{
+.form-control:disabled {
   background: transparent;
 }
 
-.circle{
+.circle {
   border-radius: 50%;
 }
 
@@ -51,13 +50,13 @@
   background-position: center top !important;
 }
 
-.icon-default-img{
- margin: auto;
- transform: translate(90%, 40%);
- color: #fff;
+.icon-default-img {
+  margin: auto;
+  transform: translate(90%, 40%);
+  color: #fff;
 }
 
-.paragraph.bg-setting{
+.paragraph.bg-setting {
   padding: 50px 30px;
   background-color: #fff;
   max-height: 630px;
@@ -65,7 +64,8 @@
   margin-top: 30px;
   box-shadow: 0 5px 13px 0 rgba(0, 0, 0, 0.3);
 }
-.navbar-custom .logo{
+
+.navbar-custom .logo {
   width: 180px;
   height: 91px;
   margin-left: -15px;
@@ -73,7 +73,7 @@
 }
 
 .btn-up-classroom,
-.btn-up-classroom:focus{
+.btn-up-classroom:focus {
   margin-bottom: 10px;
   margin-top: 10px;
   padding: 12px 32px;
@@ -85,8 +85,7 @@
   border-radius: 0px;
   cursor: pointer;
   transition: all 0.25s ease;
-
-  &:hover{
+  &:hover {
     color: #3fa1e6;
     background-color: transparent;
     border: 2px solid #3fa1e6;
@@ -100,7 +99,8 @@
   box-shadow: 0 5px 13px 0 rgba(0, 0, 0, 0.3);
 }
 
-.btn-primary, .btn-primary:focus{
+.btn-primary,
+.btn-primary:focus {
   font-family: 'Maitree', serif;
   background-color: #5bab67;
   color: #fff;
@@ -110,14 +110,14 @@
   border: 2px solid #5bab67;
   border-radius: 0px;
   transition: all 0.25s ease;
-  &:hover{
+  &:hover {
     background-color: transparent;
-    border:2px solid #6fc178;
+    border: 2px solid #6fc178;
     color: #6fc178;
   }
 }
 
-.space30{
+.space30 {
   height: 30px;
 }
 
@@ -154,11 +154,11 @@
   cursor: pointer;
 }
 
-#classroom-edit .tab-content{
+#classroom-edit .tab-content {
   margin-top: 20px;
 }
 
-.btn-white{
+.btn-white {
   font-family: 'Maitree', serif;
   padding: 12px 32px;
   font-size: 16px;
@@ -168,44 +168,43 @@
   border: 2px solid #9D9D9D;
   border-radius: 0px;
   transition: all 0.25s ease;
-
-  &:hover{
+  &:hover {
     background-color: transparent;
-    border:2px solid #9D9D9D;
+    border: 2px solid #9D9D9D;
     color: #9D9D9D;
   }
 }
 
-.btn-disable{
+.btn-disable {
   font-family: 'Maitree', serif;
   padding: 12px 32px;
   font-size: 16px;
   letter-spacing: 1px;
   background-color: transparent;
   color: #9D9D9D;
-  border:2px solid #9D9D9D;
+  border: 2px solid #9D9D9D;
   border-radius: 0px;
   transition: all 0.25s ease;
-  &:hover{
+  &:hover {
     background-color: transparent;
-    border:2px solid #9D9D9D;
+    border: 2px solid #9D9D9D;
     color: #9D9D9D;
   }
 }
 
-.btn-disable{
+.btn-disable {
   font-family: 'Maitree', serif;
   padding: 12px 32px;
   font-size: 16px;
   letter-spacing: 1px;
   background-color: transparent;
   color: #9D9D9D;
-  border:2px solid #9D9D9D;
+  border: 2px solid #9D9D9D;
   border-radius: 0px;
   transition: all 0.25s ease;
-  &:hover{
+  &:hover {
     background-color: transparent;
-    border:2px solid #9D9D9D;
+    border: 2px solid #9D9D9D;
     color: #9D9D9D;
   }
 }
@@ -250,28 +249,27 @@ table.classroom-table {
 }
 
 .classroom-table tr:after {
-    content: ' ';
-    display: block;
-    visibility: hidden;
-    clear: both;
+  content: ' ';
+  display: block;
+  visibility: hidden;
+  clear: both;
 }
 
 .classroom-table thead th {
-    height: 35px !important;
+  height: 35px !important;
 }
 
 .classroom-table tbody {
-    max-height: 270px;
-    overflow-y: auto;
+  max-height: 270px;
+  overflow-y: auto;
 }
 
-.classroom-table thead { }
-
+.classroom-table thead {}
 
 .classroom-table tbody td,
 .classroom-table thead th {
-    width: 100%;
-    float: left;
+  width: 100%;
+  float: left;
 }
 
 .classroom-table .check-box {
@@ -286,17 +284,64 @@ table.classroom-table {
   background-color: transparent;
 }
 
-.btn-grades{
+.btn-grades {
   font-family: 'Maitree', serif;
   background-color: transparent;
   margin-top: -3px;
 }
 
-.m-left-10{
+.m-left-10 {
   margin-left: 10px;
 }
 
-.m-bottom-15{
+.m-bottom-15 {
   margin-bottom: 15px;
 }
 
+.setting .setting-plan {
+  padding: 50px;
+  background-color: #fff;
+  box-shadow: 0 5px 13px 0 rgba(0, 0, 0, 0.3);
+  margin: auto;
+  width: 96%;
+  margin-top: 40px;
+}
+
+.setting .style-font {
+  color: #3FA1E6;
+  font-family: Maitree;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: left;
+}
+
+.setting .test {
+  border: 1px solid #C0C0C0;
+}
+
+.btn-light-green {
+  background-color: #7ED322;
+  color: #fff !important;
+  border: 2px solid #7ED322;
+  &:hover {
+    border: 2px solid #7ED322;
+    color: #7ED322 !important;
+  }
+  &:focus {
+    color: #fff;
+  }
+}
+
+.color-light-green {
+  color: #7ED322 !important;
+}
+
+.fa-8x {
+  font-size: 8em;
+}
+
+.btn-custom.lg {
+  padding: 10px 48px;
+  font-size: 24px;
+}

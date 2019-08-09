@@ -526,6 +526,15 @@ en:
   save_success: "Save successfully."
   save_falied: "Save failed."
   start: "Start"
+  billing_info: "Information for the receipt"
+  data: "General information"
+  logo_school: "School symbol"
+  last_bil: "receipt"
+  plan: "Plan"
+  district: "District"
+  province: "Province"
+  zip_code: "Zip code"
+  Contact information: "Contact information"
   # School Setting
   schools:
     new:

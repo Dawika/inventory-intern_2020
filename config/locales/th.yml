@@ -535,6 +535,16 @@ th:
   user_not_in_school: "อีเมลนี้ไม่ได้อยู่ในโรงเรียน"
   annual fee: "แบบรายปี"
   monthly fee: "แบบรายเดือน"
+  billing_info: "ข้อมูลสำหรับหัวใบเสร็จ"
+  data: "ข้อมูลทั่วไป"
+  logo_school: "สัญลักษณ์โรงเรียน"
+  last_bil: "ข้อมูลสำหรับท้ายใบเสร็จ"
+  plan: "แผน"
+  district: "อำเภอ/เขต"
+  province: "จังหวัด"
+  zip_code: "รหัสไปรษณีย์"
+  Contact information: "ข้อมูลผู้ติดต่อ"
+  bil_address: "ที่อยู่ออกใบเสร็จ"
   # School Setting
   schools:
     setting_school_setting:
