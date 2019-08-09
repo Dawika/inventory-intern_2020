@@ -16,12 +16,7 @@ class SettingsController < ApplicationController
         update_school_status = current_user.school.update(params_school)
         current_user.school.bil_info.update(params_billing)
       end
-
-      if temp_subdomain == current_user.school.subdomain_name
-        render json: getSetting(), status: :ok
-      else
-        redirect_to 
-      end     
+        render json: getSetting(), status: :ok  
     end
   end
 

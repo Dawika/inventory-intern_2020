@@ -8,8 +8,8 @@
         <div class="row">
           <div class="col-md-10 col-md-offset-1">
             <div class="row text-center">
-              <fieldset class="form-group radio_buttons optional school_licenses_plan_id">
-                <input type="hidden" name="school[licenses_attributes][0][plan_id]" value="" id="input-plan">
+            <fieldset class="form-group radio_buttons optional school_plan_id">
+            <input type="hidden" name="school[plan_id]" value="">
                 <% @plans.each do |plan| %>
                   <div class="col-md-6">
                     <div class="col-md-10 col-md-offset-1">
@@ -23,8 +23,8 @@
                         <%= plan.price %> บาท/เดือน</h3><br>
                       <p>ใช้งานแบบออนไลน์ผ่านทาง สมศรี Cloud สามารถเข้าถึงได้จากทั้งที่โรงเรียนและที่บ้าน ข้อมูลไม่สูญหาย ระบบ backup ให้ อัตโนมัติ รับประกันตลอดอายุการใช้งาน </p><br>
                       <div class="form-check">
-                        <input class="form-check-input radio_buttons optional" type="radio" value="<%= plan.id %>" <%='checked' if plan.package_name=='annual fee' %> name="school[licenses_attributes][0][plan_id]" id="school_licenses_attributes_0_plan_id_<%=plan.id %>">
-                        <label class="collection_radio_buttons" for="school_licenses_attributes_0_plan_id_<%= plan.id %>">Select</label>
+                        <input class="form-check-input radio_buttons optional" type="radio" value="<%= plan.id %>" <%='checked' if plan.frequency=='yearly' %> name="school[plan_id]" id="school_plan_id_<%=plan.id %>">
+                        <label class="collection_radio_buttons" for="school_plan_id_<%=plan.id %>">Select</label>
                       </div>
                     </div>
                   </div>

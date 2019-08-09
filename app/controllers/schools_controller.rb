@@ -5,7 +5,6 @@ class SchoolsController < ApplicationController
       @school.users.build
       @school.school_settings.build
       @school.build_bil_info
-      @school.licenses.build
       @plans = Plan.all.order(id: 'asc')
     end
   
@@ -54,9 +53,9 @@ class SchoolsController < ApplicationController
         :subdomain_name,
         :branch,
         :logo,
+        :plan_id,
         [{ school_settings_attributes: [:id, :school_year, :semesters ] }],
         [{ users_attributes: [:id, :full_name, :email, :password ] }],
-        [{ licenses_attributes: [:plan_id ]}],
         [{ bil_info_attributes: [ :name, :address, :district, :province, :zip_code, :phone, :tax_id, :branch ] }]
       )
     end
