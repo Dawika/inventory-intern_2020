@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190726094156) do
+ActiveRecord::Schema.define(version: 20190813055518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -791,6 +791,7 @@ ActiveRecord::Schema.define(version: 20190726094156) do
     t.boolean "enable_quotation",                     default: false
     t.boolean "export_kbank_payroll",                 default: false
     t.string  "bank_account"
+    t.boolean "enable_scout",                         default: false
   end
 
   create_table "skills", force: :cascade do |t|
