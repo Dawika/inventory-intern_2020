@@ -987,11 +987,7 @@ th:
   learn_ability: "Learn Ability"
   attention: "Attention"
   interest: "สิ่งที่สนใจ"
-
   picture: "รูปภาพ"
-  candidate_files: "ไฟล์แนบ"
-  new_create: "สร้างผู้ใช้ใหม่"
-  CreateNewCandidate: "Create New Candidate"
   resumetranscriptPDF: "Resume/Transcript (PDF)"
   +file: "+ ไฟล์"
   programing_skill: "Programing Skill"

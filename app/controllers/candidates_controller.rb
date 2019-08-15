@@ -81,21 +81,6 @@ class CandidatesController < ApplicationController
     @candidate.update(shortlist: params[:shortlist] == "true")
   end
   
-  def edit
-    @candidate = Candidate.find(params[:id])
-    render json: @candidate.as_json('joins-table'), status: :ok
-  end
-  
-  def update_candidate
-    @candidate = Candidate.find_by(id: params[:id])
-    @candidate.update(candidate_params)
-  end
-
-  def upload_photo
-    @candidate = Candidate.find_by(id: params[:id])
-    @candidate.update(image: upload_photo_params[:file])
-  end
-
   private
 
   def candidate_params
