@@ -24,7 +24,7 @@
                       <p>ใช้งานแบบออนไลน์ผ่านทาง สมศรี Cloud สามารถเข้าถึงได้จากทั้งที่โรงเรียนและที่บ้าน ข้อมูลไม่สูญหาย ระบบ backup ให้ อัตโนมัติ รับประกันตลอดอายุการใช้งาน </p><br>
                       <div class="form-check">
                         <input class="form-check-input radio_buttons optional" type="radio" value="<%= plan.id %>" <%='checked' if plan.frequency=='yearly' %> name="school[plan_id]" id="school_plan_id_<%=plan.id %>">
-                        <label class="collection_radio_buttons" for="school_plan_id_<%=plan.id %>">Select</label>
+                          <label class="collection_radio_buttons" for="school_plan_id_<%=plan.id %>">Select</label>
                       </div>
                     </div>
                   </div>
@@ -57,7 +57,7 @@
                       <%= t('.pay detail')%>
                     </h3>
                     <%= bil_form.hidden_field :check, value: 'false' %>
-                    <%= bil_form.hidden_field :payment_method, value: 'transfer money' %>
+                      <%= bil_form.hidden_field :payment_method, value: 'transfer money' %>
                   </div>
                 </div>
                 <div id="credit" class="tab-pane fade"><br>
@@ -70,9 +70,9 @@
                   <div class="row">
                     <div class="col-md-7">
                       <%= bil_form.hidden_field :check, value: 'true', disabled: true %>
-                      <%= hidden_field_tag :omise_token %>
-                      <%= bil_form.input :payment_method, as: :hidden, input_html: { id: 'school_bil_info_payment_method', class: 'plan-select required', value: 'credit' }, required: true, disabled: true %>
-                      <%= bil_form.input :cardholder_name, input_html: { id: 'school_bil_info_cardholder_name', class: 'plan-select', data: {omise: 'holder_name'} }, required: true, disabled: true%>
+                        <%= hidden_field_tag :omise_token %>
+                          <%= bil_form.input :payment_method, as: :hidden, input_html: { id: 'school_bil_info_payment_method', class: 'plan-select required', value: 'credit' }, required: true, disabled: true %>
+                            <%= bil_form.input :cardholder_name, input_html: { id: 'school_bil_info_cardholder_name', class: 'plan-select', data: {omise: 'holder_name'} }, required: true, disabled: true%>
                     </div>
                   </div>
                   <div class="row">
@@ -95,64 +95,6 @@
             </div>
           </div>
         </div>
-        <script src="https://cdn.omise.co/omise.js"></script>
-        <script>
-          // 4242424242424242 Number for test 
-          Omise.setPublicKey("<%= Figaro.env.OMISE_PUPLIC_KEY %>");
-          $("#new_school").submit(function() {
-            var form = $(this);
-            if ($("#credit input").prop('disabled')) {
-
-            } else {
-              // Disable the submit button to avoid repeated click.
-              form.find("input[type=submit]").prop("disabled", true);
-
-              // Serialize the form fields into a valid card object.
-              var card = {
-                "name": form.find("[data-omise=holder_name]").val(),
-                "number": form.find("[data-omise=number]").val(),
-                "expiration_month": form.find("[data-omise=expiration_month]").val(),
-                "expiration_year": form.find("[data-omise=expiration_year]").val(),
-                "security_code": form.find("[data-omise=security_code]").val()
-              };
-
-              // Send a request to create a token then trigger the callback function once
-              // a response is received from Omise.
-              //
-              // Note that the response could be an error and this needs to be handled within
-              // the callback.
-              Omise.createToken("card", card, function(statusCode, response) {
-                if (response.object == "error") {
-                  // Display an error message.
-                  var message_text = "SET YOUR SECURITY CODE CHECK FAILED MESSAGE";
-                  if (response.object == "error") {
-                    message_text = response.message;
-                  }
-                  $("#token_errors").html('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + message_text + '</div>');
-                  $('#myModal').modal('hide');
-
-                  // Re-enable the submit button.
-                  form.find("input[type=submit]").prop("disabled", false);
-                } else {
-                  // Then fill the omise_token.
-                  form.find("[name=omise_token]").val(response.id);
-
-                  // Remove card number from form before submiting to server.
-                  form.find("[data-omise=number]").val("");
-                  form.find("[data-omise=security_code]").val("");
-
-                  // submit token to server.
-                  form.get(0).submit();
-                };
-              });
-
-
-              // Prevent the form from being submitted;
-              return false;
-            }
-
-          });
-        </script>
         <div class="col-md-1">
         </div>
         <div class="col-md-5 layout2">
@@ -218,3 +160,62 @@
     </div>
     </div>
   </div>
+
+  <script src="https://cdn.omise.co/omise.js"></script>
+  <script>
+    // 4242424242424242 Number for test 
+    Omise.setPublicKey("<%= Figaro.env.OMISE_PUPLIC_KEY %>");
+    $("#new_school").submit(function() {
+      var form = $(this);
+      if ($("#credit input").prop('disabled')) {
+
+      } else {
+        // Disable the submit button to avoid repeated click.
+        form.find("input[type=submit]").prop("disabled", true);
+
+        // Serialize the form fields into a valid card object.
+        var card = {
+          "name": form.find("[data-omise=holder_name]").val(),
+          "number": form.find("[data-omise=number]").val(),
+          "expiration_month": form.find("[data-omise=expiration_month]").val(),
+          "expiration_year": form.find("[data-omise=expiration_year]").val(),
+          "security_code": form.find("[data-omise=security_code]").val()
+        };
+
+        // Send a request to create a token then trigger the callback function once
+        // a response is received from Omise.
+        //
+        // Note that the response could be an error and this needs to be handled within
+        // the callback.
+        Omise.createToken("card", card, function(statusCode, response) {
+          if (response.object == "error") {
+            // Display an error message.
+            var message_text = "SET YOUR SECURITY CODE CHECK FAILED MESSAGE";
+            if (response.object == "error") {
+              message_text = response.message;
+            }
+            $("#token_errors").html('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + message_text + '</div>');
+            $('#myModal').modal('hide');
+
+            // Re-enable the submit button.
+            form.find("input[type=submit]").prop("disabled", false);
+          } else {
+            // Then fill the omise_token.
+            form.find("[name=omise_token]").val(response.id);
+
+            // Remove card number from form before submiting to server.
+            form.find("[data-omise=number]").val("");
+            form.find("[data-omise=security_code]").val("");
+
+            // submit token to server.
+            form.get(0).submit();
+          };
+        });
+
+
+        // Prevent the form from being submitted;
+        return false;
+      }
+
+    });
+  </script>
