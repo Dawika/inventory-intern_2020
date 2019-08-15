@@ -57,7 +57,7 @@
                       <%= t('.pay detail')%>
                     </h3>
                     <%= bil_form.hidden_field :check, value: 'false' %>
-                      <%= bil_form.hidden_field :payment_method, value: 'transfer money' %>
+                    <%= bil_form.hidden_field :payment_method, value: 'transfer money' %>
                   </div>
                 </div>
                 <div id="credit" class="tab-pane fade"><br>
@@ -70,9 +70,9 @@
                   <div class="row">
                     <div class="col-md-7">
                       <%= bil_form.hidden_field :check, value: 'true', disabled: true %>
-                        <%= hidden_field_tag :omise_token %>
-                          <%= bil_form.input :payment_method, as: :hidden, input_html: { id: 'school_bil_info_payment_method', class: 'plan-select required', value: 'credit' }, required: true, disabled: true %>
-                            <%= bil_form.input :cardholder_name, input_html: { id: 'school_bil_info_cardholder_name', class: 'plan-select', data: {omise: 'holder_name'} }, required: true, disabled: true%>
+                      <%= hidden_field_tag :omise_token %>
+                      <%= bil_form.input :payment_method, as: :hidden, input_html: { id: 'school_bil_info_payment_method', class: 'plan-select required', value: 'credit' }, required: true, disabled: true %>
+                      <%= bil_form.input :cardholder_name, input_html: { id: 'school_bil_info_cardholder_name', class: 'plan-select', data: {omise: 'holder_name'} }, required: true, disabled: true%>
                     </div>
                   </div>
                   <div class="row">
@@ -146,7 +146,7 @@
                 </div>
               </div>
             </div>
-            <% end %>
+          <% end %>
           </div>
         </div>
       </div>
@@ -155,7 +155,7 @@
       <div class="col-xs-8"></div>
       <div class="col-xs-4">
         <%= button_tag "create", type: 'button', class: 'btn btn-getStarted animated fadeInDown', id: 'modal' , disabled: true%>
-          <%= button_tag "skip", type: 'button', class: 'btn btn-getStarted animated fadeInDown btn-gray' ,id: 'modal-skip'%>
+        <%= button_tag "skip", type: 'button', class: 'btn btn-getStarted animated fadeInDown btn-gray' ,id: 'modal-skip'%>
       </div>
     </div>
     </div>
@@ -211,11 +211,8 @@
             form.get(0).submit();
           };
         });
-
-
         // Prevent the form from being submitted;
         return false;
       }
-
     });
   </script>
