@@ -9,6 +9,7 @@ class SchoolsController < ApplicationController
     end
   
     def create
+      ActiveRecord::Base.transaction do
       if params[:commit] == "เรื่มต้นใช้งาน"       
         @school = School.new(school_params)
         if @school.save(validate: false)
@@ -21,7 +22,17 @@ class SchoolsController < ApplicationController
         end
       else      
         @school = School.new(school_params)
-        if @school.save!
+        # 4242424242424242 <= credit card number for testing
+        token = params[:omise_token]
+        if token.present?
+          @customer = Omise::Customer.create({
+            email: @school.email,
+            description: "#{@school.name_eng} (id: #{@school.id})",
+            card: token
+          })
+          @school.customer_id = @customer.id
+        end
+        if @school.save(validate: false)
           SchoolMailer.school_notification(@school).deliver
           user = @school.users.first
           user.add_role('admin')
@@ -30,6 +41,7 @@ class SchoolsController < ApplicationController
           redirect_to new_school_path
         end        
       end
+     end
     end
 
     def update
