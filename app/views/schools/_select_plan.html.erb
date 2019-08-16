@@ -1,4 +1,4 @@
-<div class="container plan" id="formplan">
+<div class="container plan" id="formplans">
   <div class="select-plan">
     <div class="row">
       <h1 class="font-slyte">Select Plan</h1>
@@ -95,9 +95,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-1">
-        </div>
-        <div class="col-md-5 layout2">
+        <div class="col-md-5 layout2  pull-right">
           <div class="row">
             <h3 class="font-style">
               <%=t('.Billing info') %>
@@ -152,8 +150,7 @@
       </div>
     </section>
     <div class="row">
-      <div class="col-xs-8"></div>
-      <div class="col-xs-4">
+      <div class="col-xs-4  pull-right">
         <%= button_tag "create", type: 'button', class: 'btn btn-getStarted animated fadeInDown', id: 'modal' , disabled: true%>
         <%= button_tag "skip", type: 'button', class: 'btn btn-getStarted animated fadeInDown btn-gray' ,id: 'modal-skip'%>
       </div>
