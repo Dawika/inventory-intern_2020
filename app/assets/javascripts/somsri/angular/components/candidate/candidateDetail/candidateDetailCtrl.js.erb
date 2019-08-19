@@ -42,15 +42,12 @@
       ctrl.changStatus = function(check){
         if(check){
           ctrl.buttonIcon = "far fa-star color-yellow";
-          ctrl.datas.candidate.shortlist = false;
         }
         else{
           ctrl.buttonIcon = "fas fa-star color-yellow";
-          ctrl.datas.candidate.shortlist = true;
         }
-        candidateDetailService.updateShortlist($state.params.id, ctrl.datas.candidate.shortlist).then(function(resp){
-
-        });
+         ctrl.datas.candidate.shortlist = !check;
+        candidateDetailService.updateShortlist($state.params.id, ctrl.datas.candidate.shortlist)
       }
       
       ctrl.toEdit = function() {
@@ -87,11 +84,10 @@
       });
     }
   
-
     ctrl.removeCandidate = function(id){
       openConfirmationModal(translateFilter('confirmdelete'), function(){
         service.removeCandidate(id).then(function(resp) {
-           window.location.href = "/somsri#/candidate";
+           ctrl.back();
         });
       })
     } 
@@ -161,10 +157,8 @@
           ctrl.notSubmited = resp.result.evaluate_is_not_submit;
           ctrl.allSubmit = ctrl.submited.length + ctrl.notSubmited.length;
         }
-      });
-      
+      });  
     }
-
 
   }]);
 })();

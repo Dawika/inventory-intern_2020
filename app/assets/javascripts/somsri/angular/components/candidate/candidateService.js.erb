@@ -1,26 +1,25 @@
 (function() {
   'use strict';
-
   angular.module('somsri.somsri.candidate.service', [])
   .service('candidateService', ['$http', 'Upload', function($http, Upload) {
 
-  this.new = function(){
-    return $http.get('/candidates/new').then(function(resp) {
-      return resp.data
-    });
-  }
+    this.new = function(){
+      return $http.get('/candidates/new').then(function(resp) {
+        return resp.data
+      });
+    }
 
-  this.saveCandidate = function(params){
-    return Upload.upload({
-      url: '/candidates/',
-      method: 'POST',
-      data: params
-    })
-  }
+    this.saveCandidate = function(params){
+      return Upload.upload({
+        url: '/candidates/',
+        method: 'POST',
+        data: params
+      })
+    }
 
-  this.removeCandidate = function(id) {
-    return $http.delete('/candidates/' + id)
-  }
+    this.removeCandidate = function(id) {
+      return $http.delete('/candidates/' + id)
+    }
 
   }]);
 })();

@@ -24,7 +24,7 @@
         }
       }
 
-      ctrl.optionsDoughnut = {
+      ctrconl.optionsDoughnut = {
         legend: { 
           display: true 
         }
@@ -154,16 +154,9 @@
 
       });
 
-
       ctrl.selectTab = function(str) {
-        if (str) {
-          ctrl.hide = true
-          ctrl.hide2 = false
-        } else {
-          ctrl.hide = false
-          ctrl.hide2 = true
-
-        }
+        ctrl.hide = str
+        ctrl.hide2 = !str
       }
 
       ctrl.back = function(){

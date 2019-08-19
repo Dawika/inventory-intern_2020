@@ -43,11 +43,7 @@ body {
   min-width: 300px !important;
 }
 
-.max-w-100 {
-  max-width: 100px !important;
-}
-
-.max-w-960 {
+.max-w-md {
   max-width: 960px !important;
 }
 
@@ -966,8 +962,16 @@ ul.dropdown-menu.display-top {
   padding: 30px;
 }
 
+.panel-board-left {
+  background-color: #fff;
+  box-shadow: 0 5px 13px 0 rgba(0, 0, 0, 0.3);
+  padding: 30px;
+}
+
 .font-weight-bold{
   font-weight: 600;
+}
+input[type="file"] {
   display: none;
 }
 
@@ -2009,4 +2013,3 @@ tags-input .tags .tag-item .remove-button {
 .pb-0{
   padding-bottom: 0px;
 }
-

@@ -26,7 +26,6 @@ class EvaluatesController < ApplicationController
      :compatibility, :note, :glad, :is_submit)
   end
 
-
   def show_conclusion
     candidate = Candidate.find(params[:id]).as_json('evaluates')
 
@@ -53,8 +52,6 @@ class EvaluatesController < ApplicationController
       InterviewMailer.evaluate_notification(@interview, url, interviewer_email.email).deliver
     end
   end
-
-  
 
   private
 
