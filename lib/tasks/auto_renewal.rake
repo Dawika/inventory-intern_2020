@@ -24,7 +24,7 @@ namespace :auto_renewal do
       now = DateTime.now.utc
       renewal_schools = 0
       error = 0
-      School.where(plan: [Plan.monthly,Plan.yearly], auto_subscribe: true).each do |school|
+      School.where(auto_subscribe: true).where.not(plan: nil).each do |school|
         active_license = school.active_license
         if school.present?
           next if active_license.blank?
