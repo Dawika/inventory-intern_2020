@@ -35,9 +35,10 @@ namespace :auto_renewal do
           charge = Omise::Charge.create({
             amount: next_plan.price * 100,
             currency: "THB",
-            description: 'Auto Renew',
+            description: "Automatic #{next_plan.package_name} renewal for the price of #{next_plan.price} Bath",
             customer: customer.id
           })
+
           new_license = License.create(
             plan_id: next_plan.id, expired_date: nil,
             charge_id: charge.id, school_id: school.id

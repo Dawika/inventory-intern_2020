@@ -20,7 +20,7 @@ class School < ApplicationRecord
   after_create :create_license
 
   def create_license
-      self.licenses.create(expired_date: Time.zone.now + 3.month)
+      self.licenses.create(expired_date: DateTime.now.utc + 3.month)
   end
 
   def customer_info #info credit card

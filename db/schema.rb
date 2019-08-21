@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190820075356) do
+ActiveRecord::Schema.define(version: 20190821034214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,9 +56,7 @@ ActiveRecord::Schema.define(version: 20190820075356) do
     t.string  "phone"
     t.string  "tax_id"
     t.string  "branch"
-    t.integer "license_id"
     t.integer "school_id"
-    t.index ["license_id"], name: "index_bil_infos_on_license_id", using: :btree
     t.index ["school_id"], name: "index_bil_infos_on_school_id", using: :btree
   end
 
@@ -401,9 +399,7 @@ ActiveRecord::Schema.define(version: 20190820075356) do
     t.datetime "updated_at",                            null: false
     t.integer  "school_id"
     t.integer  "plan_id"
-    t.datetime "getting_start"
     t.datetime "expired_date"
-    t.boolean  "status",                default: false
     t.boolean  "renewal_reminder_sent", default: false
     t.string   "charge_id"
     t.index ["plan_id"], name: "index_licenses_on_plan_id", using: :btree
@@ -702,7 +698,6 @@ ActiveRecord::Schema.define(version: 20190820075356) do
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
   end
 
-  add_foreign_key "bil_infos", "licenses"
   add_foreign_key "bil_infos", "schools"
   add_foreign_key "charge_infos", "licenses"
   add_foreign_key "class_permisions", "lists"
