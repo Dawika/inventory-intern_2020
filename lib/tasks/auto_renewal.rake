@@ -8,6 +8,7 @@ namespace :auto_renewal do
         active_license = school.active_license
         if active_license.present?
           next if active_license.renewal_reminder_sent
+          next if active_license.expired_date.blank?
           next unless (active_license.expired_date - 2.day).to_date <= today
           ap "Sending license renewal reminder to : #{school.email}..."
           renewal_schools += 1
@@ -15,6 +16,49 @@ namespace :auto_renewal do
           active_license.save
         end
       end
-      puts "Renewal reminder email sent to #{renewal_schools} schools."
+      ap "Renewal reminder email sent to #{renewal_schools} schools."
     end
-end
+
+    task :renew_licenses => :environment do |task, args|
+
+      now = DateTime.now.utc
+      renewal_schools = 0
+      error = 0
+      School.where(auto_subscribe: true).where.not(plan: nil).each do |school|
+        active_license = school.active_license
+        if school.present?
+          next if active_license.blank?
+          next if active_license.expired_date.blank?
+          next unless active_license.expired_date <= now
+          next_plan = school.plan
+          customer = school.customer_info
+          charge = Omise::Charge.create({
+            amount: next_plan.price * 100,
+            currency: "THB",
+            description: "Automatic #{next_plan.package_name} renewal for the price of #{next_plan.price} Bath",
+            customer: customer.id
+          })
+
+          new_license = License.create(
+            plan_id: next_plan.id, expired_date: nil,
+            charge_id: charge.id, school_id: school.id
+          )
+          new_license.fetch_charge_info
+
+          if charge.captured
+            new_date_expire = next_plan.monthly? ? DateTime.now.utc+1.month : DateTime.now.utc+1.year
+            new_license.update(expired_date: new_date_expire)
+            ap "sent email #{school.email} ..."
+            renewal_schools += 1
+          else
+            ap "ERROR ! #{charge.failure_message} ( #{charge.failure_code} )"
+            error += 1
+          end
+        end
+      end
+      ap 'Done !'
+      ap "Renew successfully total : #{renewal_schools}"
+      ap "Cannot be renewed total : #{error}"
+    end
+
+  end
