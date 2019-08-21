@@ -28,6 +28,8 @@ gem 'devise'
 
 gem 'omise'
 
+gem 'whenever', require: false
+
 gem 'cancancan'
 
 gem 'font-awesome-rails'

@@ -19,9 +19,18 @@ class School < ApplicationRecord
   validates :subdomain_name, presence: true, allow_blank: false, uniqueness: true
   after_create :create_license
 
-
   def create_license
       self.licenses.create(expired_date: Time.zone.now + 3.month)
+  end
+
+  def customer_info #info credit card
+    return nil if self.customer_id.blank?
+
+    (Omise::Customer.retrieve(self.customer_id) rescue nil)
+  end
+
+  def active_license
+      licenses.first
   end
 
   def logo_url

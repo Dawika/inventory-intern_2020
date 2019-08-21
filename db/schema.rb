@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190814034731) do
+ActiveRecord::Schema.define(version: 20190819094549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -397,13 +397,14 @@ ActiveRecord::Schema.define(version: 20190814034731) do
   end
 
   create_table "licenses", force: :cascade do |t|
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.integer  "school_id"
     t.integer  "plan_id"
     t.datetime "getting_start"
     t.datetime "expired_date"
-    t.boolean  "status",        default: false
+    t.boolean  "status",                default: false
+    t.boolean  "renewal_reminder_sent", default: false
     t.index ["plan_id"], name: "index_licenses_on_plan_id", using: :btree
     t.index ["school_id"], name: "index_licenses_on_school_id", using: :btree
   end
@@ -527,9 +528,9 @@ ActiveRecord::Schema.define(version: 20190814034731) do
   end
 
   create_table "schools", force: :cascade do |t|
-    t.string   "name",                default: "", null: false
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.string   "name",                default: "",   null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "tax_id"
     t.string   "address"
     t.string   "zip_code"
@@ -550,6 +551,7 @@ ActiveRecord::Schema.define(version: 20190814034731) do
     t.string   "branch"
     t.integer  "plan_id"
     t.string   "customer_id"
+    t.boolean  "auto_subscribe",      default: true
     t.index ["plan_id"], name: "index_schools_on_plan_id", using: :btree
   end
 
