@@ -11,6 +11,7 @@ namespace :auto_renewal do
           next if active_license.expired_date.blank?
           next unless (active_license.expired_date - 2.day).to_date <= today
           ap "Sending license renewal reminder to : #{school.email}..."
+          SchoolMailer.license_renewal_reminder(school).deliver
           renewal_schools += 1
           active_license.renewal_reminder_sent = true
           active_license.save
@@ -49,10 +50,12 @@ namespace :auto_renewal do
           if charge.captured
             new_date_expire = next_plan.monthly? ? DateTime.now.utc+1.month : DateTime.now.utc+1.year
             new_license.update(expired_date: new_date_expire)
-            ap "sent email #{school.email} ..."
+            ap "sent email #{school.email} Success ..."
+            SchoolMailer.renew_license_success(school).deliver
             renewal_schools += 1
           else
-            ap "ERROR ! #{charge.failure_message} ( #{charge.failure_code} )"
+            ap "Send email #{school.email} ERROR ! #{charge.failure_message} ( #{charge.failure_code} )"
+            SchoolMailer.renew_license_error(school).deliver
             error += 1
           end
         end
