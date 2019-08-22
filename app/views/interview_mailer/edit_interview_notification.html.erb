@@ -1,0 +1,157 @@
+
+<div class="container text-center align-self-stretch mt-125">
+  <div class="content-scout p-0 m-0 border-radius border-1 border-width-thin">
+
+    <div class="row mb-30">
+      <h1 class="py-10 color-black">สวัสดีค่ะ</h1>  
+      <p>เนื่องจากกำหนดการ การสัมภาษณ์ของ <span style="color: #FFAB04"><%= @interview.candidate.full_name %></span> ได้ถูกแก้ไข</p>
+      <p>เป็นวันที่ <%= @interview.date.strftime("%d/%m/%Y") %> เวลา <%= @interview.date.strftime("%H:%M") %> ที่ <%= @interview.location %></p>
+      <p>ทางเราจึงขอให้เตรียมพร้อมสำหรับเวลานัดหมายอันใหม่ด้วย</p>
+      <p class="row mt-30">ขอบคุณค่ะ</p>
+      <p>HR @BananaCoding</p>
+    </div>
+  </div>
+</div>
+
+<div style="padding: 0px 15px">
+  <div style="margin-bottom: 5px">
+    <span style="font-weight: 600;">Name :</span><span style="padding-left: 10px;"><%=@interview.candidate.full_name%></span>
+  </div>
+  <div>
+    <span style="font-weight: 600;">Email :</span><span style="padding-left: 10px;"><%=@interview.candidate.email%></span>
+  </div>
+  <div>
+    <span style="font-weight: 600;">Interview date :</span><span style="padding-left: 10px;"><%=@interview.date.strftime("%d/%m/%Y  %H:%M")%></span>
+  </div>
+  <div>
+    <span style="font-weight: 600;">Phone Number :</span><span style="padding-left: 10px;"><%=@interview.candidate.phone%></span>
+  </div>
+  <div>
+    <span style="font-weight: 600;">From :</span><span style="padding-left: 10px;"><%=@interview.candidate.from%></span>
+  </div>
+  <div>
+    <span style="font-weight: 600;">Year :</span><span style="padding-left: 10px;"><%=@interview.candidate.school_year%></span>
+  </div>
+  <div>
+    <span style="font-weight: 600;">Interest :</span><span style="padding-left: 10px;"><%=@interview.candidate.interest%></span>
+  </div>
+  <div>
+    <div style="display: inline-block; width: 120px;">
+      Current Ability
+    </div>
+    <div style="display: inline-block">
+      <div style="width: 300px; height: 10px; background-color: #D9D9D9;">
+        <div style="height: 10px; background-color: #7ED321; width: <%=@interview.candidate.current_ability*15 %>px">
+        </div>
+      </div>
+    </div>
+    <div style="display: inline-block">
+      (<%=@interview.candidate.current_ability %>/20)
+    </div>
+  </div>
+  <div>
+    <div style="display: inline-block; width: 120px;">
+      Learn Ability
+    </div>
+    <div style="display: inline-block">
+      <div style="width: 300px; height: 10px; background-color: #D9D9D9;">
+        <div style="height: 10px; background-color: #7ED321; width: <%=@interview.candidate.learn_ability*15 %>px">
+        </div>
+      </div>
+    </div>
+    <div style="display: inline-block">
+      (<%=@interview.candidate.learn_ability %>/20)
+    </div>
+  </div>
+  <div>
+    <div style="display: inline-block; width: 120px;">
+      Attention
+    </div>
+    <div style="display: inline-block">
+      <div style="width: 300px; height: 10px; background-color: #D9D9D9;">
+        <div style="height: 10px; background-color: #7ED321; width: <%=@interview.candidate.attention*15 %>px">
+        </div>
+      </div>
+    </div>
+    <div style="display: inline-block">
+      (<%=@interview.candidate.attention %>/20)
+    </div>
+  </div>
+  <div>
+    <div>
+      <p style="font-weight: 600;">Programming Skill</p>
+    </div>
+    <div>
+      <% @interview.candidate.programming_skills.each do |programming_skill|  %>
+      <div>
+        <div style="display: inline-block; width: 120px;">
+          <%= programming_skill.skill_name%>
+        </div>
+        <div style="display: inline-block">
+          <div style="width: 300px; height: 10px; background-color: #D9D9D9;">
+            <div style="height: 10px; background-color: #7ED321; width: <%=programming_skill.skill_point*15 %>px">
+            </div>
+          </div>
+        </div>
+        <div style="display: inline-block">
+          (<%=programming_skill.skill_point %>/20)
+        </div>
+      </div>
+      <%end%>
+    </div>
+  </div>
+  <div>
+    <div>
+      <p style="font-weight: 600;">Soft skill</p>
+    </div>
+    <div>
+      <% @interview.candidate.soft_skills.each do |soft_skill|  %>
+      <div>
+        <div style="display: inline-block; width: 120px;">
+          <%= soft_skill.skill_name%>
+        </div>
+        <div style="display: inline-block">
+          <div style="width: 300px; height: 10px; background-color: #D9D9D9;">
+            <div style="height: 10px; background-color: #7ED321; width: <%=soft_skill.skill_point*15 %>px">
+            </div>
+          </div>
+        </div>
+        <div style="display: inline-block">
+          (<%=soft_skill.skill_point %>/20)
+        </div>
+      </div>
+      <%end%>
+    </div>
+  </div>
+  <div>
+    <div>
+      <p style="font-weight: 600;">Design skill</p>
+    </div>
+    <div>
+      <% @interview.candidate.design_skills.each do |design_skill|  %>
+      <div>
+        <div style="display: inline-block; width: 120px;">
+          <%= design_skill.skill_name%>
+        </div>
+        <div style="display: inline-block">
+          <div style="width: 300px; height: 10px; background-color: #D9D9D9;">
+            <div style="height: 10px; background-color: #7ED321; width: <%=design_skill.skill_point*15 %>px">
+            </div>
+          </div>
+        </div>
+        <div style="display: inline-block">
+          (<%=design_skill.skill_point %>/20)
+        </div>
+      </div>
+      <%end%>
+    </div>
+  </div>
+  <div>
+    <div>
+     <p style="font-weight: 600;">Note</p>
+    </div>
+    <div>
+      <%=  @interview.candidate.note %>
+    </div>
+  </div> 
+</div>

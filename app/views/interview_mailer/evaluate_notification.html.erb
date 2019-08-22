@@ -1,0 +1,16 @@
+
+<div class="container text-center align-self-stretch mt-125">
+  <div class="content-scout p-0 m-0 border-radius border-1 border-width-thin">
+    <div class="row mb-30">
+      <h1 class="py-10 color-black">สวัสดีค่ะ</h1> 
+      <p>เนื่องจากคุณได้ทำหน้าที่ผู้สัมภาษณ์ให้กับ <span style="color: #FFAB04"><%= @interview.candidate.full_name %><span style="color: #FFAB04"></p>
+      <p>ในวันที่ <%= @interview.date.strftime("%d/%m/%Y") %> เวลา <%= @interview.date.strftime("%H:%M") %> ที่ <%= @interview.location %></p>
+      <p>ทางเราจึงขอให้ท่านกรอกแบบประเมินการสัมภาษณ์</p>
+      <p>ตามลิ้งด้านล่าง</p><br>
+      <a href="<%= @url %>"> <button type="button" style="background-color: #FFAB04; color: #fff; font-size: 16px; padding: 8px 40px; border: 1px solid #FFAB04 !important; border-radius: 5px; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);">กรอกแบบประเมิน</button></a><br><br>
+      <p class="row mt-10">ขอบคุณค่ะ</p>
+      <p>HR @BananaCoding</p>
+    </div>
+
+  </div>
+</div>

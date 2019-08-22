@@ -1,0 +1,230 @@
+
+<div class="container-fluid p-50">
+  <div class="row head-sp mb-20">
+    <p class="back-scout font-candidate color-blue-candidate"><span class="button-arrow cursor-pointer" ng-click="candidateDetail.back()"><i class="fas fa-arrow-left pd-l-10"></i></span>{{ 'candidate_informatiom'  | translate }}</p>
+  </div>
+  <div class="row paper-white container-fluid padding-30">
+    <div class="row mb-15">
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-md-2 padding-right0">
+            <img src="{{candidateDetail.datas.candidate.image_url}}" class="picture"> 
+          </div>
+          <div class="col-md-10">
+            <div class="row">
+              <div class="col-md-12">
+                <p class="name-candidate color-red" ng-if="candidateDetail.datas.candidate.deleted == true">
+                {{candidateDetail.datas.candidate.full_name_and_nick_name}} {{ 'was_delete'  | translate }}
+                 <i ng-hide="candidateDetail.datas.candidate.deleted" 
+                 ng-click="candidateDetail.changStatus(candidateDetail.datas.candidate.shortlist)" 
+                 ng-class="candidateDetail.buttonIcon"></i> 
+                </p>
+                <p class="name-candidate" ng-if="candidateDetail.datas.candidate.deleted == false">{{candidateDetail.datas.candidate.full_name_and_nick_name}} 
+                 <i 
+                 ng-click="candidateDetail.changStatus(candidateDetail.datas.candidate.shortlist)" 
+                 ng-class="candidateDetail.buttonIcon"></i> 
+                </p>
+              </div>
+            </div>
+            <div class="row mb-20 detail-candidate font-candidate">
+              <div class="col-md-2 text-right">
+                <label>{{ 'email'  | translate }}:</label>
+              </div>
+              <div class="col-md-3 break-word padding-left0">
+                <span class="color-blue-candidate">{{candidateDetail.datas.candidate.email}}</span>
+              </div>
+              <div class="col-md-2 text-right padding-left0" ng-show="candidateDetail.showInterviewDate">
+                <label>{{ 'interviewdate'  | translate }}:</label>
+              </div>
+              <div class="col-md-3 padding-left0" ng-show="candidateDetail.showInterviewDate">
+                <span class="color-blue-candidate cursor-pointer" ng-click="candidateDetail.openInterviewModal()">{{candidateDetail.datas.candidate.interview.date | date:"dd/MM/yyyy HH:mm"}}</span>
+              </div>
+            </div>
+            <div class="row mb-20 detail-candidate font-candidate">
+              <div class="col-md-2 text-right padding-left0">
+                <label>{{ 'phone_number'  | translate }}:</label>
+              </div>
+              <div class="col-md-4 padding-left0">
+                <span class="color-blue-candidate">{{candidateDetail.datas.candidate.phone}}</span>
+              </div>
+            </div>
+            <div class="row mb-20 detail-candidate font-candidate">
+              <div class="col-md-2 text-right">
+                <label>{{ 'from'  | translate }}:</label>
+              </div>
+              <div class="col-md-6 padding-left0">
+                <span class="color-blue-candidate">{{candidateDetail.datas.candidate.from}}</span>
+              </div>
+            </div>
+            <div class="row mb-20 detail-candidate font-candidate">
+              <div class="col-md-2 text-right">
+                <label>{{ 'school_year'  | translate }}:</label>
+              </div>
+              <div class="col-md-6 padding-left0">
+                 <span class="color-blue-candidate">{{candidateDetail.datas.candidate.school_year}}</span>
+              </div>
+            </div>
+            <div class="row mb-20 detail-candidate font-candidate">
+              <div class="col-md-2 text-right">
+                 <label>{{ 'interest'  | translate }}:</label>
+              </div>
+              <div class="col-md-6 padding-left0">
+                <span class="color-blue-candidate">{{candidateDetail.datas.candidate.interest}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2 px-0">
+        <div class="margin20">
+          <button type="button" ng-disabled="candidateDetail.datas.candidate.deleted" class="btn btn-custom color-blue-button w-100p px-0 py-10" ng-click="candidateDetail.openInterviewModal()" ng-hide="candidateDetail.showInterviewDate"><i class="fas fa-comment-dots m-5"></i>Interview</button>
+        </div>
+        <div class="margin20">
+          <button type="button" class="btn btn-submit-scout w-100p px-0" ng-disabled="candidateDetail.datas.candidate.deleted" ng-click="candidateDetail.toEdit()"><i class="fas fa-pen-square m-5"></i>Edit</button>
+        </div>
+        <div class="margin20">
+          <button type="button" ng-disabled="candidateDetail.datas.candidate.deleted" class="btn btn-cancel-scout w-100p px-0" ng-click="candidateDetail.removeCandidate(candidateDetail.datas.candidate.id)"><i class="fas fa-trash-alt m-5"></i>Delete</button> 
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 break-word">
+        <p class="heading-candidate">{{ 'resumetranscriptPDF' | translate }}</p>
+        <p ng-repeat="item in candidateDetail.datas.candidate.candidate_files_attributes">
+          <a ng-href="{{candidateDetail.datas.candidate.candidate_files_url[$index]}}" class="font-candidate detail-candidate" target="_blank">{{ item.files_file_name}}</a>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <div class="row detail-candidate font-candidate mb-15">
+          <div class="col-md-3 text-right">
+            <span>{{ 'current_ability' | translate }}</span>
+          </div>
+          <div class="col-md-4 mt-5">
+            <div class="progress progress-bar-skill">
+              <div class="progress-bar bar-skill" role="progressbar" style="width: {{candidateDetail.datas.candidate.current_ability * 5}}%;"></div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <span>({{candidateDetail.datas.candidate.current_ability}}/20)</span>
+          </div>
+        </div>
+        <div class="row detail-candidate font-candidate mb-15">
+          <div class="col-md-3 text-right">
+            <span>{{ 'learn_ability' | translate }}</span>
+          </div>
+          <div class="col-md-4 mt-5">
+            <div class="progress progress-bar-skill">
+              <div class="progress-bar bar-skill" role="progressbar" style="width: {{candidateDetail.datas.candidate.learn_ability * 5}}%;"></div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <span>({{candidateDetail.datas.candidate.learn_ability}}/20)</span>
+          </div>
+        </div>
+        <div class="row detail-candidate font-candidate">
+          <div class="col-md-3 text-right">
+            <span>{{ 'attention' | translate }}</span>
+          </div>
+          <div class="col-md-4 mt-5">
+            <div class="progress progress-bar-skill">
+              <div class="progress-bar bar-skill" role="progressbar" style="width: {{candidateDetail.datas.candidate.attention * 5}}%;"></div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <span>({{candidateDetail.datas.candidate.attention}}/20)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-6">
+            <h3 class="hr-2 heading-candidate color-blue-candidate mb-30">{{ 'programing_skill'  | translate }}</h3>
+            <div class="row detail-skill font-candidate mb-15" ng-repeat="item in candidateDetail.datas.candidate.programming_skills_attributes">
+              <div class="col-md-3 text-right break-word padding-right0">
+                <span>{{item.skill_name}}</span>
+              </div>
+              <div class="col-md-7 mt-5 padding-right0">
+                <div class="progress progress-bar-skill">
+                  <div class="progress-bar bar-skill" role="progressbar" style="width: {{item.skill_point * 5}}%;"></div>
+                </div>
+              </div>
+              <div class="col-md-2 padding-left0">
+                <span>({{item.skill_point}}/20)</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h3 class="hr-2 heading-candidate color-blue-candidate mb-30">{{ 'soft_skill'  | translate }}</h3>
+            <div class="row detail-skill font-candidate mb-15" ng-repeat="item in candidateDetail.datas.candidate.soft_skills_attributes">
+              <div class="col-md-3 text-right break-word padding-right0">
+                <span>{{item.skill_name}}</span>
+              </div>
+              <div class="col-md-7 mt-5 padding-right0">
+                <div class="progress progress-bar-skill">
+                  <div class="progress-bar bar-skill" role="progressbar" style="width: {{item.skill_point * 5}}%;"></div>
+                </div>
+              </div>
+              <div class="col-md-2 padding-left0">
+                <span>({{item.skill_point}}/20)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-6">
+            <h3 class="hr-2 heading-candidate color-blue-candidate mb-30">{{ 'design_skill'  | translate }}</h3>
+            <div class="row detail-skill font-candidate mb-15" ng-repeat="item in candidateDetail.datas.candidate.design_skills_attributes">
+              <div class="col-md-3 text-right break-word padding-right0">
+                <span>{{item.skill_name}}</span>
+              </div>
+              <div class="col-md-7 mt-5 padding-right0">
+                <div class="progress progress-bar-skill">
+                  <div class="progress-bar bar-skill" role="progressbar" style="width: {{item.skill_point * 5}}%;"></div>
+                </div>
+              </div>
+              <div class="col-md-2 padding-left0">
+                <span>({{item.skill_point}}/20)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-show="!candidateDetail.datas.candidate.interview.id && !candidateDetail.datas.candidate.evaluate" class="col-md-6">
+        <h3 class="hr-2 heading-candidate color-blue-candidate">{{ 'note'  | translate }}</h3>
+        <div class="note-cadidate">
+          {{candidateDetail.datas.candidate.note}}
+        </div>
+      </div>
+      <div ng-show="candidateDetail.datas.candidate.interview.id && !candidateDetail.datas.candidate.evaluate" class="col-md-6">
+        <h3 class="hr-2 heading-candidate color-blue-candidate">{{ 'interview_score'  | translate }}</h3>
+          <button type="button" class ="btn btn-interview-form" ng-click="candidateDetail.openSentEmailModal()">{{ 'distribute_evaluate_form'  | translate }}</button>
+      </div>
+      <div ng-show="candidateDetail.datas.candidate.evaluate" class="col-md-6">
+        <h3 class="hr-2 heading-candidate color-blue-candidate">{{ 'has_ans'  | translate }} {{candidateDetail.submited.length}} {{ 'of'  | translate }} {{candidateDetail.allSubmit}} {{ 'man'  | translate }}</h3>
+        <div class="col-md-12 pl-20">
+          <div ng-repeat="item in candidateDetail.submited">
+            <span class="heading-candidate font-18">{{item.email}}</span><span class="heading-candidate font-18 color-light-green ml-10">({{ 'ans_already'  | translate }})</span>
+          </div>
+          <div ng-repeat="item in candidateDetail.notSubmited">
+            <span class="heading-candidate font-18">{{item.email}}</span><span class="heading-candidate font-18 color-red ml-10">({{ 'ans_yet'  | translate }})</span>
+          </div>
+          <div class="mt-20" ng-show="candidateDetail.submited.length > 0">
+            <button type="button" class ="btn btn-interview-form" ng-click="candidateDetail.toConclusion()">{{ 'conclusionbtn'  | translate }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <h3 class="hr-2 heading-candidate color-blue-candidate">History Log</h3>
+        <h4 data-ng-repeat="(index, data) in candidateDetail.datas.candidate.versions">
+        {{candidateDetail.datas.candidate.versions[index].event}}  {{candidateDetail.datas.candidate.versions[index].object.full_name}}
+         by {{candidateDetail.datas.candidate.versions[index].user.first_name}} 
+         at {{candidateDetail.datas.candidate.versions[index].created_at | date:'dd/MM/yyyy HH:mm '}}
+         </h4>
+      </div>
+    </div>
+  </div>
+</div>

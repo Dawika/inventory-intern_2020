@@ -43,4 +43,5 @@ class HomeController < ApplicationController
     render json: employee and return if employee
     render json: { errors: "Invalid PIN" }, status: 422 and return
   end
+
 end

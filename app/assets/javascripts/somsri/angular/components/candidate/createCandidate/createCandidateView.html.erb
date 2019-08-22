@@ -1,0 +1,268 @@
+<div class="container-fluid blue-bg">
+  <div class="row-head-sp justify-content-between">
+     <i class="fas fa-arrow-left employee-view-icon.active" ng-click="createCandidate.cancelSubmit()"></i> &nbsp; {{ 'create_new_candidate' | translate }}
+  </div>
+  <%= javascript_include_tag 'preview_image' %>
+  <script src="https://kit.fontawesome.com/1ffa964d13.js"></script>
+
+  <div class="content-scout padding-15">
+  <form name="createCandidateForm" ng-submit="createCandidate.submit(createCandidate.datas)">
+    <!-- Profile Img/ From / Btn -->
+    <div class="row">
+    
+      <!-- Profile Img -->
+      <div class="col-md-2 paddingl-20">
+        <div class="row margin-0">
+          <label>{{ 'picture' | translate }}</label>
+        </div>
+
+        <div class="row margin-0">
+          <div class="img-profile cursor-pointer" id="image" ngf-select="createCandidate.showImage($event, 'pic')">
+          <img src="{{ createCandidate.datas.candidate.image_url }}" id="pic" class="picture"></div>
+        </div>
+        <!-- MultipleFiles -->
+        <div class="space20"></div>
+        <div class="row margin-0 paddingt-25">
+          <label>{{ 'resumetranscriptPDF' | translate }}</label>
+          <button type="button" class="btn btn-skill" ng-click="createCandidate.addFile()">{{ '+file'  | translate }}</button>
+          <div ng-repeat="item in createCandidate.datas.candidate.candidate_files_attributes" ng-hide="item._destroy">
+            <div class="row margin-0 padding-5">
+              <a ng-show="!item.files_file_name.name" target="_blank" href="{{ createCandidate.datas.candidate.candidate_files_url[$index] }}">{{ item.files_file_name }}</a>
+            </div>
+            <div class="col-md-11 margin-0 padding-0"> 
+              <div class="btn rectangle text-overflow" ngf-select="createCandidate.onFileChange($index, $event)" ng-model="item.files_file_name" name="file"><i class="fas fa-file-upload"><span ng-hide="!item.files_file_name.name"> {{ item.files.name }}</span></i></div>   
+            </div>
+            <div class="col-md-1 padding-0 margint-5">
+              <button type="button" class="close" aria-label="Close" ng-click="createCandidate.removeCandidateFiles($index)"><span aria-hidden="true">&times;</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- From info -->
+      <div class="col-md-5">
+      
+        <!-- Name/NickName -->
+        <div class="row">
+          <div class="col-md-8 paddinglr-0" >
+            <div class="form-group">
+              <label>{{ 'full_name' | translate }}</label>
+              <div class="col-md-12">
+                <input type="text" class="form-control text-blue" id="full_name" ng-change="createCandidate.isNotBlank()" ng-model="createCandidate.datas.candidate.full_name">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 paddinglr-0" >
+            <div class="form-group">
+              <label>{{ 'nickname'  | translate }}</label>
+              <div class="col-md-12">
+                <input type="text" class="form-control text-blue" id="nick_name" ng-keyup="createCandidate.isNotBlank()" ng-model="createCandidate.datas.candidate.nick_name">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Email/Mobile -->
+        <div class="row">
+          <div class="col-md-8 paddinglr-0" >
+              <div class="form-group">
+                <label>{{ 'email'  | translate }}</label>
+                <div class="col-md-12">
+                  <input type="text" class="form-control text-blue" id="email" ng-change="createCandidate.isNotBlank()" ng-model="createCandidate.datas.candidate.email">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 paddinglr-0" >
+              <div class="form-group">
+                <label>{{ 'phone_number'  | translate }}</label>
+                <div class="col-md-12">
+                  <input type="text" class="form-control text-blue" id="phone" ng-keyup="createCandidate.isNotBlank()" ng-model="createCandidate.datas.candidate.phone">
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- From/Year -->
+        <div class="row">
+          <div class="col-md-8 paddinglr-0" >
+            <div class="form-group">
+              <label>{{ 'from'  | translate }}</label>
+              <div class="col-md-12">
+                <input type="text" class="form-control text-blue" id="from" ng-change="createCandidate.isNotBlank()" ng-model="createCandidate.datas.candidate.from">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 paddinglr-0" >
+            <div class="form-group">
+              <label>{{ 'school_year'  | translate }}</label>
+              <div class="col-md-12">
+                <input type="text" class="form-control text-blue" id="school_year" ng-change="createCandidate.isNotBlank()" ng-model="createCandidate.datas.candidate.school_year">
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Current Ability/Learn Ability/Attention Ability -->
+        <div class="row">
+          <div class="col-md-4 paddinglr-0" >
+            <div class="form-group">
+              <label>{{ 'current_ability'  | translate }}</label>
+              <div class="col-md-12 paddinglr-0" >
+                <select class="form-control text-blue somsri-select" id="current_ability" ng-options='point as point for point in createCandidate.points' ng-model="createCandidate.datas.candidate.current_ability">
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 paddinglr-0" >
+            <div class="form-group">
+              <label>{{ 'learn_ability'  | translate }}</label>
+              <div class="col-md-12 paddinglr-0" >
+                <select class="form-control text-blue somsri-select" id="learn_ability" ng-options='point as point for point in createCandidate.points' ng-model="createCandidate.datas.candidate.learn_ability">
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 paddinglr-0">
+            <div class="form-group">
+              <label>{{ 'attention'  | translate }}</label>
+              <div class="col-md-12 paddinglr-0">
+                <select class="form-control text-blue somsri-select" id="attention" 
+                        ng-model="createCandidate.datas.candidate.attention"
+                        ng-options='point as point for point in createCandidate.points'>
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Interest -->
+        <div class="row">
+          <div class="col-md-8 paddinglr-0">
+            <div class="form-group">
+              <label>{{ 'interest'  | translate }}</label>
+              <div class="col-md-12 paddinglr-0">
+                <input type="text" class="form-control text-blue" id="interest" ng-model="createCandidate.datas.candidate.interest">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Btn -->
+      <div class="col-md-5">
+        <div class="form-group somsri-invoice Btn-group">
+          <button type="submit" class ="btn btn-submit-scout" ng-disabled="createCandidate.cannotSubmit"><i class="fas fa-file-import"></i>&nbsp;{{ 'create' | translate }}</button><br><br>
+          <button type="button" class ="btn btn-cancel-scout" ng-disabled="createCandidate.cannotCancel" ng-click="createCandidate.cancelSubmit()"><i class="fas fa-trash-alt"></i>&nbsp;{{ 'cancel' | translate }}</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skill / Note -->
+    <div class="row paddingt-35">
+
+      <!-- Skill -->
+      <div class="col-md-7">
+        <div class="row margin-0">
+
+          <!--ProgramSkill -->
+          <div class="col-md-6">  
+            <div class="form-group margin-0 paddingl-20">
+              <div class="row-head margin-0 hr-1">
+                {{ 'programing_skill'  | translate }}
+              </div>
+              <div class="row margin-0 paddingt-25"> 
+                <div class="form-group margin-0" >
+                  <div ng-repeat="item in createCandidate.datas.candidate.programming_skills_attributes" ng-hide="item._destroy"> 
+                    <div class="col-md-8 padding-5">
+                      <input type="text" class="form-control" id="skillname" ng-model="item.skill_name" placeholder="Skill name">	
+                    </div>
+                    <div class="col-md-3 padding-5">
+                      <select ng-model='item.skill_point' class="form-control" ng-options='point as point for point in createCandidate.points'></select>
+                    </div>
+                    <div class="col-md-1 padding-5 paddingt-15">
+                      <button type="button" class="close" aria-label="Close" ng-click="createCandidate.removeCandidateProgrammingSkill($index)"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-0 paddingt-25">
+                <button type="button" class ="btn btn-skill" ng-click="createCandidate.addProgrammingskill()">{{ '+add'  | translate }}</button>
+                <div class="space20"></div>
+              </div>
+            </div>
+          </div>
+
+          <!--Soft/Design Skill -->
+          <div class="col-md-6">
+            <div class="form-group margin-0" ">
+
+              <!--Soft Skill -->
+              <div class="row-head margin-0 hr-1">
+                {{ 'soft_skill'  | translate }}
+              </div>
+              <div class="row margin-0 paddingt-25"> 
+                <div class="form-group margin-0">
+                  <div ng-repeat="item in createCandidate.datas.candidate.soft_skills_attributes" ng-hide="item._destroy"> 
+                    <div class="col-md-8 padding-5">
+                      <input type="text" class="form-control" id="skillname" ng-model="item.skill_name" placeholder="Skill name">	
+                    </div>
+                    <div class="col-md-3 padding-5">
+                      <select ng-model='item.skill_point' class="form-control" ng-options='point as point for point in createCandidate.points'></select>
+                    </div>
+                    <div class="col-md-1 padding-5 paddingt-15">
+                      <button type="button" class="close" aria-label="Close" ng-click="createCandidate.removeCandidateSoftSkill($index)"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-0 paddingt-25">
+                <button type="button" class ="btn btn-skill" ng-click="createCandidate.addSoftskill()">{{ '+add'  | translate }}</button>
+                <div class="space20"></div>
+              </div>
+              
+              <!--Design Skill -->
+              <div class="row-head margin-0 hr-1 paddingt-35">
+                {{ 'design_skill'  | translate }}
+              </div>
+              <div class="row margin-0 paddingt-25"> 
+                <div class="form-group margin-0">
+                  <div ng-repeat="item in createCandidate.datas.candidate.design_skills_attributes" ng-hide="item._destroy"> 
+                    <div class="col-md-8 padding-5">
+                      <input type="text" class="form-control" id="skillname" ng-model="item.skill_name" placeholder="Skill name">	
+                    </div>
+                    <div class="col-md-3 padding-5">
+                      <select ng-model='item.skill_point' class="form-control" ng-options='point as point for point in createCandidate.points'></select>
+                    </div>
+                    <div class="col-md-1 padding-5 paddingt-15">
+                      <button type="button" class="close" aria-label="Close" ng-click="createCandidate.removeCandidateDesignSkill($index)"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-0 paddingt-25">
+                <button type="button" class ="btn btn-skill" ng-click="createCandidate.addDesignskill()">{{ '+add'  | translate }}</button>
+                <div class="space20"></div>
+              </div>            
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Note -->
+      <div class="col-md-5">
+        <div class="form-group margin-0">
+          <div class="row-head margin-0 hr-1">
+            {{ 'note'  | translate }}
+          </div>
+          <div class="row margin-0 paddingt-25">
+            <textarea class="form-control border-textarea" rows="15" id="note" ng-model="createCandidate.datas.candidate.note"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  </div>
+  </div>

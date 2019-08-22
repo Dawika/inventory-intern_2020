@@ -1,0 +1,16 @@
+(function() {
+  'use strict';
+  
+  angular.module('somsri.somsri.interview_modal.service', [])
+  .service('interviewModalService', ['$http', function($http) {
+
+    this.getInterview = function(id) {
+      return $http.get('/candidates/' + id)
+    }
+    
+    this.saveInterview = function(params) {
+      return $http.post('/interviews/', { interview: params })
+    }
+
+  }]);
+})();

@@ -1,0 +1,44 @@
+<div>
+  <div class="modal-header">
+    <div class="row">
+      <i class="fa fa-close fa-2x pull-right" ng-click="sentEmailModal.close()"></i>
+      <h3 class="modal-title font-candidate color-blue-candidate" id="myModalLabel"><i class="fas fa-comment-dots m-20"></i>{{ 'distribute_evaluate_form'  | translate }}</h3>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="font-candidate color-blue-candidate">{{ 'interviewer'  | translate }}</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label>{{ 'email'  | translate }}</label>
+        <div ng-repeat="item in sentEmailModal.datas.interviewer_emails_attributes">
+          <div class="row" ng-hide="item._destroy">
+            <div class="col-md-11">
+              <input type="email" class="form-control input-email" ng-model="item.email" ng-disabled="item.id != ''">
+              <input type="hidden" class="form-control input-email" ng-model="item.skip_send_email">
+            </div>
+            <div class="col-md-1 padding-left0">
+              <button type="button" ng-hide="item.id != ''" class="close mt-15" aria-label="Close" ng-click="sentEmailModal.removeInterViewEmail($index)"><span aria-hidden="true">&times;</span></button>
+            </div>
+          </div> 
+        </div>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-invite mt-15" ng-click="sentEmailModal.addMoreEmail()">{{ '+invite'  | translate }}</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-md-4 pull-right">
+        <button type="button" class="btn btn-block btn-custom btn-gray" ng-click="sentEmailModal.close()">{{ "close" | translate }}</button>
+      </div>
+      <div class="col-md-4 pull-right">
+        <button type="button" id="saveInterview" class="btn btn-block btn-custom btn-green" ng-disabled="sentEmailModal.validateEmail()" ng-click="sentEmailModal.save()">{{ 'send'  | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

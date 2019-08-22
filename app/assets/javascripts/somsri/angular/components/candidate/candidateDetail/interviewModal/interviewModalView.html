@@ -1,0 +1,111 @@
+<div>
+  <div class="modal-header">
+    <div class="row">
+      <i class="fa fa-close fa-2x pull-right" ng-click="interviewModal.close()"></i>
+      <h3 class="modal-title font-candidate color-blue-candidate" id="myModalLabel"><i class="fas fa-comment-dots m-20"></i>{{ 'schedule_interview'  | translate }}</h3>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="row mb-20">
+      <div class="row"> 
+        <div class="col-md-12">
+          <h4 class="font-candidate color-blue-candidate">{{ 'type'  | translate }}</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div ng-repeat="category in interviewModal.categorys" class="pl-10">
+            <input type="radio" name="occurrences" ng-value="category" ng-model="interviewModal.category" />
+            <label>{{ category | translate }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-20">
+      <div class="row">
+        <div class="col-md-12">
+          <h4 class="font-candidate color-blue-candidate mt-0">{{ 'location'  | translate }}</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <input ng-model="interviewModal.location" type="text" class="form-control" >
+        </div>
+      </div>
+    </div>
+    <div class="row mb-20">
+      <div class="row">
+        <div class="col-md-12">
+          <h4 class="font-candidate color-blue-candidate">{{ 'interviewdate'  | translate }}</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <p class="input-group">
+              <label>{{ 'date'  | translate }}</label>
+              <input id="start_date" type="text" ng-change="interviewModal.checkDate()" class="form-control numberic" ng-model-options="{timezone: 'bangkok'}" uib-datepicker-popup="dd/MM/yyyy" ng-model="interviewModal.date" is-open="interviewModal.datePopup.opened" close-text="Close" >
+              <span class="input-group-btn ">
+                <button type="button" class="btn btn-default mt-20" ng-click="interviewModal.openDatePopup()"><i class="fa fa-calendar"></i></button>
+              </span>
+            </p>
+            <span ng-show="interviewModal.isValidDate" class="col">
+              {{ 'date_warning'  | translate }}
+            </span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+              <label>{{ 'time'  | translate }}</label>
+          </div>
+          <div class="row">
+            <input ng-model="interviewModal.hour" maxlength="2" type="text" class="form-control input-time pl-10 pr-0" list="hours">
+            <datalist id="hours">
+              <option ng-repeat="item in interviewModal.listHours" value="{{item}}">
+            </datalist>
+            <span>:</span>
+            <input ng-model="interviewModal.minute" maxlength="2" type="text" class="form-control input-time pl-10 pr-0" list="minute">
+            <datalist id="minute">
+              <option ng-repeat="item in interviewModal.listMinutes" value="{{item}}">
+            </datalist>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row">
+        <div class="col-md-12"> 
+          <h4 class="font-candidate color-blue-candidate">{{ 'interviewer'  | translate }}</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>{{ 'email'  | translate }}</label>
+          <div ng-repeat="item in interviewModal.interviewer_emails_attributes">
+            <div class="row" ng-hide="item._destroy">
+              <div class="col-md-11">
+                <input type="email" class="form-control input-email" ng-model="item.email" ng-keyup="interviewModal.disableButton(item.email)">
+              </div>
+              <div class="col-md-1 padding-left0">
+                <button type="button" ng-hide="item.id != '' && item.id != null" class="close mt-15" aria-label="Close" ng-click="interviewModal.removeInterViewEmail($index)"><span aria-hidden="true">&times;</span></button>
+              </div>
+            </div> 
+          </div>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-invite mt-15" ng-click="interviewModal.addMoreEmail()">{{ '+invite'  | translate }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-md-4 pull-right">
+        <button type="button" class="btn btn-block btn-custom btn-gray" ng-click="interviewModal.close()">{{ "close" | translate }}</button>
+      </div>
+      <div class="col-md-4 pull-right">
+        <button type="button" id="saveInterview" ng-click="interviewModal.save()" ng-disabled="interviewModal.checkSave()" class="btn btn-block btn-custom btn-green">{{ "save" | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

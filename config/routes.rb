@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get "/menu" => "menu#index"
   get "/somsri_invoice" => "menu#landing_invoice"
   get "/somsri_payroll" => "menu#landing_payroll"
-  get "/somsri_rollcall" => "menu#landing_rollcall"
+  get "/somsri_rollcall" => "menu#landing_rollcall" 
   get "/somsri" => "menu#landing_somsri"
   get "/main" => "menu#landing_main"
   get "/language" => "home#language"
@@ -89,6 +89,8 @@ Rails.application.routes.draw do
       patch "cancel"
     end
   end
+
+  resources :evaluates
 
   resources :parents do
     post 'restore'
@@ -177,7 +179,7 @@ Rails.application.routes.draw do
       get 'reject'
     end
   end
-
+  
   resources :vacation_configs, only: [:index] do
   end
 
@@ -238,4 +240,25 @@ Rails.application.routes.draw do
     resources :manage_inventory_repairs
   end
 
+  resources :candidates do
+    member do
+      patch 'upload_photo'
+      patch 'update_candidate'
+      patch 'update_star'
+      get 'display_file'
+    end
+  end
+
+  resources :interviews
+
+  resources :evaluates do
+
+    # POST: /evaluateds/:evaluate_id/save_invite
+    member do
+      post 'save_invite'
+      get 'show_conclusion'
+    end
+  end
+
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

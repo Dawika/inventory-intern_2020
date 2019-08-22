@@ -1,0 +1,419 @@
+<div class="container-fluid padding30">
+  <div class="row head-sp mb-20 pl-20">
+    <p class="back-scout font-candidate color-blue-candidate"><span class="button-arrow cursor-pointer" ng-click="evaluateConclusion.back()"><i class="fas fa-arrow-left pd-l-10"></i></span>Candidate Information</p>
+  </div>
+  <ul class="nav nav-tabs main">
+    <li class="active">
+      <a class="tab-label" ng-click="evaluateConclusion.activeTab = 'table'; evaluateConclusion.selectTab(false)" data-toggle="tab" href="javascript:void(0)"><i class="fas fa-chart-line"></i> Graph</a>
+    </li>
+    <li>
+      <a class="tab-label" ng-click="evaluateConclusion.activeTab = 'test'; evaluateConclusion.selectTab(true)" data-toggle="tab" href="javascript:void(0)"><i class="far fa-list-alt"></i> conclusion</a>
+    </li>
+  </ul>
+  <div ng-class="{ 'in active' : evaluateConclusion.activeTab === 'table' }" class="tab-pane fade in active">
+    <div class="container-fluid" ng-hide="evaluateConclusion.hide">
+      <div class="row paper-white container-fluid padding-30">
+        <div class="row mt-30">
+          <div class="col-md-12">
+            <span class="heading-candidate color-blue-candidate font-36">{{ 'evaluate_current_ability' | translate }}</span>
+          </div>
+        </div>
+        <div class="row mt-20">
+          <div class="col-md-10 col-md-offset-1">
+            <canvas id="currentAbility" class="chart chart-bar"
+                chart-data="evaluateConclusion.datasCurrentAbility" chart-labels="evaluateConclusion.labelsCurrentAbility" chart-series="evaluateConclusion.series" chart-options="evaluateConclusion.options" 
+                chart-dataset-override="evaluateConclusion.datasetOverrideCurrentAbility">
+            </canvas>
+          </div>
+        </div>
+        <div class="row mt-30">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12 col-md-offset-2">
+                <span class="heading-candidate color-blue-candidate font-24">{{ 'evaluate_other_ability' | translate }}</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-md-offset-3">
+                <div class="heading-candidate font-21 mt-15 hr-2" ng-repeat="item in evaluateConclusion.datas.evaluate_is_submit" ng-show="item.evaluates.other_ability != null">
+                  {{item.email}} : {{item.evaluates.other_ability}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-30">
+          <div class="col-md-12">
+            <span class="heading-candidate color-blue-candidate font-36">{{ 'evaluate_learn_ability' | translate }}</span>
+          </div>
+        </div>
+        <div class="row mt-20">
+          <div class="col-md-10 col-md-offset-1">
+            <canvas id="learnAbility" class="chart chart-bar"
+                chart-data="evaluateConclusion.datasLearnAbility" chart-labels="evaluateConclusion.labelsLearnAbility" chart-series="evaluateConclusion.series" chart-options="evaluateConclusion.options" chart-dataset-override="evaluateConclusion.datasetOverrideLearnAbility">
+            </canvas>
+          </div>
+        </div>
+        <div class="row mt-30">
+          <div class="col-md-12">
+            <span class="heading-candidate color-blue-candidate font-36">{{ 'attention' | translate }}</span>
+          </div>
+        </div>
+        <div class="row mt-20">
+          <div class="col-md-10 col-md-offset-1">
+            <canvas id="learnAbility" class="chart chart-bar"
+                chart-data="evaluateConclusion.datasAttraction" chart-labels="evaluateConclusion.labelsAttraction" chart-series="evaluateConclusion.series" chart-options="evaluateConclusion.options" chart-dataset-override="evaluateConclusion.datasetOverrideAttraction">
+            </canvas>
+          </div>
+        </div>
+        <div class="row mt-30">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-6 col-md-offset-2">
+                <span class="heading-candidate color-blue-candidate font-24">{{ 'on_time' | translate }}</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8 col-md-offset-2">
+                <div class="row">
+                  <div class="col-md-12">
+                    <canvas id="learnAbility" class="chart chart-doughnut"
+                      chart-data="evaluateConclusion.onTime" chart-labels="evaluateConclusion.labelsDoughnutOnTime" chart-options="evaluateConclusion.optionsDoughnut">
+                    </canvas>
+                  </div>
+                </div>
+                <div class="row mt-10">
+                  <div class="col-md-6 col-md-offset-3">
+                    <div class="mt-15 heading-candidate font-21 hr-2 break-word" ng-repeat="item in evaluateConclusion.datas.evaluate_is_submit">
+                     {{item.email}} : {{item.evaluates.on_time ? ('on_time_true' | translate ) : ('on_time_false' | translate)}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-30">
+          <div class="col-md-6">
+            <span class="heading-candidate color-blue-candidate font-36">{{ 'conclusion' | translate }}</span>
+          </div>
+        </div>
+        <div class="row mt-30">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-6 col-md-offset-2">
+                <span class="heading-candidate color-blue-candidate font-24">Average:</span>
+                <span class="heading-candidate font-24 hr-2 pb-0-ml-10">{{evaluateConclusion.averageCompatibility}}</span>
+              </div>
+            </div>
+            <div class="row mt-20">
+              <div class="col-md-8 col-md-offset-2">
+                <canvas id="learnAbility" class="chart chart-bar"
+                    chart-data="evaluateConclusion.datasCompatibility" chart-labels="evaluateConclusion.labelsCompatibility" chart-series="evaluateConclusion.seriesCompatibility" chart-options="evaluateConclusion.options">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-30">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-6 col-md-offset-2">
+                <span class="heading-candidate color-blue-candidate font-24">{{ 'note' | translate }}</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-md-offset-3">
+                <div class="heading-candidate font-21 mt-15 hr-2" ng-repeat="item in evaluateConclusion.datas.evaluate_is_submit" ng-show="item.evaluates.note != null">
+                  {{item.email}} : {{item.evaluates.note}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-30">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12 col-md-offset-2">
+                <span class="heading-candidate color-blue-candidate font-24">{{ 'glad' | translate }}</span>
+              </div>
+            </div>
+            <div class="row mt-15">
+              <div class="col-md-8 col-md-offset-2">
+                <div class="row">
+                  <div class="col-md-12">
+                    <canvas id="learnAbility" class="chart chart-doughnut"
+                      chart-data="evaluateConclusion.glad" chart-labels="evaluateConclusion.labelsDoughnutGlad" chart-options="evaluateConclusion.optionsDoughnut">
+                    </canvas>
+                  </div>
+                </div>
+                <div class="row mt-10">
+                  <div class="col-md-6 col-md-offset-3">
+                    <div class="mt-15 heading-candidate font-21 hr-2 break-word" ng-repeat="item in evaluateConclusion.datas.evaluate_is_submit">
+                      {{item.email}} : {{item.evaluates.glad | translate}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div ng-class="{ 'in active' : evaluateConclusion.activeTab === 'test' }" class="tab-pane fade">
+    <div class="container-fluid " ng-hide="evaluateConclusion.hide2">
+      <div class="row paper-white container-fluid">
+        <div class="row mx-15p mt-50">
+          <div class="col-md-3">
+            <select class="form-control" ng-model="evaluateConclusion.model" ng-options="options.email for options in evaluateConclusion.datas.evaluate_is_submit">
+            </select>
+          </div>
+          <div class="col-md-9">
+            <div class="break-word pull-right">
+              <span class="heading-candidate font-24">{{ 'email' | translate }} :</span>
+              <span class="hr-2 hr-2 pb-0 color-green heading-candidate font-24">{{evaluateConclusion.model.email}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="content-scout pt-0 mx-15p">
+            <div class="row m-0 font-18">
+
+              <!-- Current Ability - ประเมินความรู้ความสามารถ -->
+              <div class="row-head2 mt-0">
+                {{ 'evaluate_current_ability' | translate }}
+              </div>
+
+              <!-- frontend -->
+              <div class="row mx-0 mt-35">
+                <div class="col-md-12 mt-10">
+                  <label>{{ 'evaluate_frontend' | translate }}</label>
+                </div>
+                <div class="col-md-2">
+                  <div class="font-21 hr-2 pb-0 pt-10 text-center">
+                    {{evaluateConclusion.model.evaluates.frontend}}
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- dotnet -->
+              <div class="row mx-0 mt-35">
+                <div class="col-md-12 mt-10">
+                  <label>{{ 'evaluate_dot_net' | translate }}</label>
+                </div>
+                <div class="col-md-2">
+                  <div class="font-21 hr-2 pb-0 pt-10 text-center">
+                    {{evaluateConclusion.model.evaluates.dot_net}}
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- dotnet core -->
+              <div class="row mx-0 mt-35">
+                <div class="col-md-12 mt-10">
+                  <label>{{ 'evaluate_dot_net_core' | translate }}</label>
+                </div>
+                <div class="col-md-2">
+                  <div class="font-21 hr-2 pb-0 pt-10 text-center">
+                    {{evaluateConclusion.model.evaluates.dot_net_core}}
+                  </div>
+                </div>
+              </div>
+
+              <!-- ruby -->
+              <div class="row mx-0 mt-35">
+                <div class="col-md-12 mt-10">
+                  <label>{{ 'evaluate_ruby_on_rails' | translate }}</label>
+                </div>
+                <div class="col-md-2">
+                  <div class="font-21 hr-2 pb-0 pt-10 text-center">
+                    {{evaluateConclusion.model.evaluates.ruby_on_rails}}
+                  </div>
+                </div>
+              </div>
+
+              <!-- kotlin -->
+              <div class="row mx-0 mt-35">
+                <div class="col-md-12 mt-10">
+                  <label>{{ 'evaluate_kotlin' | translate }}</label>
+                </div>
+                <div class="col-md-2">
+                  <div class="font-21 hr-2 pb-0 pt-10 text-center">
+                    {{evaluateConclusion.model.evaluates.kotlin}}
+                  </div>
+                </div>
+              </div>
+
+              <!-- swift -->
+              <div class="row mx-0 mt-35">
+                <div class="col-md-12 mt-10">
+                  <label>{{ 'evaluate_swift' | translate }}</label>
+                </div>
+                <div class="col-md-2">
+                  <div class="font-21 hr-2 pb-0 pt-10 text-center">
+                    {{evaluateConclusion.model.evaluates.swift}}
+                  </div>
+                </div>
+              </div>
+
+              <!-- ability_note -->
+              <div class="row mx-0 mt-35">
+                <div class="col-md-12 mt-10">
+                  <label>{{ 'evaluate_other_ability' | translate }}</label>
+                </div>
+                <div class="col-md-12">
+                  <div class="font-21 hr-2 pb-0 pt-10 pl-20 break-word">
+                    {{evaluateConclusion.model.evaluates.other_ability}}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Learn Ability - ประเมินความสามารถในการเรียนรู้ -->
+              <div class="row mt-35 m-0 font-18">
+                <div class="row-head2">
+                  {{ 'evaluate_learn_ability' | translate }}
+                </div>
+
+                <!-- problem_solving -->
+                <div class="row mx-0 mt-35">
+                  <div class="col-md-12 mt-10">
+                    <label>{{ 'evaluate_problem_solving' | translate }}</label>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="font-21 hr-2 pb-0 pt-10 text-center">
+                        {{evaluateConclusion.model.evaluates.problem_solving}}
+                    </div>  
+                  </div>
+                </div>
+
+                <!-- indepentdent -->
+                <div class="row mx-0 mt-35">
+                  <div class="col-md-12 mt-10">
+                    <label>{{ 'evaluate_indepentdent' | translate }}</label>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="font-21 hr-2 pb-0 pt-10 text-center">
+                      {{evaluateConclusion.model.evaluates.indepentdent}}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- comunication -->
+                <div class="row mx-0 mt-35">
+                  <div class="col-md-12 mt-10">
+                    <label>{{ 'evaluate_comunication' | translate }}</label>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="font-21 hr-2 pb-0 pt-10 text-center">
+                      {{evaluateConclusion.model.evaluates.comunication}}
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <!-- End Learn Ability -->
+
+              <div class="row mt-35 m-0 font-18">
+                <div class="row-head2">
+                  {{ 'evaluate_attraction' | translate }}
+                </div>
+
+                <!-- problem_solving -->
+                <div class="row mx-0 mt-35">
+                  <div class="col-md-12 mt-10">
+                    <label>{{ 'attention_to_bananan' | translate }}</label>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="font-21 hr-2 pb-0 pt-10 text-center">
+                        {{evaluateConclusion.model.evaluates.attention}}
+                    </div>  
+                  </div>
+                </div>
+
+                <!-- indepentdent -->
+                <div class="row mx-0 mt-35">
+                  <div class="col-md-12 mt-10">
+                    <label>{{ 'on_time' | translate }}</label>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="font-21 hr-2 pb-0 pt-10 text-center">
+                      {{evaluateConclusion.model.evaluates.on_time ? ('on_time_true' | translate ) : ('on_time_false' | translate)}}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- comunication -->
+                <div class="row mx-0 mt-35">
+                  <div class="col-md-12 mt-10">
+                    <label>{{ 'evaluate_teamwork' | translate }}</label>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="font-21 hr-2 pb-0 pt-10 text-center">
+                      {{evaluateConclusion.model.evaluates.teamwork}}
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              
+                <!-- Conclusion - สรุป -->
+              <div class="row mt-35 m-0 font-18">
+                <div class="row-head2">
+                  {{ 'conclusion' | translate }}
+                </div>
+
+                <!-- compatibility -->
+                <div class="row mx-0 mt-35">
+                  <div class="col-md-12 mt-10">
+                    <label>{{ 'evaluate_compatibility' | translate }}</label>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="font-21 hr-2 pb-0 pt-10 text-center">
+                      {{evaluateConclusion.model.evaluates.compatibility}}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- note -->
+                <div class="row mx-0 mt-35">
+                  <div class="col-md-12 mt-10">
+                    <label>{{ 'note' | translate }}</label>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="font-21 hr-2 pb-0 pt-10 pl-20 break-word">
+                      {{evaluateConclusion.model.evaluates.note}}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- join -->
+                <div class="row mx-0 mt-35">
+                  <div class="col-md-12 mt-10">
+                    <label>{{ 'glad' | translate }}</label>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="font-21 hr-2 pb-0 pt-10 text-center">
+                      {{ evaluateConclusion.model.evaluates.glad | translate }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End Conclusion -->
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,167 @@
+(function() {
+  'use strict';
+    angular.module('somsri.somsri.evaluate_conclusion', [])
+    .controller('evaluateConclusionCtrl', ['$scope', '$rootScope', 'translateFilter',
+    'evaluateConclusionService','$state', '$window',
+    function($scope, $rootScope, translateFilter, evaluateConclusionService, $state, $window) {
+      var ctrl = this;
+      
+      ctrl.hide = false
+      ctrl.hide2 = true
+      ctrl.model = null
+
+      ctrl.options = {
+        scales: {
+          yAxes: [{
+              ticks: {
+                  max: 20,
+                  beginAtZero:true
+              }
+          }]
+        },
+        legend: { 
+          display: true 
+        }
+      }
+
+      ctrl.optionsDoughnut = {
+        legend: { 
+          display: true 
+        }
+      }
+
+      ctrl.series = ['average'];
+      ctrl.labelsCurrentAbility = ['Frontend', '.Net', '.Net Core', 'Ruby on Rails', 'Kotlin', 'Swift']
+      ctrl.labelsDoughnutOnTime = [['ตรงเวลานัด'],['ไม่ตรงเวลานัด']]
+      ctrl.labelsLearnAbility = ['Problm Solving', 'Indepentdent', 'Communication']
+      ctrl.labelsAttraction = ['คะแนนความกระตือรือร้นที่จะร่วมงานกับ Banana', 'teamwork']
+      ctrl.labelsCompatibility = ['ความเข้ากันได้กับวัฒนธรรมองค์กร'];
+      ctrl.labelsDoughnutGlad = [['ยินดี'],['เฉยๆ'],['ไม่ยินดี']]
+
+      ctrl.allFrontend = 0
+      ctrl.allDotNet = 0;
+      ctrl.allDotNetCore = 0;  
+      ctrl.allRuby = 0
+      ctrl.allKotlin = 0
+      ctrl.allSwift = 0
+      ctrl.otherSkill = []
+      ctrl.allProblemSolving = 0
+      ctrl.allIndepentdent = 0
+      ctrl.allComunication = 0
+      ctrl.allAttention = 0
+      ctrl.onTime = new Array(2).fill(0);
+      ctrl.allTeamwork = 0
+      ctrl.allCompatibility = 0
+      ctrl.glad = new Array(3).fill(0);
+
+      evaluateConclusionService.getConclusion($state.params.id).then(function(resp){
+
+        ctrl.datas = resp.data.result;
+        ctrl.datasCurrentAbility = Array.from(Array(ctrl.datas.evaluate_is_submit.length + 1), () => new Array());
+        ctrl.datasLearnAbility = Array.from(Array(ctrl.datas.evaluate_is_submit.length + 1), () => new Array());
+        ctrl.datasAttraction = Array.from(Array(ctrl.datas.evaluate_is_submit.length + 1), () => new Array());
+        ctrl.datasCompatibility = Array.from(Array(ctrl.datas.evaluate_is_submit.length), () => new Array());
+
+        for (var i = 0; i <  ctrl.datas.evaluate_is_submit.length; i++) {
+          ctrl.series.push(ctrl.datas.evaluate_is_submit[i].email)
+          var eva = ctrl.datas.evaluate_is_submit[i].evaluates;
+
+          ctrl.datasCurrentAbility[i + 1].push(eva.frontend);
+          ctrl.datasCurrentAbility[i + 1].push(eva.dot_net);
+          ctrl.datasCurrentAbility[i + 1].push(eva.dot_net_core);
+          ctrl.datasCurrentAbility[i + 1].push(eva.ruby_on_rails);
+          ctrl.datasCurrentAbility[i + 1].push(eva.kotlin);
+          ctrl.datasCurrentAbility[i + 1].push(eva.swift);
+       
+          ctrl.allFrontend += eva.frontend;
+          ctrl.allDotNet += eva.dot_net;
+          ctrl.allDotNetCore += eva.dot_net_core;
+          ctrl.allRuby += eva.ruby_on_rails;
+          ctrl.allKotlin += eva.kotlin;
+          ctrl.allSwift += eva.swift;
+
+          ctrl.datasLearnAbility[i + 1].push(eva.problem_solving)
+          ctrl.datasLearnAbility[i + 1].push(eva.indepentdent)
+          ctrl.datasLearnAbility[i + 1].push(eva.comunication)
+
+          ctrl.allProblemSolving += eva.problem_solving;
+          ctrl.allIndepentdent += eva.indepentdent;
+          ctrl.allComunication += eva.comunication;
+          
+          ctrl.datasAttraction[i + 1].push(eva.attention)
+          ctrl.datasAttraction[i + 1].push(eva.teamwork)
+
+          ctrl.allAttention += eva.attention;
+          ctrl.allTeamwork += eva.teamwork;
+
+          ctrl.datasCompatibility[i].push(eva.compatibility)
+          ctrl.allCompatibility += eva.compatibility
+
+          if(eva.on_time){
+            ctrl.onTime[0]++;
+          }else{
+            ctrl.onTime[1]++;
+          }
+
+          if(eva.glad == "pleased"){
+            ctrl.glad[0]++;
+          }else if(eva.glad == "so_so"){
+            ctrl.glad[1]++
+          }else{
+            ctrl.glad[2]++
+          }
+
+        }
+
+        ctrl.averageFrontend = ctrl.allFrontend / ctrl.datas.evaluate_is_submit.length
+        ctrl.averageDotNet = ctrl.allDotNet / ctrl.datas.evaluate_is_submit.length
+        ctrl.averageDotNetCore = ctrl.allDotNetCore / ctrl.datas.evaluate_is_submit.length
+        ctrl.averageRuby = ctrl.allRuby / ctrl.datas.evaluate_is_submit.length
+        ctrl.averageKotlin = ctrl.allKotlin / ctrl.datas.evaluate_is_submit.length
+        ctrl.averageSwift = ctrl.allSwift / ctrl.datas.evaluate_is_submit.length
+        ctrl.averageProblemSolving = ctrl.allProblemSolving / ctrl.datas.evaluate_is_submit.length
+        ctrl.averageIndepentdent = ctrl.allIndepentdent / ctrl.datas.evaluate_is_submit.length
+        ctrl.averageComunication = ctrl.allComunication / ctrl.datas.evaluate_is_submit.length
+        ctrl.averageAttention = ctrl.allAttention / ctrl.datas.evaluate_is_submit.length
+        ctrl.averageTeamwork = ctrl.allTeamwork / ctrl.datas.evaluate_is_submit.length
+        ctrl.averageCompatibility = ctrl.allCompatibility / ctrl.datas.evaluate_is_submit.length
+      
+        ctrl.model = ctrl.datas.evaluate_is_submit[0];
+        
+        ctrl.seriesCompatibility = ctrl.series.slice(1)
+
+        ctrl.datasetOverrideCurrentAbility = [
+
+          {
+            type: 'line', 
+            data: [ctrl.averageFrontend, ctrl.averageDotNet, ctrl.averageDotNetCore, ctrl.averageRuby, ctrl.averageKotlin, ctrl.averageSwift]
+          }
+        ];
+
+        ctrl.datasetOverrideLearnAbility = [
+          {
+            type: 'line',
+            data: [ctrl.averageProblemSolving, ctrl.averageIndepentdent,  ctrl.averageComunication]
+          }
+        ];
+
+        ctrl.datasetOverrideAttraction = [
+          {
+            type: 'line',
+            data: [ctrl.averageAttention,  ctrl.averageTeamwork]
+          }
+        ];
+
+      });
+
+      ctrl.selectTab = function(str) {
+        ctrl.hide = str
+        ctrl.hide2 = !str
+      }
+
+      ctrl.back = function(){
+        window.location.href = '/somsri#/candidate';
+      }
+
+  }]);
+})();

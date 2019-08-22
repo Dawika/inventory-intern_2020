@@ -1,0 +1,307 @@
+<%= form_for @evaluate, :html => { :class => "form-horizontal evaluate" } do |f| %>
+
+<div class="container-fluid blue-bg">
+  <!-- Head -->
+
+<% if @evaluate.is_submit != true%>
+  <!-- content when not submit -->
+  <div class="container w-960 ">
+
+    <div class="row-head-sp justify-content-between mt-125">
+      <h2> <i class="far fa-file-alt"></i> &nbsp; <%= f.label t('evaluate_candidate') %> </h2>
+    </div>
+
+    <div class="content-scout pt-0 m-0">
+      <form name="evaluateCandidateForm">
+      
+        <!-- Info row -->
+        <div class=" row mx-0 mt-0 font-21">
+
+          <div class="row-head2 mt-0 mb-30">
+            <%= t('interview_information') %>
+          </div>
+
+          <!-- Name interviewee / Email interviewer -->
+          <div class="col-md-6 p-0">
+            <div class="row m-0">
+              <%= f.label t('interviewee_name'), :class => 'control-label' %><br><br>
+              <label> <%= @interview.candidate.full_name %> </label>
+              <hr>
+            </div>
+            <div class="row m-0">
+              <%= f.label t('interviewer_email'), :class => 'control-label' %><br><br>
+              <label> <%= @evaluate.interviewer_email.email %> </label>
+              <hr>
+            </div>
+          </div>
+
+          <!-- Type -->
+          <div class="col-md-6 pl-20">
+            <%= f.label t('interviewee_type'), :class => 'control-label' %>
+            <div class="row ml-20 mt-10 font-21">
+              <%= t(@interview.category) %>
+            </div>
+          </div>
+
+        </div>
+        <!-- End Info row -->
+
+        <!-- Current Ability row -->
+        <div class="row mt-10 m-0 font-18">
+
+          <!-- Current Ability - ประเมินความรู้ความสามารถ -->
+          <div class="row-head2">
+            <%= f.label t('evaluate_current_ability'), :class => 'control-label' %>
+          </div>
+
+          <!-- frontend -->
+          <div class="row mx-0 mt-35">
+            <div class="col-md-12 mt-10">
+              <label><%= f.label t('evaluate_frontend'), :class => 'control-label' %></label>
+            </div>
+            <div class="col-md-2">
+              <%= f.select :frontend, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+            </div>
+          </div>
+
+
+          <!-- dotnet -->
+          <div class="row mx-0 mt-35">
+            <div class="col-md-12 mt-10">
+              <label class="control-label"><%= t('evaluate_dot_net') %></label>
+            </div>
+            <div class="col-md-2">
+            <%= f.select :dot_net, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+            </div>
+          </div>
+
+
+          <!-- dotnet core -->
+          <div class="row mx-0 mt-35">
+            <div class="col-md-12 mt-10">
+              <label><%= t('evaluate_dot_net_core') %></label>
+            </div>
+            <div class="col-md-2">
+            <%= f.select :dot_net_core, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+            </div>
+          </div>
+
+          <!-- ruby -->
+          <div class="row mx-0 mt-35">
+            <div class="col-md-12 mt-10">
+              <label><%= f.label t('evaluate_ruby_on_rails'), :class => 'control-label' %></label>
+            </div>
+            <div class="col-md-2">
+            <%= f.select :ruby_on_rails, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+            </div>
+          </div>
+
+          <!-- kotlin -->
+          <div class="row mx-0 mt-35">
+            <div class="col-md-12 mt-10">
+              <label><%= f.label t('evaluate_kotlin'), :class => 'control-label' %></label>
+            </div>
+            <div class="col-md-2">
+            <%= f.select :kotlin, options_for_select(@listnum, :selected => f.object.kotlin), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+            </div>
+          </div>
+
+          <!-- swift -->
+          <div class="row mx-0 mt-35">
+            <div class="col-md-12 mt-10">
+              <label><%= f.label t('evaluate_swift'), :class => 'control-label' %></label>
+            </div>
+            <div class="col-md-2">
+            <%= f.select :swift, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+            </div>
+          </div>
+
+          <!-- other_ability -->
+          <div class="row mx-0 px-20 mt-35">
+            <label><%= f.label t('evaluate_other_ability'), :class => 'control-label' %></label>
+          <%= f.text_area :other_ability, {class: "form-control border-textarea mt-30 ", rows: "10"} %>
+          </div>
+
+        </div>
+        <!-- End Current Ability -->
+
+
+        <!-- Learn Ability - ประเมินความสามารถในการเรียนรู้ -->
+        <div class="row mt-35 m-0 font-18">
+          <div class="row-head2">
+            <%= f.label t('evaluate_learn_ability'), :class => 'control-label' %>
+          </div>
+
+          <!-- problem_solving -->
+          <div class="row mx-0 mt-35">
+            <div class="col-md-12 mt-10">
+              <label><%= f.label t('evaluate_problem_solving'), :class => 'control-label' %></label>
+            </div>
+            <div class="col-md-2">
+            <%= f.select :problem_solving, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+            </div>
+          </div>
+
+          <!-- indepentdent -->
+          <div class="row mx-0 mt-35">
+            <div class="col-md-12 mt-10">
+              <label><%= f.label t('evaluate_indepentdent'), :class => 'control-label' %></label>
+            </div>
+            <div class="col-md-2">
+            <%= f.select :indepentdent, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+            </div>
+          </div>
+
+          <!-- comunication -->
+          <div class="row mx-0 mt-35">
+            <div class="col-md-12 mt-10">
+              <label><%= f.label t('evaluate_comunication'), :class => 'control-label' %></label>
+            </div>
+            <div class="col-md-2">
+            <%= f.select :comunication, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+            </div>
+          </div>
+
+        </div>
+        <!-- End Learn Ability -->
+
+
+        <!-- Attraction - ประเมินความใส่ใจ -->
+        <div class="row mt-35 m-0 font-18">
+          <div class="row-head2">
+            <%= f.label t('evaluate_attraction'), :class => 'control-label' %>
+          </div>
+
+          <!-- attraction_banana -->
+          <div class="row mx-0 mt-35">
+            <div class="col-md-12 mt-10">
+              <label><%= f.label t('attention_to_bananan'), :class => 'control-label' %></label>
+            </div>
+            <div class="col-md-2">
+            <%= f.select :attention, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+            </div>
+          </div>
+          
+          <!-- on_time -->
+          <div class="row mx-0 px-20 mt-35">
+            <b><%= f.label t('on_time'), :class => 'control-label' %></b>
+            <div class="row ml-35 mt-20">
+              <%= f.radio_button :on_time, true %><%= f.label :on_time_true, t('on_time_true'), {class: "ml-35"} %>
+            </div>
+            <div class="row ml-35 mt-20">
+              <%= f.radio_button :on_time, false ,checked: true %><%= f.label :on_time_false, t('on_time_false'), {class: "ml-35"} %>
+            </div>
+          </div>
+
+
+          <!-- teamwork -->
+          <div class="row mx-0 mt-35">
+            <div class="col-md-12 mt-10">
+              <label><%= f.label t('evaluate_teamwork'), :class => 'control-label' %></label>
+            </div>
+            <div class="col-md-2">
+            <%= f.select :teamwork, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+            </div>
+          </div>
+
+        </div>
+          <!-- End Learn Ability -->
+
+
+
+        <!-- Conclusion - สรุป -->
+        <div class="row mt-35 m-0 font-18">
+          <div class="row-head2">
+            <%= f.label t('conclusion'), :class => 'control-label' %>
+          </div>
+
+          <!-- compatibility -->
+          <div class="row mx-0 mt-35">
+            <div class="col-md-12 mt-10">
+              <label><%= f.label t('evaluate_compatibility'), :class => 'control-label' %></label>
+            </div>
+            <div class="col-md-2">
+            <%= f.select :compatibility, options_for_select(@listnum), {prompt: ""}, {class: "form-control text-blue font-21 pl-30p h-45"} %>
+            </div>
+          </div>
+
+          <!-- note -->
+          <div class="row mx-0 px-20 mt-35">
+            <label><%= f.label t('note'), :class => 'control-label' %></label>
+            <%= f.text_area :note, {class: "form-control border-textarea mt-30 ", rows: "10"} %>
+          </div>
+
+          <!-- join -->
+          <div class="row mx-0 px-20 mt-35">
+            <b><%= f.label t('glad'), :class => 'control-label' %></b>
+            <div class="row ml-35 mt-20">
+              <%= f.radio_button :glad, :pleased %><%= f.label :glad_pleased, t('pleased'), {class: "ml-35"} %>
+            </div>
+            <div class="row ml-35 mt-20">
+              <%= f.radio_button :glad , :so_so ,checked: true%><%= f.label :glad_so_so, t('so_so'), {class: "ml-35"} %>
+            </div>
+            <div class="row ml-35 mt-20">
+              <%= f.radio_button :glad, :displeased %><%= f.label :glad_displeased, t('displeased'), {class: "ml-35"} %>
+            </div>
+          </div>
+
+        </div>
+        <!-- End Conclusion -->
+
+
+        <!-- Submit -->
+        <div class="row m-0 mt-100 Btn-group">
+          <%= f.submit t('save'), :class => 'btn btn-submit-scout' %>
+        </div>
+
+
+
+
+      <!--/Content Evaluate Form -->
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if @evaluate.is_submit == true %>
+  <!-- content when submit already -->
+  <div class="container w-960 p-0">
+
+    <div class="row-head-sp justify-content-between mt-125">
+      <h2> <i class="far fa-file-alt"></i> &nbsp; <%= f.label t('evaluate_candidate') %> </h2>
+    </div>
+
+    <div class="content-scout pt-0 m-0">
+        <!-- warnnig row -->
+        <div class=" row mx-0 mt-0 font-21">
+
+          <div class="row-head2 mt-0 mb-30">
+            <%= f.label t('interview_information'), :class => 'control-label' %>
+          </div>
+
+          <!-- Name interviewee / Email interviewer -->
+            <div class="col-md-6 p-0">
+              <div class="row m-0">
+                <%= f.label t('interviewee_name'), :class => 'control-label' %><br><br>
+                <label> <%= @interview.candidate.full_name %> </label>
+                <hr>
+              </div>
+              <div class="row m-0">
+                <%= f.label t('interviewer_email'), :class => 'control-label' %><br><br>
+                <label> <%= @evaluate.interviewer_email.email %> </label>
+                <hr>
+              </div>
+            </div>
+
+          <div class="col-md-6 pl-20">
+            <b><%= f.label t('form_issubmit_already'), :class => 'control-label' %></b>
+          </div>
+
+        </div>
+    </div>
+  </div>
+<% end %>
+
+</div>
+
+<% end %>

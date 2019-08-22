@@ -1,0 +1,144 @@
+(function() {
+  'use strict';
+  angular.module('somsri.somsri.candidateEdit', [])
+  .controller('candidateEditCtrl', ['$scope', '$rootScope', 'translateFilter', 'candidateEditService', '$state', '$uibModal',
+   function($scope, $rootScope, translateFilter, candidateEditService, $state, $uibModal) {
+
+    var ctrl = this;
+    var imagefile;
+    ctrl.points = Array.from(Array(21).keys())
+
+    $rootScope.loadAndAuthorizeResource("candidateEdit", function(){
+      $rootScope.menu = translateFilter('scout');
+      candidateEditService.getCandidate($state.params.id).then(function(resp) {
+        ctrl.datas = resp;
+      });
+
+    ctrl.submit = function(params){
+      openConfirmationModal(translateFilter("close_with_update"), function(){
+      ctrl.cannotUpdate = true;
+      ctrl.cannotCancel = true;
+      ctrl.skillEmpty();
+      candidateEditService.saveCandidate(ctrl.datas.candidate.id, params).then(function(resp){
+        ctrl.goDetail();
+        });
+      });
+    };
+    
+    ctrl.cancelUpdate = function(){
+        openConfirmationModal(translateFilter("close_without_update"), function(){
+          ctrl.cannotupdate = true ;
+          ctrl.cannotCancel = true ;
+          ctrl.goDetail();
+      });
+    }
+
+    ctrl.goDetail = function(){
+      window.location.href = '/somsri#/candidate/detail/' + ctrl.datas.candidate.id;
+    }
+
+    ctrl.showImage = function(event, id){
+      var img = URL.createObjectURL(event.target.files[0]);
+      $('#' + id).attr('src', img);
+      ctrl.datas.candidate.image = event.target.files[0];
+    }
+
+    ctrl.addFile = function(){
+      ctrl.datas.candidate.candidate_files_attributes.push({ files_file_name: "" });
+    }
+
+    ctrl.onFileChange = function(index, event){
+      ctrl.datas.candidate.candidate_files_attributes[index].files = event.target.files[0]
+    }
+
+    ctrl.removeCandidateFiles = function(index) {
+      ctrl.datas.candidate.candidate_files_attributes[index]._destroy = true
+    }
+
+    ctrl.removeCandidateProgrammingSkill = function(index) {
+      ctrl.datas.candidate.programming_skills_attributes[index]._destroy = true
+    }
+
+    ctrl.removeCandidateSoftSkill = function(index) {
+      ctrl.datas.candidate.soft_skills_attributes[index]._destroy = true
+    }
+
+    ctrl.removeCandidateDesignSkill = function(index) {
+      ctrl.datas.candidate.design_skills_attributes[index]._destroy = true
+    }
+
+    ctrl.addProgrammingskill = function(){
+      ctrl.datas.candidate.programming_skills_attributes.push({ skill_name: "", skill_point: 0 });
+    }
+
+    ctrl.addSoftskill = function(){
+      ctrl.datas.candidate.soft_skills_attributes.push({ skill_name: "", skill_point: 0 });
+    }
+
+    ctrl.addDesignskill = function(){
+      ctrl.datas.candidate.design_skills_attributes.push({ skill_name: "", skill_point: 0 });
+    }
+
+    ctrl.isNotBlank = function(){
+      var candidateEdit = ctrl.datas.candidate
+      if ((candidateEdit.full_name || candidateEdit.nick_name) && (candidateEdit.email || candidateEdit.phone) && candidateEdit.school_year && candidateEdit.from){
+        ctrl.cannotUpdate = false;
+      } else {
+        ctrl.cannotUpdate = true;
+      }
+    } 
+
+    ctrl.skillEmpty = function(){
+      var ps = ctrl.datas.candidate.programming_skills_attributes;
+      var ss = ctrl.datas.candidate.soft_skills_attributes;
+      var ds = ctrl.datas.candidate.design_skills_attributes;
+      var i;
+
+      for(i=0; i < ps.length; i++) {
+        if(ps[i].skill_name == "" || ps[i].skill_name == null) {
+          ps[i]._destroy = true 
+        }
+      }
+
+      for(i=0; i < ss.length; i++) {
+        if(ss[i].skill_name == "" || ss[i].skill_name == null) {
+          ss[i]._destroy = true 
+        }
+      }
+
+      for(i=0; i < ds.length; i++) {
+        if(ds[i].skill_name == "" || ds[i].skill_name == null) {
+          ds[i]._destroy = true 
+        }
+      }
+    }
+    
+    function openConfirmationModal(message, success, dismiss) {
+      $scope.message = message;
+      $uibModal.open({
+        animation: true,
+        backdrop: 'static',
+        keyboard: false,
+        scope: $scope,
+        templateUrl: "<%= asset_path('payroll/angular/components/modal/confirm/confirmModalView.html') %>",
+        controller: 'confirmModalCtrl as confirm',
+        size: 'md',
+        resolve: {
+          resources: ['$ocLazyLoad', 'ASSETS', function($ocLazyLoad, ASSETS) {
+            return $ocLazyLoad.load([
+              ASSETS.somsri.somsri.confirm_modal
+            ]);
+          }]
+        }
+        }).result.then(function (isConfirm) {
+          if (isConfirm) {
+            if(success){ success() }
+          }else{
+            if(dismiss){ dismiss() }
+          }
+        });
+      }
+    });
+
+  }]);
+})();

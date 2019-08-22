@@ -26,7 +26,9 @@ gem 'devise'
 
 gem 'cancancan'
 
-gem 'font-awesome-rails'
+gem 'font_awesome5_rails'
+
+gem 'paper_trail'
 
 gem 'rails-i18n', '~> 5.0.0'
 
@@ -115,6 +117,8 @@ group :development do
   gem 'capistrano3-unicorn'
   gem 'capistrano-bower'
   gem 'meta_request' # for analyze query
+  gem "letter_opener"
+  gem 'letter_opener_web', '~> 1.0'
 end
 
 group :production do
@@ -129,3 +133,4 @@ gem "i18n-js"
 # print log ruby
 gem 'awesome_print', :require => 'ap'
 ruby '2.3.1'
+gem 'acts_as_paranoid'

@@ -1,0 +1,29 @@
+class InterviewsController < ApplicationController
+
+  def create
+    if interview_params[:id].present?
+      interview = Interview.find(interview_params[:id])
+      interview.update(interview_params)
+    else
+      interview = Interview.create(interview_params)
+    end
+    render json: { candidate: interview.candidate.as_json('show_or_edit') }, status: :ok
+  end
+
+  def show
+    interview = Candidate.find(params[:id]).as_json('interviewer_email')
+    render json: {result: interview}, status: :ok
+  end
+
+  private
+
+  def interview_params
+    params.require(:interview).permit(
+      :id, 
+      :date, 
+      :location, 
+      :candidate_id, 
+      :category,
+      interviewer_emails_attributes: [:id, :email, :_destroy])
+  end
+end

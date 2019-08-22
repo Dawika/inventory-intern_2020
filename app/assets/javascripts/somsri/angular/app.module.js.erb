@@ -14,7 +14,9 @@
     'ui.select',
     'ngSanitize',
     'ui.tree',
-    'ng.ckeditor'
+    'ng.ckeditor',
+    'chart.js'
+    
   ]);
 
   var check_permission = function(permission){
@@ -171,6 +173,18 @@
         resources: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load([
             ASSETS.somsri.somsri.inventoryNew
+          ]);
+        }]
+      }
+    }).state({
+      url: '/candidate/:id/edit',
+      name: 'candidateEdit',
+      templateUrl: "<%= asset_path('somsri/angular/components/candidate/candidateEdit/candidateEditView.html') %>",
+      controller: 'candidateEditCtrl as candidateEdit',
+      resolve: {
+        resources: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load([
+            ASSETS.somsri.somsri.candidateEdit
           ]);
         }]
       }
@@ -363,6 +377,54 @@
           resources: ['$ocLazyLoad', function($ocLazyLoad) {
             return $ocLazyLoad.load([
               ASSETS.somsri.somsri.vacation.menu
+            ]);
+          }]
+        }
+    }).state({
+        url: '/candidate',
+        name: 'candidate',
+        templateUrl: "<%= asset_path('somsri/angular/components/candidate/candidateView.html') %>",
+        controller: 'candidateCtrl as candidate',
+        resolve: {
+          resources: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              ASSETS.somsri.somsri.candidate
+            ]);
+          }]
+        }
+    }).state({
+        url: '/candidate/new',
+        name: 'create_candidate',
+        templateUrl: "<%= asset_path('somsri/angular/components/candidate/createCandidate/createCandidateView.html') %>",
+        controller: 'createCandidateCtrl as createCandidate',
+        resolve: {
+          resources: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              ASSETS.somsri.somsri.create_candidate
+            ]);
+          }]
+        }
+    }).state({
+      url: '/candidate/detail/:id',
+        name: 'candidate_detail',
+        templateUrl: "<%= asset_path('somsri/angular/components/candidate/candidateDetail/candidateDetailView.html') %>",
+        controller: 'candidateDetailCtrl as candidateDetail',
+        resolve: {
+          resources: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              ASSETS.somsri.somsri.candidate_detail
+            ]);
+          }]
+        }
+    }).state({
+      url: '/candidate/evaluate_conclusion/:id',
+        name: 'evaluate_conclusion',
+        templateUrl: "<%= asset_path('somsri/angular/components/candidate/evaluateConclusion/evaluateConclusionView.html') %>",
+        controller: 'evaluateConclusionCtrl as evaluateConclusion',
+        resolve: {
+          resources: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              ASSETS.somsri.somsri.evaluate_conclusion
             ]);
           }]
         }

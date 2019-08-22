@@ -1,0 +1,12 @@
+(function() {
+  'use strict';
+
+  angular.module('somsri.somsri.evaluate_conclusion.service', [])
+  .service('evaluateConclusionService', ['$http', 'Upload', function($http, Upload) {
+
+    this.getConclusion = function(id){
+      return $http.get('/evaluates/' + id + '/show_conclusion');
+    }
+
+  }]);
+})();

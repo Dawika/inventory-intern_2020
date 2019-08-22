@@ -1,0 +1,20 @@
+(function() {
+  'use strict';
+
+  angular.module('somsri.somsri.candidate_detail.service', [])
+  .service('candidateDetailService', ['$http', function($http) {
+
+    this.getById = function(id){
+      return $http.get('/candidates/' + id)
+    }
+
+    this.updateShortlist = function(id, shortlist){
+      return $http({
+        url: '/candidates/'+ id + '/update_star/',
+        method: "PATCH",
+        params: {shortlist: shortlist}
+      })
+    }
+    
+  }]);
+})();

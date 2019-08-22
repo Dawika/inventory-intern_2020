@@ -1,0 +1,21 @@
+(function() {
+	'use strict';
+	angular.module('somsri.somsri.candidateEdit.service', [])
+	.service('candidateEditService', ['$http', 'Upload', function($http, Upload) {
+	
+		this.getCandidate = function(id) {
+			return $http.get('/candidates/' + id +'/edit').then(function(resp) {
+			  return resp.data;
+			});
+		};
+
+		this.saveCandidate = function(id, params) {
+			return Upload.upload({
+				url: '/candidates/' + id + '/update_candidate',
+				method: 'PATCH',
+				data: params
+			})
+		};
+
+	 }]);
+})();

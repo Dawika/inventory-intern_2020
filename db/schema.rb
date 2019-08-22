@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190528025937) do
+ActiveRecord::Schema.define(version: 20190813055518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,42 @@ ActiveRecord::Schema.define(version: 20190528025937) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "bank_id"
+  end
+
+  create_table "candidate_files", force: :cascade do |t|
+    t.string   "files_file_name"
+    t.string   "files_content_type"
+    t.integer  "files_file_size"
+    t.datetime "files_updated_at"
+    t.integer  "candidate_id"
+    t.index ["candidate_id"], name: "index_candidate_files_on_candidate_id", using: :btree
+  end
+
+  create_table "candidates", force: :cascade do |t|
+    t.string   "full_name"
+    t.string   "nick_name"
+    t.string   "email"
+    t.string   "phone"
+    t.string   "from"
+    t.string   "school_year"
+    t.string   "note"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.integer  "current_ability"
+    t.integer  "learn_ability"
+    t.integer  "attention"
+    t.datetime "deleted_at"
+    t.boolean  "shortlist",          default: false
+    t.string   "interest"
+    t.index ["deleted_at"], name: "index_candidates_on_deleted_at", using: :btree
   end
 
   create_table "categories", force: :cascade do |t|
@@ -210,6 +246,13 @@ ActiveRecord::Schema.define(version: 20190528025937) do
     t.datetime "updated_at",                     null: false
   end
 
+  create_table "design_skills", force: :cascade do |t|
+    t.string  "skill_name"
+    t.integer "skill_point"
+    t.integer "candidate_id"
+    t.index ["candidate_id"], name: "index_design_skills_on_candidate_id", using: :btree
+  end
+
   create_table "employee_skills", force: :cascade do |t|
     t.integer  "employee_id"
     t.integer  "skill_id"
@@ -293,6 +336,33 @@ ActiveRecord::Schema.define(version: 20190528025937) do
     t.index ["employee_id", "role_id"], name: "index_employees_roles_on_employee_id_and_role_id", using: :btree
     t.index ["employee_id"], name: "index_employees_roles_on_employee_id", using: :btree
     t.index ["role_id"], name: "index_employees_roles_on_role_id", using: :btree
+  end
+
+  create_table "evaluates", force: :cascade do |t|
+    t.integer  "frontend",             default: 0
+    t.integer  "dot_net",              default: 0
+    t.integer  "dot_net_core",         default: 0
+    t.integer  "ruby_on_rails",        default: 0
+    t.integer  "kotlin",               default: 0
+    t.integer  "swift",                default: 0
+    t.string   "other_ability"
+    t.integer  "problem_solving",      default: 0
+    t.integer  "indepentdent",         default: 0
+    t.integer  "comunication",         default: 0
+    t.integer  "attention",            default: 0
+    t.boolean  "on_time",              default: false
+    t.integer  "teamwork",             default: 0
+    t.integer  "compatibility",        default: 0
+    t.string   "note"
+    t.integer  "glad",                 default: 1
+    t.boolean  "is_submit",            default: false
+    t.integer  "interview_id"
+    t.integer  "interviewer_email_id"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "link"
+    t.index ["interview_id"], name: "index_evaluates_on_interview_id", using: :btree
+    t.index ["interviewer_email_id"], name: "index_evaluates_on_interviewer_email_id", using: :btree
   end
 
   create_table "expense_items", force: :cascade do |t|
@@ -387,6 +457,20 @@ ActiveRecord::Schema.define(version: 20190528025937) do
     t.index ["friend_id"], name: "index_individuals_on_friend_id", using: :btree
     t.index ["parent_id"], name: "index_individuals_on_parent_id", using: :btree
     t.index ["spouse_id"], name: "index_individuals_on_spouse_id", using: :btree
+  end
+
+  create_table "interviewer_emails", force: :cascade do |t|
+    t.string  "email",        null: false
+    t.integer "interview_id"
+    t.index ["interview_id"], name: "index_interviewer_emails_on_interview_id", using: :btree
+  end
+
+  create_table "interviews", force: :cascade do |t|
+    t.datetime "date"
+    t.string   "location",     default: "Banana Office"
+    t.integer  "candidate_id"
+    t.integer  "category",     default: 1
+    t.index ["candidate_id"], name: "index_interviews_on_candidate_id", using: :btree
   end
 
   create_table "inventories", force: :cascade do |t|
@@ -605,6 +689,13 @@ ActiveRecord::Schema.define(version: 20190528025937) do
     t.index ["employee_id"], name: "index_payrolls_on_employee_id", using: :btree
   end
 
+  create_table "programming_skills", force: :cascade do |t|
+    t.string  "skill_name"
+    t.integer "skill_point"
+    t.integer "candidate_id"
+    t.index ["candidate_id"], name: "index_programming_skills_on_candidate_id", using: :btree
+  end
+
   create_table "quotation_invoices", force: :cascade do |t|
     t.integer "quotation_id"
     t.integer "invoice_id"
@@ -705,12 +796,20 @@ ActiveRecord::Schema.define(version: 20190528025937) do
     t.boolean "enable_quotation",                     default: false
     t.boolean "export_kbank_payroll",                 default: false
     t.string  "bank_account"
+    t.boolean "enable_scout",                         default: false
   end
 
   create_table "skills", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "soft_skills", force: :cascade do |t|
+    t.string  "skill_name"
+    t.integer "skill_point"
+    t.integer "candidate_id"
+    t.index ["candidate_id"], name: "index_soft_skills_on_candidate_id", using: :btree
   end
 
   create_table "student_lists", force: :cascade do |t|
@@ -904,18 +1003,37 @@ ActiveRecord::Schema.define(version: 20190528025937) do
     t.index ["vacation_type_id"], name: "index_vacations_on_vacation_type_id", using: :btree
   end
 
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",      null: false
+    t.bigint   "item_id",        null: false
+    t.string   "event",          null: false
+    t.string   "whodunnit"
+    t.json     "object"
+    t.json     "object_changes"
+    t.datetime "created_at"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
+  end
+
+  add_foreign_key "candidate_files", "candidates"
   add_foreign_key "class_permisions", "employees"
   add_foreign_key "class_permisions", "lists"
   add_foreign_key "classrooms", "classrooms", column: "next_id", on_delete: :nullify
+  add_foreign_key "design_skills", "candidates"
   add_foreign_key "employee_skills", "employees"
   add_foreign_key "employee_skills", "skills"
   add_foreign_key "employees", "classrooms", on_delete: :nullify
+  add_foreign_key "evaluates", "interviewer_emails"
+  add_foreign_key "evaluates", "interviews"
   add_foreign_key "individuals", "employees", column: "child_id"
   add_foreign_key "individuals", "employees", column: "emergency_call_id"
   add_foreign_key "individuals", "employees", column: "friend_id"
   add_foreign_key "individuals", "employees", column: "parent_id"
   add_foreign_key "individuals", "employees", column: "spouse_id"
+  add_foreign_key "interviewer_emails", "interviews"
+  add_foreign_key "interviews", "candidates"
+  add_foreign_key "programming_skills", "candidates"
   add_foreign_key "roll_calls", "lists"
+  add_foreign_key "soft_skills", "candidates"
   add_foreign_key "students", "classrooms", on_delete: :nullify
   add_foreign_key "students", "schools"
   add_foreign_key "users", "schools"

@@ -1,0 +1,81 @@
+(function() {
+  'use strict';
+  angular.module('somsri.somsri.sent_email_modal', [
+  ])
+  .controller('sentEmailModalCtrl', ['$scope', '$rootScope', '$uibModalInstance', 'sentEmailModalService', '$uibModal', 'translateFilter',
+  function($scope, $rootScope, $uibModalInstance, sentEmailModalService, $uibModal, translateFilter) {
+
+    var ctrl = this;
+    
+    $rootScope.loadAndAuthorizeResource("interview", function() {
+      loadInterview()
+    });
+
+    function loadInterview(){
+      sentEmailModalService.getInterview($scope.candidate_id).then(function(resp) {
+        ctrl.datas = resp.data.result
+      })
+    }
+
+    ctrl.addMoreEmail = function(){
+      ctrl.datas.interviewer_emails_attributes.push({ id: "", email: "", skip_send_email: true });
+    }
+
+    ctrl.removeInterViewEmail = function(index) {
+      ctrl.datas.interviewer_emails_attributes[index]._destroy = true
+    }
+
+    ctrl.send = function(){
+      sentEmailModalService.sendEmail(ctrl.datas).then(function(resp) {
+        $uibModalInstance.close(resp.data);
+      })
+    }
+
+    ctrl.close = function () {
+      $uibModalInstance.close();
+    };
+
+    function openConfirmationModal(message, success, dismiss) {
+      $scope.message = message;
+      $uibModal.open({
+        animation: true,
+        backdrop: 'static',
+        keyboard: false,
+        scope: $scope,
+        templateUrl: "<%= asset_path('somsri/angular/components/modal/minimalConfirmSave/minimalConfirmSaveView.html') %>",
+        controller: 'minimalConfirmSaveModalCtrl as confirm',
+        size: 'md',
+        resolve: {
+          resources: ['$ocLazyLoad', 'ASSETS', function($ocLazyLoad, ASSETS) {
+            return $ocLazyLoad.load([
+              ASSETS.somsri.somsri.minimal_confirm_save_modal
+            ]);
+          }]
+        }
+      }).result.then(function (isConfirm) {
+        if (isConfirm) {
+          if(success){ success() }
+        }else{
+          if(dismiss){ dismiss() }
+        }
+      });
+    }
+
+    ctrl.save = function(){
+      openConfirmationModal(translateFilter('close_with_save'), function(){
+        ctrl.send();
+      })
+    }
+
+    ctrl.validateEmail = function(){
+
+      var email = ctrl.datas.interviewer_emails_attributes
+      var checkUndefind;
+      if(email != null){
+        checkUndefind = email.filter(emails => !emails._destroy && (emails.email == undefined)).length > 0 ? true : false
+      }
+      return checkUndefind 
+    }
+    
+  }]);
+})();

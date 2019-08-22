@@ -1,0 +1,16 @@
+(function() {
+  'use strict';
+
+  angular.module('somsri.somsri.sent_email_modal.service', [])
+  .service('sentEmailModalService', ['$http', function($http) {
+
+    this.getInterview = function(id) {
+      return $http.get('/interviews/' + id)
+    }
+      
+    this.sendEmail = function(params) {
+      return $http.post('/evaluates/' + params.interview_data.id + '/save_invite', { interview: params })
+    }
+
+  }]);
+})();
