@@ -11,6 +11,19 @@ class CandidatesController < ApplicationController
     }, status: :ok
   end
 
+  def display_file
+    data = Candidate.find_by(id: params[:id])
+    if data.present?
+      data = data.candidate_files.find_by(id:  params[:file_id])
+      if data.present?
+        url = data.files.expiring_url(10)
+        send_file open(url), type: data.files.content_type , disposition: 'inline'
+        return
+      end
+    end
+    redirect_to '/404.html'
+  end
+
   def new
     render json: { candidate: Candidate.new.as_json('show_or_edit') }, status: :ok
   end

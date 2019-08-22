@@ -245,6 +245,7 @@ Rails.application.routes.draw do
       patch 'upload_photo'
       patch 'update_candidate'
       patch 'update_star'
+      get 'display_file'
     end
   end
 
