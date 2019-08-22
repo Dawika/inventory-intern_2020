@@ -480,7 +480,7 @@ body {
   background-color: #eee !important;
 }
 
-.bg-green {
+.bg-green{
   background-color: #5bab67 !important;
 }
 
@@ -752,7 +752,7 @@ body {
     border:2px solid #3fa1e6;
     color: #3fa1e6 !important;
   }
-  &:focus {
+  &:focus{
     color: #fff;
   }
 }
@@ -1031,8 +1031,8 @@ tags-input .tags .tag-item .remove-button{
 }
 
 .nav-tabs.inventory > li.active > a,
-.nav-tabs.inventory > li.active>a:hover,
-.nav-tabs.inventory > li.active>a:focus {
+.nav-tabs.inventory > li.active > a:hover,
+.nav-tabs.inventory > li.active > a:focus {
   margin-top: 2px;
   background-color: white;
 }
@@ -1356,7 +1356,7 @@ tags-input .tags .tag-item .remove-button{
   color: #FFFFFF !important;
 }
 
-#inventory {
+#inventory{
   .tabs-menu.nav-tabs{
     li>a.nav-link{
       padding: 20px 40px;
