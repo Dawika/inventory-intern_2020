@@ -1,11 +1,25 @@
 class ApplicationController < ActionController::Base
   include CanCan::ControllerAdditions
+  include LocalSubdomain
   protect_from_forgery with: :exception
-  before_action :set_cache_buster, :set_locale
+  before_action :set_cache_buster, :set_locale, :notification_payment
   after_action :set_csrf_cookie_for_ng
   before_filter :validate_subdomain
+  after_action :notification_payment
 
-  include LocalSubdomain
+  def notification_payment
+    if current_user.present?
+      school_license = current_user.school.active_license
+      @have_license = school_license.present?
+      @have_plan = school_license.plan.present?
+      @have_expired_date = school_license.expired_date.nil?
+      @have_charge_info = school_license.charge_info.present?
+      if @have_charge_info
+        @captured = school_license.charge_info.captured == false
+      end
+    end
+  end
+
 
   def set_locale
     @locale = params[:locale] || session['locale'] ||

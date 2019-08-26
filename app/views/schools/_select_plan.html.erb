@@ -77,18 +77,18 @@
                   </div>
                   <div class="row">
                     <div class="col-md-7">
-                      <%= bil_form.input :card_number, input_html: { id: 'school_bil_info_card_number', class: 'plan-select', data: {omise: 'number'} }, required: true, disabled: true %>
+                      <%= bil_form.input :card_number, input_html: { id: 'school_bil_info_card_number', class: 'plan-select', data: {omise: 'number'},  maxlength: 16 }, required: true, disabled: true %>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-2">
-                      <%= bil_form.input :exp_month, label: 'exp month', input_html: { id: 'school_bil_info_exp_month', class: 'plan-select', data: {omise: 'expiration_month'},  maxlength: 4 }, required: true, disabled: true %>
+                      <%= bil_form.input :exp_month, label: 'exp month', input_html: { id: 'school_bil_info_exp_month', class: 'plan-select', data: {omise: 'expiration_month'},  maxlength: 2 }, required: true, disabled: true %>
                     </div>
                     <div class="col-md-2">
-                      <%= bil_form.input :exp_year, label: 'exp year', input_html: { id: 'school_bil_info_exp_year', class: 'plan-select', data: {omise: 'expiration_year'},  maxlength: 8 }, required: true, disabled: true %>
+                      <%= bil_form.input :exp_year, label: 'exp year', input_html: { id: 'school_bil_info_exp_year', class: 'plan-select', data: {omise: 'expiration_year'},  maxlength: 4 }, required: true, disabled: true %>
                     </div>
                     <div class="col-md-2">
-                      <%= bil_form.input :cvv, label: 'cvv', input_html: { id: 'school_bil_info_cvv', class: 'plan-select', data: {omise: 'security_code'} }, required: true, disabled: true %>
+                      <%= bil_form.input :cvv, label: 'cvv', input_html: { id: 'school_bil_info_cvv', class: 'plan-select', data: {omise: 'security_code'},  maxlength: 3}, required: true, disabled: true %>
                     </div>
                   </div>
                 </div>
