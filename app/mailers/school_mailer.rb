@@ -13,13 +13,9 @@ class SchoolMailer < ApplicationMailer
       mail(to: @school.email, subject: 'license renewal reminder')
   end
 
-  def renew_license_success(schools)
+  def renew_license_success_and_error(schools)
     @school = schools
     mail(to: @school.email, subject: 'license renewal ')
   end
 
-  def renew_license_error(schools)
-    @school = schools
-    mail(to: @school.email, subject: 'license renewal')
-  end
 end

@@ -50,12 +50,12 @@ namespace :auto_renewal do
           if charge.captured
             new_date_expire = next_plan.monthly? ? DateTime.now.utc+1.month : DateTime.now.utc+1.year
             new_license.update(expired_date: new_date_expire)
-            ap "sent email #{school.email} Success ..."
-            SchoolMailer.renew_license_success(school).deliver
+            ap "[Success] sent email #{school.email} ..."
+            SchoolMailer.renew_license_success_and_error(school).deliver
             renewal_schools += 1
           else
-            ap "Send email #{school.email} ERROR ! #{charge.failure_message} ( #{charge.failure_code} )"
-            SchoolMailer.renew_license_error(school).deliver
+            ap "[ERROR]Send email #{school.email} - > #{charge.failure_message} ( #{charge.failure_code} )"
+            SchoolMailer.renew_license_success_and_error(school).deliver
             error += 1
           end
         end
