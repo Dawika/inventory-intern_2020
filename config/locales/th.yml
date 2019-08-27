@@ -545,10 +545,6 @@ th:
   zip_code: "รหัสไปรษณีย์"
   Contact information: "ข้อมูลผู้ติดต่อ"
   bil_address: "ที่อยู่ออกใบเสร็จ"
-  insufficient_fund: "ยอดเงินไม่เพียงพอ"
-  invalid_security_code: "รหัสความปลอดภัยไม่ถูกต้อง"
-  stolen_or_lost_card: "บัตรมีการแจ้งหายหรือถูกขโมยไว้"
-  failed_processing: "ดำเนินการไม่สำเร็จ"
 
   # School Setting
   schools:
