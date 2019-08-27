@@ -1,1 +1,5 @@
-<h1>Error and Success</h1>
+<% if @school.active_license.charge_info %>
+<h1>Success</h1>
+<% else %>
+<h1>Error</h1>
+<% end%>    
