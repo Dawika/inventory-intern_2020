@@ -5,17 +5,16 @@ class ApplicationController < ActionController::Base
   before_action :set_cache_buster, :set_locale, :notification_payment
   after_action :set_csrf_cookie_for_ng
   before_filter :validate_subdomain
-  after_action :notification_payment
 
   def notification_payment
     if current_user.present?
       school_license = current_user.school.active_license
-      @have_license = school_license.present?
-      @have_plan = school_license.plan.present?
-      @have_expired_date = school_license.expired_date.nil?
-      @have_charge_info = school_license.charge_info.present?
-      if @have_charge_info
-        @captured = school_license.charge_info.captured == false
+      charge_info = school_license.charge_info
+      is_expired = school_license.plan.present?
+      captured = !school_license.charge_info.captured  if charge_info.present?
+      if is_expired and captured
+        @show = true
+        redirect_to '/' and return unless controller_name == 'home'
       end
     end
   end

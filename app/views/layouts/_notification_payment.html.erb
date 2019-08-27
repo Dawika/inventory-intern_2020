@@ -1,55 +1,52 @@
-<% if @have_license
-    if @have_plan
-    if @have_expired_date
-    if @have_charge_info
-    if @captured
- %>
-<!-- Modal -->
-<div id="outstandingModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
-    <!-- Modal content-->
-    <div class="modal-content text-center px-20 pt-50 pb-20 mt-50 max-w-md custom-shadow text-color">
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-12 mb-50">
-            <img src="/somsri_logo.png" style="width: 96px; height: 147px;">
+<% if @show %>
+  <!-- Modal -->
+  <div id="outstandingModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <!-- Modal content-->
+      <div class="modal-content text-center px-20 pt-50 pb-20 mt-50 max-w-md custom-shadow text-color">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12 mb-50">
+              <img src="/somsri_logo.png" style="width: 96px; height: 147px;">
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 letter-spacing-3">
-            <h3>ขอบคุณสำหรับสนใจใช้งาน สมศรี </h3>
+          <div class="row">
+            <div class="col-md-12 letter-spacing-3">
+              <h3>ขอบคุณสำหรับสนใจใช้งาน สมศรี </h3>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 letter-spacing-3">
-            <h3>แต่เนื่องจาก <font color="orange">ระยะเวลาการทดลอง</font>ใช้งานได้สิ้นสุดลงแล้ว</h3>
+          <div class="row">
+            <div class="col-md-12 letter-spacing-3">
+              <h3>แต่เนื่องจาก
+                <font color="orange">ระยะเวลาการทดลอง</font>ใช้งานได้สิ้นสุดลงแล้ว</h3>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 letter-spacing-3">
-            <h3>เพื่อการใช้งานอย่างต่อเนื่อง <font color="orange">โปรดชำระเงิน</font> ได้ที่ </h3>
+          <div class="row">
+            <div class="col-md-12 letter-spacing-3">
+              <h3>เพื่อการใช้งานอย่างต่อเนื่อง
+                <font color="orange">โปรดชำระเงิน</font> ได้ที่ </h3>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-offset-2 col-md-8"><hr/><br></div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 mb-50">
-            <a class="btn btn-custom btn-orange font-18" data-dismiss="modal">ชำระเงินที่นี่</a >
+          <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+              <hr/><br></div>
           </div>
-        </div>
+          <div class="row">
+            <div class="col-md-12 mb-50">
+              <a class="btn btn-custom btn-orange font-18" data-dismiss="modal">ชำระเงินที่นี่</a >
+            </div>
+          </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-<script type="text/javascript">
-  $( document ).ready(function() {
-    $('#outstandingModal').modal({
-      backdrop: 'static',
-      keyboard: false
-    })
-    $('#outstandingModal').modal('show');
-  });
-</script>
-<% end end end end end%>
+  <script type="text/javascript">
+    $( document ).ready(function() {
+      $('#outstandingModal').modal({
+        backdrop: 'static',
+        keyboard: false
+      })
+      $('#outstandingModal').modal('show');
+    });
+  </script>
+<% end %>
