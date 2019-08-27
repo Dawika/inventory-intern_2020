@@ -535,6 +535,10 @@ en:
   province: "Province"
   zip_code: "Zip code"
   Contact information: "Contact information"
+  insufficient_fund: "Insufficient fund"
+  invalid_security_code: "Invalid security code"
+  stolen_or_lost_card: "Stolen or lost card"
+  failed_processing: "Failed processing"
   # School Setting
   schools:
     new:

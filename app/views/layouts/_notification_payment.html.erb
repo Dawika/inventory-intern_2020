@@ -17,8 +17,12 @@
           </div>
           <div class="row">
             <div class="col-md-12 letter-spacing-3">
-              <h3>แต่เนื่องจาก
-                <font color="orange">ระยะเวลาการทดลอง</font>ใช้งานได้สิ้นสุดลงแล้ว</h3>
+              <h3>แต่เนื่องจาก 
+              <% if @message == 'test'%>
+                  <font color="orange">ระยะเวลาการทดลอง</font>ใช้งานได้สิ้นสุดลงแล้ว</h3>
+                <% else %>
+                  <font color="orange">ชำระเงืนไม่สำเร็จ</font> (<%= t(@school.active_license.charge_info.failure_code) %>)</h3>
+                <% end %>
             </div>
           </div>
           <div class="row">

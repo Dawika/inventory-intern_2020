@@ -12,8 +12,13 @@ class ApplicationController < ActionController::Base
       charge_info = school_license.charge_info
       is_expired = school_license.plan.present?
       captured = !school_license.charge_info.captured  if charge_info.present?
+      if current_user.school.customer_info.blank? and school_license.expired_date  <= Time.now
+        @show = true
+        @message = 'test'
+      end
       if is_expired and captured
         @show = true
+        @school = current_user.school
         redirect_to '/' and return unless controller_name == 'home'
       end
     end
