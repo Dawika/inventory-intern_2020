@@ -1,0 +1,264 @@
+<%= simple_form_for @school, url: purchase_renew_path(purchase_school_id: @school.id, cancel_check_plan: true), action: 'update' do |f| %>
+  <div class="container plan" id="school-plan">
+    <div class="select-plan" style="margin-left: -14%; margin-top: 130px;">
+      <div class="row">
+        <h1 class="font-style">Select Plan</h1>
+      </div>
+      <section class="sec_4">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+              <div class="row text-center">
+                <fieldset class="form-group radio_buttons optional school_plan_id">
+                  <input type="hidden" name="school[plan_id]" value="">
+                  <% @plans.each do |plan| %>
+                    <div class="col-md-6">
+                      <div class="col-md-10 col-md-offset-1">
+                        <h3>
+                          <%= t(plan.package_name) %>
+                        </h3>
+                        <p>
+                          <%= plan.description %>
+                        </p>
+                        <h3 class="price-l">
+                          <%= number_to_currency(plan.price, precision: 0, unit: '') %> บาท/เดือน</h3><br>
+                        <p>ใช้งานแบบออนไลน์ผ่านทาง สมศรี Cloud สามารถเข้าถึงได้จากทั้งที่โรงเรียนและที่บ้าน ข้อมูลไม่สูญหาย ระบบ backup ให้ อัตโนมัติ รับประกันตลอดอายุการใช้งาน </p><br>
+                        <div class="form-check">
+                          <input class="form-check-input radio_buttons optional" type="radio" value="<%= plan.id %>" <%='checked' if @school.plan==plan %> name="school[plan_id]" id="school_plan_id_<%=plan.id %>">
+                            <label class="collection_radio_buttons" for="school_plan_id_<%=plan.id %>">Select</label>
+                        </div>
+                      </div>
+                    </div>
+                    <% end %>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+      </section>
+      <section class="sec_5">
+        <div class="row container">
+          <div class="col-md-6 border-r layout">
+            <div class="row">
+              <h3 class="font-style">
+                วิธีการชำระเงิน
+              </h3>
+            </div>
+            <div class="row">
+              <ul class="nav nav-tabs nav-fill">
+                <li class="nav-item nav-link boder text-center <%="active" if @school.customer_info.blank?%>"><a class="tab-label" data-toggle="tab" href="#transfer-money"><i class="fa fa-money" aria-hidden="true"></i><br>โอนเงิน</a></li>
+                <li class="nav-item nav-link  border text-center <%="active" if @school.customer_info.present?%>"><a class="tab-labe" data-toggle="tab" href="#credit"><i class="fa fa-credit-card" aria-hidden="true"></i><br>บัตรเครดิต </a></li>
+              </ul>
+            </div>
+            <div class="row">
+              <div class="tab-content">
+                <%=f.simple_fields_for :bil_info, validate: false do |bil_form| %>
+                  <div id="transfer-money" class="tab-pane fade <%="in active" if @school.customer_info.blank?%>">
+                    <div class="row">
+                      <h3>
+                        รายละเอียดการจ่ายเงิน
+                      </h3>
+                      <%= bil_form.hidden_field :payment_method, value: 'transfer money' %>
+                    </div>
+                  </div>
+                  <div id="credit" class="tab-pane fade <%="in active" if @school.customer_info.present?%>"><br>
+                    <div class="row">
+                      <h3 class="font-style">Credit crad Info</h3><button class='btn btn-getStarted animated fadeInDown' type="button" id="modal-updatecard">Update card</button>
+                      <div class="col-md-11">
+                        <!-- <div id="token_errors"></div> -->
+                      </div>
+                    </div><br>
+                    <div class="row">
+                      <div class="col-md-7">
+                        <%= hidden_field_tag :omise_token , @school.customer_id%>
+                          <%= bil_form.input :payment_method, as: :hidden, input_html: { id: 'school_bil_info_payment_method', class: 'plan-select required', value: 'credit' }, disabled: true %>
+                          <%= bil_form.input :cardholder_name, input_html: {  data: {omise: 'holder_name'}, value: @school.customer_info.cards.first.name }, disabled: true%>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-7">
+                        <%= bil_form.input :card_number, input_html: {  data: {omise: 'number'}, value: "**** **** **** #{@school.customer_info.cards.first.last_digits}",  maxlength: 16 }, disabled: true %>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2">
+                        <%= bil_form.input :exp_month, label: 'exp month', input_html: {  data: {omise: 'expiration_month'}, value: @school.customer_info.cards.first.expiration_month,  maxlength: 2 }, disabled: true %>
+                      </div>
+                      <div class="col-md-2">
+                        <%= bil_form.input :exp_year, label: 'exp year', input_html: {  data: {omise: 'expiration_year'}, value: @school.customer_info.cards.first.expiration_year,  maxlength: 4 }, disabled: true %>
+                      </div>
+                      <div class="col-md-2">
+                        <%= bil_form.input :cvv, label: 'cvv', input_html: { data: {omise: 'security_code'}, value: "***",  maxlength: 3}, disabled: true %>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 layout2  pull-right">
+            <div class="row">
+              <h3 class="font-style">
+                <%=t('.Billing info') %>
+              </h3>
+            </div>
+            <div class="row">
+              <ul class="nav nav-tabs">
+                <li class="nav-item nav-link boder text-center active" id="showBr" onclick="branch(this.id)"><a class="tab-label">นิติบุคคล</a></li>
+                <li class="nav-item nav-link  border text-center" id="hideBr" onclick="branch(this.id)"><a class="tab-labe">บุคคลธรรมดา </a></li>
+              </ul>
+            </div>
+            <div class="row" id="validate-bil">
+              <div class="tab-content"><br>
+                <div class="row">
+                  <div class="col-md-10">
+                    <%= bil_form.input :name, label: t('.name') %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-10">
+                    <%= bil_form.input :address, label: t('.address') %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5">
+                    <%= bil_form.input :district, label: t('.district')  %>
+                  </div>
+                  <div class="col-md-5">
+                    <%= bil_form.input :province, label: t('.province')  %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5">
+                    <%= bil_form.input :zip_code, label: t('.zip_code')  %>
+                  </div>
+                  <div class="col-md-5">
+                    <%= bil_form.input :phone, label: t('.phone') %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-8">
+                    <%= bil_form.input :tax_id, label: t('.tax_id')  %>
+                  </div>
+                  <div class="col-md-2">
+                    <%= bil_form.input :branch, label: t('.branch')  %>
+                  </div>
+                </div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="row">
+        <div class="col-xs-2  pull-right">
+          <%= button_tag "update", type: 'submit', class: 'btn btn-getStarted animated fadeInDown'%>
+        </div>
+      </div>
+      </div>
+    </div>
+    <% end %>
+      <div class="modal fade " id="modal-card" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" style="margin-top: 130px; padding: 45px">
+            <div class="modal-header" style="border-bottom: none;">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h3 class="font-style modal-title">UPDATE CREDIT CARD</h3>
+            </div><br>
+            <%= simple_form_for @school.bil_info, html: {  id: :form_update_card }, url: purchase_update_card_path(purchase_school_id: @school.id, cancel_check_plan: true), action: 'update' do |f| %>
+              <div class="row">
+                <div id="token_errors"></div>
+                <div class="col-md-12">
+                  <%= hidden_field_tag :omise_token%>
+                  <%= f.input :cardholder_name, input_html: { data: {omise: 'holder_name'} } %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <%= f.input :card_number, input_html: { data: {omise: 'number'} } %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <%= f.input :exp_month, input_html: { data: {omise: 'expiration_month'} } %>
+                </div>
+                <div class="col-md-4">
+                  <%= f.input :exp_year, input_html: { data: {omise: 'expiration_year'} } %>
+                </div>
+                <div class="col-md-4">
+                  <%= f.input :cvv, input_html: { data: {omise: 'security_code'} } %>
+                </div>
+              </div><br>
+              <div class="row">
+                <div class="col-md-3 pull-right">
+                  <%= button_tag "Cancel", type: 'button', class: 'btn btn-getStarted animated fadeInDown'%>
+                </div>
+                <div class="col-md-3 pull-right">
+                  <%= button_tag "update", type: 'submit', class: 'btn btn-getStarted animated fadeInDown'%>
+                </div>
+              </div>
+              <% end %>
+          </div>
+        </div>
+      </div>
+
+      <script src="https://cdn.omise.co/omise.js"></script>
+      <script>
+        $(document).ready(function() {
+          $('input').removeClass('is-valid')
+          $('#school-plan abbr').hide();
+          $('#modal-updatecard').click(function() {
+            $('#modal-card').modal();
+            $('#modal-card abbr').hide();
+          })
+
+        });
+        // 4242424242424242 Number for test 
+        Omise.setPublicKey("<%= Figaro.env.OMISE_PUPLIC_KEY %>");
+        $("#form_update_card").submit(function() {
+          var form = $(this);
+          // Disable the submit button to avoid repeated click.
+          form.find("input[type=submit]").prop("disabled", true);
+
+          // Serialize the form fields into a valid card object.
+          var card = {
+            "name": form.find("[data-omise=holder_name]").val(),
+            "number": form.find("[data-omise=number]").val(),
+            "expiration_month": form.find("[data-omise=expiration_month]").val(),
+            "expiration_year": form.find("[data-omise=expiration_year]").val(),
+            "security_code": form.find("[data-omise=security_code]").val()
+          };
+
+          // Send a request to create a token then trigger the callback function once
+          // a response is received from Omise.
+          //
+          // Note that the response could be an error and this needs to be handled within
+          // the callback.
+          Omise.createToken("card", card, function(statusCode, response) {
+            if (card.name == '' && card.expiration_month == '' && card.security_code == '') {
+              $("#token_errors").html('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Please fill out this field.</div>');
+            }
+            if (response.object == "error") {
+                // Display an error message.
+              var message_text = "SET YOUR SECURITY CODE CHECK FAILED MESSAGE";
+              if (response.object == "error") {
+                message_text = response.message;
+              }
+              $("#token_errors").html('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + message_text + '</div>');
+
+              // Re-enable the submit button.
+              form.find("input[type=submit]").prop("disabled", false);
+            } else {
+              // Then fill the omise_token.
+              form.find("[name=omise_token]").val(response.id);
+
+              // Remove card number from form before submiting to server.
+              form.find("[data-omise=number]").val("");
+              form.find("[data-omise=security_code]").val("");
+
+              // submit token to server.
+              form.get(0).submit();
+            };
+          });
+          // Prevent the form from being submitted;
+          return false;
+        });
+      </script>

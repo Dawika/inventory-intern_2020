@@ -8,17 +8,15 @@ class ApplicationController < ActionController::Base
 
   def notification_payment
     if current_user.present?
+      return true if params[:cancel_check_plan]
+
       school_license = current_user.school.active_license
       charge_info = school_license.charge_info
-      is_expired = school_license.plan.present?
-      captured = !school_license.charge_info.captured  if charge_info.present?
-      if current_user.school.customer_info.blank? and school_license.expired_date  <= Time.now
+      is_expired = school_license.expired_date.strftime('%F')  < Time.now.strftime('%F') if school_license.expired_date.present?
+      captured = !charge_info.captured  if charge_info.present?
+      if is_expired or captured
+        @message = 'test' if current_user.school.customer_info.blank?
         @show = true
-        @message = 'test'
-      end
-      if is_expired and captured
-        @show = true
-        @school = current_user.school
         redirect_to '/' and return unless controller_name == 'home'
       end
     end
