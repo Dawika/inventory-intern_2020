@@ -7,6 +7,12 @@ class SettingsController < ApplicationController
     render json: getSetting(), status: :ok
   end
 
+  def subscription
+    current_user.school.auto_subscribe = ActiveRecord::Type::Boolean.new.cast(params[:auto_subscribe])
+    current_user.school.save
+    render json:  current_user.school.auto_subscribe
+  end
+
   # PATCH /settings
   def update_current_user
     User.transaction do
@@ -37,7 +43,8 @@ class SettingsController < ApplicationController
         user: current_user,
         school: current_user.school,
         school_logo: current_user.school.logo_url,
-        licenses: current_user.school.licenses,
+        licenses: current_user.school.active_license,
+        plan: current_user.school.active_license.plan || 'ทดลองใช้งาน',
         billing_info: current_user.school.bil_info
 
       }

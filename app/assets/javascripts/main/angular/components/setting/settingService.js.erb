@@ -1,28 +1,31 @@
 (function() {
   'use strict';
 
-  angular.module('somsri.main.setting.service', [
-  ])
-  .service('settingService', ['$http', 'Upload', function($http, Upload) {
-    this.getSetting = function() {
-      return $http.get('/settings');
-    };
+  angular.module('somsri.main.setting.service', [])
+    .service('settingService', ['$http', 'Upload', function($http, Upload) {
+      this.getSetting = function() {
+        return $http.get('/settings');
+      };
 
-    this.saveSetting = function(params) {
-     return  Upload.upload({
-        url: '/settings/',
-        method: 'PATCH',
-        data: params
-      });
-    };
+      this.saveSetting = function(params) {
+        return Upload.upload({
+          url: '/settings/',
+          method: 'PATCH',
+          data: params
+        });
+      };
 
-    this.getSiteConfig = function() {
-      return $http.get('/users/site_config');
-    };
+      this.getSiteConfig = function() {
+        return $http.get('/users/site_config');
+      };
 
-    this.saveLogo = function(id, logo) {
-      return $http.patch('/schools/'+ id +'/?logo='+ logo +'');
-    };
+      this.saveLogo = function(id, logo) {
+        return $http.patch('/schools/' + id + '/?logo=' + logo + '');
+      };
 
-  }]);
+      this.subscription = function(value) {
+        return $http.patch('/settings/subscription/?auto_subscribe=' + value)
+      };
+
+    }]);
 })();
