@@ -44,7 +44,7 @@ namespace :auto_renewal do
             plan_id: next_plan.id, expired_date: nil,
             charge_id: charge.id, school_id: school.id
           )
-          new_license.fetch_charge_info
+          new_license.fetch_charge_info('create')
 
           if charge.captured
             new_date_expire = next_plan.monthly? ? DateTime.now.utc+1.month : DateTime.now.utc+1.year

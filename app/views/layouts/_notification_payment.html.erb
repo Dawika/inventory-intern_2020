@@ -17,11 +17,12 @@
           </div>
           <div class="row">
             <div class="col-md-12 letter-spacing-3">
-              <h3>แต่เนื่องจาก 
-              <% if @message == 'test'%>
+              <h3>แต่เนื่องจาก
+                <% if @message == 'test'%>
                   <font color="orange">ระยะเวลาการทดลอง</font>ใช้งานได้สิ้นสุดลงแล้ว</h3>
-                <% else %>
-                  <font color="orange">ชำระเงินไม่สำเร็จ</font></h3>
+              <% else %>
+                <font color="orange">ชำระเงินไม่สำเร็จ</font>
+                </h3>
                 <% end %>
             </div>
           </div>
@@ -44,6 +45,34 @@
         </div>
       </div>
     </div>
+    <% end %>
+    <% if @success %>
+  <!-- Modal -->
+  <div id="success" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <!-- Modal content-->
+      <div class="modal-content text-center px-20 pt-50 pb-20 mt-50 max-w-md custom-shadow text-color" style="width: 50%; margin-left: 253px; margin-top: 15%!important;">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12 mb-50">
+              <i class="fa fa-check-circle fa-8x color-light-green" aria-hidden="true"></i>
+              <div class="col-md-12 letter-spacing-3">
+                <h3>ขอบคุณสำหรับสนใจใช้งาน สมศรี </h3>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 mb-50">
+              <button class="btn btn-custom btn-orange font-18" data-dismiss="modal">กลับสู่การใช้งาน</button>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    
+
   <script type="text/javascript">
     $( document ).ready(function() {
       $('#outstandingModal').modal({
@@ -51,6 +80,7 @@
         keyboard: false
       })
       $('#outstandingModal').modal('show');
+      $('#success').modal()
+      $('#success').modal('show');
     });
   </script>
-<% end %>

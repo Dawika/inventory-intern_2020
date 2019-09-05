@@ -5,25 +5,25 @@ class License < ApplicationRecord
   belongs_to :plan    
   has_one :charge_info
 
-  def fetch_charge_info
+  def fetch_charge_info(action)
     return nil if self.charge_id.blank?
     charge = (Omise::Charge.retrieve(self.charge_id) rescue nil)
-    if charge.present? && self.charge_info.nil?
+    if charge.present?
       card = charge.card
-
-      ChargeInfo.create(
-        amount: charge.amount / 100,
-        currency: charge.currency,
-        description: charge.description,
-        captured: charge.captured,
-        transaction_id: (charge.transaction.id rescue ''),
-        card_brand: (card.brand rescue ''),
-        card_last_digits: (card.last_digits rescue ''),
-        failure_code: charge.failure_code,
-        failure_message:  charge.failure_message,
-        license_id: self.id
-      )
+      charge_info = action == 'create' ? ChargeInfo.new : self.charge_info
+      charge_info.amount = charge.amount / 100
+      charge_info.currency = charge.currency
+      charge_info.description = charge.description
+      charge_info.captured = charge.captured
+      charge_info.transaction_id = (charge.transaction.id rescue '')
+      charge_info.card_brand = (card.brand rescue '')
+      charge_info.card_last_digits = (card.last_digits rescue '')
+      charge_info.failure_code = charge.failure_code
+      charge_info.failure_message =  charge.failure_message
+      charge_info.license_id = self.id
+      charge_info.save
     end
     return charge
   end
+
 end

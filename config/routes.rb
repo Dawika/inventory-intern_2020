@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resources :schools
   resources :purchases, param: :school_id, only: [:new] do
     patch 'renew'
-    patch 'update_card'
+    post 'update_card'
   end
 
   resources :users, only: [] do
