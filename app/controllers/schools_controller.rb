@@ -11,7 +11,7 @@ class SchoolsController < ApplicationController
     def create
       ActiveRecord::Base.transaction do     
         @school = School.new(school_params)
-        @school.auto_subscribe = false if params[:commit] == "เริ่มต้นใช้งาน"  
+        @school.auto_subscribe = false if params[:skip].present?
         # 4242424242424242 <= credit card number for testing
         token = params[:omise_token]
         if token.present?

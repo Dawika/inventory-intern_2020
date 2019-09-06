@@ -2,7 +2,6 @@
   <!-- Modal -->
   <div id="outstandingModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
-      <!-- Modal content-->
       <div class="modal-content text-center px-20 pt-50 pb-20 mt-50 max-w-md custom-shadow text-color">
         <div class="modal-body">
           <div class="row">
@@ -21,15 +20,13 @@
                 <% if @message == 'test'%>
                   <font color="orange">ระยะเวลาการทดลอง</font>ใช้งานได้สิ้นสุดลงแล้ว</h3>
               <% else %>
-                <font color="orange">ชำระเงินไม่สำเร็จ</font>
-                </h3>
+                  <font color="orange">ชำระเงินไม่สำเร็จ</font></h3>
                 <% end %>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12 letter-spacing-3">
-              <h3>เพื่อการใช้งานอย่างต่อเนื่อง
-                <font color="orange">โปรดชำระเงิน</font> ได้ที่ </h3>
+              <h3>เพื่อการใช้งานอย่างต่อเนื่อง<font color="orange">โปรดชำระเงิน</font> ได้ที่ </h3>
             </div>
           </div>
           <div class="row">
@@ -45,8 +42,8 @@
         </div>
       </div>
     </div>
-    <% end %>
-    <% if @success %>
+  <% end %>
+<% if @success %>
   <!-- Modal -->
   <div id="success" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -70,7 +67,7 @@
         </div>
       </div>
     </div>
-    <% end %>
+  <% end %>
     
 
   <script type="text/javascript">

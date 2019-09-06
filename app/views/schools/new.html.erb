@@ -65,7 +65,7 @@
                       <h3 class="text-center">ท่านสามารถทดลองใช้งานฟรี <font color="orange"> 3 เดือน</font></h3>
                       <h3 class="text-center">สำหรับ<font color="orange">ความช่วยเหลือ </font>ในการนำข้อมูลเข้าระบบเช่น บุคลากร, นักเรียน</h3>
                       <h3 class="text-center">สามารถติดต่อทีมงานได้ที่ เบอร์ <font color="orange">053-200-078</font></h3><br>
-                      <div class="text-center"><%= f.button :submit,'เริ่มต้นใช้งาน.', class: "btn-bg-submit" %></div>
+                      <div class="text-center"><%= f.button :submit,'เริ่มต้นใช้งาน', class: "btn-bg-submit" %></div>
                     </div>
                   </div>
                 </div>
@@ -79,6 +79,7 @@
                       <h3 class="text-center">ท่านสามารถทดลองใช้งานฟรี <font color="orange"> 3 เดือน</font></h3>
                       <h3 class="text-center">สำหรับ<font color="orange">ความช่วยเหลือ </font>ในการนำข้อมูลเข้าระบบเช่น บุคลากร, นักเรียน</h3>
                       <h3 class="text-center">สามารถติดต่อทีมงานได้ที่ เบอร์ <font color="orange">053-200-078</font></h3><br>
+                      <%= hidden_field_tag :skip, true %>
                       <div class="text-center"><%= f.button :submit,'เริ่มต้นใช้งาน', class: "btn-bg-submit" %></div>
                     </div>
                   </div>
@@ -109,6 +110,7 @@
     $('#modal').click(function() {
       $('#myModal').modal({backdrop: 'static', keyboard: false})
       $('#new_school').find(':submit').attr('disabled', false);
+      $('input[name="skip"]').val('');
     })
     $('#modal-skip').click(function() {
       $('#myModal-skip').modal({backdrop: 'static', keyboard: false})

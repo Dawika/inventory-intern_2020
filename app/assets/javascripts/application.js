@@ -61,6 +61,7 @@ function CreateToken(form) {
         message_text = response.message;
       }
       $("#token_errors").html('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + message_text + '</div>');
+      $('#myModal').modal('hide');
 
       // Re-enable the submit button.
       form.find("input[type=submit]").prop("disabled", false);
