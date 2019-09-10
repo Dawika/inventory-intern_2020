@@ -44,7 +44,7 @@ class SettingsController < ApplicationController
         school: current_user.school,
         school_logo: current_user.school.logo_url,
         licenses: current_user.school.active_license,
-        plan: current_user.school.active_license.plan || 'ทดลองใช้งาน',
+        plan: current_user.school.active_license.plan || t('trial'),
         billing_info: current_user.school.bil_info
 
       }

@@ -545,7 +545,12 @@ th:
   zip_code: "รหัสไปรษณีย์"
   Contact information: "ข้อมูลผู้ติดต่อ"
   bil_address: "ที่อยู่ออกใบเสร็จ"
-
+  exp: "วันหมดอายุ :"
+  trial: "ทดลองใช้งาน"
+  auto_renew: "ต่ออายุอัตโนมัติ"
+  not_auto_renew: "ไม่ต่ออายุอัตโนมัติ"
+  monthly: "รายเดือน"
+  annually: "รายปี"
   # School Setting
   schools:
     setting_school_setting:

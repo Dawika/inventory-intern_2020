@@ -7,14 +7,7 @@
       $rootScope.loadAndAuthorizeResource("setting", function() {
         service.getSetting().then(function(resp) {
           ctrl.datas = resp.data;
-          ctrl.datas.password = "password";
-          if (ctrl.datas.school.auto_subscribe) {
-            ctrl.button_auto_subscribe = 'btn btn-custom btn-red float-right size'
-            ctrl.subscription = 'Cancel Subscribe'
-          } else {
-            ctrl.button_auto_subscribe = 'btn btn-custom btn-light-green float-right size'
-            ctrl.subscription = 'Auto Subscribe'
-          }
+          ctrl.button_auto_subscribe = ctrl.datas.school.auto_subscribe
         });
 
         $rootScope.loadAndAuthorizeResource("school", function() {
@@ -28,16 +21,8 @@
         }
 
         ctrl.auto_subscribe = function(value) {
-          if (value) {
-            ctrl.button_auto_subscribe = 'btn btn-custom btn-light-green float-right size'
-            ctrl.subscription = 'Auto Subscribe'
-            value = false
-          } else {
-            ctrl.button_auto_subscribe = 'btn btn-custom btn-red float-right size'
-            ctrl.subscription = 'Cancel Subscribe'
-            value = true
-          }
-          service.subscription(value).then(function(resp) {
+          ctrl.button_auto_subscribe = !value
+          service.subscription(ctrl.button_auto_subscribe).then(function(resp) {
             ctrl.datas.school.auto_subscribe = resp.data
             opensuccessModal('บันทึกข้อมูลสำเร็จ');
           })

@@ -535,6 +535,12 @@ en:
   province: "Province"
   zip_code: "Zip code"
   Contact information: "Contact information"
+  exp: "Expiry date :"
+  trial: "Trial"
+  auto_renew: "Auto renew"
+  not_auto_renew: "Not Auto-renew"
+  monthly: "Monthly"
+  annually: "Annually"
   # School Setting
   schools:
     new:
