@@ -83,8 +83,8 @@
           <div class="row">
             <div class="col-md-8">
               <div class="form-group">
-                <label for="schoolTaxId">{{ 'tax_number' | translate}}</label>
-                <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.school.tax_id">
+                <label>{{ 'tax_number' | translate}}</label>
+                <input type="text" class="form-control white-bg" ng-model="setting.datas.school.tax_id">
               </div>
             </div>
             <div class="col-md-4">
@@ -100,8 +100,8 @@
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
-                <label for="schoolTaxId">{{ 'note' | translate}}</label>
-                <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.school.note">
+                <label>{{ 'note' | translate}}</label>
+                <input type="text" class="form-control white-bg" ng-model="setting.datas.school.note">
               </div>
             </div>
           </div>
@@ -110,7 +110,7 @@
       </div>
       <!--////////////////////-->
       <div class="row"><br>
-      <hr>
+        <hr>
       </div><br>
 
       <div class="row">
@@ -142,78 +142,81 @@
       <div class="row">
         <div class="col-md-5">
           <div class="form-group">
-            <label for="schoolTaxId">{{ 'name' | translate}}</label>
-            <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.billing_info.name">
+            <label>{{ 'name' | translate}}</label>
+            <input type="text" class="form-control white-bg" ng-model="setting.datas.billing_info.name">
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-5">
           <div class="form-group">
-            <label for="schoolTaxId">{{ 'address' | translate}}</label>
-            <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.billing_info.address">
+            <label>{{ 'address' | translate}}</label>
+            <input type="text" class="form-control white-bg" ng-model="setting.datas.billing_info.address">
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            <label for="schoolTaxId">{{ 'district' | translate}}</label>
-            <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.billing_info.district">
+            <label>{{ 'district' | translate}}</label>
+            <input type="text" class="form-control white-bg" ng-model="setting.datas.billing_info.district">
           </div>
         </div>
         <div class="col-md-2">
           <div class="form-group">
-            <label for="schoolTaxId">{{ 'province' | translate}}</label>
-            <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.billing_info.province">
+            <label>{{ 'province' | translate}}</label>
+            <input type="text" class="form-control white-bg" ng-model="setting.datas.billing_info.province">
           </div>
         </div>
         <div class="col-md-2">
           <div class="form-group">
-            <label for="schoolTaxId">{{ 'zip_code' | translate}}</label>
-            <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.billing_info.zip_code">
+            <label>{{ 'zip_code' | translate}}</label>
+            <input type="text" class="form-control white-bg" ng-model="setting.datas.billing_info.zip_code">
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-2">
           <div class="form-group">
-            <label for="schoolTaxId">{{ 'phone_number' | translate}}</label>
-            <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.billing_info.phone">
+            <label>{{ 'phone_number' | translate}}</label>
+            <input type="text" class="form-control white-bg" ng-model="setting.datas.billing_info.phone">
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            <label for="schoolTaxId">{{ 'tax_number' | translate}}</label>
-            <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.billing_info.tax_id">
+            <label>{{ 'tax_number' | translate}}</label>
+            <input type="text" class="form-control white-bg" ng-model="setting.datas.billing_info.tax_id">
           </div>
         </div>
         <div class="col-md-1">
           <div class="form-group">
-            <label for="schoolTaxId">{{ 'branch' | translate}}</label>
-            <input type="text" class="form-control white-bg" id="schoolTaxId" ng-model="setting.datas.billing_info.branch">
+            <label>{{ 'branch' | translate}}</label>
+            <input type="text" class="form-control white-bg" ng-model="setting.datas.billing_info.branch">
           </div>
         </div>
       </div>
       <div class="row"><br>
-      <hr>
+        <hr>
       </div><br>
       <div class="row">
         <label class="style-font">{{ 'plan' | translate}}</label>
       </div><br>
-      <div class="row" ng-repeat="data in setting.datas.licenses">
+      <div class="row">
         <div class="col-md-3">
           <div class="form-group">
-            <label for="schoolTaxId">{{ data.plan_id }}</label>
+            <label>{{ ( !setting.datas.plan.frequency ? setting.datas.plan : setting.datas.plan.frequency ) | translate }}</label>
+            <div>
+            </div>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <label for="schoolTaxId">{{ data.getting_start | date:"MM/dd/yyyy" }} - {{ data.expired_date | date:"MM/dd/yyyy"}}</label>
+            <label>{{'exp' | translate}} {{ setting.datas.licenses.expired_date | date:"MM/dd/yyyy"}} ( {{ ( setting.datas.school.auto_subscribe ? "auto_renew" : "not_auto_renew" ) | translate }} )</label>
           </div>
         </div>
       </div>
       <div class="row">
-        <button class="btn btn-custom btn-blue float-right size">Chang plan</button>
-        <button class="btn btn-custom btn-red float-right size">Cancel plan</button>
+        <button type="button" class="btn btn-custom btn-blue float-right size">Change plan</button>
+        <button ng-show="setting.button_auto_subscribe" type="button" class="btn btn-custom btn-red float-right size" ng-click="setting.auto_subscribe(setting.datas.school.auto_subscribe)">Cancel Subscribe</button>
+        <button ng-hide="setting.button_auto_subscribe" type="button" class="btn btn-custom btn-light-green float-right size" ng-click="setting.auto_subscribe(setting.datas.school.auto_subscribe)">Auto Subscribe</button>
       </div>
 
     </div>
