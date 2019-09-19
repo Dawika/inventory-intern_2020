@@ -1,0 +1,215 @@
+<%= simple_form_for @school, html: { id: 'form_purchase' }, url: purchase_renew_path(purchase_school_id: @school.id, cancel_check_plan: true), action: @school.new_record? ? 'create' : 'update' do |f| %>
+  <div class="container plan" id="school-plan">
+    <div class="select-plan" style="margin-left: -14%; margin-top: 130px;">
+      <div class="row">
+        <h1 class="font-style">Select Plan</h1>
+      </div>
+      <section class="sec_4">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+              <div class="row text-center">
+                <fieldset class="form-group radio_buttons optional school_plan_id">
+                  <input type="hidden" name="school[plan_id]" value="">
+                  <% @plans.each do |plan| %>
+                    <div class="col-md-6">
+                      <div class="col-md-10 col-md-offset-1">
+                        <h3>
+                          <%= t(plan.package_name) %>
+                        </h3>
+                        <p>
+                          <%= plan.description %>
+                        </p>
+                        <h3 class="price-l">
+                          <%= number_to_currency(plan.price, precision: 0, unit: '') %> บาท/เดือน</h3><br>
+                        <p>ใช้งานแบบออนไลน์ผ่านทาง สมศรี Cloud สามารถเข้าถึงได้จากทั้งที่โรงเรียนและที่บ้าน ข้อมูลไม่สูญหาย ระบบ backup ให้ อัตโนมัติ รับประกันตลอดอายุการใช้งาน </p><br>
+                        <div class="form-check">
+                          <input class="form-check-input radio_buttons optional" type="radio" value="<%= plan.id %>" <%='checked' if @school.plan==plan %> name="school[plan_id]" id="school_plan_id_<%=plan.id %>">
+                            <label class="collection_radio_buttons" for="school_plan_id_<%=plan.id %>">Select</label>
+                        </div>
+                      </div>
+                    </div>
+                    <% end %>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+      </section>
+      <section class="sec_5">
+        <div class="row container">
+          <div class="col-md-6 border-r layout">
+            <div class="row">
+              <h3 class="font-style">
+                วิธีการชำระเงิน
+              </h3>
+            </div>
+            <div class="row">
+              <ul class="nav nav-tabs nav-fill">
+                <li class="nav-item nav-link boder text-center <%=" active " if @school.customer_info.blank?%>"><a class="tab-label" data-toggle="tab" href="#transfer-money"><i class="fa fa-money" aria-hidden="true"></i><br>โอนเงิน</a></li>
+                <li class="nav-item nav-link  border text-center <%=" active " if @school.customer_info.present?%>"><a class="tab-labe" data-toggle="tab" href="#credit"><i class="fa fa-credit-card" aria-hidden="true"></i><br>บัตรเครดิต </a></li>
+              </ul>
+            </div>
+            <div class="row">
+              <div class="tab-content">
+                <%=f.simple_fields_for :bil_info, validate: false do |bil_form| %>
+                  <div id="transfer-money" class="tab-pane fade <%=" in active " if @school.customer_info.blank?%>">
+                    <div class="row">
+                      <h3>
+                        รายละเอียดการจ่ายเงิน
+                      </h3>
+                      <%= bil_form.hidden_field :payment_method %>
+                    </div>
+                  </div>
+                  <div id="credit" class="tab-pane fade <%=" in active " if @school.customer_info.present?%>"><br>
+                    <div class="row">
+                      <h3 class="font-style">Credit crad Info</h3>
+                      <div class="col-md-11"><br>
+                        <div id="token_errors"></div>
+                      </div>
+                    </div><br>
+                    <div class="row">
+                      <div class="col-md-7">
+                        <%= hidden_field_tag :update_card %>
+                          <%= hidden_field_tag :omise_token , @school.customer_id %>
+                            <%= bil_form.input :cardholder_name, input_html: {  data: {omise: 'holder_name'}, value: @school.default_card&.name }%>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-7">
+                        <%= bil_form.input :card_number, input_html: {  data: {omise: 'number'}, value: @school.default_card.present? ? "**** **** **** #{@school.default_card.last_digits}" : nil,  maxlength: 16 } %>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2">
+                        <%= bil_form.input :exp_month, label: 'exp month', input_html: {  data: {omise: 'expiration_month'}, value: @school.default_card&.expiration_month,  maxlength: 2 } %>
+                      </div>
+                      <div class="col-md-2">
+                        <%= bil_form.input :exp_year, label: 'exp year', input_html: {  data: {omise: 'expiration_year'}, value: @school.default_card&.expiration_year,  maxlength: 4 } %>
+                      </div>
+                      <div class="col-md-2">
+                        <%= bil_form.input :cvv, label: 'cvv', input_html: { data: {omise: 'security_code'}, value: @school.default_card.present? ? "***" : nil,  maxlength: 3} %>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 layout2  pull-right">
+            <div class="row">
+              <h3 class="font-style">
+                <%=t('.Billing info') %>
+              </h3>
+            </div>
+            <div class="row">
+              <ul class="nav nav-tabs">
+                <li class="nav-item nav-link boder text-center active" id="showBr" onclick="branch(this.id)"><a class="tab-label">นิติบุคคล</a></li>
+                <li class="nav-item nav-link  border text-center" id="hideBr" onclick="branch(this.id)"><a class="tab-labe">บุคคลธรรมดา </a></li>
+              </ul>
+            </div>
+            <div class="row" id="validate-bil">
+              <div class="tab-content"><br>
+                <div class="row">
+                  <div class="col-md-10">
+                    <%= bil_form.input :name, label: t('.name') %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-10">
+                    <%= bil_form.input :address, label: t('.address') %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5">
+                    <%= bil_form.input :district, label: t('.district')  %>
+                  </div>
+                  <div class="col-md-5">
+                    <%= bil_form.input :province, label: t('.province')  %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5">
+                    <%= bil_form.input :zip_code, label: t('.zip_code')  %>
+                  </div>
+                  <div class="col-md-5">
+                    <%= bil_form.input :phone, label: t('.phone') %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-8">
+                    <%= bil_form.input :tax_id, label: t('.tax_id')  %>
+                  </div>
+                  <div class="col-md-2">
+                    <%= bil_form.input :branch, label: t('.branch')  %>
+                  </div>
+                </div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="row">
+        <div class="col-xs-2  pull-right">
+          <%= button_tag "ชำระเงิน", type: 'button', class: 'btn btn-getStarted animated fadeInDown' , id: 'modal-confirm'%>
+        </div>
+      </div>
+      </div>
+    </div>
+    <!-- modal Confirm -->
+    <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top: 209px;">
+      <div class="modal-dialog">
+        <div class="modal-content modal-size">
+          <div class="modal-header">
+            <h3>ยืนยันการชำระ</h3>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+
+      <script src="https://cdn.omise.co/omise.js"></script>
+      <script>
+        $(document).ready(function() {
+          $('input').removeClass('is-valid')
+          $('#school-plan abbr').hide();
+          $('#modal-confirm').click(function() {
+            $('#confirm').modal();
+          })
+
+        });
+        // 4242424242424242 Number for test 
+        Omise.setPublicKey("<%= Figaro.env.OMISE_PUPLIC_KEY %>");
+
+        $("#form_purchase").submit(function() {
+          var form = $(this);
+          // Disable the submit button to avoid repeated click.
+          form.find("input[type=submit]").prop("disabled", true);
+
+          if ($('#credit').hasClass('active')) {
+            form.find("input[name='school[bil_info_attributes][payment_method]']").val('credit')
+            if ('<%= @school.customer_id.present? %>' == 'false') {
+              CreateToken(form);
+            } else {
+              <% default_card = @school.default_card %>
+              if (form.find("[data-omise=holder_name]").val() == '<%=default_card&.name %>' &&
+                form.find("[data-omise=number]").val() == "**** **** **** <%= default_card&.last_digits %>" &&
+                form.find("[data-omise=expiration_month]").val() == "<%= default_card&.expiration_month %>" &&
+                form.find("[data-omise=expiration_year]").val() == "<%= default_card&.expiration_year %>") {
+                form.get(0).submit();
+              } else {
+                $('input[name="update_card"]').val(true)
+                CreateToken(form);
+              }
+            }
+          } else {
+            form.find("input[name='school[bil_info_attributes][payment_method]']").val('transfer money')
+            form.get(0).submit();
+          }
+          // Prevent the form from being submitted;
+          return false;
+        });
+      </script>

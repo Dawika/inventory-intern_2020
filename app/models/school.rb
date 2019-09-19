@@ -23,6 +23,12 @@ class School < ApplicationRecord
       self.licenses.create(expired_date: DateTime.now.utc + 3.month)
   end
 
+  def default_card
+    customer = self.customer_info
+    return nil if customer.blank?
+    customer.default_card
+  end
+
   def customer_info #info credit card
     return nil if self.customer_id.blank?
 

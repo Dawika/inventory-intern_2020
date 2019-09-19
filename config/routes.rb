@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   get "/locale" => "home#locale"
 
   resources :schools
+  resources :purchases, param: :school_id, only: [:new] do
+    patch 'renew'
+    post 'update_card'
+  end
 
   resources :users, only: [] do
     collection do

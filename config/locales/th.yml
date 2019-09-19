@@ -545,6 +545,7 @@ th:
   zip_code: "รหัสไปรษณีย์"
   Contact information: "ข้อมูลผู้ติดต่อ"
   bil_address: "ที่อยู่ออกใบเสร็จ"
+
   # School Setting
   schools:
     setting_school_setting:

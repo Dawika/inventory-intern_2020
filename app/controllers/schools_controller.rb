@@ -9,19 +9,9 @@ class SchoolsController < ApplicationController
     end
   
     def create
-      ActiveRecord::Base.transaction do
-      if params[:commit] == "เรื่มต้นใช้งาน"       
+      ActiveRecord::Base.transaction do     
         @school = School.new(school_params)
-        if @school.save(validate: false)
-          SchoolMailer.school_notification(@school).deliver
-          user = @school.users.first
-          user.add_role('admin')
-          redirect_to change_subdomains_url(subdomain: @school.subdomain_name, id: user)
-        else
-          redirect_to new_school_path
-        end
-      else      
-        @school = School.new(school_params)
+        @school.auto_subscribe = params[:skip].blank?
         # 4242424242424242 <= credit card number for testing
         token = params[:omise_token]
         if token.present?
@@ -41,7 +31,6 @@ class SchoolsController < ApplicationController
           redirect_to new_school_path
         end        
       end
-     end
     end
 
     def update

@@ -1,7 +1,7 @@
 class Plan < ApplicationRecord
   
   scope :monthly, -> { where(frequency: 'monthly').first }
-  scope :yearly, -> { where(frequency: 'yearly').first }
+  scope :annually, -> { where(frequency: 'annually').first }
   has_many :license
 
   def monthly?

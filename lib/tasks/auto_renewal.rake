@@ -30,8 +30,9 @@ namespace :auto_renewal do
           next if active_license.blank?
           next if active_license.expired_date.blank?
           next unless active_license.expired_date <= now
-          next_plan = school.plan
           customer = school.customer_info
+          next if customer.nil?
+          next_plan = school.plan
           charge = Omise::Charge.create({
             amount: next_plan.price * 100,
             currency: "THB",
@@ -43,7 +44,7 @@ namespace :auto_renewal do
             plan_id: next_plan.id, expired_date: nil,
             charge_id: charge.id, school_id: school.id
           )
-          new_license.fetch_charge_info
+          new_license.fetch_charge_info('create')
 
           if charge.captured
             new_date_expire = next_plan.monthly? ? DateTime.now.utc+1.month : DateTime.now.utc+1.year

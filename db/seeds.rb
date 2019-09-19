@@ -1,3 +1,10 @@
+if Plan.count.zero?
+  Plan.create([
+    {package_name: 'monthly fee', price: 990, frequency: 'monthly', description: 'แบบรายเดือนเหมาะสำหรับโรงเรียนที่สามารถเข้าถึงอินเตอร์เน็ตได้ และไม่ต้องการดูแลอุปกรณ์' },
+    {package_name: 'annual fee', price: 10000, frequency: 'annually', description: 'แบบรายปีเหมาะสำหรับโรงเรียนที่สามารถเข้าถึงอินเตอร์เน็ตได้ และไม่ต้องการดูแลอุปกรณ์'}
+  ])
+end
+
 if School.count.zero?
   school = School.new(name: "Banana Kindergarten", address: "test", zip_code: "test", phone: "094", name_eng: "kie", logo: "", email: "sssergddd@god.comdd", subdomain_name: "555ggtest")
   school.save(validate: false)
