@@ -3,12 +3,19 @@ class SchoolMailer < ApplicationMailer
   
   def school_notification(school)
     @school = school
-    @email = "#{@school.users.first.email}"
-    created_at = @school.user.created_at
-    @date = {
-      start_date: created_at,
-      end_date: created_at + 3.month
-    }
-    mail(to: @email, subject: 'sign up')
+    @start_date = @school.licenses.first.created_at
+    @expired_date = @school.licenses.first.expired_date
+    mail(to: @school.email, subject: 'sign up')
   end
+
+  def license_renewal_reminder(schools)
+      @school = schools
+      mail(to: @school.email, subject: 'license renewal reminder')
+  end
+
+  def renew_license_success_and_error(schools)
+    @school = schools
+    mail(to: @school.email, subject: 'license renewal ')
+  end
+
 end

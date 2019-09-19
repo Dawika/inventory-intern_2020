@@ -1,21 +1,18 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-        <link href="https://fonts.googleapis.com/css?family=Akronim" rel="stylesheet">
-        <%= render 'layouts/mailer_stylesheet' %>
-  </head>
-  <body>
-   <div class="tab-content content-wall">
-   <img src = "/somsri_logo.png"><br>
-   ขอบคุณที่สมัครเข้าใช้งานระบบ <a href = "http://somsri.io">somsri.io</a>  <br>
-   ท่านได้รับสิทธิใช้งานฟรี 3 เดือน ตั้งแต่วันที่ <p class = "f"><%="#{@date[:start_date].strftime("%d/%m/%Y")} ถึง #{@date[:end_date].strftime("%d/%m/%Y")}"%></p><br>
-   สามารถเข้าระบบได้ที่ 
-   <a href = "<%="http://#{@school.subdomain_name}.lvh.me:3000/users/sign_in"%>"><%="http://#{@school.subdomain_name}.lvh.me:3000/users/sign_in"%></a><br>
-   <%="Email : #{@school.users.first.email}"%><br>
-   สำหรับความในการนำข้อมูลเข้าระบบเช่น บุคคลากร หรือ นักเรียน<br>
-   สมารถติดต่อทีมงานได้ที่ เบอร์ 053-200078<br>
-
-</div>
-  </body>
-</html>
+<img src="/somsri_logo.png"><br>
+<h1>สวัสดี
+  <%=@school.name%>
+</h1>
+<hr>
+<p> คุณได้ทำการสมัครทดลองใช้งานระบบบริหารโรงเรียนสมศรีในวันที่<%=@start_date.strftime("%d/%m/%Y")%></p>
+<p> โดยสามารถทดลองใช้งานระบบฟรี 3 เดือน สามารถใช้งานได้ตั้งแต่วันที่ 
+  <%=@start_date.strftime("%d/%m/%Y")%> ถึง <%=@expired_date.strftime("%d/%m/%Y")%>
+</p>
+<p>เริ่มต้นใช้งานได้ที่
+  <a href="<%=" http://#{@school.subdomain_name}.lvh.me:3000/users/sign_in "%>"><%="http://#{@school.subdomain_name}.lvh.me:3000/users/sign_in"%></a>
+</p><br>
+<p> หลังจากหมดระยะเวลาใช้งานฟรี จะคิดค่าบริการเป็น <%=@school.plan.package_name%> โดยจะมีผลตั้งแต่วันที่ <%=@expired_date.strftime("%d/%m/%Y")%></p>
+<p>ทั้งนี้ท่านสามารถเปลี่ยนรูปแบบการใช้บริการในส่วนของการตั้งค่าระบบ</p><br>
+<p>ติดต่อสอบถามเพิ่มเติ่ม : </p>
+<p>email : info@somsri.io</p>
+<p>Tel : 064-219-6125</p>
+<p>LINE : @somsri.io</p>
