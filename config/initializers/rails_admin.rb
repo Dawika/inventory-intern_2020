@@ -8,8 +8,8 @@ RailsAdmin.config do |config|
   end
   config.current_user_method(&:current_user)
 
-  ## == Cancan ==
-  config.authorize_with :cancan
+  ## == CancanCan ==
+  config.authorize_with :cancancan
   config.parent_controller = 'ApplicationController'
 
   ## == Pundit ==
@@ -22,7 +22,7 @@ RailsAdmin.config do |config|
 
   ## == Gravatar integration ==
   ## To disable Gravatar integration in Navigation Bar set to false
-  # config.show_gravatar true
+  # config.show_gravatar = true
 
   config.actions do
     dashboard                     # mandatory
