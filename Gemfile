@@ -41,7 +41,7 @@ gem 'bower-rails'
 gem 'pdf-forms'
 gem 'rmagick'
 
-gem 'rails_admin'
+gem 'rails_admin', '~> 2.0' 
 
 # Exception Notification
 gem 'exception_notification'
