@@ -57,6 +57,24 @@
                       <h3>
                         รายละเอียดการจ่ายเงิน
                       </h3>
+                      <div class="col-md-12">
+                        <b>ท่านต้องชำระเงินจำนวน </b>
+                        <div class="col-md-12">
+                          <b>ชื่อบัญชี:</b> บานาน่า โค้ดดิ้ง
+                        </div>
+                        <div class="col-md-12">
+                          <b>เลขบัญชี:</b> 511-2-1-14224-1
+                        </div>
+                        <div class="col-md-12">
+                          <b>ธนาคาร:</b> กสิกรไทย
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <b class="color-red">หากชำระเงินแล้วกรุณาส่งหลักฐานการชำระเงินมาที่ email: info@bananacoding.com หรือ </b>
+                      </div>
+                      <div class="col-md-12">
+                        <b class="color-red">ติดต่อเจ้าหน้าที่เบอร์ 053-020-078 เพื่อการใช้งานระบบอย่างต่อเนื่อง</b>
+                      </div>
                       <%= bil_form.hidden_field :payment_method %>
                     </div>
                   </div>
@@ -150,7 +168,7 @@
       </section>
       <div class="row">
         <div class="col-xs-2  pull-right">
-          <%= button_tag "ชำระเงิน", type: 'button', class: 'btn btn-getStarted animated fadeInDown' , id: 'modal-confirm'%>
+          <%= button_tag "ชำระเงิน", type: 'button', class: 'btn btn-getStarted animated fadeInDown' , id: 'modal-confirm' %>
         </div>
       </div>
       </div>
@@ -174,7 +192,7 @@
       <script src="https://cdn.omise.co/omise.js"></script>
       <script>
         $(document).ready(function() {
-          $('input').removeClass('is-valid')
+          $('input').removeClass('is-valid');
           $('#school-plan abbr').hide();
           $('#modal-confirm').click(function() {
             $('#confirm').modal();

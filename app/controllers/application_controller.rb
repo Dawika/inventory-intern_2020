@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   def notification_payment
     if current_user.present?
       @success = params[:success].present?
-      return true if params[:cancel_check_plan]
+      return true if params[:cancel_check_plan] or request.path.include?('admin') or request.path.include?('purchases/new')
 
       school_license = current_user.school.active_license
       charge_info = school_license.charge_info

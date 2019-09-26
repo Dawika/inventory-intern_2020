@@ -6,7 +6,7 @@ if Plan.count.zero?
 end
 
 if School.count.zero?
-  school = School.new(name: "Banana Kindergarten", address: "test", zip_code: "test", phone: "094", name_eng: "kie", logo: "", email: "sssergddd@god.comdd", subdomain_name: "555ggtest")
+  school = School.new(name: "Banana Kindergarten", address: "test", zip_code: "test", phone: "094", name_eng: "banana", logo: "", email: "banana@god.comdd", subdomain_name: nil)
   school.save(validate: false)
 end
 schools = School.all
