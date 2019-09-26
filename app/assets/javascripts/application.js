@@ -10,6 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 //= require jquery
 //= require jquery_ujs
 //= require selectize.min
@@ -34,6 +35,7 @@
 //= require extensions/bootstrap-table-export.js
 //= require ng-file-upload-shim
 //= require ng-file-upload
+// = stub rails_admin/rails_admin
 //= require_tree .
 
 function CreateToken(form) {

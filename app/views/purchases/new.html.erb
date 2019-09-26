@@ -45,8 +45,8 @@
             </div>
             <div class="row">
               <ul class="nav nav-tabs nav-fill">
-                <li class="nav-item nav-link boder text-center <%=" active " if @school.customer_info.blank?%>"><a class="tab-label" data-toggle="tab" href="#transfer-money"><i class="fa fa-money" aria-hidden="true"></i><br>โอนเงิน</a></li>
-                <li class="nav-item nav-link  border text-center <%=" active " if @school.customer_info.present?%>"><a class="tab-labe" data-toggle="tab" href="#credit"><i class="fa fa-credit-card" aria-hidden="true"></i><br>บัตรเครดิต </a></li>
+                <li class="nav-item nav-link boder text-center <%=" active " if @school.customer_info.blank?%>"><a class="tab-label" data-toggle="tab" href="#transfer-money" onClick="hidebutton(false)"><i class="fa fa-money" aria-hidden="true"></i><br>โอนเงิน</a></li>
+                <li class="nav-item nav-link  border text-center <%=" active " if @school.customer_info.present?%>"><a class="tab-labe" data-toggle="tab" href="#credit"onClick="hidebutton(true)"><i class="fa fa-credit-card" aria-hidden="true"></i><br>บัตรเครดิต </a></li>
               </ul>
             </div>
             <div class="row">
@@ -58,7 +58,7 @@
                         รายละเอียดการจ่ายเงิน
                       </h3>
                       <div class="col-md-12">
-                        <b>ท่านต้องชำระเงินจำนวน </b>
+                        <b>ท่านต้องชำระเงินตามแพ็คเกจที่ท่านสนใจ ดังนี้ รายเดือน 990 บาท รายปี 10,000 บาท</b>
                         <div class="col-md-12">
                           <b>ชื่อบัญชี:</b> บานาน่า โค้ดดิ้ง
                         </div>
@@ -168,7 +168,7 @@
       </section>
       <div class="row">
         <div class="col-xs-2  pull-right">
-          <%= button_tag "ชำระเงิน", type: 'button', class: 'btn btn-getStarted animated fadeInDown' , id: 'modal-confirm' %>
+        <button type="button" class="btn btn-getStarted animated fadeInDown" id= "modal-confirm">ชำระเงิน</button>
         </div>
       </div>
       </div>
@@ -192,6 +192,9 @@
       <script src="https://cdn.omise.co/omise.js"></script>
       <script>
         $(document).ready(function() {
+          if($('#transfer-money').hasClass('active')){
+            $('#modal-confirm').hide();
+          }
           $('input').removeClass('is-valid');
           $('#school-plan abbr').hide();
           $('#modal-confirm').click(function() {

@@ -238,3 +238,11 @@ function branch(id) {
   }
 
 }
+
+function hidebutton(value) {
+  if (value) {
+    $('#modal-confirm').show();
+  } else {
+    $('#modal-confirm').hide();
+  }
+}

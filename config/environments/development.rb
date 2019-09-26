@@ -53,19 +53,29 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # mail config
-  config.action_mailer.perform_deliveries = true
+  # config.action_mailer.perform_deliveries = true
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   address: 'localhost',
+  #   port: 1025
+  # }
+  config.action_mailer.asset_host = 'http://localhost:3000'
+
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: 'localhost',
-    port: 1025
+    address:                'smtp.sendgrid.net',
+    port:                   '587',
+    authentication:         :plain,
+    user_name:              Figaro.env.SENDGRID_USERNAME,
+    password:               Figaro.env.SENDGRID_PASSWORD,
+    domain:                 'heroku.com',
+    enable_starttls_auto:   true
   }
-  config.action_mailer.asset_host = 'http://localhost:3000'
 
   Paperclip.options[:command_path] = "/usr/local/bin/"
 
   I18n.default_locale = :en
 
-  config.action_mailer.delivery_method = :letter_opener
-  config.action_mailer.perform_deliveries = true
 end
