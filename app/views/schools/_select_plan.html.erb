@@ -20,7 +20,7 @@
                         <%= plan.description %>
                       </p>
                       <h3 class="price-l">
-                        <%= number_to_currency(plan.price, unit: '', precision: 0) %> บาท/เดือน</h3><br>
+                        <%= number_to_currency(plan.price, unit: '', precision: 0) %> บาท/<%= plan.frequency == 'monthly' ? 'เดือน' : 'ปี'%></h3><br>
                       <p>ใช้งานแบบออนไลน์ผ่านทาง สมศรี Cloud สามารถเข้าถึงได้จากทั้งที่โรงเรียนและที่บ้าน ข้อมูลไม่สูญหาย ระบบ backup ให้ อัตโนมัติ รับประกันตลอดอายุการใช้งาน </p><br>
                       <div class="form-check">
                         <input class="form-check-input radio_buttons optional" type="radio" value="<%= plan.id %>" <%='checked' if plan.frequency=='annually' %> name="school[plan_id]" id="school_plan_id_<%=plan.id %>">
@@ -151,8 +151,8 @@
     </section>
     <div class="row">
       <div class="col-xs-4  pull-right">
-        <%= button_tag "create", type: 'button', class: 'btn btn-getStarted animated fadeInDown', id: 'modal' , disabled: true%>
-        <%= button_tag "skip", type: 'button', class: 'btn btn-getStarted animated fadeInDown btn-gray' ,id: 'modal-skip'%>
+        <%= button_tag t('.create'), type: 'button', class: 'btn btn-getStarted animated fadeInDown', id: 'modal' , disabled: true%>
+        <%= button_tag t('.skip'), type: 'button', class: 'btn btn-getStarted animated fadeInDown btn-gray' ,id: 'modal-skip'%>
       </div>
     </div>
     </div>

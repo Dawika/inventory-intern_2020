@@ -21,7 +21,7 @@
                           <%= plan.description %>
                         </p>
                         <h3 class="price-l">
-                          <%= number_to_currency(plan.price, precision: 0, unit: '') %> บาท/เดือน</h3><br>
+                          <%= number_to_currency(plan.price, precision: 0, unit: '') %> บาท/<%= plan.frequency == 'monthly' ? 'เดือน' : 'ปี'%></h3><br>
                         <p>ใช้งานแบบออนไลน์ผ่านทาง สมศรี Cloud สามารถเข้าถึงได้จากทั้งที่โรงเรียนและที่บ้าน ข้อมูลไม่สูญหาย ระบบ backup ให้ อัตโนมัติ รับประกันตลอดอายุการใช้งาน </p><br>
                         <div class="form-check">
                           <input class="form-check-input radio_buttons optional" type="radio" value="<%= plan.id %>" <%='checked' if @school.plan==plan %> name="school[plan_id]" id="school_plan_id_<%=plan.id %>">
