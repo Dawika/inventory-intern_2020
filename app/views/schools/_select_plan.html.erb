@@ -20,11 +20,11 @@
                         <%= plan.description %>
                       </p>
                       <h3 class="price-l">
-                        <%= number_to_currency(plan.price, unit: '', precision: 0) %> บาท/เดือน</h3><br>
+                        <%= number_to_currency(plan.price, unit: '', precision: 0) %> บาท/<%= plan.frequency == 'monthly' ? 'เดือน' : 'ปี'%></h3><br>
                       <p>ใช้งานแบบออนไลน์ผ่านทาง สมศรี Cloud สามารถเข้าถึงได้จากทั้งที่โรงเรียนและที่บ้าน ข้อมูลไม่สูญหาย ระบบ backup ให้ อัตโนมัติ รับประกันตลอดอายุการใช้งาน </p><br>
                       <div class="form-check">
                         <input class="form-check-input radio_buttons optional" type="radio" value="<%= plan.id %>" <%='checked' if plan.frequency=='annually' %> name="school[plan_id]" id="school_plan_id_<%=plan.id %>">
-                          <label class="collection_radio_buttons" for="school_plan_id_<%=plan.id %>">Select</label>
+                          <label class="collection_radio_buttons" for="school_plan_id_<%=plan.id %>"><%= t('.Select')%></label>
                       </div>
                     </div>
                   </div>
@@ -56,13 +56,16 @@
                     <h3>
                       <%= t('.pay detail')%>
                     </h3>
+                <div class="col-md-10">
+            <h4> บริษัท บานาน่า โคดดิ้ง จำกัด ธนาคารกสิกรไทย สาขาถนนนิมมานเหมินตร์ เลขบัญชี 511-2-14224-1 และส่งสำเนาการชำระเงินมายัง info@somsri.io</h4>
+            </div>
                     <%= bil_form.hidden_field :check, value: 'false' %>
                     <%= bil_form.hidden_field :payment_method, value: 'transfer money' %>
                   </div>
                 </div>
                 <div id="credit" class="tab-pane fade"><br>
                   <div class="row">
-                    <h3 class="font-style">Credit crad Info</h3>
+                    <h3 class="font-style"><%= t('.Credit crad Info')%></h3>
                     <div class="col-md-11">
                       <div id="token_errors"></div>
                     </div>
@@ -72,23 +75,23 @@
                       <%= bil_form.hidden_field :check, value: 'true', disabled: true %>
                       <%= hidden_field_tag :omise_token %>
                       <%= bil_form.input :payment_method, as: :hidden, input_html: { id: 'school_bil_info_payment_method', class: 'plan-select required', value: 'credit' }, required: true, disabled: true %>
-                      <%= bil_form.input :cardholder_name, input_html: { id: 'school_bil_info_cardholder_name', class: 'plan-select', data: {omise: 'holder_name'} }, required: true, disabled: true%>
+                      <%= bil_form.input :cardholder_name, label: t('.cardholder_name'), input_html: { id: 'school_bil_info_cardholder_name', class: 'plan-select', data: {omise: 'holder_name'} }, required: true, disabled: true%>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-7">
-                      <%= bil_form.input :card_number, input_html: { id: 'school_bil_info_card_number', class: 'plan-select', data: {omise: 'number'},  maxlength: 16 }, required: true, disabled: true %>
+                      <%= bil_form.input :card_number, label: t('.card_number'), input_html: { id: 'school_bil_info_card_number', class: 'plan-select', data: {omise: 'number'},  maxlength: 16 }, required: true, disabled: true %>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-2">
-                      <%= bil_form.input :exp_month, label: 'exp month', input_html: { id: 'school_bil_info_exp_month', class: 'plan-select', data: {omise: 'expiration_month'},  maxlength: 2 }, required: true, disabled: true %>
+                    <div class="col-md-3">
+                      <%= bil_form.input :exp_month, label: t('.exp_month'), input_html: { id: 'school_bil_info_exp_month', class: 'plan-select', data: {omise: 'expiration_month'},  maxlength: 2 }, required: true, disabled: true %>
                     </div>
                     <div class="col-md-2">
-                      <%= bil_form.input :exp_year, label: 'exp year', input_html: { id: 'school_bil_info_exp_year', class: 'plan-select', data: {omise: 'expiration_year'},  maxlength: 4 }, required: true, disabled: true %>
+                      <%= bil_form.input :exp_year, label: t('.exp_year'), input_html: { id: 'school_bil_info_exp_year', class: 'plan-select', data: {omise: 'expiration_year'},  maxlength: 4 }, required: true, disabled: true %>
                     </div>
                     <div class="col-md-2">
-                      <%= bil_form.input :cvv, label: 'cvv', input_html: { id: 'school_bil_info_cvv', class: 'plan-select', data: {omise: 'security_code'},  maxlength: 3}, required: true, disabled: true %>
+                      <%= bil_form.input :cvv, label: t('.cvv'), input_html: { id: 'school_bil_info_cvv', class: 'plan-select', data: {omise: 'security_code'},  maxlength: 3}, required: true, disabled: true %>
                     </div>
                   </div>
                 </div>
@@ -143,6 +146,11 @@
                   <%= bil_form.input :branch, label: t('.branch'), input_html: { id: 'school_bil_info_branch'} %>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-md-8">
+                  <%= bil_form.input :company_id, label: t('.company_id'), input_html: { id: 'school_bil_info_company_id'}%>
+                </div>
+              </div>
             </div>
           <% end %>
           </div>
@@ -151,8 +159,8 @@
     </section>
     <div class="row">
       <div class="col-xs-4  pull-right">
-        <%= button_tag "create", type: 'button', class: 'btn btn-getStarted animated fadeInDown', id: 'modal' , disabled: true%>
-        <%= button_tag "skip", type: 'button', class: 'btn btn-getStarted animated fadeInDown btn-gray' ,id: 'modal-skip'%>
+        <%= button_tag t('.create'), type: 'button', class: 'btn btn-getStarted animated fadeInDown', id: 'modal' , disabled: true%>
+        <%= button_tag t('.skip'), type: 'button', class: 'btn btn-getStarted animated fadeInDown btn-gray' ,id: 'modal-skip'%>
       </div>
     </div>
     </div>

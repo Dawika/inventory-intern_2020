@@ -560,6 +560,11 @@ en:
       Message3: "School symbol"
       Message4: "Information for the receipt(Footer)"
       header: "Almost done!"
+      start: "Start"
+      school_year: "School year"
+      semesters: "Semesters"
+      next: "Next"
+      Choose_file: "Choose file"
     select_plan:
       name: "Name"
       address: "Adress"
@@ -572,4 +577,14 @@ en:
       Billing info: "Billing info"
       pay detail: "Payment details"
       how to pay: "Payment method"
+      create: "Start"
+      skip: "Next"
+      cardholder_name: Cardholder name
+      card_number: "Card number"
+      exp_month: "Exp month"
+      exp_year: "Exp year"
+      cvv: "CVV"
+      Credit crad Info: "Credit crad Info"
+      Select: "Select"
+      company_id: "Company registration number"
 

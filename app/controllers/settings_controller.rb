@@ -17,10 +17,14 @@ class SettingsController < ApplicationController
   def update_current_user
     User.transaction do
       update_school_status = true
-      temp_subdomain = current_user.school.subdomain_name
       if self.can? :update, School
         update_school_status = current_user.school.update(params_school)
-        current_user.school.bil_info.update(params_billing)
+        if current_user.school.bil_info.present?
+          current_user.school.bil_info.update(params_billing)
+        else
+          bil = BilInfo.new(params_billing.merge(school_id: current_user.school.id))
+          bil.save(validate: false)
+        end
       end
         render json: getSetting(), status: :ok  
     end

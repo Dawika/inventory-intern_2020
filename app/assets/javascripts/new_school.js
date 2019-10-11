@@ -108,7 +108,6 @@ function enableButtonSelectplans(formID, id, check) {
     button = $('#' + id);
     if (form.find('input.plan-select.disabled').length == 6) {
       if (form.find('input.plan-select.is-valid').length === form.find('#validate-bil input.plan-select').length) {
-
         button.attr('disabled', false);
       } else {
         button.attr('disabled', true);
@@ -166,6 +165,10 @@ function showNewSchool(value) {
     $('#formSingUp').hide();
     $('#formSchool').hide();
     $('#formplan').show();
+    $("input[name='school[bil_info_attributes][phone]']").val($("input[name='school[phone]']").val());
+    $("input[name='school[bil_info_attributes][branch]']").val($("input[name='school[branch]']").val());
+    $("input[name='school[bil_info_attributes][tax_id]']").val($("input[name='school[tax_id]']").val());
+    $("input[name='school[bil_info_attributes][name]']").val($("input[name='school[users_attributes][0][full_name]']").val());
   }
 }
 
@@ -219,6 +222,7 @@ function enablevalidate(id) {
     $('#credit div').addClass("disabled");
     $('#credit label').addClass("disabled");
     $('#credit input').addClass("disabled");
+    $('#credit input').removeClass("is-valid");
     $('#credit input').prop("disabled", true);
     valid(id);
 
@@ -228,10 +232,12 @@ function enablevalidate(id) {
 function branch(id) {
   if (id == "hideBr") {
     $('div.school_bil_info_branch').hide();
+    $('div.school_bil_info_company_id').hide();
     $('#hideBr').addClass("active");
     $('#showBr').removeClass("active");
   } else if (id == "showBr") {
     $('div.school_bil_info_branch').show();
+    $('div.school_bil_info_company_id').show();
     $('#showBr').addClass("active");
     $('#hideBr').removeClass("active");
 
@@ -244,5 +250,121 @@ function hidebutton(value) {
     $('#modal-confirm').show();
   } else {
     $('#modal-confirm').hide();
+  }
+}
+
+function checkvalidate() {
+  if ($("#transfer-money").hasClass('active')) {
+    if ($("#school_bil_info_name").val() == "") {
+      inValid('school_bil_info_name', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_name')
+    }
+    if ($("#school_bil_info_address").val() == "") {
+      inValid('school_bil_info_address', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_address')
+    }
+    if ($("#school_bil_info_district").val() == "") {
+      inValid('school_bil_info_district', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_district')
+    }
+    if ($("#school_bil_info_province").val() == "") {
+      inValid('school_bil_info_province', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_province')
+    }
+    if ($("#school_bil_info_zip_code").val() == "") {
+      inValid('school_bil_info_zip_code', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_zip_code')
+    }
+    if ($("#school_bil_info_phone_number").val() == "") {
+      inValid('school_bil_info_phone_number', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_phone_number')
+    }
+    if ($("#school_bil_info_tax_id").val() == "") {
+      inValid('school_bil_info_tax_id', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_tax_id')
+    }
+    if ($("#school_bil_info_branch").val() == "") {
+      inValid('school_bil_info_branch', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_branch')
+    }
+  } else {
+    if ($("#school_bil_info_name").val() == "") {
+      inValid('school_bil_info_name', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_name')
+    }
+    if ($("#school_bil_info_address").val() == "") {
+      inValid('school_bil_info_address', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_address')
+    }
+    if ($("#school_bil_info_district").val() == "") {
+      inValid('school_bil_info_district', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_district')
+    }
+    if ($("#school_bil_info_province").val() == "") {
+      inValid('school_bil_info_province', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_province')
+    }
+    if ($("#school_bil_info_zip_code").val() == "") {
+      inValid('school_bil_info_zip_code', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_zip_code')
+    }
+    if ($("#school_bil_info_phone_number").val() == "") {
+      inValid('school_bil_info_phone_number', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_phone_number')
+    }
+    if ($("#school_bil_info_tax_id").val() == "") {
+      inValid('school_bil_info_tax_id', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_tax_id')
+    }
+    if ($("#school_bil_info_branch").val() == "") {
+      inValid('school_bil_info_branch', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_branch')
+    }
+    if ($("#school_bil_info_payment_method").val() == "") {
+      inValid('school_bil_info_payment_method', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_payment_method')
+    }
+    if ($("#school_bil_info_cardholder_name").val() == "") {
+      inValid('school_bil_info_cardholder_name', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_cardholder_name')
+    }
+    if ($("#school_bil_info_card_number").val() == "") {
+      inValid('school_bil_info_card_number', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_card_number')
+    }
+    if ($("#school_bil_info_exp_month").val() == "") {
+      inValid('school_bil_info_exp_month', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_exp_month')
+    }
+    if ($("#school_bil_info_exp_year").val() == "") {
+      inValid('school_bil_info_exp_year', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_exp_year')
+    }
+    if ($("#school_bil_info_cvv").val() == "") {
+      inValid('school_bil_info_cvv', 'ต้องไม่เว้นว่างเอาไว้');
+    } else {
+      valid('school_bil_info_cvv')
+    }
   }
 }
