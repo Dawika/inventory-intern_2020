@@ -173,7 +173,21 @@ class Payroll < ApplicationRecord
     end
 
     def self.assume_year_income(payroll, employee)
-      income = (payroll["salary"].to_i + payroll["allowance"].to_i + payroll["attendance_bonus"].to_i + payroll["ot"].to_i + payroll["bonus"].to_i + payroll["position_allowance"].to_i + payroll["extra_etc"].to_i - payroll["absence"].to_i - payroll["late"].to_i - generate_social_insurance(payroll, employee).to_i)*12
+      current_income = (payroll["salary"].to_i + payroll["allowance"].to_i + payroll["attendance_bonus"].to_i + payroll["ot"].to_i + payroll["bonus"].to_i + payroll["position_allowance"].to_i + payroll["extra_etc"].to_i - payroll["absence"].to_i - payroll["late"].to_i - generate_social_insurance(payroll, employee).to_i)
+      date_now = DateTime.now
+      begin_of_year = Date.new(date_now.year, 1, 1).beginning_of_year
+      before_current_day = Date.new(date_now.year, (date_now.month), date_now.day-1)
+
+      before_income = 0
+      employee.payrolls.where(effective_date: [begin_of_year..before_current_day]).each do |pr|
+        before_income += (pr["salary"].to_i + pr["allowance"].to_i + pr["attendance_bonus"].to_i + pr["ot"].to_i + pr["bonus"].to_i + pr["position_allowance"].to_i + pr["extra_etc"].to_i - pr["absence"].to_i - pr["late"].to_i - generate_social_insurance(pr, employee).to_i)
+      end
+
+      last_payroll_month = employee.payrolls.where(effective_date: [begin_of_year..before_current_day]).order(effective_date: :desc)&.first&.effective_date&.month
+      remain_month = (12 - (date_now.month - 1))
+      remain_month -= 1 if (last_payroll_month == date_now.month)
+
+      before_income + (current_income * remain_month)
     end
 
     def self.tax_break(payroll, tax_reduction)
@@ -191,12 +205,26 @@ class Payroll < ApplicationRecord
       taxrates = Taxrate.all_cached.sort_by(&:order_id).map {|tr| [tr.income, tr.tax] }
       yearTax = 0
       taxrates.each do |taxrate|
-        if income>taxrate[0]
-          yearTax += (income-taxrate[0])*taxrate[1]
+        if income > taxrate[0]
+          yearTax += (income - taxrate[0]) * taxrate[1]
           income = taxrate[0]
         end
       end
-      (yearTax/12).round(2) # month 1-11
+
+      return 0 if yearTax <= 0
+
+      date_now = DateTime.now
+      begin_of_year = Date.new(date_now.year, 01, 01).beginning_of_year
+      before_current_day = Date.new(date_now.year, (date_now.month), date_now.day-1)
+
+      tax_paid = employee.payrolls.where(effective_date: [begin_of_year..before_current_day]).map { |x| x.tax }.sum
+
+      last_payroll_month = employee.payrolls.where(effective_date: [begin_of_year..before_current_day]).order(effective_date: :desc)&.first&.effective_date&.month
+      remain_month = (12 - (date_now.month - 1))
+      remain_month -= 1 if (last_payroll_month == date_now.month)
+
+      tax = (yearTax - tax_paid) / remain_month
+      (tax * 10**2).ceil.to_f / 10**2
     end
 
     def self.generate_withholding_tax(payroll)
