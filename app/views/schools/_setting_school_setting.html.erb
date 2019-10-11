@@ -1,4 +1,4 @@
-<div class="new-school" id="formSchools">
+<div class="new-school" id="formSchool">
   <h1>
     <%= t('.header') %>
   </h1><br>
@@ -41,7 +41,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <br>
-                  <h4>.somsri.io</h4>
+                  <h4>.onbananacoding.com</h4>
                 </div>
               </div>
             </div>
@@ -49,23 +49,34 @@
               <%= f.simple_fields_for :school_settings, validate: true do |school_setting_form| %>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <%= school_setting_form.input :school_year, collection: [Time.now.year + 543, Time.now.year + 544], input_html: { id: 'school_school_settings_school_year', class: 'validate-sign-up' }, required: true %>
+                    <%= school_setting_form.input :school_year, label: t('.school_year'), collection: [Time.now.year + 543, Time.now.year + 544], selected: Time.now.year + 543, input_html: { id: 'school_school_settings_school_year', class: 'validate-sign-up' }, required: true %>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <%= school_setting_form.input :semesters, collection: 1..3, selected: 2, input_html: { id: 'school_school_settings_semesters' } %>
+                    <%= school_setting_form.input :semesters, label: t('.semesters'), collection: 1..3, selected: 2, input_html: { id: 'school_school_settings_semesters' } %>
                   </div>
                 </div>
                 <% end %>
             </div>
             <div class="row">
               <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <h4>
+                        <%= t('.Message3') %>&nbsp;
+                          <%= image_tag '/true.png', id: 'img-sc-true', class: 'hide', :size => "30x30" %>
+                            <%= image_tag '/false.png', id: 'img-sc-false', class: 'hide', :size => "30x30" %>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
                 <div class="form-group">
                   <div class="dropzone">
                     <%= image_tag '/icon-file.jpg', id: 'logoSchool', class: 'img-lg' %>
                   </div><br><br>
-                  <button type="button" class="btn btn-getStarted animated fadeInDown" onclick="$('#school_logo').trigger('click')">Choose file</button>
+                  <button type="button" class="btn btn-getStarted animated fadeInDown" onclick="$('#school_logo').trigger('click')"><%= t('.Choose_file')%></button>
                 </div>
                 <div id="requireimg" class="invalid-feedback" style="display: show;">*จำเป็นต้องใส่</div>
                 <div id="errorMessage" class="invalid-feedback" style="display: none;"></div>
@@ -134,25 +145,15 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <h4>
-                <%= t('.Message3') %>&nbsp;
-                  <%= image_tag '/true.png', id: 'img-sc-true', class: 'hide', :size => "30x30" %>
-                    <%= image_tag '/false.png', id: 'img-sc-false', class: 'hide', :size => "30x30" %>
-              </h4>
-            </div>
-          </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-9">
         </div>
         <div class="col-md-2">
-          <%= button_tag "Next", type: 'button', class: 'btn btn-getStarted animated fadeInDown', onclick: 'showNewSchool()', id: 'new_modal', disabled: true %>
+          <%= button_tag t('.next'), type: 'button', class: 'btn btn-getStarted animated fadeInDown', onclick: 'showNewSchool()', id: 'new_modal', disabled: true %>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>

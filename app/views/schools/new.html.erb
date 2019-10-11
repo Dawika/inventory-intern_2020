@@ -98,6 +98,11 @@
 
 <script>
   $(document).ready(function() {
+    $("#formplan").hover(function(){
+      $(this).find("input").hover(function(){
+        checkvalidate();
+      });
+    });
     $('form.simple_form').enableClientSideValidations();
     $('#new_school abbr').hide()
     $('#formSchool').hide();

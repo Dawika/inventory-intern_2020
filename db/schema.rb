@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190821034214) do
+ActiveRecord::Schema.define(version: 20191011034930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20190821034214) do
     t.string  "tax_id"
     t.string  "branch"
     t.integer "school_id"
+    t.string  "company_id"
     t.index ["school_id"], name: "index_bil_infos_on_school_id", using: :btree
   end
 
