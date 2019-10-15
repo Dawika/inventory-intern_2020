@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "bower": "^1.8.4",
+    "chart.js": "^2.8.0",
     "phantomjs": "^2.1.7"
   },
   "engines": {
