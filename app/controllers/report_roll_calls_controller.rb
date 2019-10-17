@@ -3,7 +3,7 @@ class ReportRollCallsController < ApplicationController
   authorize_resource :class => :report_roll_call
 
   def report
-    dates = date_exclude_weeken(DateTime.parse(params[:date]))
+    dates = date_exclude_weeken(Time.zone.parse(params[:date]))
     dates.collect! do |date|
       [date.strftime("%Y-%m-%d"), date.strftime("%d")]
     end
@@ -35,7 +35,7 @@ class ReportRollCallsController < ApplicationController
   end
 
   def date_in_month
-    dates = date_exclude_weeken(DateTime.parse(params[:date]))
+    dates = date_exclude_weeken(Time.zone.parse(params[:date]))
     dates.collect! do |date|
       date.strftime("%d").to_i.to_s
     end
@@ -49,11 +49,11 @@ class ReportRollCallsController < ApplicationController
   def months
     check_dates = RollCall.order(:check_date).distinct.pluck(:check_date).to_a
     results = check_dates.collect do |x|
-      date_thai = to_thai_date(DateTime.parse(x))
-      {name: "#{date_thai[1]} #{date_thai[2]}", date: DateTime.parse(x).strftime("%Y-%m-%d")}
+      date_thai = to_thai_date(Time.zone.parse(x))
+      {name: "#{date_thai[1]} #{date_thai[2]}", date: Time.zone.parse(x).strftime("%Y-%m-%d")}
     end
     results.uniq! do |x|
-      DateTime.parse(x[:date]).strftime("%m %Y")
+      Time.zone.parse(x[:date]).strftime("%m %Y")
     end
     render json: results
   end

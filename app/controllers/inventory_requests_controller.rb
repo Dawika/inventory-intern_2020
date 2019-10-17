@@ -5,10 +5,10 @@ class InventoryRequestsController < ApplicationController
 	def index
 		search = params[:search_keyword]
 		employee_id = params[:employee_id]
-		start_request_date = DateTime.parse(params[:start_request_date]).beginning_of_day if isDate(params[:start_request_date])
-    end_request_date = DateTime.parse(params[:end_request_date]).end_of_day if isDate(params[:end_request_date])
-    start_date_purchasing = DateTime.parse(params[:start_date_purchasing]).beginning_of_day if isDate(params[:start_date_purchasing])
-    end_date_purchasing = DateTime.parse(params[:end_date_purchasing]).end_of_day if isDate(params[:end_date_purchasing])
+		start_request_date = Time.zone.parse(params[:start_request_date]).beginning_of_day if isDate(params[:start_request_date])
+    end_request_date = Time.zone.parse(params[:end_request_date]).end_of_day if isDate(params[:end_request_date])
+    start_date_purchasing = Time.zone.parse(params[:start_date_purchasing]).beginning_of_day if isDate(params[:start_date_purchasing])
+    end_date_purchasing = Time.zone.parse(params[:end_date_purchasing]).end_of_day if isDate(params[:end_date_purchasing])
     check_box = params[:check_box]
 		# @inventory_requests
 		# inventories_requests = InventoryRequests.all

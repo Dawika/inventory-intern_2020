@@ -6,8 +6,8 @@ class InvoicesController < ApplicationController
   # GET /invoices
   def index
     grade_select = (params[:grade_select] || 'All')
-    start_date = DateTime.parse(params[:start_date]).beginning_of_day if isDate(params[:start_date])
-    end_date = DateTime.parse(params[:end_date]).end_of_day if isDate(params[:end_date])
+    start_date = Time.zone.parse(params[:start_date]).beginning_of_day if isDate(params[:start_date])
+    end_date = Time.zone.parse(params[:end_date]).end_of_day if isDate(params[:end_date])
 
     invoice_status_id = nil
     if params[:is_active] == "1"
@@ -394,8 +394,8 @@ class InvoicesController < ApplicationController
       options = grouping_keyword.collect{|gk| { name: gk[:name], value: true }}
     end
 
-    start_date = isDate(params[:start_date]) ? DateTime.parse(params[:start_date]).beginning_of_day : nil
-    end_date = isDate(params[:end_date]) ? DateTime.parse(params[:end_date]).end_of_day : nil
+    start_date = isDate(params[:start_date]) ? Time.zone.parse(params[:start_date]).beginning_of_day : nil
+    end_date = isDate(params[:end_date]) ? Time.zone.parse(params[:end_date]).end_of_day : nil
 
     summary_mode = select_summary_mode(start_date, end_date)
     summary_mode = params[:summary_mode] if params[:summary_mode] # force summary_mode
