@@ -576,7 +576,7 @@ if Candidate.count.zero?
   candidate1.design_skills.create([{skill_name: "photoshop", skill_point: 17}, {skill_name: "drawing", skill_point: 19}])
   interview1 = candidate1.build_interview(date: Time.zone.now, location: "Banana Office", category: 1)
   interview1.save
-  interview1.interviewer_emails.create([{email: "interviewer1@bananacoding.com"}, {email: "interviewer2@bananacoding.com"}, {email: "interviewer3@bananacoding.com"}])
+  interview1.interviewer_emails.create([{email: "interviewer1@bananacoding.com", skip_send_email: true}, {email: "interviewer2@bananacoding.com", skip_send_email: true}, {email: "interviewer3@bananacoding.com", skip_send_email: true}])
 
   candidate2 = Candidate.create(full_name: "เสือดำญาติเสือหมอบ", nick_name: "น้องเพรช", email: "น้องเพรช@เสือดำ.com", phone: "0999999998", from: "california", school_year: "4", note: "หิวข้าว", current_ability: 10, learn_ability: 10, attention: 10, shortlist: true, interest: "ชุปเสือหมอบ")
   candidate2.programming_skills.create([{skill_name: "python", skill_point: 17}, {skill_name: "c++", skill_point: 19}])
@@ -584,5 +584,5 @@ if Candidate.count.zero?
   candidate2.design_skills.create([{skill_name: "photoshop", skill_point: 18}])
   interview2 = candidate2.build_interview(date: Time.zone.now, location: "Banana Office", category: 0)
   interview2.save
-  interview2.interviewer_emails.create([{email: "interviewer1@bananacoding.com"}, {email: "interviewer2@bananacoding.com"}, {email: "interviewer3@bananacoding.com"}])
+  interview2.interviewer_emails.create([{email: "interviewer1@bananacoding.com", skip_send_email: true}, {email: "interviewer2@bananacoding.com", skip_send_email: true}, {email: "interviewer3@bananacoding.com", skip_send_email: true}])
 end
