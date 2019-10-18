@@ -232,7 +232,8 @@ class StudentsController < ApplicationController
   def new
     @menu = t('student')
     @student = Student.new
-    @parents = Parent.where(school_id: current_user.school_id)
+    @school_id = current_user.school_id
+    @parents = Parent.where(school_id: @school_id)
     @relations = Relationship.all
     render "students/new", layout: "application_invoice"
   end
