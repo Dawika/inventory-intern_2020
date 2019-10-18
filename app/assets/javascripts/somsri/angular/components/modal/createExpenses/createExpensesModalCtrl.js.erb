@@ -20,11 +20,7 @@
     if (value.expenses_id)
       ctrl.expenses_id = value.expenses_id;
 
-    if (!ctrl.detail && !ctrl.total_cost){
-      ctrl.is_edit = false;
-    } else {
-      ctrl.is_edit = true;
-    }
+    ctrl.is_edit = ctrl.detail || ctrl.total_cost
   }
 
     //add item and remove item
