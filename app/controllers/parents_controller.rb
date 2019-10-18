@@ -242,6 +242,7 @@ class ParentsController < ApplicationController
           @students.push(std)
         elsif s.length > 0 && s.to_i == 0
           new_std = Student.find_or_create_by(full_name: std_params[index])
+          new_std.school_id = current_user.school.id
           @students.push(new_std)
         end
       end
