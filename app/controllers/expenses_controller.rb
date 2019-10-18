@@ -11,8 +11,7 @@ class ExpensesController < ApplicationController
     end_date = DateTime.parse(params[:end_date]).end_of_day if isDate(params[:end_date])
 
     qry_expenses = Expense.all
-    qry_expenses = qry_date_range(
-    qry_expenses, Expense.arel_table[:effective_date], start_date, end_date)
+    qry_expenses = qry_date_range(qry_expenses, Expense.arel_table[:effective_date], start_date, end_date)
     qry_expenses = qry_expenses.search(search) if search.present?
     qry_expenses = qry_expenses.order("total_cost::FLOAT #{order}") if sort == 'total_cost' && order
     qry_expenses = qry_expenses.order("#{sort} #{order}") if sort != 'total_cost' && order

@@ -1,27 +1,79 @@
 (function() {
   'use strict';
-  angular.module('somsri.rollcall.create_expenses_modal', [
-  ])
-.controller('createExpensesModalCtrl', ['$uibModalInstance', '$state', '$log', 'translateFilter', '$scope', function($uibModalInstance, $state, $log, translateFilter, $scope) {
-  var ctrl = this;
-  ctrl.message = '';
-  ctrl.total = 0.00;
-  ctrl.change_img = false;
+  angular.module('somsri.rollcall.create_expenses_modal', [])
+  .controller('createExpensesModalCtrl', ['$uibModalInstance', '$state', '$log', 'expensesService', 'translateFilter', '$scope', function($uibModalInstance, $state, $log, service, translateFilter, $scope) {
+    var ctrl = this;
+    ctrl.message = '';
+    ctrl.total = 0.00;
+    ctrl.change_img = false;
+    ctrl.real_id = $state.params.id;
 
-  function initItemList() {
-    var value = $scope.expenses.data;
-    ctrl.detail = value.detail;
-    ctrl.total_cost = value.total_cost;
-    ctrl.effective_date = new Date(value.effective_date);
-    ctrl.items = value.expense_items;
-    ctrl.expensesTotal();
-    ctrl.imgDisplay = value.img;
+    console.log(ctrl.real_id)
 
-    if (value.expenses_id)
+    function initItemList() {
+      var value = $scope.expenses.data;
+      ctrl.detail = value.detail;
+      ctrl.total_cost = value.total_cost;
+      ctrl.effective_date = new Date(value.effective_date);
+      ctrl.items = value.expense_items;
+      ctrl.expensesTotal();
+      ctrl.imgDisplay = value.img;
+
+      service.getExpenseTags({ autocomplete: true }).then(function(resp){
+        ctrl.itemTypes = resp.data;
+        ctrl.lvMax = ctrl.itemTypes[0].lv;
+        ctrl.itemTypes.unshift({ name: "-", lv: ctrl.lvMax, ids: [], id: null, is_leaf: true });
+      });
+
+      service.show(ctrl.real_id).then(function(resp){
+      var value = resp.data;
+      ctrl.detail = value.detail;
+      ctrl.total_cost = value.total_cost;
+      ctrl.effective_date = new Date(value.effective_date);
+      ctrl.items = value.expense_items;
+      ctrl.payment_method = value.payment_method;
+      ctrl.cheque_bank_name = value.cheque_bank_name;
+      ctrl.cheque_number = value.cheque_number;
+      ctrl.cheque_date = value.cheque_date;
+      ctrl.transfer_bank_name = value.transfer_bank_name;
+      ctrl.transfer_date = value.transfer_date;
+      ctrl.expensesTotal();
+      ctrl.imgDisplay = value.img;
       ctrl.expenses_id = value.expenses_id;
+      service.getExpenseTags({ autocomplete: true }).then(function(resp){
+        ctrl.itemTypes = resp.data;
+        ctrl.lvMax = ctrl.itemTypes[0].lv;
+        ctrl.itemTypes.unshift({ name: "-", lv: ctrl.lvMax, ids: [], id: null, is_leaf: true });
+        if(ctrl.items){
+          ctrl.items.forEach(function(item){
+            var selected = ctrl.itemTypes[0];
+            if(item.tags){
+              item.tags.forEach(function(tag){
+                if(tag.is_leaf){
+                  selected = tag;
+                }
+              });
+            }
+            item.tags = selected;
+          });
+        }
+        addItem();
+      })
+    })
 
-    ctrl.is_edit = ctrl.detail || ctrl.total_cost
-  }
+      if (value.expenses_id)
+        ctrl.expenses_id = value.expenses_id;
+
+      ctrl.is_edit = ctrl.detail || ctrl.total_cost
+    }
+
+    ctrl.addWhiteSpace = function(times) {
+      var whiteSpace = ""
+      for(var i = 0; i < times; i++){
+        whiteSpace += "&nbsp; "
+      }
+      return whiteSpace
+    };
 
     //add item and remove item
     ctrl.addNewItem = function() {
@@ -55,6 +107,18 @@
     //ctrl.total = item sum total price
     ctrl.save = function(){
       if (isValidateBeforSave()) {
+        ctrl.items = ctrl.items.filter(function(item) {
+          return item.detail || item.amount || item.cost
+        });
+        ctrl.items.forEach(function(item){
+          var tags = []
+          if(item.tags.ids){
+            item.tags.ids.forEach(function(id){
+              tags.push({id: id });
+            })
+            item.tags = tags
+          }
+        });
         ctrl.message = "";
         $uibModalInstance.close({
           effective_date: ctrl.effective_date,
