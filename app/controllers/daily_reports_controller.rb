@@ -33,11 +33,11 @@ class DailyReportsController < ApplicationController
     tranfers = 0
     total = 0
     start_time = nil
-    start_time = DateTime.parse(params[:start_time]) if params[:start_time]
-    start_time = DateTime.now if !start_time
+    start_time = Time.zone.parse(params[:start_time]) if params[:start_time]
+    start_time = Time.zone.now if !start_time
     end_time = nil
-    end_time = DateTime.parse(params[:end_time]) if params[:end_time]
-    end_time = DateTime.now if !end_time
+    end_time = Time.zone.parse(params[:end_time]) if params[:end_time]
+    end_time = Time.zone.now if !end_time
     invoice_ids = Invoice.where(created_at: start_time..end_time, invoice_status_id: InvoiceStatus.find_by_name('Active')).ids
 
     Invoice.where(created_at: Date.today.beginning_of_day..Date.today.end_of_day)

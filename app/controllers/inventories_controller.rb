@@ -5,10 +5,10 @@ class InventoriesController < ApplicationController
 	def index
 		page = params[:page]
 		search = params[:search_keyword]
-		start_date_purchase = DateTime.parse(params[:start_date_purchase]).beginning_of_day if isDate(params[:start_date_purchase])
-    end_date_purchase = DateTime.parse(params[:end_date_purchase]).end_of_day if isDate(params[:end_date_purchase])
-    start_date_add = DateTime.parse(params[:start_date_add]).beginning_of_day if isDate(params[:start_date_add])
-    end_date_add = DateTime.parse(params[:end_date_add]).end_of_day if isDate(params[:end_date_add])
+		start_date_purchase = Time.zone.parse(params[:start_date_purchase]).beginning_of_day if isDate(params[:start_date_purchase])
+    end_date_purchase = Time.zone.parse(params[:end_date_purchase]).end_of_day if isDate(params[:end_date_purchase])
+    start_date_add = Time.zone.parse(params[:start_date_add]).beginning_of_day if isDate(params[:start_date_add])
+    end_date_add = Time.zone.parse(params[:end_date_add]).end_of_day if isDate(params[:end_date_add])
     check_box = params[:check_box]
 		
 		# inventories = get_inventories(params[:search_keyword],start_date_purchase,end_date_purchase,params[:page])

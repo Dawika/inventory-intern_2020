@@ -7,12 +7,11 @@ class ExpensesController < ApplicationController
     order = params[:order]
     search = params[:search_keyword]
     page = params[:page]
-    start_date = DateTime.parse(params[:start_date]).beginning_of_day if isDate(params[:start_date])
-    end_date = DateTime.parse(params[:end_date]).end_of_day if isDate(params[:end_date])
+    start_date = Time.zone.parse(params[:start_date]).beginning_of_day if isDate(params[:start_date])
+    end_date = Time.zone.parse(params[:end_date]).end_of_day if isDate(params[:end_date])
 
     qry_expenses = Expense.all
-    qry_expenses = qry_date_range(
-    qry_expenses, Expense.arel_table[:effective_date], start_date, end_date)
+    qry_expenses = qry_date_range(qry_expenses, Expense.arel_table[:effective_date], start_date, end_date)
     qry_expenses = qry_expenses.search(search) if search.present?
     qry_expenses = qry_expenses.order("total_cost::FLOAT #{order}") if sort == 'total_cost' && order
     qry_expenses = qry_expenses.order("#{sort} #{order}") if sort != 'total_cost' && order
@@ -98,8 +97,8 @@ class ExpensesController < ApplicationController
   end
 
   def report_by_tag
-    @start_date_time = DateTime.parse(params[:start_date]).beginning_of_day if isDate(params[:start_date])
-    @end_date_time = DateTime.parse(params[:end_date]).end_of_day if isDate(params[:end_date])
+    @start_date_time = Time.zone.parse(params[:start_date]).beginning_of_day if isDate(params[:start_date])
+    @end_date_time = Time.zone.parse(params[:end_date]).end_of_day if isDate(params[:end_date])
     tag_tree = SiteConfig.get_cache.expense_tag_tree_hash
     @expense_tags = ExpenseTag.all.to_a
 
@@ -154,8 +153,8 @@ class ExpensesController < ApplicationController
   end
 
   def report_by_payment
-    @start_date_time = DateTime.parse(params[:start_date]).beginning_of_day if isDate(params[:start_date])
-    @end_date_time = DateTime.parse(params[:end_date]).end_of_day if isDate(params[:end_date])
+    @start_date_time = Time.zone.parse(params[:start_date]).beginning_of_day if isDate(params[:start_date])
+    @end_date_time = Time.zone.parse(params[:end_date]).end_of_day if isDate(params[:end_date])
     qry_expenses = Expense.all
     qry_expenses = qry_date_range(
                       qry_expenses,
