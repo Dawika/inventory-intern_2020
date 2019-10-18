@@ -52,6 +52,7 @@
               return item.detail || item.amount || item.cost
               });
               service.createExpenses({
+                payment_method: result.payment_method,
                 effective_date: new Date(result.effective_date),
                 expenses_id: result.expenses_id,
                 detail: result.detail,
@@ -96,7 +97,6 @@
                 }]
               }
             }).result.then(function (result) {
-              console.log(result.img_url)
               if (result) {
                 ctrl.items = result.expense_items_attributes.filter(function(item) {
                  return item.detail || item.amount || item.cost
