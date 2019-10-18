@@ -84,7 +84,6 @@ class ExportXls
     sheet1.row(2).set_format(lv_max, bold_right)
 
     results.each_with_index do |result, i|
-      ap result
       sheet1.row(i + 3)[lv_max - result[:lv]] = (expense_tags.find{|et| et.id == result[:id]}).present? ? (expense_tags.find{|et| et.id == result[:id]}).name : ""
       sheet1.row(i + 3)[lv_max] = helper.number_with_precision(result[:cost], precision: 2, delimiter: ',')
       sheet1.row(i + 3).set_format(lv_max, right)
