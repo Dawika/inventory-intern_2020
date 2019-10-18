@@ -551,6 +551,8 @@ th:
   not_auto_renew: "ไม่ต่ออายุอัตโนมัติ"
   monthly: "รายเดือน"
   annually: "รายปี"
+  please_select_grade: "โปรดเลือกระดับชั้น"
+  please_select_classroom: "โปรดเลือกห้อง"
   # School Setting
   schools:
     setting_school_setting:

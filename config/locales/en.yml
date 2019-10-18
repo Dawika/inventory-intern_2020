@@ -541,6 +541,8 @@ en:
   not_auto_renew: "Not Auto-renew"
   monthly: "Monthly"
   annually: "Annually"
+  please_select_grade: "Please Select Grade"
+  please_select_classroom: "Please Select Classroom"
   # School Setting
   schools:
     new:
