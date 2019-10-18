@@ -552,6 +552,7 @@ class StudentsController < ApplicationController
             @parents.push(prn)
           elsif p.length > 0 && p.to_i == 0
             new_prn = Parent.find_or_create_by(full_name: parent_params[index])
+            new_prn.school_id = current_user.school.id
             @parents.push(new_prn)
           end
         end
