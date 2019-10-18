@@ -41,6 +41,11 @@ class SettingsController < ApplicationController
     end
   end
 
+  def change_plan
+    current_user.school.plan_id =  params[:plan_id]
+    current_user.school.save
+  end
+
   private
     def getSetting
       {
@@ -49,7 +54,8 @@ class SettingsController < ApplicationController
         school_logo: current_user.school.logo_url,
         licenses: current_user.school.active_license,
         plan: current_user.school.active_license.plan || t('trial'),
-        billing_info: current_user.school.bil_info
+        billing_info: current_user.school.bil_info,
+        all_plan: Plan.all
 
       }
     end

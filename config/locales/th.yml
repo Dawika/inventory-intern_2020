@@ -553,6 +553,9 @@ th:
   annually: "รายปี"
   please_select_grade: "โปรดเลือกระดับชั้น"
   please_select_classroom: "โปรดเลือกห้อง"
+  change_plan: เปลี่ยนแพลน
+  Cancel_Subscribe: ยกเลิกต่ออายุอัตโนมัติ
+  auto_subscribe: ต่ออายุอัตโนมัติ
   # School Setting
   schools:
     setting_school_setting:

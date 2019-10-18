@@ -543,6 +543,9 @@ en:
   annually: "Annually"
   please_select_grade: "Please Select Grade"
   please_select_classroom: "Please Select Classroom"
+  change_plan: Change plan
+  Cancel_Subscribe: Cancel Subscribe
+  auto_subscribe: Auto Subscribe
   # School Setting
   schools:
     new:

@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       patch "/", action: 'update_current_user'
       patch 'update_password'
       patch 'subscription'
+      patch 'change_plan'
     end
   end
 

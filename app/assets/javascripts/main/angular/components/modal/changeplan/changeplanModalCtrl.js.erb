@@ -1,0 +1,26 @@
+(function() {
+  'use strict';
+  angular.module('somsri.main.changeplan', [])
+    .controller('changeplanModalCtrl', ['$rootScope', '$uibModalInstance', '$state', '$log', 'changeplanModalService', function($rootScope, $uibModalInstance, $state, $log, service) {
+      var ctrl = this;
+      var plan;
+      var plan_id;
+      service.getplan().then(function(resp) {
+        ctrl.plan_id = resp.data.school.plan_id.toString()
+        ctrl.plan = resp.data.all_plan
+        console.log(resp)
+      });
+
+      ctrl.submit = function(parm) {
+        service.setting_change_plan(parm).then(function(resp) {
+          $uibModalInstance.close();
+          $rootScope.opensuccessModal('บันทึกข้อมูลสำเร็จ');
+        });
+      }
+
+      ctrl.cancel = function() {
+        $uibModalInstance.close();
+      };
+
+    }]);
+})();
