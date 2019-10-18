@@ -1,0 +1,40 @@
+<div class="modal-content modal-style">
+  <div class="modal-body" id="">
+    <form ng-submit="changeplan.submit(changeplan.plan_id)" autocomplete="off">
+      <button type="button" class="close" ng-click="changeplan.cancel()" aria-hidden="true">×</button>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h2 class="modal-title" id="modal-title"><b>{{ 'change_plan' | translate }}</b></h2>
+          <p class="color-red">หลังจากแพลนที่ใช้อยู่หมดอายุแล้วต้องการแพลนถัดไป ( กรณีต่ออายุแบบอัตโนมัติ ไม่มีผลกับแพลนที่ใช้งานอยู่ )</p>
+        </div>
+      </div>
+      <section class="sec_4">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <div class="row text-center">
+              <div class="col-md-6" ng-repeat="plan in changeplan.plan">
+                <div class="col-md-10 col-md-offset-1">
+                  <h3>{{plan.package_name | translate}}
+                  </h3>
+                  <p>
+                    {{plan.description}}
+                  </p>
+                  <h3 class="price-l">{{plan.price}} บาท/{{plan.frequency == "monthly" ? "เดือน": "ปี"}}</h3><br>
+                  <p>ใช้งานแบบออนไลน์ผ่านทาง สมศรี Cloud สามารถเข้าถึงได้จากทั้งที่โรงเรียนและที่บ้าน ข้อมูลไม่สูญหาย ระบบ backup ให้ อัตโนมัติ รับประกันตลอดอายุการใช้งาน </p><br>
+                  <div class="form-check">
+                    <input class="form-check-input radio_buttons optional" type="radio" ng-model="changeplan.plan_id" value={{plan.id}} id="school_plan_id_{{plan.id}}">
+                    <label class="collection_radio_buttons" for="school_plan_id_{{plan.id}}">{{'Select' | translate}}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
+      <div class="row ">
+        <div class="col-md-12 text-center">
+          <button type="submit" class="btn btn-custom btn-blue tap">{{ 'save' | translate }}</button>
+          <button type="button" class="btn btn-custom btn-gray" ng-click="changeplan.cancel()">{{ 'cancel' | translate }}</button> </div>
+      </div>
+    </form>
+    </div>
+  </div>

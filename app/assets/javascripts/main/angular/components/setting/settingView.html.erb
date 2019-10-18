@@ -214,9 +214,9 @@
         </div>
       </div>
       <div class="row">
-        <button type="button" class="btn btn-custom btn-blue float-right size">Change plan</button>
-        <button ng-show="setting.button_auto_subscribe" type="button" class="btn btn-custom btn-red float-right size" ng-click="setting.auto_subscribe(setting.datas.school.auto_subscribe)">Cancel Subscribe</button>
-        <button ng-hide="setting.button_auto_subscribe" type="button" class="btn btn-custom btn-light-green float-right size" ng-click="setting.auto_subscribe(setting.datas.school.auto_subscribe)">Auto Subscribe</button>
+        <button type="button" class="btn btn-custom btn-blue float-right size" ng-click="setting.changePlan()">{{'change_plan' | translate}}</button>
+        <button ng-show="setting.button_auto_subscribe" type="button" class="btn btn-custom btn-red float-right size" ng-click="setting.auto_subscribe(setting.datas.school.auto_subscribe)">{{'Cancel_Subscribe' | translate}}</button>
+        <button ng-hide="setting.button_auto_subscribe" type="button" class="btn btn-custom btn-light-green float-right size" ng-click="setting.auto_subscribe(setting.datas.school.auto_subscribe)">{{'auto_subscribe' | translate}}</button>
       </div>
 
     </div>
