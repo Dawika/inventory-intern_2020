@@ -10,7 +10,10 @@ class ExpenseItem < ApplicationRecord
 	# values = [1,2,3...] #id
 	def tags=(values)
 		self.expense_tag_items.destroy_all
+		ap values
 	  values.each do |value|
+	  	ap value[0]
+	  	ap value[1]
 			self.expense_tag_items << ExpenseTagItem.new(
 				expense_item: self,
 				expense_tag: ExpenseTag.where(id: value[1][:id]).first

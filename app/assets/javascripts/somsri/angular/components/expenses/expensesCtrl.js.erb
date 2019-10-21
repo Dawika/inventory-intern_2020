@@ -36,13 +36,13 @@
             backdrop: 'static',
             keyboard: false,
             scope: $scope,
-            templateUrl: "<%= asset_path('rollcall/angular/components/modal/createExpenses/createExpensesModalView.html') %>",
+            templateUrl: "<%= asset_path('somsri/angular/components/modal/createExpenses/createExpensesModalView.html') %>",
             controller: 'createExpensesModalCtrl as create',
             size: 'lg',
             resolve: {
               resources: ['$ocLazyLoad', 'ASSETS', function($ocLazyLoad, ASSETS) {
                 return $ocLazyLoad.load([
-                  ASSETS.somsri.rollcall.create_expenses_modal
+                  ASSETS.somsri.somsri.create_expenses_modal
                   ]);
               }]
             }
@@ -52,6 +52,7 @@
               return item.detail || item.amount || item.cost
               });
               service.createExpenses({
+                payment_method: result.payment_method,
                 effective_date: new Date(result.effective_date),
                 expenses_id: result.expenses_id,
                 detail: result.detail,
@@ -76,7 +77,7 @@
 
       ctrl.edit = function(item) {
         ctrl.case_edit = true;
-        service.show(item).then( function(resp){
+        service.show(item.id).then( function(resp){
           ctrl.data = resp.data
           if (ctrl.data.expense_items.length == 0)
             ctrl.data.expense_items = [{amount:0, detail:"", cost:0.00, total_price:0.00}];
@@ -85,13 +86,13 @@
               backdrop: 'static',
               keyboard: false,
               scope: $scope,
-              templateUrl: "<%= asset_path('rollcall/angular/components/modal/createExpenses/createExpensesModalView.html') %>",
+              templateUrl: "<%= asset_path('somsri/angular/components/modal/createExpenses/createExpensesModalView.html') %>",
               controller: 'createExpensesModalCtrl as create',
               size: 'lg',
               resolve: {
                 resources: ['$ocLazyLoad', 'ASSETS', function($ocLazyLoad, ASSETS) {
                   return $ocLazyLoad.load([
-                    ASSETS.somsri.rollcall.create_expenses_modal
+                    ASSETS.somsri.somsri.create_expenses_modal
                   ]);
                 }]
               }
@@ -100,15 +101,17 @@
                 ctrl.items = result.expense_items_attributes.filter(function(item) {
                  return item.detail || item.amount || item.cost
                 });
-                service.editExpenses({
-                  item_id: resp.data.id,
-                  effective_date: new Date(result.effective_date),
-                  expenses_id: result.expenses_id,
-                  detail: result.detail,
-                  total_cost: result.total_cost,
-                  expense_items_attributes: ctrl.items,
-                  img_url: result.img_url
-                }).then(function(resp) {
+                service.updateExpenses(
+                  {
+                    effective_date: new Date(result.effective_date),
+                    expenses_id: result.expenses_id,
+                    detail: result.detail,
+                    total_cost: result.total_cost,
+                    expense_items_attributes: ctrl.items,
+                    img_url: result.img_url
+                  },
+                  resp.data.id
+                ).then(function(resp) {
                   ctrl.message = translateFilter('expense_edit_success');
                   ctrl.typeSuccess = true;
                   getExpenses();
