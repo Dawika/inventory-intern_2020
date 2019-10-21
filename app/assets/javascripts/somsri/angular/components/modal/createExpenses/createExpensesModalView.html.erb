@@ -14,7 +14,7 @@
         <div class="col-xs-5">
           <div class="form-group">
             <label for="purchase_order" class="control-label m-bottom-15 d-inline-block">{{ 'buy_slip' | translate }}</label>
-            <input id="expenses_id" class="form-control d-inline-block w-70p" ng-model="create.expenses_id" placeholder="{{ 'buy_slip' | translate }}">
+            <input id="expenses_id" class="form-control d-inline-block w-60p" ng-model="create.expenses_id" placeholder="{{ 'buy_slip' | translate }}">
           </div>
         </div>
 
@@ -50,6 +50,47 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
+          <b>{{ 'payment_channel' | translate }}</b>
+          <div class="radio">
+            <label><input id="is-cash" type="radio" value="เงินสด" ng-model="create.payment_method">&nbsp;&nbsp;{{ 'cash' | translate }}</label>
+          </div>
+          <div class="radio">
+            <label><input id="is-credit-card" type="radio" value="บัตรเครดิต" ng-true-value="true" ng-false-value="false" ng-model="create.payment_method">&nbsp;&nbsp;{{ 'credit_card' | translate }}</label>
+          </div>
+          <div class="radio row">
+            <div class="col-md-2" style="margin-right:20px;">
+              <label><input id="is-cheque" type="radio" value="เช็คธนาคาร" ng-model="create.payment_method">&nbsp;&nbsp;{{ 'bank_check' | translate }}</label>
+            </div>
+            <div class="input-bank">
+              <div class="col-md-3 col-payment">
+                <input id="cheque-bank-name" type="text" ng-disabled="create.payment_method != 'เช็คธนาคาร'" placeholder="{{ 'bank_name' | translate }}" class="form-control" ng-model="create.cheque_bank_name">
+              </div>
+              <div class="col-md-3">
+                <input id="cheque-number" type="text" ng-disabled="create.payment_method != 'เช็คธนาคาร'" placeholder="{{ 'bank_check_id' | translate }}" class="form-control" ng-model="create.cheque_number">
+              </div>
+              <div class="col-md-3">
+                <input id="cheque-date" type="text" ng-disabled="create.payment_method != 'เช็คธนาคาร'" placeholder="{{ 'bank_check_date' | translate }}" class="form-control" ng-model="create.cheque_date">
+              </div>
+            </div>
+          </div>
+          <div class="radio row">
+            <div class="col-md-2">
+              <label><input id="is-transfer" type="radio" value="เงินโอน" ng-model="create.payment_method">&nbsp;&nbsp;{{ 'bank_transfer' | translate }}</label>
+            </div>
+            <div class="input-bank">
+              <div class="col-md-3 col-payment">
+                <input id="transfer-bank-name" type="text" ng-disabled="create.payment_method != 'เงินโอน'" placeholder="{{ 'bank_name' | translate }}" class="form-control" ng-model="create.transfer_bank_name">
+              </div>
+              <div class="col-md-3">
+                <input id="transfer-date" type="text" ng-disabled="create.payment_method != 'เงินโอน'" placeholder="{{ 'bank_check_date' | translate }}" class="form-control" ng-model="create.transfer_date">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="space30"></div>
+      <div class="row">
+        <div class="col-xs-12">
           <uib-tabset>
             <uib-tab id="upload_photo" index="0" heading="{{ 'upload_photo' | translate }}">
               <div class="col-xs-12 text-center border-choose-file mt-20 mb-20">
@@ -68,10 +109,11 @@
               <div class="items-table">
                 <div class="row header">
                   <div class="col-xs-4">{{ 'item' | translate }}</div>
-                  <div class="col-xs-2 text-right">{{ 'amount2' | translate }}</div>
-                  <div class="col-xs-2 text-right">{{ 'unit_price' | translate }}</div>
-                  <div class="col-xs-2 text-right">{{ 'total_cost' | translate }}</div>
-                  <div class="col-xs-2 text-right"></div>
+                  <div class="col-xs-3">{{ 'category' | translate }}</div>
+                  <div class="col-xs-1">{{ 'amount2' | translate }}</div>
+                  <div class="col-xs-2">{{ 'unit_price' | translate }}</div>
+                  <div class="col-xs-1">{{ 'total_cost' | translate }}</div>
+                  <div class="col-xs-1"></div>
                 </div>
                 <div class="max-h-300 overflow-y scrollbar">
                   <div class="row" data-ng-repeat="item in create.items" ng-animate="'slide-down'">
@@ -80,22 +122,32 @@
                         <input type="text" id="item_detail" placeholder="{{ 'item_name' | translate }}" class="form-control grop-table" ng-model="item.detail">
                       </div>
                     </div>
-                    <div class="col-xs-2 text-right">
+                    <div class="col-xs-3 text-right pl-0">
+                      <ui-select id="tags-{{$index}}" theme="bootstrap" ng-model="item.tags">
+                        <ui-select-match>
+                          <span ng-bind="$select.selected.name"></span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in (create.itemTypes | filter: $select.search) track by item.id" ui-disable-choice="!item.is_leaf">
+                          <span ng-bind-html="create.addWhiteSpace((create.lvMax - item.lv)*2)"></span><span ng-bind="item.name"></span>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                    <div class="col-xs-1">
                       <div class="form-group form-price">
                         <input type="text" id="item_amount" value="0" ng-required min="0" step="1000" ng-validate="number" placeholder="0" class="form-control table-price" ng-model="item.amount" ng-change="create.expensesTotal()" ui-number-mask="0" ui-negative-number>
                       </div>
                     </div>
-                    <div class="col-xs-2 text-right">
+                    <div class="col-xs-2">
                       <div class="form-group form-price">
                         <input type="text" id="item_cost" value="0.00" ng-required min="0.00" step="1000" ng-validate="number" placeholder="0.00" class="form-control table-price" ng-model="item.cost" ng-change="create.expensesTotal()" ui-number-mask="2" ui-negative-number>
                       </div>
                     </div>
-                    <div class="col-xs-2 text-right">
+                    <div class="col-xs-1">
                       <div class="form-group form-price">
-                        <span class="pull-right">{{ item.total_price.toFixed(2) | number:2 }}</span>
+                        <span class="pull-right form-control table-price">{{ item.total_price.toFixed(2) | number:2 }}</span>
                       </div>
                     </div>
-                    <div class="col-xs-2 remove-item-container text-right">
+                    <div class="col-xs-1 remove-item-container">
                       <a href ng-hide="printMode" ng-click="create.removeNewItem($index)" class="btn pl-10"><span class="fa fa-times-circle"></span></a>
                     </div>
                   </div>

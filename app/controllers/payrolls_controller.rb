@@ -9,7 +9,7 @@ class PayrollsController < ApplicationController
    
     effective_date = nil
     if params[:effective_date] != "lasted"
-      effective_date = DateTime.parse(params[:effective_date])
+      effective_date = Time.zone.parse(params[:effective_date])
       employee_ids = Payroll.where(effective_date: effective_date.beginning_of_day..effective_date.end_of_day).pluck(:employee_id)
       employees = Employee.with_deleted.where(id: employee_ids)
     else
@@ -35,7 +35,7 @@ class PayrollsController < ApplicationController
 
     effective_date = nil 
     if params[:effective_date] != "lasted"
-      effective_date = DateTime.parse(params[:effective_date])
+      effective_date = Time.zone.parse(params[:effective_date])
       qry_payrolls = qry_payrolls.where(effective_date: effective_date.beginning_of_day..effective_date.end_of_day)
     else
       qry_payrolls = qry_payrolls.where(effective_date: nil)
@@ -147,7 +147,7 @@ class PayrollsController < ApplicationController
 
   # GET /payrolls/social_insurance_pdf
   def social_insurance_pdf
-    effective_date = DateTime.parse(params[:effective_date])
+    effective_date = Time.zone.parse(params[:effective_date])
     employees = Employee.with_deleted.all.order(:id).to_a
     payrolls = Payroll.where(employee_id: employees, effective_date: effective_date.beginning_of_day..effective_date.end_of_day)
                       .where("social_insurance > ?", 0)
@@ -293,10 +293,10 @@ class PayrollsController < ApplicationController
 
   # POST /payrolls/
   def create
-    effective_date = DateTime.parse(create_params[:effective_date])
+    effective_date = Time.zone.parse(create_params[:effective_date])
     if effective_date
       render json: [] and return if Payroll.where(effective_date: effective_date).count > 0
-      Payroll.where(closed: [nil, false]).update_all(closed: true, effective_date: DateTime.parse(create_params[:effective_date]))
+      Payroll.where(closed: [nil, false]).update_all(closed: true, effective_date: Time.zone.parse(create_params[:effective_date]))
       Employee.all.without_deleted.to_a.each do |employee|
         if employee.lastest_payroll.nil?
           payroll = Payroll.new({
