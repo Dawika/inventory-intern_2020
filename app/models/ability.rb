@@ -29,7 +29,6 @@ class Ability
         can :manage, SiteConfig #read
         can :manage, Expense
         can :manage, ExpenseTag
-        can :manage, ExpenseTagItem
         can :manage, ExpenseItem
         can :manage, Bank
         can :manage, Quotation
@@ -80,7 +79,6 @@ class Ability
         can :read, SiteConfig
         can :manage, Expense
         can :manage, ExpenseTag
-        can :manage, ExpenseTagItem
         can :manage, ExpenseItem
         can :manage, Vacation, :requester_id => user.id
         can :read, Inventory

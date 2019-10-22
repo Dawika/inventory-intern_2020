@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190813055518) do
+ActiveRecord::Schema.define(version: 20191021081201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -370,7 +370,9 @@ ActiveRecord::Schema.define(version: 20190813055518) do
     t.string  "detail"
     t.integer "amount"
     t.float   "cost"
+    t.integer "expense_tag_id"
     t.index ["expense_id"], name: "index_expense_items_on_expense_id", using: :btree
+    t.index ["expense_tag_id"], name: "index_expense_items_on_expense_tag_id", using: :btree
   end
 
   create_table "expense_tag_items", force: :cascade do |t|
@@ -1024,6 +1026,7 @@ ActiveRecord::Schema.define(version: 20190813055518) do
   add_foreign_key "employees", "classrooms", on_delete: :nullify
   add_foreign_key "evaluates", "interviewer_emails"
   add_foreign_key "evaluates", "interviews"
+  add_foreign_key "expense_items", "expense_tags"
   add_foreign_key "individuals", "employees", column: "child_id"
   add_foreign_key "individuals", "employees", column: "emergency_call_id"
   add_foreign_key "individuals", "employees", column: "friend_id"

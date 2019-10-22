@@ -25,7 +25,7 @@ class ExpenseTagsController < ApplicationController
     old_ids = ExpenseTag.all.collect{ |d| d[:id] }
 
     # delete
-    if ExpenseTagItem.where(expense_tag_id: (old_ids - new_ids)).count > 0
+    if ExpenseItem.where(expense_tag_id: old_ids - new_ids).count > 0
       return render json: {
         error: "Cannot delete category",
         message: I18n.t("expense_category_already_used")

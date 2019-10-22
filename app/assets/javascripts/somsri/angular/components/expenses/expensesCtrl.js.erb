@@ -49,7 +49,7 @@
           }).result.then(function (result) {
             if (result) {
               ctrl.items = result.expense_items_attributes.filter(function(item) {
-              return item.detail || item.amount || item.cost
+              return item.detail || item.amount || item.cost || item.expense_tag_id
               });
               service.createExpenses({
                 payment_method: result.payment_method,
@@ -99,10 +99,11 @@
             }).result.then(function (result) {
               if (result) {
                 ctrl.items = result.expense_items_attributes.filter(function(item) {
-                 return item.detail || item.amount || item.cost
+                 return item.detail || item.amount || item.cost || item.expense_tag_id
                 });
                 service.updateExpenses(
                   {
+                    payment_method: result.payment_method,
                     effective_date: new Date(result.effective_date),
                     expenses_id: result.expenses_id,
                     detail: result.detail,

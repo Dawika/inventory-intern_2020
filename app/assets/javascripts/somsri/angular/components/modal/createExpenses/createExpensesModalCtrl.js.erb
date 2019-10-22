@@ -16,21 +16,19 @@
       ctrl.expensesTotal();
       ctrl.imgDisplay = value.img;
       ctrl.payment_method = value.payment_method;
+      if (!ctrl.payment_method) ctrl.payment_method = "เงินสด"
 
       service.getExpenseTags({ autocomplete: true }).then(function(resp){
         ctrl.itemTypes = resp.data;
         ctrl.lvMax = ctrl.itemTypes[0].lv;
-        ctrl.payment_method = "เงินสด";
         ctrl.itemTypes.unshift({ name: "-", lv: ctrl.lvMax, ids: [], id: null, is_leaf: true });
         if(ctrl.items){
           ctrl.items.forEach(function(item){
             var selected = ctrl.itemTypes[0];
-            if(item.tags){
-              item.tags.forEach(function(tag){
-                if(tag.is_leaf){
-                  selected = tag;
-                }
-              });
+            if(item.expense_tag_id){
+              ctrl.itemTypes.forEach(function(type){
+                if (type.id == item.expense_tag_id) item.expense_tag = type
+              })
             }
             item.tags = selected;
           });
@@ -84,17 +82,10 @@
     ctrl.save = function(){
       if (isValidateBeforSave()) {
         ctrl.items = ctrl.items.filter(function(item) {
-          return item.detail || item.amount || item.cost
+          if (item.expense_tag) item.expense_tag_id = item.expense_tag.id
+          return item.detail || item.amount || item.cost || item.expense_tag_id
         });
-        ctrl.items.forEach(function(item){
-          var tags = []
-          if(item.tags.ids){
-            item.tags.ids.forEach(function(id){
-              tags.push({id: id });
-            })
-            item.tags = tags
-          }
-        });
+
         ctrl.message = "";
         $uibModalInstance.close({
           payment_method: ctrl.payment_method,
