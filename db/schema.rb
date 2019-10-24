@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191021081201) do
+ActiveRecord::Schema.define(version: 20191024082338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -373,13 +373,6 @@ ActiveRecord::Schema.define(version: 20191021081201) do
     t.integer "expense_tag_id"
     t.index ["expense_id"], name: "index_expense_items_on_expense_id", using: :btree
     t.index ["expense_tag_id"], name: "index_expense_items_on_expense_tag_id", using: :btree
-  end
-
-  create_table "expense_tag_items", force: :cascade do |t|
-    t.integer "expense_tag_id"
-    t.integer "expense_item_id"
-    t.index ["expense_item_id"], name: "index_expense_tag_items_on_expense_item_id", using: :btree
-    t.index ["expense_tag_id"], name: "index_expense_tag_items_on_expense_tag_id", using: :btree
   end
 
   create_table "expense_tags", force: :cascade do |t|
