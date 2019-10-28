@@ -164,9 +164,6 @@ end
 ExpenseTag.blueprint do
 end
 
-ExpenseTagItem.blueprint do
-end
-
 Quotation.blueprint do
   school_year       { Time.current.year + 543 }
   semester          { 1 }

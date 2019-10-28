@@ -18,8 +18,6 @@ class ExpensesController < ApplicationController
     qry_expenses = qry_expenses.order("effective_date asc") if !order
 
     respond_to do |format|
-      format.html do
-      end
       format.json do
         result = {
           expenses: qry_expenses.paginate(page: page, per_page: 10),
@@ -102,32 +100,17 @@ class ExpensesController < ApplicationController
     tag_tree = SiteConfig.get_cache.expense_tag_tree_hash
     @expense_tags = ExpenseTag.all.to_a
 
-    qry_expenses = Expense.all
-    qry_expenses = qry_date_range(
-                      qry_expenses,
-                      Expense.arel_table[:effective_date],
-                      @start_date_time,
-                      @end_date_time
-                    )
-    expenses = qry_expenses.to_a
-
-    expense_items = expenses.collect{|e| e.expense_items.to_a }
-    expense_items.compact!
-    expense_items.flatten!
-    ExpenseTagItem.all.each do |expense_tag_item|
-      tag_id = expense_tag_item.expense_tag_id
-      expense_item = expense_items.find{ |ei| ei.id == expense_tag_item.expense_item_id }
-      next unless expense_item
-      cost = expense_item.cost * expense_item.amount
-      set_cost_to_tag_tree(tag_tree, tag_id, cost)
-    end
-    
-    @results = tag_tree
     @lv_max = tag_tree[0][:lv]
-    @total_cost = expenses.inject(0){|sum, e| sum += e.total_cost }
-    @other_cost = @total_cost - @results.inject(0){|sum, r| sum += (r[:lv] == @lv_max) ? r[:cost] : 0  }
+    ExpenseItem.all.each do |et|
+      parent_ids = et.expense_tag_id.present? ? et.expense_tag.parent : []
+      parent_ids.select { |p_id| tag_tree.select { |t| t[:cost] += et.cost * et.amount if t[:id] == p_id } }
+    end
+
+    @total_cost = Expense.all.inject(0){|sum, e| sum += e.total_cost }
+    @other_cost = @total_cost - tag_tree.inject(0){|sum, e| e[:lv] == @lv_max ? sum += e[:cost] : sum+=0 }
     @date_time_string = start_end_date_to_string_display(@start_date_time, @end_date_time)
     filename = "#{I18n.t('expenses_classification_report')} #{@date_time_string}"
+    @results = tag_tree
 
     respond_to do |format|
       format.pdf do
@@ -138,7 +121,7 @@ class ExpensesController < ApplicationController
                 show_as_html: params[:show_as_html].present?
       end
       format.xls do
-        results = qry_expenses.to_a
+        @results = tag_tree
         io_buffer = ExportXls.export_by_tag_xls(
           @results,
           @expense_tags,
@@ -229,7 +212,7 @@ class ExpensesController < ApplicationController
       :cheque_date,
       :transfer_bank_name,
       :transfer_date,
-      expense_items_attributes: [:detail, :amount, :cost, tags: [:id] ]
+      expense_items_attributes: [:detail, :amount, :cost, :expense_tag_id ]
     )
   end
 
@@ -245,7 +228,7 @@ class ExpensesController < ApplicationController
       :cheque_date,
       :transfer_bank_name,
       :transfer_date,
-      expense_items_attributes: [:detail, :amount, :cost, tags: [:id] ]
+      expense_items_attributes: [:detail, :amount, :cost, :expense_tag_id ]
     )
   end
 

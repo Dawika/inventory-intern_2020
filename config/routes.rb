@@ -58,6 +58,7 @@ Rails.application.routes.draw do
       post 'save'
     end
   end
+  resources :expense_items
   resources :skills, only: [:index, :create]
   resources :employees, only: [:index, :create, :show, :update, :destroy]  do
     resources :employee_skills, except: %i[show new edit]

@@ -49,13 +49,6 @@ describe 'expense settings', js: true do
     ]
   end
 
-  let(:expense_tag_items) do
-    [
-      ExpenseTagItem.make!(expense_tag_id: expense_tags[0].id, expense_item_id: expense_items[0].id),
-      ExpenseTagItem.make!(expense_tag_id: expense_tags[1].id, expense_item_id: expense_items[0].id)
-    ]
-  end
-
   before do
     school
     user.add_role :admin
@@ -63,7 +56,6 @@ describe 'expense settings', js: true do
     site_config
     expenses
     expense_tags
-    expense_tag_items
   end
 
   it 'should go to setting expenses' do

@@ -49,13 +49,6 @@ describe 'expense', js: true do
     ]
   end
 
-  let(:expense_tag_items) do
-    [
-      ExpenseTagItem.make!(expense_tag_id: expense_tags[0].id, expense_item_id: expense_items[0].id),
-      ExpenseTagItem.make!(expense_tag_id: expense_tags[1].id, expense_item_id: expense_items[0].id)
-    ]
-  end
-
   before do
     school
     user.add_role :admin
@@ -63,7 +56,6 @@ describe 'expense', js: true do
     site_config
     expenses
     expense_tags
-    expense_tag_items
   end
 
   it 'should go to rollcall expenses' do
@@ -252,8 +244,6 @@ describe 'expense', js: true do
     expect(expense.present?).to eq true
     expense_items = expense.expense_items
     expect(expense_items).to exist
-    expect(["car", "ceo"].include?(expense_items[0].expense_tag_items[0].expense_tag.name)).to eq true
-    expect(["car", "ceo"].include?(expense_items[0].expense_tag_items[1].expense_tag.name)).to eq true
   end
 
   it 'should edit tag expenses item' do
@@ -272,7 +262,6 @@ describe 'expense', js: true do
     expect(expense_items).to exist
 
     tag_names = []
-    expect(expense_items[0].expense_tag_items[0].expense_tag.name).to eq "kizuna"
   end
 
 end

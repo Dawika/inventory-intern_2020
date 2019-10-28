@@ -1,7 +1,7 @@
 class Expense < ApplicationRecord
   acts_as_paranoid
 
-  has_many :expense_items
+  has_many :expense_items, dependent: :destroy
   accepts_nested_attributes_for :expense_items
   before_save :clean_payment_method
 
