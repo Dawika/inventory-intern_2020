@@ -116,25 +116,26 @@ class ExpensesController < ApplicationController
       filename = "#{I18n.t('expenses_classification_report')} #{@date_time_string}"
       @results = tag_tree
 
-    respond_to do |format|
-      format.pdf do
-        render pdf: filename,
-                template: "pdf/expense_export_report.html.erb",
-                encoding: "UTF-8",
-                layout: 'pdf.html',
-                show_as_html: params[:show_as_html].present?
-      end
-      format.xls do
-        @results = tag_tree
-        io_buffer = ExportXls.export_by_tag_xls(
-          @results,
-          @expense_tags,
-          @total_cost,
-          @other_cost,
-          @lv_max,
-          @date_time_string
-        )
-        send_data(io_buffer.read, filename: "#{filename}.xls")
+      respond_to do |format|
+        format.pdf do
+          render pdf: filename,
+                  template: "pdf/expense_export_report.html.erb",
+                  encoding: "UTF-8",
+                  layout: 'pdf.html',
+                  show_as_html: params[:show_as_html].present?
+        end
+        format.xls do
+          @results = tag_tree
+          io_buffer = ExportXls.export_by_tag_xls(
+            @results,
+            @expense_tags,
+            @total_cost,
+            @other_cost,
+            @lv_max,
+            @date_time_string
+          )
+          send_data(io_buffer.read, filename: "#{filename}.xls")
+        end
       end
     end
   end
