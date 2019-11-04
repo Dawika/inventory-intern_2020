@@ -106,13 +106,6 @@ Rails.application.configure do
       :email_prefix => "[Exception] ",
       :sender_address => %{"notifier" <notifier@somsri.io>},
       :exception_recipients => %w{exceptions@somsri.io}
-    },
-    :slack => {
-        :webhook_url => "https://hooks.slack.com/services/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",
-        :channel => "#exceptions",
-        :additional_parameters => {
-          :mrkdwn => true
-        }
     }
 
 end
