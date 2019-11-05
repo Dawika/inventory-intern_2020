@@ -43,7 +43,6 @@ gem "sentry-raven"
 
 # Exception Notification
 gem 'exception_notification'
-#gem 'slack-notifier'
 
 gem 'prawn'
 gem 'pdf-toolkit'
