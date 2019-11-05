@@ -10,7 +10,7 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require font-awesome
+ *= require font_awesome5
  *= require bootstrap/dist/css/bootstrap.min.css
  *= require_self
  *= require bootstrap-table
@@ -1719,7 +1719,7 @@ label.img-default{
   .for-print-table{
     display: table;
   }
-  
+
   .container.form-slip-forslip.ng-scope, main.form-slip-forslip.ng-scope{
     margin-top: 150px !important;
   }
