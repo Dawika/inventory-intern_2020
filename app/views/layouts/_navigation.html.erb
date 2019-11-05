@@ -26,13 +26,14 @@
         </li>
       <% end %>
       </ul>
-      <ul class="nav navbar-nav navbar-right dropdown" role="menu" aria-labelledby="dLabel">
+      <ul class="nav navbar-nav navbar-right dropdown" id="dropdownMenu" onclick="showDropdown(this.id)">
           <% if user_signed_in? %>
+            <%= image_tag current_user.school.logo_url, width: 30  %>
             <a class="nav-user avatar" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= current_user.name.blank? ? current_user.email : current_user.name %>
               <i class="fa fa-angle-down"></i>
             </a>
-            <div class="dropdown-menu on-nav-bar" aria-labelledby="navbarDropdownMenuLink">
+            <div class="dropdown-menu on-nav-bar">
               <% if (SiteConfig.get_cache.enable_rollcall) && (Figaro.env.ROLLCALL_APK_URL) %>
                 <li><a class="dropdown-item" href="<%= Figaro.env.ROLLCALL_APK_URL %>" target="_blank">
                 <i class="fa fa-download"></i> <%= t("roll_download")%> </a></li>
@@ -54,10 +55,10 @@
                 <li><a class="dropdown-item" href="/main#/setting"><i class="fa fa-cog"></i> <%= t("settings")%></a></li>
                 <li class="divider"></li>
               <% end %>
-              <li><a class="dropdown-item" href="<%= destroy_user_session_path %>" rel="nofollow" data-method="DELETE">
-                <i class="fas fa-sign-out-alt color-red"></i> <%= t("sign_out")%></a></li>
+              <li><a class="dropdown-item" href="<%= destroy_user_session_path(cancel_check_plan: true) %>" rel="nofollow" data-method="DELETE">
+              <i class="fas fa-sign-out-alt color-red"></i> <%= t("sign_out")%></a></li>
             </div>
-          
+
           <% else %>
 
             <li class="divider"></li>
@@ -74,4 +75,4 @@
   function localeEN() {
     location = "/language?locale=en&weburl="+location.href;
   }
-</script> 
+</script>

@@ -1,13 +1,10 @@
 describe 'Classroom', js: true do
 
   let(:school) do
-    School.make!({ name: "โรงเรียนแห่งหนึ่ง" })
+    School.make!()
   end
 
-  let(:user) { user = User.create!({
-    email: 'test@mail.com',
-    password: '123456789'
-  })}
+  let(:user) { User.make!()}
 
   let(:grades) do
     [
@@ -79,10 +76,10 @@ describe 'Classroom', js: true do
   it 'should access to classroom page' do
     visit '/main#/classroom'
     sleep(1)
-    eventually { expect(page).to have_content("1A 1 2") }
-    eventually { expect(page).to have_content("1B 0 0") }
-    eventually { expect(page).to have_content("2A 0 1") }
-    eventually { expect(page).to have_content("2B 0 0") }
+    eventually { expect(page).to have_content("Kindergarten 1\t1A\t1\t2") }
+    eventually { expect(page).to have_content("Kindergarten 1\t1B\t0\t0") }
+    eventually { expect(page).to have_content("Kindergarten 2\t2A\t0\t1") }
+    eventually { expect(page).to have_content("Kindergarten 2\t2B\t0\t0") }
   end
 
   it 'should create classroom' do
@@ -94,8 +91,8 @@ describe 'Classroom', js: true do
     find("a", text: "Kindergarten 2").click
     find('input#classroom').set("Mind Room")
     click_button('บันทึก')
-    sleep(1)
-    eventually { expect(page).to have_content("Kindergarten 2 Mind Room 0 0") }
+    sleep(2)
+    eventually { expect(page).to have_content("Kindergarten 2\tMind Room\t0\t0") }
   end
 
   it 'should not create dupplicate classroom' do
@@ -129,8 +126,8 @@ describe 'Classroom', js: true do
     sleep(1)
     find("#grade-list").click
     find("a", text: grades[0].name).click
-    eventually { expect(page).to have_content("1A 1 2") }
-    eventually { expect(page).to have_content("1B 0 0") }
+    eventually { expect(page).to have_content("1A\t1\t2") }
+    eventually { expect(page).to have_content("1B\t0\t0") }
   end
 
   it 'should delete classroom' do
@@ -141,10 +138,10 @@ describe 'Classroom', js: true do
     sleep(1)
     click_button("ตกลง")
     sleep(1)
-    eventually { expect(page).to_not have_content("1A 1 2") }
-    eventually { expect(page).to have_content("1B 0 0") }
-    eventually { expect(page).to have_content("2A 0 1") }
-    eventually { expect(page).to have_content("2B 0 0") }
+    eventually { expect(page).to_not have_content("1A\t1\t2") }
+    eventually { expect(page).to have_content("1B\t0\t0") }
+    eventually { expect(page).to have_content("2A\t0\t1") }
+    eventually { expect(page).to have_content("2B\t0\t0") }
 
     teacher.reload
     students[0].reload

@@ -1,6 +1,7 @@
 class EmployeesController < ApplicationController
   load_and_authorize_resource except: [:slip, :show, :payrolls, :calculate_deduction]
   skip_before_action :verify_authenticity_token, :only => [:update, :create, :destroy]
+  before_action :load_resource
 
   # GET /employees
   def index
@@ -128,7 +129,7 @@ class EmployeesController < ApplicationController
 
   def create
     if current_user.present?
-      vacationSetting = VacationSetting.where(school_id: current_user.school_id).first
+      vacationSetting = VacationSetting.where(school_id: current_user.school.id).first
       if !vacationSetting.nil?
         @employee.sick_leave_maximum_days_per_year = vacationSetting.sick_leave_maximum_days_per_year
         @employee.personal_leave_maximum_days_per_year = vacationSetting.personal_leave_maximum_days_per_year
@@ -173,11 +174,11 @@ class EmployeesController < ApplicationController
 
     user = User.find(@employee.id)
     user.roles = []
- 
+
     employee_data = employee_params
     @employee.attributes = employee_data
     @employee.save
-    
+
     roles.each do |role|
       user.add_role(role)
     end
@@ -242,6 +243,7 @@ class EmployeesController < ApplicationController
 
     name = Employee.split_name(fullname)
     name[:nickname] = nickname
+    name[:school_id] = current_user.school_id
     employee = Employee.create(name)
     result = {
       img: employee.img_url.exists? ? employee.img_url.expiring_url(10, :medium) : nil,
@@ -277,6 +279,7 @@ class EmployeesController < ApplicationController
   def employee_params
     result = params.require(:employee).permit([
       :prefix_thai,
+      :school_id,
       :first_name_thai,
       :last_name_thai,
       :prefix,
@@ -315,6 +318,10 @@ class EmployeesController < ApplicationController
       :work_at_home_maximum_days_per_week
     ]).to_h
     return result
+  end
+
+  def load_resource
+    @employees = Employee.where(school_id: current_user.school.id)
   end
 
   def payroll_params

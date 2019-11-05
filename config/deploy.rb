@@ -2,7 +2,7 @@
 lock '3.4.1'
 
 set :application, 'somsri-payroll'
-set :repo_url, 'git@github.com:BananaCoding/somsri.git'
+set :repo_url, 'git@ssh.dev.azure.com:v3/bananacoding/Somsri/somsri'
 
 set :default_stage, "production"
 
@@ -40,8 +40,12 @@ set :branch, ENV['BRANCH'] || 'develop'
 # Default value for keep_releases is 5
 set :keep_releases, 5
 
-set :rvm_type, :system              # Defaults to: :auto
-set :rvm_ruby_version, '2.3.3'      # Defaults to: 'default'
+# set :rvm_type, :system              # Defaults to: :auto
+# set :rvm_ruby_version, '2.3.3'      # Defaults to: 'default'
+set :rbenv_type, :user # :system or :user
+set :rbenv_ruby, '2.3.1'
+set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+set :rbenv_map_bins, %w(rake gem bundle ruby rails)
 
 set :rails_env, 'production'
 
@@ -55,7 +59,9 @@ namespace :deploy do
  desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      invoke 'unicorn:restart'
+      invoke 'unicorn:stop'
+      sleep 1
+      invoke 'unicorn:start'
     end
   end
 

@@ -27,9 +27,14 @@
         <meta name="msapplication-square310x310logo" content="<%= image_path('mstile-310x310.png') %>"/>
 
         <link href="https://fonts.googleapis.com/css?family=Maitree:400,700" rel="stylesheet">
+        <%= javascript_include_tag 'new_school' %>
+        <%= stylesheet_link_tag 'new_school' %>
         <%= stylesheet_link_tag 'application', media: 'all' %>
         <%= stylesheet_link_tag 'application_somsri', media: 'all' %>
         <%= javascript_include_tag 'application' %>
+        <%# This is just an example, you can put `i18n.js` and `translations.js` anywhere you like %>
+        <%# Unlike the Asset Pipeline example, you need to require both **in order** %>
+        <%= javascript_include_tag "i18n" %>
         <script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
         <%= render 'layouts/translates' %>
         <%= javascript_include_tag 'application_translates' %>
@@ -37,7 +42,7 @@
         <%= javascript_include_tag 'bootstrap-table-th-TH' %> 
     </head>
     <% if !user_signed_in? %>
-      <body ng-controller="mainCtrl as main">
+      <body ng-controller="mainCtrl as main" class="backgorund-signup">
     <% else %>
       <body ng-controller="mainCtrl as main" style="background:#fff !important;">
     <%end%>
@@ -50,6 +55,7 @@
     </header>
     <div class="top-bar-space"></div>
       <%= render 'layouts/flash_message' %>
+      <%= render 'layouts/notification_payment' %>
       <%= yield %>
     </body>
 </html>

@@ -57,7 +57,7 @@ class InvoicesController < ApplicationController
     last_invoice_id = Invoice.last ? Invoice.last.id : 0
 
     # get stduent info
-    students = Student.all.to_a
+    students = Student.where(school_id: current_user.school.id).to_a
     student_info = []
     student_code = []
     students.each do |student|
@@ -78,7 +78,7 @@ class InvoicesController < ApplicationController
     end
 
     # get parent info
-    parents = Parent.all.to_a
+    parents = Parent.where(school_id: current_user.school.id).to_a
     parent_info = []
     parents.each do |parent|
       fullname_display = parent.invoice_screen_full_name_display
@@ -113,13 +113,13 @@ class InvoicesController < ApplicationController
       default_credit_card_payment_method: SiteConfig.get_cache.default_credit_card_payment_method,
       default_cheque_payment_method: SiteConfig.get_cache.default_cheque_payment_method,
       default_transfer_payment_method: SiteConfig.get_cache.default_transfer_payment_method,
-      school_year: SchoolSetting.school_year,
+      school_year: current_user.school_setting.school_year,
       last_invoice_id: last_invoice_id,
       student_info: student_info,
       parent_info: parent_info,
       grades: Grade.names,
       line_items_info: line_items_info,
-      current_semester: SchoolSetting.current_semester
+      current_semester: current_user.school_setting.current_semester
     }, status: :ok
   end
 
@@ -193,6 +193,8 @@ class InvoicesController < ApplicationController
       end
 
       invoice = Invoice.new(invoice_hash)
+      invoice.school_id = current_user.school.id
+      invoice.slip_id = (Invoice.in_school(current_user.school.id).maximum('slip_id') || 0) + 1
       invoice.parent_id = parent.id
       invoice.parent_name = parent.full_name
       invoice.student_id = student.id
@@ -285,8 +287,8 @@ class InvoicesController < ApplicationController
     slip_info = {
       header: school.invoice_header_with_logo,
       footer: school.invoice_footer,
-      logo: school.logo_url,
-      slip_id: @invoice.id,
+      logo: current_user.school.logo_url,
+      slip_id: @invoice.slip_id,
       thai_now_date: I18n.l(@invoice.created_at, format: "%d %B #{@invoice.created_at.year + 543}"),
       eng_now_date: @invoice.created_at.strftime("%d %B %Y"),
       semester: @invoice.semester,
@@ -297,6 +299,15 @@ class InvoicesController < ApplicationController
       remark: @invoice.remark,
       grade_name: grade_name,
       receiver_name: @invoice.user.name,
+      school: {
+        display_name: current_user.school.name,
+        address:  current_user.school.address,
+        phone:  current_user.school.phone,
+        fax:  current_user.school.fax,
+        email:  current_user.school.email,
+        tax_id:  current_user.school.tax_id,
+        branch:  current_user.school.branch
+      },
       parent: {
         display_name: @invoice.parent.full_name
       },
@@ -577,7 +588,7 @@ class InvoicesController < ApplicationController
       qry_invoices = Invoice.where(invoice_status_id: InvoiceStatus.find_by_name('Active').id)
       data_field = Invoice.arel_table[:created_at]
       qry_invoices = qry_date_range(qry_invoices, data_field, start_date, end_date)
-      return qry_invoices
+      return qry_invoices.joins(user: [:school]).where("schools.id = #{current_user.school.id}")
     end
 
     def get_invoices(grade_select, search_keyword, start_date, end_date, page, sort, order, export, invoice_status_id, student_id)
@@ -602,8 +613,7 @@ class InvoicesController < ApplicationController
       elsif page
         qry_invoices = qry_invoices.paginate(page: page, per_page: 10)
       end
-
-      return qry_invoices.to_a
+      return qry_invoices.joins(user: [:school]).where("schools.id = #{current_user.school.id}").to_a
     end
 
     # Use callbacks to share common setup or constraints between actions.

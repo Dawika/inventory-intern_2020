@@ -24,6 +24,7 @@
 //= require ocLazyLoad/dist/ocLazyLoad.min
 //= require angular-input-masks
 //= require angular-ui-bootstrap-fontawesome
+
 //= require angular-translate/angular-translate
 //= require angular-translate-loader-url/angular-translate-loader-url
 //= require ng-file-upload-shim
@@ -38,3 +39,6 @@
 
 //= require bootstrap-table
 //= ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min
+//= require rails.validations
+//= require rails.validations.simple_form
+//= require modal_clientside_validation

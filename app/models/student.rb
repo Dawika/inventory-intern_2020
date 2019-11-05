@@ -5,10 +5,10 @@ class Student < ApplicationRecord
   belongs_to :grade
   belongs_to :classroom
   belongs_to :gender
-  belongs_to :school
+  belongs_to :school, -> { with_deleted }
   has_and_belongs_to_many :parents, join_table: 'students_parents'
   has_and_belongs_to_many :relationships, join_table: "students_parents"
-  has_many :invoices
+  has_many :invoices, -> { with_deleted }
 
   has_many :roll_calls
   has_many :student_lists, dependent: :destroy
@@ -29,6 +29,7 @@ class Student < ApplicationRecord
   after_save :update_rollcall_list
   before_save :clean_full_name
   after_destroy :manual_destroy_recursively
+
 
   def update_rollcall_list
     if self.classroom_id && self.classroom_id_changed?

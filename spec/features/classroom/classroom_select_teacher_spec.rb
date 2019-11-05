@@ -1,13 +1,10 @@
 describe 'Classroom Select Teacher', js: true do
 
   let(:school) do
-    School.make!({ name: "โรงเรียนแห่งหนึ่ง" })
+    School.make!()
   end
 
-  let(:user) { user = User.create!({
-    email: 'test@mail.com',
-    password: '123456789'
-  })}
+  let(:user) { User.make!()}
 
   let(:grades) do
     [
@@ -76,8 +73,9 @@ describe 'Classroom Select Teacher', js: true do
     click_button("+ เลือกคุณครู")
     eventually { expect(page).to have_content("นาย สมจิตร เป็นนักมวย") }
     eventually { expect(page).to have_content("นาง สมใจ เป็นคน") }
+    sleep(1)
     within('div#select-member-modal') do
-      eventually { expect(page).to_not have_content("นาง สมศรี เป็นชื่อแอพ") }
+    eventually { expect(page).to_not have_content("นาง สมศรี เป็นชื่อแอพ") }
     end
     eventually { expect(page).to have_content("จำนวนที่เลือก 0 คน") }
   end
@@ -110,7 +108,7 @@ describe 'Classroom Select Teacher', js: true do
     sleep(1)
     within('div#select-member-modal') do
       find('.search input[type=text]').set('สมใจ')
-      sleep(0.5)
+      sleep(1)
       find('input[data-index="0"]').click
       eventually { expect(page).to have_content("จำนวนที่เลือก 1 คน") }
       click_button("ตกลง")

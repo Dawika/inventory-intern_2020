@@ -1,7 +1,9 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:edit, :update, :destroy], unless: :is_api?
   before_action :authenticate_user!, unless: :is_api?
-  load_and_authorize_resource except: [:index, :get_roll_calls, :info]
+  load_and_authorize_resource except: [:get_roll_calls, :info]
+  before_action :load_resource
+
 
   def is_api?
     !params[:pin].blank?
@@ -14,11 +16,12 @@ class StudentsController < ApplicationController
     semester_select = params[:semester_select]
     invoice_status = params[:status]
     student_index = Array.new
+    students = Student.where(school_id: current_user.school.id)
     if grade_select.downcase == 'all'
-      @students_all = Student.order("student_number ASC").search(params[:search]).with_deleted.to_a
+      @students_all = students.order("student_number ASC").search(params[:search]).with_deleted.to_a
     else
       grade = Grade.where(name: grade_select).first
-      @students_all = Student.where(grade_id: grade.id).order("classroom_id ASC, classroom_number ASC").search(params[:search]).with_deleted.to_a
+      @students_all = students.where(grade_id: grade.id).order("classroom_id ASC, classroom_number ASC").search(params[:search]).with_deleted.to_a
     end
 
     datas = []
@@ -130,7 +133,6 @@ class StudentsController < ApplicationController
   # GET /students.pdf
   def index
     @menu = t('student')
-    authorize! :read, Student
 
     grade_select = (params[:grade_select] || 'All')
     class_select = (params[:class_select] || 'All')
@@ -142,17 +144,17 @@ class StudentsController < ApplicationController
 
     # without angular
     if grade_select.downcase == 'all' && class_select.downcase == 'all'
-      students = Student
+      students = @students
     elsif grade_select.downcase == 'all' && class_select.downcase != 'all'
       classroom = Classroom.where(name: class_select).first
-      students = Student.where(classroom_id: classroom.id)
+      students = @students.where(classroom_id: classroom.id)
     elsif grade_select.downcase != 'all' && class_select.downcase == 'all'
       grade = Grade.where(name: grade_select).first
-      students = Student.where(grade: grade.id)
+      students = @students.where(grade: grade.id)
     elsif grade_select.downcase != 'all' && class_select.downcase != 'all'
       grade = Grade.where(name: grade_select).first
       classroom = Classroom.where(name: class_select).first
-      students = Student.where(grade: grade.id , classroom_id: classroom.id)
+      students = @students.where(grade: grade.id , classroom_id: classroom.id)
     end
     @students = students.order("#{params[:sort]} #{params[:order]}").search(params[:search])
     @filter_grade = grade_select
@@ -230,7 +232,8 @@ class StudentsController < ApplicationController
   def new
     @menu = t('student')
     @student = Student.new
-    @parents = Parent.all
+    @school_id = current_user.school_id
+    @parents = Parent.where(school_id: @school_id)
     @relations = Relationship.all
     render "students/new", layout: "application_invoice"
   end
@@ -238,10 +241,15 @@ class StudentsController < ApplicationController
   # GET /students/1/edit
   def edit
     @menu = t('student')
-    @parents = Parent.all
+    student = Student.where(id: params[:id], school_id: current_user.school_id)
+    @parents = Parent.where(school_id: current_user.school_id)
     @relations = Relationship.all
 
-    render "students/edit", layout: "application_invoice"
+    if student.present?
+      render "students/edit", layout: "application_invoice"
+    else
+      redirect_to students_path
+    end
   end
 
   # POST /students
@@ -477,6 +485,7 @@ class StudentsController < ApplicationController
     gender_id = Gender.male.id if ["เด็กชาย", "ด.ช.", "master"].include?(splited[0].downcase)
 
     student = Student.create({
+      school_id: current_user.school_id,
       gender_id: gender_id,
       full_name: fullname,
       nickname: nickname
@@ -493,12 +502,30 @@ class StudentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_student
-      @student = Student.includes([:parents, :relationships]).find(params[:id])
+      @student = Student.includes([:parents, :relationships]).find_by(id: params[:id])
+      redirect_to students_path if @student.nil?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:full_name, :full_name_english, :nickname, :nickname_english, :gender_id, :birthdate, :grade_id, :classroom_id, :classroom_number, :student_number, :national_id, :remark , :status, :img_url, :nationality)
+      params.require(:student).permit(
+        :full_name,
+        :full_name_english,
+        :nickname,
+        :nickname_english,
+        :gender_id,
+        :birthdate,
+        :grade_id,
+        :classroom_id,
+        :classroom_number,
+        :student_number,
+        :national_id,
+        :remark ,
+        :status,
+        :img_url,
+        :nationality,
+        :school_id
+      )
     end
 
     def relation_assign
@@ -547,10 +574,15 @@ class StudentsController < ApplicationController
             @parents.push(prn)
           elsif p.length > 0 && p.to_i == 0
             new_prn = Parent.find_or_create_by(full_name: parent_params[index], mobile: mobile[index], email: email[index])
+            new_prn.school_id = current_user.school.id
             @parents.push(new_prn)
           end
         end
       end
+    end
+
+    def load_resource
+      @students = Student.where(school_id: current_user.school.id)
     end
 
     def upload_photo_params

@@ -1,9 +1,29 @@
 class ApplicationController < ActionController::Base
   include ApplicationHelper
   include CanCan::ControllerAdditions
+  include LocalSubdomain
   protect_from_forgery with: :exception
-  before_action :set_cache_buster, :set_locale, :set_paper_trail_whodunnit, :set_raven_context
+  before_action :set_cache_buster, :set_locale, :set_paper_trail_whodunnit, :set_raven_context, :notification_payment
   after_action :set_csrf_cookie_for_ng
+  before_filter :validate_subdomain
+
+  def notification_payment
+    if current_user.present?
+      @success = params[:success].present?
+      return true if params[:cancel_check_plan] or request.path.include?('admin') or request.path.include?('purchases/new')
+
+      school_license = current_user.school.active_license
+      charge_info = school_license.charge_info
+      is_expired = school_license.expired_date.strftime('%F')  < Time.now.strftime('%F') if school_license.expired_date.present?
+      captured = !charge_info.captured  if charge_info.present?
+      if is_expired or captured
+        @message = 'test' if current_user.school.customer_info.blank?
+        @show = true
+        redirect_to '/' and return unless controller_name == 'home'
+      end
+    end
+  end
+
 
   def set_locale
     @locale = params[:locale] || session['locale'] ||
@@ -23,7 +43,7 @@ class ApplicationController < ActionController::Base
 
   def current_ability
     if current_user.present?
-      @current_ability ||= Ability.new(current_user) 
+      @current_ability ||= Ability.new(current_user)
     else
       @current_ability ||= Ability.new(nil)
     end
@@ -104,4 +124,48 @@ class ApplicationController < ActionController::Base
         false
       end
     end
+
+  def render_404
+    respond_to do |format|
+      format.html { render :template => "error/404.html.erb", layout: 'error', :status => :not_found }
+      format.xml  { head :not_found }
+      format.any  { head :not_found }
+    end
+  end
+
+  def current_account_holder
+    return nil if subdomain.blank? || ENV['DEFAULT_SUB_DOMAIN'] == subdomain
+    @current_account_holder ||= (School.where('lower(subdomain_name) = ?', subdomain.downcase).first.users.first rescue nil)
+  end
+
+  def subdomain
+    request.subdomain
+  end
+
+  # This will redirect the user to your 404 page if the user can not be found
+  # based on the subdomain.
+  def validate_subdomain
+    return if subdomain.blank? || ENV['DEFAULT_SUB_DOMAIN'] == subdomain
+    render_404 if current_account_holder.nil?
+  end
+
+  def authenticate_user_subdomain
+    puts "Subdomain: #{subdomain}" if Rails.env == 'development'
+
+    if user_signed_in?
+      user_subdomain = current_user.subdomain
+
+      if subdomain.blank? || subdomain == ENV['DEFAULT_SUB_DOMAIN']
+        if params[:controller] == 'purchase'
+          return
+        else
+          redirect_to subdomain: user_subdomain if user_subdomain.present?
+        end
+      else
+        render_404 if subdomain != user_subdomain
+      end
+    else
+      render_404
+    end
+  end
 end

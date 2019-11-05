@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+ruby "2.3.1"
+
 gem "table_print"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
@@ -24,6 +26,10 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'devise'
 
+gem 'omise'
+
+gem 'whenever', require: false
+
 gem 'cancancan'
 
 gem 'font_awesome5_rails'
@@ -37,7 +43,7 @@ gem 'bower-rails'
 gem 'pdf-forms'
 gem 'rmagick'
 
-gem 'rails_admin'
+gem 'rails_admin', '~> 2.0'
 
 gem "sentry-raven"
 
@@ -63,11 +69,11 @@ gem 'comfortable_mexican_sofa', '~> 1.12.0'
 #Paranoia
 gem 'paranoia', '~> 2.1', '>= 2.1.5'
 
-gem "aws-sdk", '~> 2.3.12'
+gem "aws-sdk", "< 3.0"
 gem "paperclip", "~> 5.0.0"
+gem 'dropzonejs-rails'
 
 gem "bootstrap-table-rails"
-gem 'bootstrap-select-rails'
 
 gem 'detect_timezone_rails'
 gem 'listen', '~> 3.0.5'
@@ -112,7 +118,8 @@ group :development do
 
   gem 'capistrano', '~> 3.4.1'
   gem 'capistrano-rails'
-  gem 'capistrano-rvm'
+  # gem 'capistrano-rvm'
+  gem 'capistrano-rbenv'
   gem 'capistrano-bundler'
   gem 'capistrano3-unicorn'
   gem 'capistrano-bower'
@@ -128,9 +135,17 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem "i18n-js"
+gem 'turbolinks', '~> 5'
+gem 'jquery-ui-rails'
+
+# order matters
+gem 'simple_form'
+gem 'client_side_validations'
+gem 'client_side_validations-simple_form'
+gem 'bootstrap-tagsinput-rails'
 
 # print log ruby
-gem 'awesome_print', :require => 'ap'
-ruby '2.3.1'
+gem 'awesome_print', require: 'ap'
 gem 'acts_as_paranoid'
+gem "i18n-js"
+gem 'local-subdomain'

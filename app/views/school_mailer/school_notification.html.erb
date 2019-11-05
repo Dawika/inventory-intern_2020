@@ -1,0 +1,18 @@
+<img src="/somsri_logo.png"><br>
+<h1>สวัสดี
+  <%=@school.name%>
+</h1>
+<hr>
+<p> คุณได้ทำการสมัครทดลองใช้งานระบบบริหารโรงเรียนสมศรีในวันที่<%=@start_date.strftime("%d/%m/%Y")%></p>
+<p> โดยสามารถทดลองใช้งานระบบฟรี 3 เดือน สามารถใช้งานได้ตั้งแต่วันที่ 
+  <%=@start_date.strftime("%d/%m/%Y")%> ถึง <%=@expired_date.strftime("%d/%m/%Y")%>
+</p>
+<p>เริ่มต้นใช้งานได้ที่
+  <a href="<%=" http://#{@school.subdomain_name}.lvh.me:3000/users/sign_in "%>"><%="http://#{@school.subdomain_name}.lvh.me:3000/users/sign_in"%></a>
+</p><br>
+<p> หลังจากหมดระยะเวลาใช้งานฟรี จะคิดค่าบริการเป็น <%=@school.plan.package_name%> โดยจะมีผลตั้งแต่วันที่ <%=@expired_date.strftime("%d/%m/%Y")%></p>
+<p>ทั้งนี้ท่านสามารถเปลี่ยนรูปแบบการใช้บริการในส่วนของการตั้งค่าระบบ</p><br>
+<p>ติดต่อสอบถามเพิ่มเติ่ม : </p>
+<p>email : info@somsri.io</p>
+<p>Tel : 064-219-6125</p>
+<p>LINE : @somsri.io</p>

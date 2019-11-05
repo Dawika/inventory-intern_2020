@@ -23,5 +23,6 @@
 //= require ocLazyLoad/dist/ocLazyLoad.min
 //= require angular-input-masks
 //= require selectize.min
-
 //= require angular-xeditable/dist/js/xeditable
+//= require ng-file-upload-shim
+//= require ng-file-upload

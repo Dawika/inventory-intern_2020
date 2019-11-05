@@ -1,0 +1,15 @@
+(function() {
+  'use strict';
+
+  angular.module('somsri.main.changeplan.service', [])
+    .service('changeplanModalService', ['$http', '$log', function($http, $log) {
+      this.getplan = function() {
+        return $http.get('/settings');
+      }
+
+      this.setting_change_plan = function(plan_id) {
+        return $http.patch('/settings/change_plan?plan_id=' + plan_id);
+
+      }
+    }]);
+})();

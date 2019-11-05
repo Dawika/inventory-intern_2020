@@ -44,30 +44,30 @@ function queryParams(p) {
 
 function cellStyle(value, row, index) {
   return {
-    css: {"text-align": "center"}
+    css: { "text-align": "center" }
   };
 }
 
-function exportTable(tableName){
+function exportTable(tableName) {
 
-  var url = tableName+'.json?order='+window.paramOder+'&sort='+window.paramSort+'&search='+$("input#search").val()+'&grade_select='+$("select#grade_select").val()+'&class_select='+$("select#class_select").val()
+  var url = tableName + '.json?order=' + window.paramOder + '&sort=' + window.paramSort + '&search=' + $("input#search").val() + '&grade_select=' + $("select#grade_select").val() + '&class_select=' + $("select#class_select").val()
 
   $table = $('#tableForExport')
-  $.get( url , function( data ) {
-    $table.bootstrapTable('load', data)
-    $table.tableExport({type:'excel'});
+  $.get(url, function(data) {
+    $table.bootstrapTable('load', data.rows)
+    $table.tableExport({ type: 'excel' });
   });
 }
 
-function imgTag(value, row, index){
+function imgTag(value, row, index) {
   if (value) {
-    return '<div class="img-bg circle" style="background: url('+ value +')"></div>';
+    return '<div class="img-bg circle" style="background: url(' + value + ')"></div>';
   }
   return '<div class="img-bg bg-light-gray circle"><i class="fa fa-user icon-default-img" aria-hidden="true"></i></div>'
 }
 
-function selectionStudentFormatter(value, row, index){  
-  var html = 
+function selectionStudentFormatter(value, row, index){
+  var html =
   '<span class="dropdown float-right cursor-pointer">' +
     '<span div data-toggle="dropdown" id="options' + row.id + '">' +
       "<a class='color-blue-link'>"+I18n.t("choice")+"<i class='fa fa-angle-down ml-5'></i></a>" +
@@ -98,8 +98,8 @@ function selectionStudentFormatter(value, row, index){
   return html
 }
 
-function linkToStudentEditFormatter(value, row, index){
-  return "<a class='color-blue-link' href='/students/"+ row.id + "/edit'>" + row.full_name + "</a>"
+function linkToStudentEditFormatter(value, row, index) {
+  return "<a class='color-blue-link' href='/students/" + row.id + "/edit'>" + row.full_name + "</a>"
 }
 
 function openDeletedStudentModal(id){
@@ -124,11 +124,11 @@ function openGraduateStudentModal(id){
   $('#warningModal').modal()
 }
 
-function selectionParentFormatter(value, row, index){
-  if(row.parents && row.parents.id){
+function selectionParentFormatter(value, row, index) {
+  if (row.parents && row.parents.id) {
     var id = row.parents.id
     var html =
-    '<span class="dropdown float-right cursor-pointer cursor-pointer">' +
+      '<span class="dropdown float-right cursor-pointer cursor-pointer">' +
       '<span div data-toggle="dropdown" id="options' + id + '">' +
         "<a class='color-blue-link'>"+I18n.t("choice")+"<i class='fa fa-angle-down ml-5'></i></a>" +
       '</span>' +
@@ -144,17 +144,17 @@ function selectionParentFormatter(value, row, index){
           '</a>' +
         '</li>' +
       '</ul>' +
-    '</span>';
+      '</span>';
     return html
-  }else{
+  } else {
     return ""
   }
 }
 
-function linkToParentEditFormatter(value, row, index){
-  if(row.parents){
-    return "<a class='color-blue-link' href='/parents/"+ row.parents.id + "/edit'>" + row.parents.full_name + "</a>"
-  }else{
+function linkToParentEditFormatter(value, row, index) {
+  if (row.parents) {
+    return "<a class='color-blue-link' href='/parents/" + row.parents.id + "/edit'>" + row.parents.full_name + "</a>"
+  } else {
     return ""
   }
 

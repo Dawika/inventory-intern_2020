@@ -7,12 +7,18 @@ Rails.application.routes.draw do
   get "/menu" => "menu#index"
   get "/somsri_invoice" => "menu#landing_invoice"
   get "/somsri_payroll" => "menu#landing_payroll"
-  get "/somsri_rollcall" => "menu#landing_rollcall" 
+  get "/somsri_rollcall" => "menu#landing_rollcall"
   get "/somsri" => "menu#landing_somsri"
   get "/main" => "menu#landing_main"
   get "/language" => "home#language"
   get "/locale" => "home#locale"
   get 'holiday.ics' => 'holidays#share'
+
+  resources :schools
+  resources :purchases, param: :school_id, only: [:new] do
+    patch 'renew'
+    post 'update_card'
+  end
 
   resources :users, only: [] do
     collection do
@@ -40,6 +46,8 @@ Rails.application.routes.draw do
     collection do
       patch "/", action: 'update_current_user'
       patch 'update_password'
+      patch 'subscription'
+      patch 'change_plan'
     end
   end
 
@@ -180,7 +188,7 @@ Rails.application.routes.draw do
       get 'reject'
     end
   end
-  
+
   resources :vacation_configs, only: [:index] do
   end
 
@@ -190,11 +198,34 @@ Rails.application.routes.draw do
   resources :holidays, only: [:index, :create, :destroy] do
   end
 
+  resources :check_validates do
+    collection do
+      get 'email_uniqueness'
+      get 'subdomain_uniqueness'
+      get 'user_by_subdomain'
+    end
+  end
+
   devise_scope :user do
     get "/sign_in" => "devise/sessions#new"
+    authenticated :user do
+      root 'home#index', as: :authenticated_root
+    end
+
+    unauthenticated do
+      root 'comfy/cms/content#show', as: :unauthenticated_root
+    end
   end
+
+  resources :subdomains do
+    collection do
+      get 'change'
+    end
+  end
+
   comfy_route :cms, :path => '/homepage', :sitemap => false
   comfy_route :cms_admin, :path => '/cms_admin'
+
   root to: 'home#index'
 
   resources :inventories do
@@ -224,13 +255,13 @@ Rails.application.routes.draw do
 
   resources :suppliers
 
-  resources :inventory_repairs do 
+  resources :inventory_repairs do
     collection do
     end
     # [:repair_notification, :confirm_accept, :rejected ,:sent_repair, :repairs_completed, :dispatch_to_employees]
     member do
       put 'repair_notification'
-      put 'confirm_accept'  
+      put 'confirm_accept'
       put 'rejected'
       put 'sent_repair'
       put 'repairs_completed'
@@ -259,6 +290,10 @@ Rails.application.routes.draw do
       post 'save_invite'
       get 'show_conclusion'
     end
+  end
+
+  %w( 404 ).each do |code|
+    get code, :to => 'error#show', :code => code
   end
 
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?

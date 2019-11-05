@@ -6,15 +6,16 @@ class PayrollsController < ApplicationController
 
   # GET /payrolls
   def index
-   
     effective_date = nil
     if params[:effective_date] != "lasted"
       effective_date = Time.zone.parse(params[:effective_date])
       employee_ids = Payroll.where(effective_date: effective_date.beginning_of_day..effective_date.end_of_day).pluck(:employee_id)
-      employees = Employee.with_deleted.where(id: employee_ids)
+      employees = Employee.with_deleted.where(id: employee_ids, school_id: current_user.school.id)
     else
-      employees = Employee.all
+      employees = Employee.where(school_id: current_user.school.id)
     end
+
+    qry_payrolls = Payroll.where(employee_id: employees)
 
     payroll_report = params[:payroll_report]
     normal = params[:normal]
@@ -33,7 +34,7 @@ class PayrollsController < ApplicationController
 
     qry_payrolls = Payroll.with_deleted.where(employee_id: employees.ids)
 
-    effective_date = nil 
+    effective_date = nil
     if params[:effective_date] != "lasted"
       effective_date = Time.zone.parse(params[:effective_date])
       qry_payrolls = qry_payrolls.where(effective_date: effective_date.beginning_of_day..effective_date.end_of_day)

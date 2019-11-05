@@ -7,18 +7,26 @@ class SettingsController < ApplicationController
     render json: getSetting(), status: :ok
   end
 
+  def subscription
+    current_user.school.auto_subscribe = ActiveRecord::Type::Boolean.new.cast(params[:auto_subscribe])
+    current_user.school.save
+    render json:  current_user.school.auto_subscribe
+  end
+
   # PATCH /settings
   def update_current_user
     User.transaction do
       update_school_status = true
       if self.can? :update, School
-        update_school_status = School.first.update(params_school)
+        update_school_status = current_user.school.update(params_school)
+        if current_user.school.bil_info.present?
+          current_user.school.bil_info.update(params_billing)
+        else
+          bil = BilInfo.new(params_billing.merge(school_id: current_user.school.id))
+          bil.save(validate: false)
+        end
       end
-      if current_user.update(params_user) && update_school_status
-        render json: getSetting(), status: :ok
-      else
-        render json: {error: "Cannot update settings."}, status: :bad_request
-      end
+        render json: getSetting(), status: :ok  
     end
   end
 
@@ -33,11 +41,22 @@ class SettingsController < ApplicationController
     end
   end
 
+  def change_plan
+    current_user.school.plan_id =  params[:plan_id]
+    current_user.school.save
+  end
+
   private
     def getSetting
       {
         user: current_user,
-        school: School.first
+        school: current_user.school,
+        school_logo: current_user.school.logo_url,
+        licenses: current_user.school.active_license,
+        plan: current_user.school.active_license.plan || t('trial'),
+        billing_info: current_user.school.bil_info,
+        all_plan: Plan.all
+
       }
     end
 
@@ -46,10 +65,14 @@ class SettingsController < ApplicationController
     end
 
     def params_school
-      params.require(:school).permit(:name, :tax_id, :address, :zip_code, :phone, :fax, :email)
+      params.require(:school).permit(:name, :name_eng, :tax_id, :logo, :address, :zip_code, :email, :phone, :fax, :subdomain_name, :branch, :note)
     end
 
     def params_user
-      params.require(:user).permit(:name, :email)
+      params.require(:user).permit(:full_name, :email, :password)
+    end
+
+    def params_billing
+      params.require(:billing_info).permit(:address, :branch, :district, :name, :phone, :province, :tax_id, :zip_code)
     end
 end

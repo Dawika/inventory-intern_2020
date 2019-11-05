@@ -527,7 +527,7 @@ en:
   model: "Model"
   description: "Description"
   price: "Price"
-  date_purchase: "Date purchase" 
+  date_purchase: "Date purchase"
   category: "Category"
   date_add: "Date add"
   inventory_list: "Inventory list"
@@ -637,7 +637,8 @@ en:
   # Profile
   password: "Password"
   change_password: "Change Password"
-  school_name: "School name"
+  school_name_thai: "School name (Thai)"
+  school_name_eng: "School name (Eng)"
   school_email: "School email"
   tax_number: "Tax ID"
   fax: "Fax"
@@ -671,7 +672,7 @@ en:
   skill: Skill
   score: Score
   add: Add
-  
+
   confirm_delete: Do you want to delete the classroom? (Deleting a classroom will not cause the student and teacher in the room to disappear.)
   bringback: Bring back to system
   # Option menu
@@ -836,7 +837,7 @@ en:
   soft_skill: "Soft Skill"
   design_skill: "Design Skill"
   note: "Note"
-  
+
   create: "Create"
   cancel: "Cancel"
   update: "Update"
@@ -922,3 +923,71 @@ en:
   displeased: "Not"
 
   form_issubmit_already: "This form is already submitted"
+
+  start: "Start"
+  billing_info: "Information for the receipt"
+  data: "General information"
+  logo_school: "School symbol"
+  last_bil: "receipt"
+  plan: "Plan"
+  district: "District"
+  province: "Province"
+  zip_code: "Zip code"
+  Contact information: "Contact information"
+  exp: "Expiry date :"
+  trial: "Trial"
+  auto_renew: "Auto renew"
+  not_auto_renew: "Not Auto-renew"
+  monthly: "Monthly"
+  annually: "Annually"
+  please_select_grade: "Please Select Grade"
+  please_select_classroom: "Please Select Classroom"
+  change_plan: Change plan
+  Cancel_Subscribe: Cancel Subscribe
+  auto_subscribe: Auto Subscribe
+  # School Setting
+  schools:
+    new:
+      name_thai: "School name(Thai)"
+      address: "Address"
+      name_eng: "School name(Eng)"
+      phone: "Phone number"
+      fax: "Fax"
+      email: "School email"
+      schoolyear: "School year"
+      semesters: "Semester"
+      tax_id: "Tax ID"
+      branch: "Branch"
+      note: "P.S."
+      Message1: "General information"
+      Message2: "Information for the receipt(Header)"
+      Message3: "School symbol"
+      Message4: "Information for the receipt(Footer)"
+      header: "Almost done!"
+      start: "Start"
+      school_year: "School year"
+      semesters: "Semesters"
+      next: "Next"
+      Choose_file: "Choose file"
+    select_plan:
+      name: "Name"
+      address: "Adress"
+      district: "District"
+      province: "Provience"
+      zip_code: "Zip Code"
+      phone: "Phone"
+      tax_id: "Tax number"
+      branch: "Branch"
+      Billing info: "Billing info"
+      pay detail: "Payment details"
+      how to pay: "Payment method"
+      create: "Start"
+      skip: "Next"
+      cardholder_name: Cardholder name
+      card_number: "Card number"
+      exp_month: "Exp month"
+      exp_year: "Exp year"
+      cvv: "CVV"
+      Credit crad Info: "Credit crad Info"
+      Select: "Select"
+      company_id: "Company registration number"

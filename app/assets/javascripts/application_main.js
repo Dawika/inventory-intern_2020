@@ -27,6 +27,7 @@
 //= require angular-sanitize
 //= require ng-csv
 //= require angular-ui-bootstrap-fontawesome
+
 //= require angular-translate/angular-translate
 //= require angular-translate-loader-url/angular-translate-loader-url
 
@@ -39,4 +40,6 @@
 
 //= require angular-xeditable/dist/js/xeditable
 //= require bootstrap-table
-//= require bootstrap-select/js/bootstrap-select
+//= require rails.validations
+//= require rails.validations.simple_form
+//= require modal_clientside_validation

@@ -34,6 +34,7 @@ class Ability
         can :manage, Quotation
         can :manage, QuotationInvoice
         can :manage, LineItemQuotation
+        can :read, School
       end
       if user.human_resource?
         can :manage, [:menu, :setting]
@@ -97,7 +98,7 @@ class Ability
           can :read, VacationConfig
         end
       end
-    end    
+    end
   end
 
   def as_json(options={})

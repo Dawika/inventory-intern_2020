@@ -23,6 +23,7 @@
       <div class="row add-st-pr">
         <div class="col-md-6">
           <div class="form-group">
+            <%= f.hidden_field :school_id, :class => 'form-control' , autocomplete: "off", value: current_user.school.id %>
             <%= f.label :full_name, :class => 'control-label'%>
             <div class="col-md-12">
               <%= f.text_field :full_name, :class => 'form-control' , autocomplete: "off" %>
@@ -112,7 +113,7 @@
       <div class="form-group ">
         <%= f.label :grade_id, :class => 'control-label' %>
         <div class="col-md-12">
-          <%= f.collection_select :grade_id, Grade.all, :id, :name, {prompt: t('select_grade')}, {class: "form-control"} %>
+          <%= f.collection_select :grade_id, Grade.all, :id, :name, {prompt: t('please_select_grade')}, {class: "form-control"} %>
         </div>
       </div>
     </div>
@@ -120,7 +121,7 @@
       <div class="form-group">
         <%= f.label :classroom_id, :class => 'control-label' %>
         <div class="col-md-12">
-          <%= f.collection_select :classroom_id, Classroom.all, :id, :name, {prompt: t('select_class')}, {class: "form-control"} %>
+          <%= f.collection_select :classroom_id, Classroom.where(school_id: @school_id), :id, :name, {prompt: t('please_select_classroom')}, {class: "form-control"} %>
         </div>
       </div>
     </div>

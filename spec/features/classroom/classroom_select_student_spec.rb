@@ -1,13 +1,10 @@
 describe 'Classroom Select Student', js: true do
 
   let(:school) do
-    School.make!({ name: "โรงเรียนแห่งหนึ่ง" })
+    School.make!()
   end
 
-  let(:user) { user = User.create!({
-    email: 'test@mail.com',
-    password: '123456789'
-  })}
+  let(:user) { User.make!()}
 
   let(:grades) do
     [

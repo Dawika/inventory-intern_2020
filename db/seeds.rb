@@ -1,11 +1,17 @@
-if School.count == 0
-  School.create!([
-    {name: "Banana Kindergarten"}
+if Plan.count.zero?
+  Plan.create([
+    {package_name: 'monthly fee', price: 990, frequency: 'monthly', description: 'แบบรายเดือนเหมาะสำหรับโรงเรียนที่สามารถเข้าถึงอินเตอร์เน็ตได้ และไม่ต้องการดูแลอุปกรณ์' },
+    {package_name: 'annual fee', price: 10000, frequency: 'annually', description: 'แบบรายปีเหมาะสำหรับโรงเรียนที่สามารถเข้าถึงอินเตอร์เน็ตได้ และไม่ต้องการดูแลอุปกรณ์'}
   ])
+end
+
+if School.count.zero?
+  school = School.new(name: "Banana Kindergarten", address: "test", zip_code: "test", phone: "094", name_eng: "banana", logo: "", email: "banana@god.comdd", subdomain_name: nil)
+  school.save(validate: false)
 end
 schools = School.all
 
-if SchoolSetting.count == 0
+if SchoolSetting.count.zero?
   SchoolSetting.create!([
     {school_year: "2560"}
   ])
@@ -23,7 +29,18 @@ if !SchoolSetting.first[:semesters]
   sc.save
 end
 
-if Employee.count == 0
+if User.count.zero?
+  User.create!([
+    {full_name: "test", email: "test@test.com", password: "password", password_confirmation: "password", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, school_id: schools[0].id, name: nil},
+    {full_name: "admin", email: "admin@bananacoding.com", password: "password", password_confirmation: "password", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 2, current_sign_in_at: "2016-12-26 07:33:11", last_sign_in_at: "2016-12-26 07:28:33", current_sign_in_ip: "180.183.204.78", last_sign_in_ip: "180.183.204.78", school_id: schools[0].id, name: nil},
+    {full_name: "manit", email: "manit@bananacoding.com", password: "password", password_confirmation: "password", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 3, current_sign_in_at: "2016-12-26 10:25:26", last_sign_in_at: "2016-12-26 08:19:32", current_sign_in_ip: "::1", last_sign_in_ip: "58.11.94.19", school_id: schools[0].id, name: nil},
+    {full_name: "putamthong", email: "putamthong@gmail.com", password: "password", password_confirmation: "password", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2016-12-27 02:20:42", last_sign_in_at: "2016-12-27 02:20:42", current_sign_in_ip: "::1", last_sign_in_ip: "::1", school_id: schools[0].id, name: nil},
+    {full_name: "admin", email: "admin@sunshinekindergarten.com", password: "password", password_confirmation: "password", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, school_id: schools[0].id, name: nil}
+  ])
+end
+users = User.all
+
+if Employee.count.zero?
   Employee.create!([
     {first_name: "Test", email: "test@test.com", password: "password", password_confirmation: "password", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, school_id: schools[0].id, name: nil},
     {first_name: "Admin", email: "admin@bananacoding.com", password: "password", password_confirmation: "password", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 2, current_sign_in_at: "2016-12-26 07:33:11", last_sign_in_at: "2016-12-26 07:28:33", current_sign_in_ip: "180.183.204.78", last_sign_in_ip: "180.183.204.78", school_id: schools[0].id, name: 'Admin'},
@@ -66,17 +83,15 @@ if Employee.count == 0
     {school_id: schools[0].id, first_name: "Nan  Hseng", last_name: "Mwam", middle_name: "", prefix: "Ms", sex: 0, position: "แม่บ้าน", personal_id: "", passport_number: "", race: "", nationality: "", bank_name: "", bank_branch: "", account_number: "000-0-00000-0", salary: "0.0", img_url: "", first_name_thai: "", last_name_thai: nil, prefix_thai: nil, nickname: "หนิง", start_date: "2015-05-18 17:00:00", email: "employee34@somsri.com", password: "password", password_confirmation: "password" },
     {school_id: schools[0].id, first_name: "Samantha", last_name: "Loyd", middle_name: "Natasha", prefix: "Ms", sex: 0, position: "ครูผู้สอน", personal_id: "", passport_number: "0-9910-09778-98-8", race: "", nationality: "", bank_name: "", bank_branch: "", account_number: "000-0-00000-0", salary: "0.0", img_url: "", first_name_thai: nil, last_name_thai: nil, prefix_thai: nil, nickname: "Sammy", start_date: nil, email: "employee35@somsri.com", password: "password", password_confirmation: "password" },
     {school_id: schools[0].id, first_name: "Approver", last_name: "", middle_name: "", prefix: "", sex: 0, position: "ครูผู้สอน", personal_id: "3-5012-00772-20-0", passport_number: "", race: "", nationality: "", bank_name: "", bank_branch: "", account_number: "000-0-00000-0", salary: "0.0", img_url: "", first_name_thai: "พจนีย์", last_name_thai: "ศรีปา", prefix_thai: "นางสาว", nickname: "แวว", start_date: "2016-11-13 17:00:00", email: "employee36@somsri.com", password: "password", password_confirmation: "password" }
-    
   ])
 end
 
 approver = User.where(email: 'employee36@somsri.com').first
-approver.add_role("approver") 
+approver.add_role("approver")
 approver.add_role("employee")
-  
 
-if Payroll.count == 0
-date_now = DateTime.now
+if Payroll.count.zero?
+  date_now = DateTime.now
   employees = Employee.all
   Payroll.create!({employee: employees[0], salary: "34000.0", allowance: "0.0", attendance_bonus: "0.0", ot: "0.0", bonus: "0.0", position_allowance: "0.0", extra_etc: "0.0", absence: "0.0", late: "0.0", tax: "2000.0", social_insurance: "750.0", fee_etc: "0.0", pvf: "0.0", advance_payment: "0.0", effective_date: date_now})
   Payroll.create!({employee: employees[1], salary: "25500.0", allowance: "0.0", attendance_bonus: "0.0", ot: "2000.0", bonus: "0.0", position_allowance: "1000.0", extra_etc: "10000.0", absence: "0.0", late: "0.0", tax: "1300.0", social_insurance: "750.0", fee_etc: "20.0", pvf: "0.0", advance_payment: "0.0", effective_date: date_now})
@@ -117,7 +132,7 @@ date_now = DateTime.now
   Payroll.create!({employee: employees[0], salary: "2000.0", allowance: "0.0", attendance_bonus: "0.0", ot: "0.0", bonus: "0.0", position_allowance: "0.0", extra_etc: "0.0", absence: "0.0", late: "0.0", tax: "0.0", social_insurance: "0.0", fee_etc: "0.0", pvf: "0.0", advance_payment: "0.0", effective_date: (date_now - 2.month).to_datetime})
 end
 
-if Taxrate.count == 0
+if Taxrate.count.zero?
   Taxrate.create!([
    {order_id: "1", income: "5000000", tax: "0.35"},
    {order_id: "2", income: "2000000", tax: "0.30"},
@@ -331,7 +346,6 @@ User.find(8).add_role "human_resource" if !User.find(8).has_any_role?
 User.find(9).add_role "procurement_officer" if !User.find(9).has_any_role?
 User.find(10).add_role "teacher" if !User.find(10).has_any_role?
 
-
 if LtBank.count == 0
   LtBank.create!([
     {name: "ธนาคารกรุงไทย", image_path: "/bank/ktb1.png"},
@@ -486,7 +500,7 @@ if school
   end
 end
 
-if VacationSetting.count == 0 
+if VacationSetting.count == 0
   VacationSetting.create!({
     id: 1,
     personal_leave_allow_afternoon: true,

@@ -12,6 +12,11 @@ class User < ApplicationRecord
   belongs_to :role
   delegate :can?, :cannot?, :to => :ability
 
+  validates :full_name, presence: true
+  validates :email, presence: true, allow_blank: false, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :password, presence: true, allow_blank: false, confirmation: true
+  accepts_nested_attributes_for :school
+
   def ability
     Ability.new(self)
   end
@@ -52,4 +57,11 @@ class User < ApplicationRecord
     self.has_role? :approver
   end
 
+  def school_setting
+    self.school.school_settings.first
+  end
+
+  def school_id
+    self.school.id
+  end
 end

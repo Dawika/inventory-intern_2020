@@ -20,7 +20,7 @@
       </div>
       <div class="col-xs-6 select-filter">
         <span><%= t('select_classroom') %></span>
-        <select name="grade_select" id="grade_select" class="btn-grades selectpicker" onchange="filter()">
+        <select name="grade_select" id="grade_select" class="btn-grades" onchange="filter()">
           <option value='all'><%= t('all') %></option>
           <% Grade.all.each do |grade| %>
           <option value="<%= grade.name %>"<%= @filter_grade.to_s == grade.name.to_s ? "selected" : "" %>> <%= grade.name %> </option>
@@ -28,7 +28,7 @@
         </select>
 
         <span><%= t('select_room') %></span>
-        <select name="class_select" id="class_select"  onchange="filter()" class="btn-grades selectpicker">
+        <select name="class_select" id="class_select"  onchange="filter()" class="btn-grades">
           <option value='all'><%= t('all') %></option>
           <% @classroom_display.each do |classroom| %>
           <option value="<%= classroom %>"<%= @filter_class.to_s == classroom.to_s ? "selected" : "" %>> <%= classroom %> </option>
@@ -37,19 +37,19 @@
       </div>
     </div>
     <div class="overflow-table">
-    <table id="table"  
-    data-toggle="table"
-    data-pagination="true"
-    data-pagination-loop="false"
-    data-pagination-pre-text="&#xf104;"
-    data-pagination-next-text="&#xf105;"
-    data-url="parents.json"
-    data-side-pagination="server"
-    data-sort-name="parents.full_name"
-    data-sort-order="asc"
-    data-query-params-type="page"
-    data-query-params="queryParams"
-    data-locale="<%= I18n.locale %>"> 
+      <table id="table"
+        data-toggle="table"
+        data-pagination="true"
+        data-pagination-loop="false"
+        data-pagination-pre-text="&#xf104;"
+        data-pagination-next-text="&#xf105;"
+        data-url="parents.json"
+        data-side-pagination="server"
+        data-sort-name="parents.full_name"
+        data-sort-order="asc"
+        data-query-params-type="page"
+        data-query-params="queryParams"
+        data-locale="<%= I18n.locale %>">
         <thead>
           <tr>
             <th data-field="parents.img_url" data-formatter="imgTag"></th>

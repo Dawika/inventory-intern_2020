@@ -1,7 +1,7 @@
 class Invoice < ApplicationRecord
   belongs_to :user
-  belongs_to :student
-  belongs_to :parent
+  belongs_to :student, -> { with_deleted }
+  belongs_to :parent, -> { with_deleted }
   belongs_to :invoice_status
   has_many :line_items
   has_many :payment_methods
@@ -9,6 +9,9 @@ class Invoice < ApplicationRecord
 
   self.per_page = 10
 
+  scope :in_school, -> (school_id) { where(school_id: school_id)
+                                     .where("date_part('year', created_at) = ?", Date.today.year)
+                                   }
   scope :latest, -> { order("created_at DESC").first }
 
   def helper
@@ -89,12 +92,11 @@ class Invoice < ApplicationRecord
   def self.search(keyword)
     if keyword.to_s != ''
       joins(:parent, :student).where(
-        "CAST(invoices.id AS TEXT) LIKE ? OR students.full_name LIKE ? OR students.full_name_english LIKE ? OR students.nickname LIKE ? OR parents.full_name LIKE ?",
-        "%#{keyword}%",
-        "%#{keyword}%",
-        "%#{keyword}%",
-        "%#{keyword}%",
-        "%#{keyword}%"
+        "CAST(invoices.id AS TEXT) LIKE :search OR
+        students.full_name LIKE :search OR
+        students.full_name_english LIKE :search OR
+        students.nickname LIKE :search OR
+        parents.full_name LIKE :search", search: "%#{keyword}%"
       )
     else
       self.all

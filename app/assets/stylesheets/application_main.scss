@@ -20,6 +20,7 @@
  *= require angular-ui-tree
  *= require fullcalendar
  */
+
 @import "navigation_menu";
 @import "application_payroll";
 
@@ -59,7 +60,7 @@
     }
 }
 
-.form-control{
+.form-control {
   border-radius: inherit;
   border: inherit;
   border-bottom: 1px solid #ddd;
@@ -67,11 +68,11 @@
   box-shadow: none !important;
 }
 
-.form-control:disabled{
+.form-control:disabled {
   background: transparent;
 }
 
-.circle{
+.circle {
   border-radius: 50%;
 }
 
@@ -87,13 +88,13 @@
   background-position: center top !important;
 }
 
-.icon-default-img{
- margin: auto;
- transform: translate(90%, 40%);
- color: #fff;
+.icon-default-img {
+  margin: auto;
+  transform: translate(90%, 40%);
+  color: #fff;
 }
 
-.paragraph.bg-setting{
+.paragraph.bg-setting {
   padding: 50px 30px;
   background-color: #fff;
   max-height: 630px;
@@ -101,7 +102,8 @@
   margin-top: 30px;
   box-shadow: 0 5px 13px 0 rgba(0, 0, 0, 0.3);
 }
-.navbar-custom .logo{
+
+.navbar-custom .logo {
   width: 180px;
   height: 91px;
   margin-left: -15px;
@@ -109,7 +111,7 @@
 }
 
 .btn-up-classroom,
-.btn-up-classroom:focus{
+.btn-up-classroom:focus {
   margin-bottom: 10px;
   margin-top: 10px;
   padding: 12px 32px;
@@ -121,8 +123,7 @@
   border-radius: 0px;
   cursor: pointer;
   transition: all 0.25s ease;
-
-  &:hover{
+  &:hover {
     color: #3fa1e6;
     background-color: transparent;
     border: 2px solid #3fa1e6;
@@ -136,7 +137,8 @@
   box-shadow: 0 5px 13px 0 rgba(0, 0, 0, 0.3);
 }
 
-.btn-primary, .btn-primary:focus{
+.btn-primary,
+.btn-primary:focus {
   font-family: 'Maitree', serif;
   background-color: #5bab67;
   color: #fff;
@@ -146,14 +148,14 @@
   border: 2px solid #5bab67;
   border-radius: 0px;
   transition: all 0.25s ease;
-  &:hover{
+  &:hover {
     background-color: transparent;
-    border:2px solid #6fc178;
+    border: 2px solid #6fc178;
     color: #6fc178;
   }
 }
 
-.space30{
+.space30 {
   height: 30px;
 }
 
@@ -190,11 +192,11 @@
   cursor: pointer;
 }
 
-#classroom-edit .tab-content{
+#classroom-edit .tab-content {
   margin-top: 20px;
 }
 
-.btn-white{
+.btn-white {
   font-family: 'Maitree', serif;
   padding: 12px 32px;
   font-size: 16px;
@@ -204,44 +206,43 @@
   border: 2px solid #9D9D9D;
   border-radius: 0px;
   transition: all 0.25s ease;
-
-  &:hover{
+  &:hover {
     background-color: transparent;
-    border:2px solid #9D9D9D;
+    border: 2px solid #9D9D9D;
     color: #9D9D9D;
   }
 }
 
-.btn-disable{
+.btn-disable {
   font-family: 'Maitree', serif;
   padding: 12px 32px;
   font-size: 16px;
   letter-spacing: 1px;
   background-color: transparent;
   color: #9D9D9D;
-  border:2px solid #9D9D9D;
+  border: 2px solid #9D9D9D;
   border-radius: 0px;
   transition: all 0.25s ease;
-  &:hover{
+  &:hover {
     background-color: transparent;
-    border:2px solid #9D9D9D;
+    border: 2px solid #9D9D9D;
     color: #9D9D9D;
   }
 }
 
-.btn-disable{
+.btn-disable {
   font-family: 'Maitree', serif;
   padding: 12px 32px;
   font-size: 16px;
   letter-spacing: 1px;
   background-color: transparent;
   color: #9D9D9D;
-  border:2px solid #9D9D9D;
+  border: 2px solid #9D9D9D;
   border-radius: 0px;
   transition: all 0.25s ease;
-  &:hover{
+  &:hover {
     background-color: transparent;
-    border:2px solid #9D9D9D;
+    border: 2px solid #9D9D9D;
     color: #9D9D9D;
   }
 }
@@ -286,28 +287,27 @@ table.classroom-table {
 }
 
 .classroom-table tr:after {
-    content: ' ';
-    display: block;
-    visibility: hidden;
-    clear: both;
+  content: ' ';
+  display: block;
+  visibility: hidden;
+  clear: both;
 }
 
 .classroom-table thead th {
-    height: 35px !important;
+  height: 35px !important;
 }
 
 .classroom-table tbody {
-    max-height: 270px;
-    overflow-y: auto;
+  max-height: 270px;
+  overflow-y: auto;
 }
 
-.classroom-table thead { }
-
+.classroom-table thead {}
 
 .classroom-table tbody td,
 .classroom-table thead th {
-    width: 100%;
-    float: left;
+  width: 100%;
+  float: left;
 }
 
 .classroom-table .check-box {
@@ -322,17 +322,17 @@ table.classroom-table {
   background-color: transparent;
 }
 
-.btn-grades{
+.btn-grades {
   font-family: 'Maitree', serif;
   background-color: transparent;
   margin-top: -3px;
 }
 
-.m-left-10{
+.m-left-10 {
   margin-left: 10px;
 }
 
-.m-bottom-15{
+.m-bottom-15 {
   margin-bottom: 15px;
 }
 
@@ -370,4 +370,148 @@ table.classroom-table {
 
 .color-l1{
   border-left: 3px solid #cccccc;
+}
+
+.setting .setting-plan {
+  padding: 50px;
+  background-color: #fff;
+  box-shadow: 0 5px 13px 0 rgba(0, 0, 0, 0.3);
+  margin: auto;
+  width: 96%;
+  margin-top: 40px;
+}
+
+.setting .style-font {
+  color: #3FA1E6;
+  font-family: Maitree;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: left;
+}
+
+.setting .test {
+  border: 1px solid #C0C0C0;
+}
+
+.btn-light-green {
+  background-color: #7ED322;
+  color: #fff !important;
+  border: 2px solid #7ED322;
+  &:hover {
+    border: 2px solid #7ED322;
+    color: #7ED322 !important;
+  }
+  &:focus {
+    color: #fff;
+  }
+}
+
+.color-light-green {
+  color: #7ED322 !important;
+}
+
+.fa-8x {
+  font-size: 8em;
+}
+
+.btn-custom.lg {
+  padding: 10px 48px;
+  font-size: 24px;
+}
+
+.sec_4 {
+  background-color: #fff;
+  padding-top: 50px;
+  padding-bottom: 100px;
+}
+
+.sec_4 h3 {
+  font-weight: 300;
+  color: #4A4A4A;
+}
+
+.sec_4 p {
+  color: #9B9B9B;
+  font-weight: 300;
+}
+
+.sec_4 .price-r1 {
+  color: rgb(85, 85, 84);
+}
+
+.sec_4 .price-l,
+.sec_4 .price-r {
+  color: #F5A623;
+}
+
+.sec_4 .price-l {
+  margin-top: 20px;
+}
+
+.sec_4 .marked {
+  color: #4A4A4A;
+  font-weight: 400;
+}
+
+.sec_4 input[type="radio"] {
+  display: none;
+  &:not(:disabled)~label {
+    cursor: pointer;
+  }
+  &.sec_4 :disabled~label {
+    color: hsla(150, 5%, 75%, 1);
+    border-color: hsla(150, 5%, 75%, 1);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+}
+
+.sec_4 label {
+  height: 100%;
+  display: block;
+  background: white;
+  border: 2px solid #c7e3d59e;
+  border-radius: 20px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  //margin: 1rem;
+  text-align: center;
+  box-shadow: 0px 3px 10px -2px hsla(150, 5%, 65%, 0.5);
+  position: relative;
+}
+
+.sec_4 input[type="radio"]:checked+label {
+  background: #7ED322;
+  color: white;
+  box-shadow: 0px 0px 20px rgba(86, 255, 0, 0.75);
+  &::after {
+    color: hsla(215, 5%, 25%, 1);
+    font-family: FontAwesome;
+    border: 2px solid hsla(150, 75%, 45%, 1);
+    content: "\f00c";
+    font-size: 24px;
+    position: absolute;
+    top: -5px;
+    left: 64%;
+    transform: translateX(-540%);
+    height: 50px;
+    width: 50px;
+    line-height: 49px;
+    text-align: center;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0px 2px 5px -2px hsla(0, 0%, 0%, 0.25);
+  }
+}
+
+.modal-style {
+  margin-left: -51%;
+  margin-right: -51%;
+  margin-top: -4%;
+  margin-block-end: -18%;
+}
+
+.tap {
+  margin-right: 30px;
 }

@@ -56,6 +56,20 @@ ActiveRecord::Schema.define(version: 20191024082338) do
     t.string   "bank_id"
   end
 
+  create_table "bil_infos", force: :cascade do |t|
+    t.string  "name"
+    t.string  "address"
+    t.string  "district"
+    t.string  "province"
+    t.string  "zip_code"
+    t.string  "phone"
+    t.string  "tax_id"
+    t.string  "branch"
+    t.integer "school_id"
+    t.string  "company_id"
+    t.index ["school_id"], name: "index_bil_infos_on_school_id", using: :btree
+  end
+
   create_table "candidate_files", force: :cascade do |t|
     t.string   "files_file_name"
     t.string   "files_content_type"
@@ -102,6 +116,20 @@ ActiveRecord::Schema.define(version: 20191024082338) do
     t.index ["inventory_id"], name: "index_categories_on_inventory_id", using: :btree
   end
 
+  create_table "charge_infos", force: :cascade do |t|
+    t.integer "amount"
+    t.string  "currency"
+    t.string  "description"
+    t.boolean "captured"
+    t.string  "transaction_id"
+    t.string  "card_brand"
+    t.string  "card_last_digits"
+    t.string  "failure_code"
+    t.string  "failure_message"
+    t.integer "license_id"
+    t.index ["license_id"], name: "index_charge_infos_on_license_id", using: :btree
+  end
+
   create_table "class_permisions", force: :cascade do |t|
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -117,8 +145,10 @@ ActiveRecord::Schema.define(version: 20191024082338) do
     t.string   "name",       default: "", null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "school_id"
     t.index ["grade_id"], name: "index_classrooms_on_grade_id", using: :btree
     t.index ["next_id"], name: "index_classrooms_on_next_id", using: :btree
+    t.index ["school_id"], name: "index_classrooms_on_school_id", using: :btree
   end
 
   create_table "comfy_cms_blocks", force: :cascade do |t|
@@ -551,6 +581,21 @@ ActiveRecord::Schema.define(version: 20191024082338) do
     t.string   "student_name"
     t.string   "parent_name"
     t.string   "user_name"
+    t.integer  "slip_id"
+    t.integer  "school_id"
+    t.index ["school_id"], name: "index_invoices_on_school_id", using: :btree
+  end
+
+  create_table "licenses", force: :cascade do |t|
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "school_id"
+    t.integer  "plan_id"
+    t.datetime "expired_date"
+    t.boolean  "renewal_reminder_sent", default: false
+    t.string   "charge_id"
+    t.index ["plan_id"], name: "index_licenses_on_plan_id", using: :btree
+    t.index ["school_id"], name: "index_licenses_on_school_id", using: :btree
   end
 
   create_table "line_item_quotations", force: :cascade do |t|
@@ -644,7 +689,9 @@ ActiveRecord::Schema.define(version: 20191024082338) do
     t.string   "img_url_content_type"
     t.integer  "img_url_file_size"
     t.datetime "img_url_updated_at"
+    t.integer  "school_id"
     t.index ["deleted_at"], name: "index_parents_on_deleted_at", using: :btree
+    t.index ["school_id"], name: "index_parents_on_school_id", using: :btree
   end
 
   create_table "payment_methods", force: :cascade do |t|
@@ -682,6 +729,13 @@ ActiveRecord::Schema.define(version: 20191024082338) do
     t.boolean  "closed"
     t.index ["deleted_at"], name: "index_payrolls_on_deleted_at", using: :btree
     t.index ["employee_id"], name: "index_payrolls_on_employee_id", using: :btree
+  end
+
+  create_table "plans", force: :cascade do |t|
+    t.string  "package_name"
+    t.string  "description"
+    t.decimal "price"
+    t.string  "frequency"
   end
 
   create_table "programming_skills", force: :cascade do |t|
@@ -745,15 +799,17 @@ ActiveRecord::Schema.define(version: 20191024082338) do
   end
 
   create_table "school_settings", force: :cascade do |t|
-    t.string "school_year",      default: ""
-    t.string "semesters"
-    t.string "current_semester"
+    t.string  "school_year",      default: ""
+    t.string  "semesters"
+    t.string  "current_semester"
+    t.integer "school_id"
+    t.index ["school_id"], name: "index_school_settings_on_school_id", using: :btree
   end
 
   create_table "schools", force: :cascade do |t|
-    t.string   "name",                default: "", null: false
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.string   "name",                default: "",   null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "tax_id"
     t.string   "address"
     t.string   "zip_code"
@@ -768,6 +824,14 @@ ActiveRecord::Schema.define(version: 20191024082338) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.text     "payroll_slip_header"
+    t.string   "name_eng"
+    t.string   "note"
+    t.string   "subdomain_name"
+    t.string   "branch"
+    t.integer  "plan_id"
+    t.string   "customer_id"
+    t.boolean  "auto_subscribe",      default: true
+    t.index ["plan_id"], name: "index_schools_on_plan_id", using: :btree
   end
 
   create_table "site_configs", force: :cascade do |t|
@@ -1009,10 +1073,13 @@ ActiveRecord::Schema.define(version: 20191024082338) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
 
+  add_foreign_key "bil_infos", "schools"
   add_foreign_key "candidate_files", "candidates"
+  add_foreign_key "charge_infos", "licenses"
   add_foreign_key "class_permisions", "employees"
   add_foreign_key "class_permisions", "lists"
   add_foreign_key "classrooms", "classrooms", column: "next_id", on_delete: :nullify
+  add_foreign_key "classrooms", "schools"
   add_foreign_key "design_skills", "candidates"
   add_foreign_key "employee_skills", "employees"
   add_foreign_key "employee_skills", "skills"
@@ -1027,8 +1094,14 @@ ActiveRecord::Schema.define(version: 20191024082338) do
   add_foreign_key "individuals", "employees", column: "spouse_id"
   add_foreign_key "interviewer_emails", "interviews"
   add_foreign_key "interviews", "candidates"
+  add_foreign_key "invoices", "schools"
+  add_foreign_key "licenses", "plans"
+  add_foreign_key "licenses", "schools"
+  add_foreign_key "parents", "schools"
   add_foreign_key "programming_skills", "candidates"
   add_foreign_key "roll_calls", "lists"
+  add_foreign_key "school_settings", "schools"
+  add_foreign_key "schools", "plans"
   add_foreign_key "soft_skills", "candidates"
   add_foreign_key "students", "classrooms", on_delete: :nullify
   add_foreign_key "students", "schools"

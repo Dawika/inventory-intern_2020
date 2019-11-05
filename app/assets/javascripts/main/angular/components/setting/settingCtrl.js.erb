@@ -1,51 +1,64 @@
 (function() {
   'use strict';
-  angular.module('somsri.main.setting', [
-    ])
-  .controller('settingCtrl', ['$rootScope','settingService','$scope', '$uibModal', function($rootScope, service, $scope, $uibModal) {
-    $rootScope.menu = "ตั้งค่า"
-    var ctrl = this
-    $rootScope.loadAndAuthorizeResource("setting", function(){
-      service.getSetting().then(function(resp) {
-        ctrl.datas = resp.data;
-        ctrl.datas.password = "password";
-      });
-
-      $rootScope.loadAndAuthorizeResource("school", function(){
-        ctrl.canUpdateSchool = true;
-      },function(){});
-
-      ctrl.submit = function(parm){
-        service.saveSetting(parm).then(function(resp) {
-          $rootScope.openRoot();
+  angular.module('somsri.main.setting', [])
+    .controller('settingCtrl', ['$rootScope', 'settingService', '$scope', '$uibModal', function($rootScope, service, $scope, $uibModal) {
+      $rootScope.menu = "ตั้งค่า"
+      var ctrl = this
+      $rootScope.loadAndAuthorizeResource("setting", function() {
+        service.getSetting().then(function(resp) {
+          ctrl.datas = resp.data;
+          ctrl.button_auto_subscribe = ctrl.datas.school.auto_subscribe
         });
-      }
 
-      ctrl.changePassword = function(){
-        $uibModal.open({
-          animation: true,
-          backdrop: 'static',
-          keyboard: false,
-          scope: $scope,
-          templateUrl: "<%= asset_path('main/angular/components/modal/password/passwordModalView.html') %>",
-          controller: 'passwordModalCtrl as password',
-          size: 'md',
-          resolve: {
-            resources: ['$ocLazyLoad', 'ASSETS', function($ocLazyLoad, ASSETS) {
-              return $ocLazyLoad.load([
-                ASSETS.somsri.main.password_modal
+        $rootScope.loadAndAuthorizeResource("school", function() {
+          ctrl.canUpdateSchool = true;
+        }, function() {});
+
+        ctrl.submit = function(params) {
+          service.saveSetting(params).then(function(resp) {
+            $rootScope.opensuccessModal('บันทึกข้อมูลสำเร็จ');
+          });
+        }
+
+        ctrl.auto_subscribe = function(value) {
+          ctrl.button_auto_subscribe = !value
+          service.subscription(ctrl.button_auto_subscribe).then(function(resp) {
+            ctrl.datas.school.auto_subscribe = resp.data
+            $rootScope.opensuccessModal('บันทึกข้อมูลสำเร็จ');
+          })
+
+        }
+
+        $scope.fileChange = function(event, img_logo) {
+          var logo = event.target.files[0]
+          ctrl.datas.school.logo = logo;
+          var logo_url = URL.createObjectURL(logo);
+          $('#' + img_logo).attr('src', logo_url);
+        }
+
+        ctrl.changePlan = function() {
+          $uibModal.open({
+            animation: true,
+            backdrop: 'static',
+            keyboard: false,
+            scope: $scope,
+            templateUrl: "<%= asset_path('main/angular/components/modal/changeplan/changeplanModalView.html') %>",
+            controller: 'changeplanModalCtrl as changeplan',
+            size: 'md',
+            resolve: {
+              resources: ['$ocLazyLoad', 'ASSETS', function($ocLazyLoad, ASSETS) {
+                return $ocLazyLoad.load([
+                  ASSETS.somsri.main.changeplan
                 ]);
-            }]
-          }
-        }).result.then(function (isSuccess) {
-          if (isSuccess) {
-            $rootScope.openRoot();
-          }
-        });
-      }
+              }]
+            }
+          }).result.then(function(isSuccess) {
+            if (isSuccess) {
+              $rootScope.openRoot();
+            }
+          });
+        }
 
-    });
-
-
-  }]);
+      });
+    }]);
 })();

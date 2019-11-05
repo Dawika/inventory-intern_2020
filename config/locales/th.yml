@@ -251,6 +251,8 @@ th:
   settings: "ตั้งค่าระบบ"
   log_in: "เข้าสู่ระบบ"
   sign_out: "ออกระบบ"
+  sign_up: "สมัครสมาชิก"
+  confirm_password: "ยืนยันรหัสผ่าน"
   profile: "ข้อมูลส่วนตัว"
   company: "ข้อมูลองค์กร"
   comment: "ความคิดเห็น"
@@ -377,7 +379,9 @@ th:
   item_no: "ลำดับที่"
   item_desc: "รายการ"
   choose_level: "ระบุชั้นเรียน"
-
+  account_number: "เลขประจำตัวผู้เสียภาษี"
+  faxx: "แฟซ์"
+  call: "โทร"
   invoice_form: "แบบชำระเงิน"
   date1: "วันที่"
   student_id1: "รหัสนักรียน"
@@ -688,7 +692,7 @@ th:
   model: "รุ่น"
   description: "ลักษณะ"
   price: "ราคา"
-  date_purchase: "วันที่ซื้อ" 
+  date_purchase: "วันที่ซื้อ"
   category: "ประเภท"
   date_add: "วันที่เพิ่ม"
   inventory_data: "ข้อมูลพัสดุ"
@@ -798,7 +802,8 @@ th:
   # Profile
   password: รหัสผ่าน
   change_password: เปลี่ยนรหัสผ่าน
-  school_name: ชื่อโรงเรียน
+  school_name_thai: ชื่อโรงเรียน (ไทย)
+  school_name_eng: ชื่อโรงเรียน (อังกฤษ)
   school_email: อีเมล์โรงเรียน
   tax_number: เลขประจำตัวผู้เสียภาษี
   fax: โทรสาร
@@ -832,7 +837,7 @@ th:
   skill: ทักษะ
   score: คะแนน
   add: เพิ่ม
-  
+
   confirm_delete: คุณต้องการลบห้องเรียนใช่หรือไม่? (การลบห้องเรียนจะไม่ทำให้นักเรียนและคุณครูที่อยู่ในห้องหายไป)
   bringback: นำกลับเข้าระบบ
   # Option menu
@@ -1061,7 +1066,7 @@ th:
   evaluate_kotlin: "ประเมินความรู้ Kotlin"
   evaluate_swift: "ประเมินความรู้ Swift"
   evaluate_other_ability: "ประเมินความรู้อื่นๆ"
-  other_ability: "ความรู้อื่นๆ"  
+  other_ability: "ความรู้อื่นๆ"
   evaluate_learn_ability: "Learn Ability - ประเมินความสามารถในการเรียนรู้"
   evaluate_problem_solving: "ประเมินการแก้ปัญหา(Problem Solving)"
   evaluate_indepentdent: "ประเมินการทำงานด้วยตัวเอง (Indepentdent)"
@@ -1084,3 +1089,75 @@ th:
 
   form_issubmit_already: "ได้ทำการส่งแบบประเมินไปเป็นที่เรียบร้อยแล้ว"
 
+  email_uniqueness: "อีเมลนี้ถูกใช้งานแล้ว"
+  subdomain_uniqueness: "subdomain นี้ถูกใช้งานแล้ว"
+  user_not_in_school: "อีเมลนี้ไม่ได้อยู่ในโรงเรียน"
+  annual fee: "แบบรายปี"
+  monthly fee: "แบบรายเดือน"
+  billing_info: "ข้อมูลสำหรับหัวใบเสร็จ"
+  data: "ข้อมูลทั่วไป"
+  logo_school: "สัญลักษณ์โรงเรียน"
+  last_bil: "ข้อมูลสำหรับท้ายใบเสร็จ"
+  plan: "แผน"
+  district: "อำเภอ/เขต"
+  province: "จังหวัด"
+  zip_code: "รหัสไปรษณีย์"
+  Contact information: "ข้อมูลผู้ติดต่อ"
+  bil_address: "ที่อยู่ออกใบเสร็จ"
+  exp: "วันหมดอายุ :"
+  trial: "ทดลองใช้งาน"
+  auto_renew: "ต่ออายุอัตโนมัติ"
+  not_auto_renew: "ไม่ต่ออายุอัตโนมัติ"
+  monthly: "รายเดือน"
+  annually: "รายปี"
+  please_select_grade: "โปรดเลือกระดับชั้น"
+  please_select_classroom: "โปรดเลือกห้อง"
+  change_plan: เปลี่ยนแพลน
+  Cancel_Subscribe: ยกเลิกต่ออายุอัตโนมัติ
+  auto_subscribe: ต่ออายุอัตโนมัติ
+  # School Setting
+  schools:
+    setting_school_setting:
+      name_thai: "ชื่อโรงเรียน(ภาษาไทย)"
+      address: "ที่อยู่"
+      name_eng: "ชื่อโรงเรียน(ภาษาอังกฤษ)"
+      phone: "หมายเลขโทรศัพท์"
+      fax: "หมายเลขแฟกซ์"
+      email: "อีเมลโรงเรียน"
+      schoolyear: "ปีการศึกษา"
+      semesters: "จำนวนเทอม"
+      tax_id: "เลขประจำตัวผู้เสียภาษี"
+      branch: "สาขาที่"
+      note: "หมายเหตุ"
+      Message1: "ข้อมูลทั่วไป"
+      Message2: "ข้อมูลสำหรับหัวใบเสร็จ"
+      Message3: "สัญลักษณ์โรงเรียน"
+      Message4: "ข้อมูลสำหรับท้ายใบเสร็จ"
+      header: "เกือบเสร็จแล้ว! กรุณากรอกข้อมูลโรงเรียนเพื่อเริ่มใช้งาน"
+      start: "เริ่มต้นใช้งาน"
+      school_year: "ปีการศึกษา"
+      semesters: "เทอม"
+      next: "ถัดไป"
+      Choose_file: "เลือกรูปภาพ"
+    select_plan:
+      name: "ชื่อ"
+      address: "ที่อยู่"
+      district: "อำเภอ/เขต"
+      province: "จังหวัด"
+      zip_code: "รหัสไปรษณีย์"
+      phone: "หมายเลขโทรศัพท์"
+      tax_id: "เลขประจำตัวผู้เสียภาษี"
+      branch: "สาขาที่"
+      Billing info: "ข้อมูลใบเสร็จ"
+      pay detail: "รายละเอียดการชำระเงิน"
+      how to pay: "วิธีชำระเงิน"
+      create: "เริ่มต้นใช้งาน"
+      skip: "ข้าม"
+      cardholder_name: ชื่อบัญชี
+      card_number: "เลขบัญชี"
+      exp_month: "เดือนที่หมดอายุ"
+      exp_year: "ปีที่หมดอายุ"
+      cvv: "CVV"
+      Credit crad Info: "ข้อมูลบัตรเครดิต"
+      Select: "เลือก"
+      company_id: "หมายเลขทะเบียนบริษัท"

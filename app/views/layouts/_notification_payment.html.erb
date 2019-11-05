@@ -1,0 +1,85 @@
+<% if @show %>
+  <!-- Modal -->
+  <div id="outstandingModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content text-center px-20 pt-50 pb-20 mt-50 max-w-md custom-shadow text-color">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12 mb-50">
+              <img src="/somsri_logo.png" style="width: 96px; height: 147px;">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 letter-spacing-3">
+              <h3>ขอบคุณสำหรับสนใจใช้งาน สมศรี </h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 letter-spacing-3">
+              <h3>แต่เนื่องจาก
+                <% if @message == 'test'%>
+                  <font color="orange">ระยะเวลาการทดลอง</font>ใช้งานได้สิ้นสุดลงแล้ว</h3>
+                <% else %>
+                  <font color="orange">ชำระเงินไม่สำเร็จ</font></h3>
+                <% end %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 letter-spacing-3">
+              <h3>เพื่อการใช้งานอย่างต่อเนื่อง
+                <font color="orange">โปรดชำระเงิน</font> ได้ที่ </h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+              <hr/><br></div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 mb-50">
+              <a href="<%= new_purchase_path %>" class="btn btn-custom btn-orange font-18">ชำระเงินที่นี่</a >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <% end %>
+<% if @success %>
+  <!-- Modal -->
+  <div id="success" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <!-- Modal content-->
+      <div class="modal-content text-center px-20 pt-50 pb-20 mt-50 max-w-md custom-shadow text-color" style="width: 50%; margin-left: 253px; margin-top: 15%!important;">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12 mb-50">
+              <i class="fa fa-check-circle fa-8x color-light-green" aria-hidden="true"></i>
+              <div class="col-md-12 letter-spacing-3">
+                <h3>ขอบคุณสำหรับสนใจใช้งาน สมศรี </h3>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 mb-50">
+              <button class="btn btn-custom btn-orange font-18" data-dismiss="modal">กลับสู่การใช้งาน</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+    
+
+  <script type="text/javascript">
+    $( document ).ready(function() {
+      $('#outstandingModal').modal({
+        backdrop: 'static',
+        keyboard: false
+      })
+      $('#outstandingModal').modal('show');
+      $('#success').modal()
+      $('#success').modal('show');
+    });
+  </script>
