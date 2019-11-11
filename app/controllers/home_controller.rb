@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
     if !current_user
-      if SiteConfig.get_cache.web_cms && subdomain.blank?
+      if SiteConfig.get_cache.web_cms && subdomain_blank?
         redirect_to comfy_cms_render_page_path
       else
         redirect_to new_user_session_path
