@@ -13,19 +13,19 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <% if user_signed_in? %>
-        <ul class="nav navbar-nav">
+        <% if current_page?("/") %><ul class="nav navbar-nav" style="display:none;"><% else %><ul class="nav navbar-nav"><% end %>
           <li class="dropdown">
-          <a id="menu" class="dropdown-toggle text-navbar-left" data-toggle="dropdown" href="">
-            <span ng-show="menu" ng-bind="menu"></span>
-            <span ng-hide="menu"><%= @menu %></span>
-            <span class="fa fa-angle-down"></span>
-          </a>
-          <ul class="dropdown-menu nav-menu">
-            <%= render 'layouts/menu', is_topbar: true %>
-          </ul>
-        </li>
+            <a id="menu" class="dropdown-toggle text-navbar-left" data-toggle="dropdown" href="">
+              <span ng-show="menu" ng-bind="menu"></span>
+              <span ng-hide="menu"><%= @menu %></span>
+              <span class="fa fa-angle-down"></span>
+            </a>
+            <ul class="dropdown-menu nav-menu">
+              <%= render 'layouts/menu', is_topbar: true %>
+            </ul>
+          </li>
+        </ul>
       <% end %>
-      </ul>
       <ul class="nav navbar-nav navbar-right dropdown" id="dropdownMenu" onclick="showDropdown(this.id)">
           <% if user_signed_in? %>
             <%= image_tag current_user.school.logo_url, width: 30  %>
