@@ -129,6 +129,7 @@ class EmployeesController < ApplicationController
 
   def create
     if current_user.present?
+      @employee = Employee.new(employee_params.merge(school_id: current_user.school.id))
       vacationSetting = VacationSetting.where(school_id: current_user.school.id).first
       if !vacationSetting.nil?
         @employee.sick_leave_maximum_days_per_year = vacationSetting.sick_leave_maximum_days_per_year
