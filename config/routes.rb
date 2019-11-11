@@ -207,14 +207,7 @@ Rails.application.routes.draw do
   end
 
   devise_scope :user do
-    get "/sign_in" => "devise/sessions#new"
-    authenticated :user do
-      root 'home#index', as: :authenticated_root
-    end
-
-    unauthenticated do
-      root 'comfy/cms/content#show', as: :unauthenticated_root
-    end
+    root 'home#index', as: :web_root
   end
 
   resources :subdomains do
