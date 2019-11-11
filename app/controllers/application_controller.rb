@@ -134,7 +134,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_account_holder
-    return nil if subdomian_blank?
+    return nil if subdomain_blank?
     @current_account_holder ||= (School.where('lower(subdomain_name) = ?', subdomain.downcase).first.users.first rescue nil)
   end
 
@@ -142,14 +142,14 @@ class ApplicationController < ActionController::Base
     request.subdomain
   end
 
-  def subdomian_blank?
+  def subdomain_blank?
     subdomain.blank? || ENV['DEFAULT_SUB_DOMAIN'] == subdomain
   end
 
   # This will redirect the user to your 404 page if the user can not be found
   # based on the subdomain.
   def validate_subdomain
-    return if subdomian_blank?
+    return if subdomain_blank?
     render_404 if current_account_holder.nil?
   end
 
@@ -159,7 +159,7 @@ class ApplicationController < ActionController::Base
     if user_signed_in?
       user_subdomain = current_user.subdomain
 
-      if subdomian_blank?
+      if subdomain_blank?
         if params[:controller] == 'purchase'
           return
         else
