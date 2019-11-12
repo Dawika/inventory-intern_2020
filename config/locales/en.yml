@@ -1,24 +1,3 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
   user_name: User Name
   password: Password
@@ -850,9 +829,6 @@ en:
   candidate_informatiom: "Candidate Information"
   interview: "Interview"
   interview_date: "Interview date"
-  date: "Date"
-  time: "Time"
-  interviewer: "Interviewer"
   edit: "Edit"
   was_delete: "This candidate has been deleted."
   delete: "Delete"
@@ -868,9 +844,9 @@ en:
   type: "Type"
   location: "Location"
   interviewdate: "Interview date"
-  date: "Date"
+  interviewdate_short: "Date"
   date_warning: "Please enter the correct format date, such as 01/07/2019 07:35"
-  time: "Time"
+  interviewtime: "Time"
   interviewer: "Interviewer"
   +invite: "+ Invite"
   distribute_evaluate_form: "Distribute evaluate form"

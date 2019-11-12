@@ -7,7 +7,7 @@
   </div>
   <div class="modal-body">
     <div class="row mb-20">
-      <div class="row"> 
+      <div class="row">
         <div class="col-md-12">
           <h4 class="font-candidate color-blue-candidate">{{ 'type'  | translate }}</h4>
         </div>
@@ -43,7 +43,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <p class="input-group">
-              <label>{{ 'date'  | translate }}</label>
+              <label>{{ 'interviewdate_short'  | translate }}</label>
               <input id="start_date" type="text" ng-change="interviewModal.checkDate()" class="form-control numberic" ng-model-options="{timezone: 'bangkok'}" uib-datepicker-popup="dd/MM/yyyy" ng-model="interviewModal.date" is-open="interviewModal.datePopup.opened" close-text="Close" >
               <span class="input-group-btn ">
                 <button type="button" class="btn btn-default mt-20" ng-click="interviewModal.openDatePopup()"><i class="fa fa-calendar"></i></button>
@@ -56,7 +56,7 @@
         </div>
         <div class="col-md-6">
           <div class="row">
-              <label>{{ 'time'  | translate }}</label>
+              <label>{{ 'interviewtime'  | translate }}</label>
           </div>
           <div class="row">
             <input ng-model="interviewModal.hour" maxlength="2" type="text" class="form-control input-time pl-10 pr-0" list="hours">
@@ -74,7 +74,7 @@
     </div>
     <div class="row">
       <div class="row">
-        <div class="col-md-12"> 
+        <div class="col-md-12">
           <h4 class="font-candidate color-blue-candidate">{{ 'interviewer'  | translate }}</h4>
         </div>
       </div>
@@ -89,7 +89,7 @@
               <div class="col-md-1 padding-left0">
                 <button type="button" ng-hide="item.id != '' && item.id != null" class="close mt-15" aria-label="Close" ng-click="interviewModal.removeInterViewEmail($index)"><span aria-hidden="true">&times;</span></button>
               </div>
-            </div> 
+            </div>
           </div>
         </div>
         <div class="col-md-2">
