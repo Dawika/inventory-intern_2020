@@ -226,6 +226,7 @@ en:
   net: "Total"
   outstanding: "Outstanding"
   payment_channel: "Payment method"
+  pay_by: "Pay by"
   cash: "Cash"
   pay_error: "Amount of the payment methods are mismatched."
   list_invoices: "List Invoices"
