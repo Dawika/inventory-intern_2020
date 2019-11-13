@@ -29,7 +29,7 @@ module ApplicationHelper
 
   def thaiBaht(number)
     number = number.to_s
-    if !number
+    if !number || number.length > 17
       return ""
     end
     number.gsub!(",", "")
@@ -46,6 +46,12 @@ module ApplicationHelper
         number[1] = number[1][0..1]
       end
       number_len = number[0].length
+      if number_len > 7
+        baht_text = thaiBaht(number[0][0..number_len-7])
+        baht_text = baht_text[0..baht_text.length-8] + "ล้าน"
+        number[0] = number[0][number_len-6..number_len-1]
+        number_len = 6
+      end
       (0..(number_len-1)).each do |i|
         tmp = number[0][i..i].to_i
         if tmp != 0
