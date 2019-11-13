@@ -62,6 +62,22 @@ class Invoice < ApplicationRecord
     self.payment_methods.collect(&:payment_method).join(', ')
   end
 
+  def payment_note
+    result = ""
+    self.payment_methods.each do |pay|
+      case pay.payment_method # a_variable is the variable we want to compare
+      when "เช็คธนาคาร"    #compare to 1
+        result += pay.cheque_number
+      when "เงินโอน"
+        result += pay.transfer_bank_name
+      else
+        result += "-"
+      end
+      result += ", " if pay != self.payment_methods.last
+    end
+    result
+  end
+
   def status_name
     self.invoice_status.name == 'Active' ? I18n.t('paid') : I18n.t('cancel')
   end
@@ -132,6 +148,7 @@ class Invoice < ApplicationRecord
         },
         payment_methods: {
           payment_method: self.payment_method_names,
+          payment_note: self.payment_note
         },
         line_items: {
           amount:self.total_amount,
