@@ -13,6 +13,8 @@ class ExportXls
     sheet1.row(2)[1] = I18n.t('buy_slip')
     sheet1.row(2)[2] = I18n.t('expense_detail')
     sheet1.row(2)[3] = I18n.t('total_cost')
+    sheet1.row(2)[4] = I18n.t('pay_by')
+    sheet1.row(2)[5] = I18n.t('note')
     sheet1.row(2).set_format(0, bold)
     sheet1.row(2).set_format(1, bold)
     sheet1.row(2).set_format(2, bold)
@@ -24,7 +26,14 @@ class ExportXls
         I18n.l(result.effective_date, format: '%d/%m/%Y'),
         result.expenses_id.present? ? result.expenses_id : "-",
         result.detail.present? ? result.detail : "-",
-        result.total_cost.present? ? helper.number_with_precision(result.total_cost, precision: 2, delimiter: ',') : "-"
+        result.total_cost.present? ? helper.number_with_precision(result.total_cost, precision: 2, delimiter: ',') : "-",
+        result.payment_method,
+        if result.payment_method == "เงินโอน"
+          result.transfer_bank_name
+        elsif result.payment_method == "เช็คธนาคาร"
+          result.cheque_number
+        end
+
       ]
       sheet1.row(i + 3).set_format(3, right)
     end

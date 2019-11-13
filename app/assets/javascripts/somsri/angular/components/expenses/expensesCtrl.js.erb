@@ -53,6 +53,11 @@
               });
               service.createExpenses({
                 payment_method: result.payment_method,
+                cheque_bank_name: result.cheque_bank_name,
+                cheque_number: result.cheque_number,
+                cheque_date: result.cheque_date,
+                transfer_bank_name: result.transfer_bank_name,
+                transfer_date: result.transfer_date,
                 effective_date: new Date(result.effective_date),
                 expenses_id: result.expenses_id,
                 detail: result.detail,
@@ -104,6 +109,11 @@
                 service.updateExpenses(
                   {
                     payment_method: result.payment_method,
+                    cheque_bank_name: result.cheque_bank_name,
+                    cheque_number: result.cheque_number,
+                    cheque_date: result.cheque_date,
+                    transfer_bank_name: result.transfer_bank_name,
+                    transfer_date: result.transfer_date,
                     effective_date: new Date(result.effective_date),
                     expenses_id: result.expenses_id,
                     detail: result.detail,
@@ -252,22 +262,35 @@
           field: 'effective_date',
           title: translateFilter("expense_date"),
           sortable: true,
+          align: "center",
           formatter: filterDate
         },{
           field: 'expenses_id',
           title: translateFilter("buy_slip"),
           sortable: true,
+          align: "center",
           formatter: linkName
         },{
           field: 'detail',
           title: translateFilter("expense_detail"),
           sortable: true,
+          align: "center"
         },{
           field: 'total_cost',
           title: translateFilter("total_cost"),
           sortable: true,
           align: "right",
           formatter: filterCurrency
+        },{
+          field: 'payment_method',
+          title: translateFilter("pay_by"),
+          sortable: true,
+          align: "center"
+        },{
+          field: 'note_payment',
+          title: translateFilter("note"),
+          sortable: true,
+          align: "center"
         },{
           field: 'menu',
           sortable: false,
@@ -280,31 +303,39 @@
         ctrl.start_date = cleanDate(ctrl.start_date)
         ctrl.end_date = cleanDate(ctrl.end_date)
         if(!ctrl.currentPage){ ctrl.currentPage = 1 }
-          service.getExpenses(
-            ctrl.searchKeyword,
-            ctrl.start_date,
-            ctrl.end_date,
-            ctrl.currentPage,
-            ctrl.sort,
-            ctrl.order
-            ).then(function(resp) {
-              ctrl.datas = [];
-              if (resp.data && resp.data.expenses){
-                ctrl.datas = resp.data.expenses;
-                ctrl.totalItems = resp.data.total_records;
-                ctrl.currentPage = resp.data.current_page;
-                if (resp.data.total_price){
-                  ctrl.total_all_price = resp.data.total_price;
-                } else {
-                  ctrl.total_all_price = 0;
-                }
+        service.getExpenses(
+          ctrl.searchKeyword,
+          ctrl.start_date,
+          ctrl.end_date,
+          ctrl.currentPage,
+          ctrl.sort,
+          ctrl.order
+          ).then(function(resp) {
+            ctrl.datas = [];
+            if (resp.data && resp.data.expenses){
+              ctrl.datas = resp.data.expenses;
+              ctrl.totalItems = resp.data.total_records;
+              ctrl.currentPage = resp.data.current_page;
+              if (resp.data.total_price){
+                ctrl.total_all_price = resp.data.total_price;
               } else {
-                ctrl.totalItems = 0;
-                ctrl.currentPage = 0;
+                ctrl.total_all_price = 0;
               }
-              ctrl.paginateButtonMaxSize = 5;
-              main_table.bootstrapTable('load', ctrl.datas);
-            });
+              var index = 0
+              ctrl.datas.forEach(function(data) {
+                if (data.payment_method == "เงินโอน") {ctrl.datas[index].note_payment = data.transfer_bank_name}
+                else if (data.payment_method == "เช็คธนาคาร") {ctrl.datas[index].note_payment = data.cheque_number}
+                else {data.note_payment = null}
+                index += 1
+              });
+            } else {
+              ctrl.totalItems = 0;
+              ctrl.currentPage = 0;
+            }
+            ctrl.paginateButtonMaxSize = 5;
+            main_table.bootstrapTable('load', ctrl.datas);
+          });
+
       }
 
       function filterCurrency(value, row, index) {
