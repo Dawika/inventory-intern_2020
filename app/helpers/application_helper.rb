@@ -28,8 +28,7 @@ module ApplicationHelper
   end
 
   def thaiBaht(number)
-    number = number.to_s
-    if !number || number.length > 17
+    if number > 999999999999999 || number.blank?
       return ""
     end
     number.gsub!(",", "")
