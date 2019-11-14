@@ -13,7 +13,9 @@ class UpdateDataExpenseItem < ActiveRecord::Migration[5.0]
       end
     end
 
-    expense_item_ids = ActiveRecord::Base.connection.exec_query('select id from expense_tag_items;').rows.flatten.uniq
-    ExpenseItem.where(id: expense_item_ids).update(expense_tag_id: min_lv[:id])
+    if min_lv.present?
+      expense_item_ids = ActiveRecord::Base.connection.exec_query('select id from expense_tag_items;').rows.flatten.uniq
+      ExpenseItem.where(id: expense_item_ids).update(expense_tag_id: min_lv[:id])
+    end
   end
 end
