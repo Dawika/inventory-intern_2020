@@ -46,7 +46,7 @@ module ApplicationHelper
       end
       number_len = number[0].length
       if number_len > 7
-        baht_text = thaiBaht(number[0][0..number_len-7])
+        baht_text = thaiBaht(number[0][0..number_len-7].to_i)
         baht_text = baht_text[0..baht_text.length-8] + "ล้าน"
         number[0] = number[0][number_len-6..number_len-1]
         number_len = 6
