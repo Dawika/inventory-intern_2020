@@ -233,7 +233,7 @@
         var remove = angularCtrlStr + '.removeExpenses('+ angularCtrlStr+ '.datas['+ index +'])';
 
         if (angular.element(document.getElementById("angularCtrl")).scope().expenses.datas[index].img_url_file_name){
-          html = "<a href='javascript:void(0)' target='_blank' onclick='" + display_img + "'><i class='fa fa-picture-o fa-fw ml-20 mr-20 color-blue font-18'></i></a>";
+          html = "<a href='javascript:void(0)' onclick='" + display_img + "'><i class='fa fa-picture-o fa-fw ml-20 mr-20 color-blue font-18'></i></a>";
         } else {
           html = "<i class='fa fa-picture-o color-transparent ml-20 mr-20 font-18 fa-fw'></i>";
         }
