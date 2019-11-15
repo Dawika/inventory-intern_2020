@@ -7,9 +7,9 @@ class Ability
     when User
       if user.super_admin?
         can :access, :rails_admin
+        can :dashboard
       end
       if user.admin?
-        can :dashboard
         can :manage, :all
         can :manage, :cannot_leave
         can :manage, SiteConfig
