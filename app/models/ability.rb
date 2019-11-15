@@ -5,15 +5,13 @@ class Ability
     case user
 
     when User
-      if user.super_admin?
-        can :access, :rails_admin
-        can :dashboard
-      end
       if user.admin?
         can :manage, :all
         can :manage, :cannot_leave
         can :manage, SiteConfig
         can :update, VacationLeaveRule
+        cannot :access, :rails_admin
+        cannot :dashboard
       end
       if  user.finance_officer?
         can :manage, [:menu, :setting]
@@ -97,6 +95,11 @@ class Ability
         else
           can :read, VacationConfig
         end
+      end
+
+      if user.super_admin?
+        can :access, :rails_admin
+        can :dashboard
       end
     end
   end
