@@ -120,7 +120,7 @@ class EmployeesController < ApplicationController
       tax_reduction: tax_reduction,
       current_employee: current_user.employee?,
       vacationSetting: vacationSetting,
-      current_admin: current_user.admin?,
+      current_admin: current_user.super_admin? || current_user.admin?,
       current_human_resource: current_user.human_resource?,
       has_last_salary: @employee.has_last_salary,
       encrypted_password: @employee.encrypted_password?
@@ -271,7 +271,7 @@ class EmployeesController < ApplicationController
       payroll: payroll,
       tax_reduction: tax_reduction,
       current_employee: current_user.employee?,
-      current_admin: current_user.admin?,
+      current_admin: current_user.super_admin? || current_user.admin?,
       current_human_resource: current_user.human_resource?
     }
   end

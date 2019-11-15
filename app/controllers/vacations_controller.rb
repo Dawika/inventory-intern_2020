@@ -57,7 +57,7 @@ class VacationsController < ApplicationController
 
     is_me = params["me"].present?
 
-    if is_me && (current_user.admin? || current_user.human_resource?)
+    if is_me && (current_user.super_admin? || current_user.admin? || current_user.human_resource?)
       @vacations = @vacations.where(requester_id: current_user.id)
     end
 

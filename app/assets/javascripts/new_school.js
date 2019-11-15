@@ -29,6 +29,8 @@ function validateUserBySubdomain(url, id) {
     dataType: 'json',
     data: { email: input.val() },
     success: function(response) {
+      console.log(url)
+      console.log(response.status)
       if (response.status == false) {
         input = $('#' + id)
         $('.' + id + ':first .invalid-feedback').remove();
