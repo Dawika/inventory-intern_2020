@@ -326,11 +326,11 @@ if Student.where(student_number: 2001..2040).count == 0 && Student.where(student
   StudentList.create({ student_id: b50.id, list_id: l12.id })
 end
 
-User.find(1).add_role "admin" if !User.find(1).has_any_role?
-User.find(2).add_role "admin" if !User.find(2).has_any_role?
+User.find(1).add_role "super_admin" if !User.find(1).has_any_role?
+User.find(2).add_role "super_admin" if !User.find(2).has_any_role?
 User.find(3).add_role "finance_officer" if !User.find(3).has_any_role?
 User.find(4).add_role "finance_officer" if !User.find(4).has_any_role?
-User.find(5).add_role "admin" if !User.find(5).has_any_role?
+User.find(5).add_role "super_admin" if !User.find(5).has_any_role?
 User.find(6).add_role "employee" if !User.find(6).has_any_role?
 User.find(7).add_role "account_holder" if !User.find(7).has_any_role?
 User.find(8).add_role "human_resource" if !User.find(8).has_any_role?
