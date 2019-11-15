@@ -13,6 +13,11 @@
       ctrl.total_cost = value.total_cost;
       ctrl.effective_date = new Date(value.effective_date);
       ctrl.items = value.expense_items;
+      ctrl.cheque_bank_name = value.cheque_bank_name,
+      ctrl.cheque_number = value.cheque_number,
+      ctrl.cheque_date = value.cheque_date,
+      ctrl.transfer_bank_name = value.transfer_bank_name,
+      ctrl.transfer_date = value.transfer_date,
       ctrl.expensesTotal();
       ctrl.imgDisplay = value.img;
       ctrl.payment_method = value.payment_method;
@@ -86,9 +91,14 @@
           return item.detail || item.amount || item.cost || item.expense_tag_id
         });
 
-        ctrl.message = "";
+        ctrl.message = ""
         $uibModalInstance.close({
           payment_method: ctrl.payment_method,
+          cheque_bank_name: ctrl.cheque_bank_name,
+          cheque_number: ctrl.cheque_number,
+          cheque_date: ctrl.cheque_date,
+          transfer_bank_name: ctrl.transfer_bank_name,
+          transfer_date: ctrl.transfer_date,
           effective_date: ctrl.effective_date,
           expenses_id: ctrl.expenses_id,
           detail: ctrl.detail,

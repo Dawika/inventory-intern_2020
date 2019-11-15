@@ -100,37 +100,42 @@ class ExpensesController < ApplicationController
     tag_tree = SiteConfig.get_cache.expense_tag_tree_hash
     @expense_tags = ExpenseTag.all.to_a
 
-    @lv_max = tag_tree[0][:lv]
-    ExpenseItem.all.each do |et|
-      parent_ids = et.expense_tag_id.present? ? et.expense_tag.parent : []
-      parent_ids.select { |p_id| tag_tree.select { |t| t[:cost] += et.cost * et.amount if t[:id] == p_id } }
-    end
-
-    @total_cost = Expense.all.inject(0){|sum, e| sum += e.total_cost }
-    @other_cost = @total_cost - tag_tree.inject(0){|sum, e| e[:lv] == @lv_max ? sum += e[:cost] : sum+=0 }
-    @date_time_string = start_end_date_to_string_display(@start_date_time, @end_date_time)
-    filename = "#{I18n.t('expenses_classification_report')} #{@date_time_string}"
-    @results = tag_tree
-
-    respond_to do |format|
-      format.pdf do
-        render pdf: filename,
-                template: "pdf/expense_export_report.html.erb",
-                encoding: "UTF-8",
-                layout: 'pdf.html',
-                show_as_html: params[:show_as_html].present?
+    if tag_tree.present?
+      @lv_max = tag_tree[0][:lv]
+      qry_expenses = Expense.all
+      qry_expenses = qry_date_range(qry_expenses, Expense.arel_table[:effective_date], @start_date_time, @end_date_time)
+      qry_expense_items = ExpenseItem.where(expense_id: qry_expenses.pluck(:id))
+      qry_expense_items.each do |et|
+        parent_ids = et.expense_tag_id.present? ? et.expense_tag.parent : []
+        parent_ids.select { |p_id| tag_tree.select { |t| t[:cost] += et.cost * et.amount if t[:id] == p_id } }
       end
-      format.xls do
-        @results = tag_tree
-        io_buffer = ExportXls.export_by_tag_xls(
-          @results,
-          @expense_tags,
-          @total_cost,
-          @other_cost,
-          @lv_max,
-          @date_time_string
-        )
-        send_data(io_buffer.read, filename: "#{filename}.xls")
+
+      @total_cost = qry_expenses.inject(0){|sum, e| sum += e.total_cost }
+      @other_cost = @total_cost - tag_tree.inject(0){|sum, e| e[:lv] == @lv_max ? sum += e[:cost] : sum+=0 }
+      @date_time_string = start_end_date_to_string_display(@start_date_time, @end_date_time)
+      filename = "#{I18n.t('expenses_classification_report')} #{@date_time_string}"
+      @results = tag_tree
+
+      respond_to do |format|
+        format.pdf do
+          render pdf: filename,
+                  template: "pdf/expense_export_report.html.erb",
+                  encoding: "UTF-8",
+                  layout: 'pdf.html',
+                  show_as_html: params[:show_as_html].present?
+        end
+        format.xls do
+          @results = tag_tree
+          io_buffer = ExportXls.export_by_tag_xls(
+            @results,
+            @expense_tags,
+            @total_cost,
+            @other_cost,
+            @lv_max,
+            @date_time_string
+          )
+          send_data(io_buffer.read, filename: "#{filename}.xls")
+        end
       end
     end
   end

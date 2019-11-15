@@ -429,7 +429,6 @@ GEM
     simple_form (5.0.1)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
-    slack-notifier (2.3.2)
     spreadsheet (1.1.8)
       ruby-ole (>= 1.0)
     spring (2.0.2)
@@ -556,7 +555,6 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sentry-raven
   simple_form
-  slack-notifier
   spreadsheet
   spring
   spring-watcher-listen (~> 2.0.0)
