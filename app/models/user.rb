@@ -29,6 +29,10 @@ class User < ApplicationRecord
     self.has_role? :account_holder
   end
 
+  def super_admin?
+    self.has_role? :super_admin
+  end
+
   def admin?
     self.has_role? :admin
   end
