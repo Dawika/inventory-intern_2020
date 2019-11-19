@@ -43,10 +43,10 @@
               <%= f.submit t('sign_in'), class: "btn btn-signin", disabled: true %>
             </div>
           </div>
-          <% if (SiteConfig.get_cache.enable_rollcall) && (Figaro.env.ROLLCALL_APK_URL)  %>
+          <% if (@school.present?) && (SiteConfig.get_cache.enable_rollcall) && (@school.school_settings.first.roll_call_apk_url)  %>
             <div class="row">
               <div class="download_android">
-                <a href="<%= Figaro.env.ROLLCALL_APK_URL %>" target="_blank"><i class="fa fa-android"></i><%= t('download_somsri_rollcall') %></a>
+                <a href="<%= @school.school_settings.first.roll_call_apk_url %>" target="_blank"><i class="fa fa-android"></i><%= t('download_somsri_rollcall') %></a>
               </div>
             </div>
           <% end %>

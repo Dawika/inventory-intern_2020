@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191113074911) do
+ActiveRecord::Schema.define(version: 20191119084404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -799,10 +799,11 @@ ActiveRecord::Schema.define(version: 20191113074911) do
   end
 
   create_table "school_settings", force: :cascade do |t|
-    t.string  "school_year",      default: ""
+    t.string  "school_year",       default: ""
     t.string  "semesters"
     t.string  "current_semester"
     t.integer "school_id"
+    t.string  "roll_call_apk_url"
     t.index ["school_id"], name: "index_school_settings_on_school_id", using: :btree
   end
 
