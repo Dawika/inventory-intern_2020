@@ -278,6 +278,16 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="row paddingt-25">
+                  <label >{{ 'note'  | translate }}</label>
+                  <textarea class="form-control border-textarea" rows="15" id="note" ng-model="employee.datas.employee.note"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div ng-class="{ 'in active' : employee.activeTab === 'private' }" id="privateInfo" class="tab-pane fade">
