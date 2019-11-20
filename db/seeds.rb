@@ -12,9 +12,7 @@ end
 schools = School.all
 
 if SchoolSetting.count.zero?
-  SchoolSetting.create!([
-    {school_year: "2560"}
-  ])
+  SchoolSetting.create!([{school_year: "2560", school_id: School.first.id, roll_call_apk_url: "https://www.dropbox.com/s/luxeuq3g0byjgnn/Somsri-RollCall.apk?dl=0"}])
 end
 
 if !SchoolSetting.first[:current_semester]
