@@ -18,7 +18,7 @@
 - rbenv and ruby
 - bower
 - [pdftk](https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/) or [pdftk for OSX](https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/pdftk_server-2.02-mac_osx-10.11-setup.pkg) or [pdftk for CentOS 7](https://www.linuxglobal.com/pdftk-works-on-centos-7/)
-- [imagemagick] `brew install imagemagick`
+- [imagemagick] `brew install imagemagick@6`
 
 ##### setup project
 - go to root directory
@@ -26,9 +26,12 @@
 - run `bundle install`
 - create database.yml or make a copy by running command
 `cp config/database_sample.yml config/database.yml`
+- create application.yml or make a copy by running command
+`cp config/application_sample.yml config/application.yml`
 - run `rake db:create` to create database
 - run `rake db:migrate` to build the schema
 - run `rake db:seed` to generate sample data
+- run `bin/rails server` to generate sample data
 
 ##### To run project with Docker go to the project's directory
 ```
