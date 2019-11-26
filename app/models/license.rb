@@ -23,7 +23,12 @@ class License < ApplicationRecord
       charge_info.license_id = self.id
       charge_info.save
     end
+    send_mail_update
     return charge
+  end
+
+  def send_mail_update
+    SchoolMailer.renew_license_success_and_error(school).deliver
   end
 
 end

@@ -1,5 +1,5 @@
-<% if @school.active_license.charge_info %>
-<h1>Success</h1>
+<% if @school.active_license.charge_info.captured %>
+<h1>ชำระค่าบริการสมศรีเรียบร้อยเเล้ว</h1>
 <% else %>
-<h1>Error</h1>
+<h1>ชำระค่าบริการสมศรีผิดพลาด โปรดตรวจสอบที่หน้าการชำระเงิน</h1>
 <% end%>    
