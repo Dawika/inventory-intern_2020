@@ -6,6 +6,15 @@ class ApplicationController < ActionController::Base
   before_action :set_cache_buster, :set_locale, :set_paper_trail_whodunnit, :set_raven_context, :notification_payment
   after_action :set_csrf_cookie_for_ng
   before_filter :validate_subdomain
+  before_filter :prepare_school_config
+
+  def prepare_school_config
+    return if session[:school_config]
+    if !subdomain_blank?
+      @school_config = SchoolSetting.get_cache(subdomain)
+    end
+    @school_config ||= SiteConfig.get_cache
+  end
 
   def notification_payment
     if current_user.present?
@@ -27,7 +36,7 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     @locale = params[:locale] || session['locale'] ||
-              SiteConfig.get_cache.default_locale || I18n.default_locale
+              @school_config.default_locale || I18n.default_locale
     if @locale
       I18n.locale = @locale
     end

@@ -6,7 +6,7 @@ class ExpenseTagsController < ApplicationController
     if params[:search_keyword]
       render json: ExpenseTag.search(params[:search_keyword]).order("id asc")
     else
-      tree = SiteConfig.get_cache.expense_tag_tree_hash
+      tree = @school_config.expense_tag_tree_hash
       results = []
       tree.each do |t|
         ExpenseTag.all.each do |e|
@@ -45,7 +45,7 @@ class ExpenseTagsController < ApplicationController
     end
 
     # data to expense json setting
-    site_config = SiteConfig.get_cache
+    site_config = @school_config
     site_config.expense_tag_tree = params[:data].collect{|d| { id: d[:id], cost: 0, lv: d[:lv] } }.to_json
     site_config.save
 

@@ -9,8 +9,11 @@ class ExpenseTag < ApplicationRecord
     end
   end
 
+  def tag_tree
+    SiteConfig.get_cache.expense_tag_tree_hash
+  end
+
   def related_tag_ids
-    tag_tree = SiteConfig.get_cache.expense_tag_tree_hash
     ids = []
     lv = tag_tree.find{|tt| tt[:id] == self.id }[:lv]
     lv_count = lv
@@ -27,7 +30,6 @@ class ExpenseTag < ApplicationRecord
   end
 
   def is_leaf
-    tag_tree = SiteConfig.get_cache.expense_tag_tree_hash
     lv = 0
     tag_tree.each do |tt|
       if lv > 0
@@ -39,12 +41,11 @@ class ExpenseTag < ApplicationRecord
   end
 
   def level
-    tag_tree = SiteConfig.get_cache.expense_tag_tree_hash
     return tag_tree.find{|tt| tt[:id] == self.id }[:lv]
   end
 
   def parent
-    tree = SiteConfig.get_cache.expense_tag_tree_hash
+    tree = tag_tree
     result = []
     return tree.first if self[:id] == tree.first[:id]
     tree.each do |t|

@@ -1,13 +1,13 @@
 class HomeController < ApplicationController
   def index
     if !current_user
-      if SiteConfig.get_cache.web_cms && subdomain_blank?
+      if @school_config.web_cms && subdomain_blank?
         redirect_to comfy_cms_render_page_path
       else
         redirect_to new_user_session_path
       end
     else
-      @is_outstanding = SiteConfig.get_cache.outstanding_notification
+      @is_outstanding = @school_config.outstanding_notification
     end
   end
 

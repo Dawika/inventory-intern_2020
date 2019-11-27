@@ -34,7 +34,7 @@
               <i class="fa fa-angle-down"></i>
             </a>
             <div class="dropdown-menu on-nav-bar">
-              <% if (SiteConfig.get_cache.enable_rollcall) && (current_user.school.school_settings.first.roll_call_apk_url) %>
+              <% if (@school_config.enable_rollcall) && (current_user.school.school_settings.first.roll_call_apk_url) %>
                 <li><a class="dropdown-item" href="<%= current_user.school.school_settings.first.roll_call_apk_url %>" target="_blank">
                 <i class="fa fa-download"></i> <%= t("roll_download")%> </a></li>
                 <li class="divider"></li>

@@ -465,7 +465,13 @@ class Student < ApplicationRecord
   end
 
   def student_number
-    self[:student_number].nil? ? "-" : self[:student_number].to_s.rjust(SiteConfig.get_cache.student_number_leading_zero, '0')
+    if school && school.school_settings.first
+      student_number_leading_zero = school.school_settings.first.student_number_leading_zero
+    else
+      student_number_leading_zero = SiteConfig.get_cache.student_number_leading_zero
+    end
+
+    self[:student_number].nil? ? "-" : self[:student_number].to_s.rjust(student_number_leading_zero, '0')
   end
 
   def edit

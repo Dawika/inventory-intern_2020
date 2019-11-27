@@ -12,6 +12,6 @@ class UsersController < ApplicationController
   end
 
   def site_config
-    render json: SiteConfig.get_cache
+    render json: @school_config
   end
 end

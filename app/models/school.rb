@@ -1,5 +1,6 @@
 class School < ApplicationRecord
   has_many :employees
+  has_many :payrolls, through: :employees
   has_many :users
   has_many :school_settings
   has_many :students

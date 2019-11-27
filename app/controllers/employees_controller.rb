@@ -53,13 +53,13 @@ class EmployeesController < ApplicationController
       format.html do
         render json: {
           employees: employees,
-          one_per_page: SiteConfig.get_cache.one_slip_per_page
+          one_per_page: @school_config.one_slip_per_page
         }, status: :ok
       end
       format.pdf do
         @results = {
           employees: employees,
-          one_per_page: SiteConfig.get_cache.one_slip_per_page
+          one_per_page: @school_config.one_slip_per_page
         }
         date = I18n.l(employees[0][:payroll][:date], format: "%d-%m-#{employees[0][:payroll][:date].year + 543}")
         render pdf: "ใบเสร็จเงินเดือน_#{date}",
@@ -112,7 +112,7 @@ class EmployeesController < ApplicationController
     end
 
     render json: {
-      enable_rollcall: SiteConfig.get_cache.enable_rollcall,
+      enable_rollcall: @school_config.enable_rollcall,
       img_url: @employee.img_url.exists? ? @employee.img_url.expiring_url(10, :medium) : nil ,
       employee: @employee,
       employee_display_name: @employee.full_name,
@@ -264,7 +264,7 @@ class EmployeesController < ApplicationController
       payroll = @employee.lastest_payroll
     end
     render json: {
-      enable_rollcall: SiteConfig.get_cache.enable_rollcall,
+      enable_rollcall: @school_config.enable_rollcall,
       img_url: @employee.img_url.exists? ? @employee.img_url.expiring_url(10, :medium) : nil ,
       employee: @employee,
       employee_display_name: @employee.full_name,

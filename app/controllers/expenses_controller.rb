@@ -97,7 +97,7 @@ class ExpensesController < ApplicationController
   def report_by_tag
     @start_date_time = Time.zone.parse(params[:start_date]).beginning_of_day if isDate(params[:start_date])
     @end_date_time = Time.zone.parse(params[:end_date]).end_of_day if isDate(params[:end_date])
-    tag_tree = SiteConfig.get_cache.expense_tag_tree_hash
+    tag_tree = @school_config.expense_tag_tree_hash
     @expense_tags = ExpenseTag.all.to_a
 
     if tag_tree.present?

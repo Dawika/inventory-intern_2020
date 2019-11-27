@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191120115054) do
+ActiveRecord::Schema.define(version: 20191127055245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -799,11 +799,33 @@ ActiveRecord::Schema.define(version: 20191120115054) do
   end
 
   create_table "school_settings", force: :cascade do |t|
-    t.string  "school_year",       default: ""
+    t.string  "school_year",                          default: ""
     t.string  "semesters"
     t.string  "current_semester"
     t.integer "school_id"
     t.string  "roll_call_apk_url"
+    t.boolean "enable_rollcall",                      default: true
+    t.boolean "default_cash_payment_method",          default: true
+    t.boolean "default_credit_card_payment_method",   default: false
+    t.boolean "default_cheque_payment_method",        default: false
+    t.boolean "default_transfer_payment_method",      default: false
+    t.boolean "display_username_password_on_login",   default: false
+    t.boolean "display_schools_year_with_invoice_id", default: true
+    t.boolean "web_cms",                              default: false
+    t.boolean "tax",                                  default: true
+    t.integer "student_number_leading_zero",          default: 0
+    t.boolean "one_slip_per_page",                    default: false
+    t.boolean "export_ktb_payroll",                   default: false
+    t.boolean "outstanding_notification",             default: false
+    t.boolean "slip_carbon",                          default: false
+    t.string  "default_locale",                       default: "th"
+    t.boolean "enable_expenses",                      default: false
+    t.string  "expense_tag_tree"
+    t.boolean "enable_quotation",                     default: false
+    t.boolean "export_kbank_payroll",                 default: false
+    t.string  "bank_account"
+    t.boolean "enable_scout",                         default: false
+    t.string  "reserved_subdomains"
     t.index ["school_id"], name: "index_school_settings_on_school_id", using: :btree
   end
 

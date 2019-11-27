@@ -148,7 +148,7 @@ class QuotationsController < ApplicationController
         display_name: @quotation.student_name,
         student_number: @quotation.student.student_number
       },
-      display_schools_year_with_invoice_id: SiteConfig.get_cache.display_schools_year_with_invoice_id,
+      display_schools_year_with_invoice_id: @school_config.display_schools_year_with_invoice_id,
       banks: Bank.all
     }
 
