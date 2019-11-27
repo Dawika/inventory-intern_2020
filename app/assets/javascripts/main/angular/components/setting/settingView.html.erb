@@ -114,29 +114,6 @@
       </div><br>
 
       <div class="row">
-        <label class="style-font">{{ 'Contact information' | translate }}</label>
-      </div> <br>
-      <div class="row">
-        <div class="col-md-5">
-          <div class="form-group">
-            <label for="name">{{ 'employee_name' | translate }}</label>
-            <input type="text" class="form-control" id="username" ng-model="setting.datas.user.full_name">
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="form-group">
-            <label for="email">{{ 'phone' | translate }}</label>
-            <input type="text" class="form-control" id="useremail" ng-model="setting.datas.user.email">
-          </div>
-        </div>
-        <div class="col-md-5">
-          <div class="form-group">
-            <label for="email">{{ 'email' | translate }}</label>
-            <input type="text" class="form-control" id="useremail" ng-model="setting.datas.user.email">
-          </div>
-        </div>
-      </div><br>
-      <div class="row">
         <label class="style-font">{{ 'bil_address' | translate}}</label>
       </div><br>
       <div class="row">
@@ -196,6 +173,69 @@
       <div class="row"><br>
         <hr>
       </div><br>
+
+      <div class="row">
+        <label class="style-font">{{ 'Contact information' | translate }}</label>
+      </div> <br>
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group">
+            <label for="name">{{ 'employee_name' | translate }}</label>
+            <input type="text" class="form-control" id="username" ng-model="setting.datas.owner.full_name">
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label for="email">{{ 'phone' | translate }}</label>
+            <input type="text" class="form-control" id="useremail" ng-model="setting.datas.owner.tel">
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="form-group">
+            <label for="email">{{ 'email' | translate }}</label>
+            <input type="text" class="form-control" id="useremail" ng-model="setting.datas.owner.email">
+          </div>
+        </div>
+      </div><br><hr>
+
+      <div class="row">
+        <label class="style-font">{{ 'personal_data' | translate}}</label>
+      </div><br>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="name">{{ 'employee_name' | translate }}</label>
+                <input type="text" class="form-control" id="username" ng-model="setting.datas.user.full_name">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="email">{{ 'email' | translate }}</label>
+                <input type="text" class="form-control" id="useremail" ng-model="setting.datas.user.email">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="password">{{ 'password' | translate }}</label>
+                <input type="password" class="form-control white-bg" id="password" ng-model="setting.datas.password" ng-disabled="true">
+              </div>
+            </div>
+          </div>
+          <div class="space20"></div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <button type="button" class="btn btn-custom btn-green btn-block" ng-click="setting.changePassword()">{{ 'change_password' | translate }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><br><hr>
+
       <div class="row">
         <label class="style-font">{{ 'plan' | translate}}</label>
       </div><br>
