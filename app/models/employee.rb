@@ -128,7 +128,7 @@ class Employee < ApplicationRecord
 
     return {
       total_salary: payrolls.as_json("report").inject(0) {
-        |mem, var| mem + var[:salary] + var[:extra_pay] - var[:extra_fee]
+        |mem, var| mem + var[:salary] + var[:extra_pay]
       },
       total_tax: payrolls.sum(:tax),
       total_social_insurance: payrolls.sum(:social_insurance),
