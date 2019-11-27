@@ -15,7 +15,8 @@ class EmployeesController < ApplicationController
     @raw, enc = Devise.token_generator.generate(Employee, :reset_password_token)
     Employee.where(id: params[:id]).update_all(reset_password_token: enc, reset_password_sent_at: Time.now.utc)
     user = User.find(params[:id])
-    EmployeeMailer.send_employee_invite(user, @raw).deliver
+    subdomain = School.find(user.school_id).subdomain_name
+    EmployeeMailer.send_employee_invite(user, @raw, subdomain).deliver
   end
 
   # GET /employees/:id/slip
