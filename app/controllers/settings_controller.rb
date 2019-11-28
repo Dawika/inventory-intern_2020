@@ -51,6 +51,7 @@ class SettingsController < ApplicationController
       {
         user: current_user,
         school: current_user.school,
+        owner: User.where(school_id: current_user.school.id).with_role(:admin).first,
         school_logo: current_user.school.logo_url,
         licenses: current_user.school.active_license,
         plan: current_user.school.active_license.plan || t('trial'),
