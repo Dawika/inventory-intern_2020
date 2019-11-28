@@ -1,8 +1,9 @@
+<link rel="stylesheet" href="/your-folder/redactor.css" />
 <form id="passwordForm" name="passwordForm" enctype="multipart/form-data" ng-submit="setting.submit(setting.datas)">
   <div class="setting">
     <div class="container setting-plan">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-7">
           <div class="row">
             <div class="col-md-3">
               <label class="style-font">{{ 'logo_school' | translate }}</label>
@@ -45,70 +46,70 @@
             </div>
           </div>
         </div>
-        <div class="col-md-1"></div>
+      </div>
+      <!--////////////////////-->
+      <div class="row">
         <div class="col-md-5">
-          <div class="row">
-            <label class="style-font">{{ 'billing_info' | translate }}</label>
-          </div><br>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="address">{{ 'address' | translate }}</label>
-                <input type="text" class="form-control white-bg" id="address" ng-model="setting.datas.school.address">
+            <div class="row">
+              <label class="style-font">{{ 'billing_info' | translate }}</label>
+            </div><br>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="address">{{ 'address' | translate }}</label>
+                  <input type="text" class="form-control white-bg" id="address" ng-model="setting.datas.school.address">
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="phone">{{ 'phone' | translate }}</label>
-                <input type="text" class="form-control white-bg" id="phone" ng-model="setting.datas.school.phone">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="phone">{{ 'phone' | translate }}</label>
+                  <input type="text" class="form-control white-bg" id="phone" ng-model="setting.datas.school.phone">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="fax">{{ 'fax' | translate }}</label>
+                  <input type="text" class="form-control white-bg" id="fax" ng-model="setting.datas.school.fax">
+                </div>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="fax">{{ 'fax' | translate }}</label>
-                <input type="text" class="form-control white-bg" id="fax" ng-model="setting.datas.school.fax">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="email">{{ 'school_email' | translate }}</label>
+                  <input type="text" class="form-control white-bg" id="emailSchool" ng-model="setting.datas.school.email">
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="email">{{ 'school_email' | translate }}</label>
-                <input type="text" class="form-control white-bg" id="emailSchool" ng-model="setting.datas.school.email">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label>{{ 'tax_number' | translate}}</label>
+                  <input type="text" class="form-control white-bg" ng-model="setting.datas.school.tax_id">
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-8">
-              <div class="form-group">
-                <label>{{ 'tax_number' | translate}}</label>
-                <input type="text" class="form-control white-bg" ng-model="setting.datas.school.tax_id">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="subdoamin">{{ 'branch' | translate}}</label>
+                  <input type="text" class="form-control white-bg" id="name_eng" ng-model="setting.datas.school.branch">
+                </div>
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="subdoamin">{{ 'branch' | translate}}</label>
-                <input type="text" class="form-control white-bg" id="name_eng" ng-model="setting.datas.school.branch">
-              </div>
-            </div>
-          </div><br>
-          <div class="row">
-            <label class="style-font">{{ 'last_bil' | translate}}</label>
-          </div><br>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label>{{ 'note' | translate}}</label>
-                <input type="text" class="form-control white-bg" ng-model="setting.datas.school.note">
+            </div><br>
+            <div class="row">
+              <label class="style-font">{{ 'last_bil' | translate}}</label>
+            </div><br>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <textarea id="comment" class="content" ng-hide="employee.payroll_closed" rows="10" cols="100" ng-model="setting.datas.school.note"contenteditable="false" redactor ></textarea>
+                </div>
               </div>
             </div>
           </div>
           <!-- end half-->
         </div>
-      </div>
-      <!--////////////////////-->
       <div class="row"><br>
         <hr>
       </div><br>
@@ -271,3 +272,11 @@
     </div>
   </div>
 </form>
+
+<!-- js -->
+    <script src="/your-folder/redactor.js"></script>
+
+    <!-- call -->
+    <script>
+    $R('#content');
+    </script>
