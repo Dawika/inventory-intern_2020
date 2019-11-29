@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="/your-folder/redactor.css" />
 <form id="passwordForm" name="passwordForm" enctype="multipart/form-data" ng-submit="setting.submit(setting.datas)">
   <div class="setting">
     <div class="container setting-plan">
@@ -103,7 +102,9 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <textarea id="comment" class="content" ng-hide="employee.payroll_closed" rows="10" cols="100" ng-model="setting.datas.school.note"contenteditable="false" redactor ></textarea>
+                  <div class="redactor-toolbar-wrapper">
+                    <textarea id="comment" class="content" ng-hide="employee.payroll_closed" rows="10" cols="100" ng-model="setting.datas.school.note"contenteditable="false" redactor ></textarea>
+                  </div>
                 </div>
               </div>
             </div>
@@ -274,7 +275,6 @@
 </form>
 
 <!-- js -->
-    <script src="/your-folder/redactor.js"></script>
 
     <!-- call -->
     <script>
