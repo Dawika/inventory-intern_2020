@@ -19,6 +19,7 @@
  *= require angular-ui-select
  *= require angular-ui-tree
  *= require fullcalendar
+ *= require redactor/redactor.min.css
  */
 
 @import "navigation_menu";
@@ -32,6 +33,21 @@
     min-height: 1px;
     padding-right: 5px;
     padding-left: 5px;
+}
+
+.redactor-toolbar {
+  display: true !important;
+}
+
+.redactor-editor[contenteditable="false"] {
+  background-color: #eee;
+  cursor: not-allowed;
+  border: 1px solid #ccc;
+}
+.footer-invoice .redactor-editor{
+  border: 1px solid #ccc;
+  min-height: 300px !important;
+  min-width: 1000px !important;
 }
 
 .col-xs-5ths {

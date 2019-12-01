@@ -100,12 +100,8 @@
               <label class="style-font">{{ 'last_bil' | translate}}</label>
             </div><br>
             <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <div class="redactor-toolbar-wrapper">
-                    <textarea id="comment" class="content" ng-hide="employee.payroll_closed" rows="10" cols="100" ng-model="setting.datas.school.note"contenteditable="false" redactor ></textarea>
-                  </div>
-                </div>
+              <div class="col-md-8 footer-invoice">
+                <textarea id="footer-invoice" rows="100" cols="200" ng-model="setting.datas.school.note" redactor ></textarea>
               </div>
             </div>
           </div>
@@ -273,10 +269,3 @@
     </div>
   </div>
 </form>
-
-<!-- js -->
-
-    <!-- call -->
-    <script>
-    $R('#content');
-    </script>

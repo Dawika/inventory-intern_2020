@@ -11,7 +11,8 @@
 
     var redactorOptions = {
       buttons: [
-        'format',
+        'redo',
+        'undo',
         'bold',
         'italic',
         'deleted',

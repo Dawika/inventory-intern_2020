@@ -43,3 +43,6 @@
 //= require rails.validations
 //= require rails.validations.simple_form
 //= require modal_clientside_validation
+
+//= require redactor/redactor.min.js
+//= require redactor/angular-redactor-2.js
