@@ -22,8 +22,10 @@ class SettingsController < ApplicationController
         if current_user.school.bil_info.present?
           current_user.school.bil_info.update(params_billing)
         else
-          bil = BilInfo.new(params_billing.merge(school_id: current_user.school.id))
-          bil.save(validate: false)
+          if params[:billing_info] != "null"
+            bil = BilInfo.new(params_billing.merge(school_id: current_user.school.id))
+            bil.save(validate: false)
+          end
         end
       end
         render json: getSetting(), status: :ok  
