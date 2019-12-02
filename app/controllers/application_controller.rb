@@ -3,10 +3,10 @@ class ApplicationController < ActionController::Base
   include CanCan::ControllerAdditions
   include LocalSubdomain
   protect_from_forgery with: :exception
+  before_filter :prepare_school_config
   before_action :set_cache_buster, :set_locale, :set_paper_trail_whodunnit, :set_raven_context, :notification_payment
   after_action :set_csrf_cookie_for_ng
   before_filter :validate_subdomain
-  before_filter :prepare_school_config
 
   def prepare_school_config
     return if session[:school_config]
