@@ -105,124 +105,135 @@
           </div>
         </div>
       <% end %>
-      <div class="sec-payment font-14 ">
-        <div class="row text-slip3-payment mt-10"><b><%= I18n.t('payment_channel') %></b></div>
-        <div class="row text-slip2-payment mt-10 ml-20">
-          <% if @results[:is_cash] %>
+      <% if @results[:school][:footer_invoice] %>
+        <br>
+        <div class="sec-remart">
+          <div class="row font-14">
+            <%= @results[:school][:footer_invoice].html_safe %>
+          </div>
+        </div>
+      <% else %>
+        <div class="sec-payment font-14 ">
+          <div class="row text-slip3-payment mt-10"><b><%= I18n.t('payment_channel') %></b></div>
+          <div class="row text-slip2-payment mt-10 ml-20">
+            <% if @results[:is_cash] %>
+              <div class="row">
+                <div class="col-xs-9">
+                  <span><%= I18n.t('cash') %></span>
+                </div>
+                <div class="col-xs-3">
+                  <span class="pull-right">
+                 <%= cleanNumber(number_with_precision(@results[:cash_amount], precision: 2, delimiter: ',')) %> <%= I18n.t('baht') %>
+                  </span>
+                </div>
+              </div>
+            <% end %>
+            <% if @results[:is_credit_card] %>
+              <div class="row">
+                <div class="col-xs-9">
+                  <span>
+                    <%= I18n.t('credit_card') %>
+                  </span>
+                </div>
+                <div class="col-xs-3">
+                  <span class="pull-right">
+                   <%= cleanNumber(number_with_precision(@results[:credit_card_amount], precision: 2, delimiter: ',')) %> <%= I18n.t('baht') %>
+                  </span>
+                </div>
+              </div>
+            <% end %>
+            <% if @results[:is_cheque] %>
+              <div class="row">
+                <div class="col-xs-9">
+                  <span>
+                    <%= I18n.t('bank_check') %> :&nbsp; <U><%= @results[:cheque_bank_name] || '.................' %></U>&nbsp;
+                    <%= I18n.t('bank_check_id') %> :&nbsp; <U><%= @results[:cheque_number] || '.................' %></U>&nbsp;
+                    <%= I18n.t('bank_check_date') %> : &nbsp;<U><%= @results[:cheque_date] || '.......' %></U>&nbsp;
+                  </span>
+                </div>
+                <div class="col-xs-3">
+                  <span class="pull-right">
+                  <%= cleanNumber(number_with_precision(@results[:cheque_amount], precision: 2, delimiter: ',')) %> <%= I18n.t('baht') %>
+                  </span>
+                </div>
+              </div>
+            <% end %>
+            <% if @results[:is_transfer] %>
+              <div class="row">
+                <div class="col-xs-9">
+                  <span>
+                    <%= I18n.t('bank_transfer') %> :&nbsp; <U><%= @results[:transfer_bank_name] || '.................' %></U>&nbsp;
+                    <%= I18n.t('bank_check_date') %>:&nbsp; <U><%= @results[:transfer_date] || '.......' %></U>
+                  </span>
+                </div>
+                <div class="col-xs-3">
+                  <span class="pull-right">
+                  <%= cleanNumber(number_with_precision(@results[:transfer_amount], precision: 2, delimiter: ',')) %> <%= I18n.t('baht') %>
+                  </span>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="mt-10 font-10">
+          <div class="row name-school">
+            <b>เงื่อนไขการคืนเงิน / Refund Condition</b>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6 text-slip4-refund1">
+            <div class="row">** โรงเรียนขอสงวนสิทธิ์ในการคืนเงินค่าแรกเข้าทุกกรณี **</div>
+            <div class="row">** ชุดฟอร์มซื้อแล้วไม่รับคืน **</div>
             <div class="row">
-              <div class="col-xs-9">
-                <span><%= I18n.t('cash') %></span>
-              </div>
-              <div class="col-xs-3">
-                <span class="pull-right">
-               <%= cleanNumber(number_with_precision(@results[:cash_amount], precision: 2, delimiter: ',')) %> <%= I18n.t('baht') %>
-                </span>
-              </div>
+              <div class="col-xs-6">หลังจากชำระค่าเทอม 2 สัปดาห์</div>
+              <div class="col-xs-6 pull-right">คืนเงิน 70%</div>
             </div>
-          <% end %>
-          <% if @results[:is_credit_card] %>
             <div class="row">
-              <div class="col-xs-9">
-                <span>
-                  <%= I18n.t('credit_card') %>
-                </span>
-              </div>
-              <div class="col-xs-3">
-                <span class="pull-right">
-                 <%= cleanNumber(number_with_precision(@results[:credit_card_amount], precision: 2, delimiter: ',')) %> <%= I18n.t('baht') %>
-                </span>
-              </div>
+              <div class="col-xs-6">เรียน 1 สัปดาห์ (หรือน้อยกว่า)</div>
+              <div class="col-xs-6 pull-right">คืนเงิน 70%</div>
             </div>
-          <% end %>
-          <% if @results[:is_cheque] %>
             <div class="row">
-              <div class="col-xs-9">
-                <span>
-                  <%= I18n.t('bank_check') %> :&nbsp; <U><%= @results[:cheque_bank_name] || '.................' %></U>&nbsp;
-                  <%= I18n.t('bank_check_id') %> :&nbsp; <U><%= @results[:cheque_number] || '.................' %></U>&nbsp;
-                  <%= I18n.t('bank_check_date') %> : &nbsp;<U><%= @results[:cheque_date] || '.......' %></U>&nbsp;
-                </span>
-              </div>
-              <div class="col-xs-3">
-                <span class="pull-right">
-                <%= cleanNumber(number_with_precision(@results[:cheque_amount], precision: 2, delimiter: ',')) %> <%= I18n.t('baht') %>
-                </span>
-              </div>
+              <div class="col-xs-6">เรียน 2 สัปดาห์</div>
+              <div class="col-xs-6 pull-right">คืนเงิน 60%</div>
             </div>
-          <% end %>
-          <% if @results[:is_transfer] %>
             <div class="row">
-              <div class="col-xs-9">
-                <span>
-                  <%= I18n.t('bank_transfer') %> :&nbsp; <U><%= @results[:transfer_bank_name] || '.................' %></U>&nbsp;
-                  <%= I18n.t('bank_check_date') %>:&nbsp; <U><%= @results[:transfer_date] || '.......' %></U>
-                </span>
-              </div>
-              <div class="col-xs-3">
-                <span class="pull-right">
-                <%= cleanNumber(number_with_precision(@results[:transfer_amount], precision: 2, delimiter: ',')) %> <%= I18n.t('baht') %>
-                </span>
-              </div>
+              <div class="col-xs-6">เรียน 3 สัปดาห์</div>
+              <div class="col-xs-6 pull-right">คืนเงิน 50%</div>
             </div>
-          <% end %>
+            <div class="row">
+              <div class="col-xs-6">เรียน 4 สัปดาห์</div>
+              <div class="col-xs-6 pull-right">คืนเงิน 40%</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">**กรณีเรียนมากกว่า 4 สัปดาห์ ขอสงวนสิทธิ์ในการคืนค่าเทอม**</div>
+            </div>
+          </div>
+          <div class="col-xs-6 text-slip4-refund2">
+            <div class="row">**&nbsp;<b>Entrance fee</b>&nbsp;once paid will not be refunded under any circumstances.**</div>
+            <div class="row">
+              <div class="col-xs-6">After 2 weeks tution paid</div>
+              <div class="col-xs-6 pull-right">Refund 70%</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">Study 1 weeks(or less then 1 week)</div>
+              <div class="col-xs-6 pull-right">Refund 70%</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">Study 2 weeks</div>
+              <div class="col-xs-6 pull-right">Refund 60%</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">Study 3 weeks</div>
+              <div class="col-xs-6 pull-right">Refund 50%</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">Study 4 weeks</div>
+              <div class="col-xs-6 pull-right">Refund 40%</div>
+            </div>
+            <div class="row">** After 4 weeks Non Refund **</div>
+          </div>
         </div>
-      </div>
-      <div class="mt-10 font-14">
-            <div class="row name-school">
-      <b>เงื่อนไขการคืนเงิน / Refund Condition</b>
-    </div>
-    <div class="row">
-      <div class="col-xs-6 text-slip4-refund1">
-        <div class="row">** โรงเรียนขอสงวนสิทธิ์ในการคืนเงินค่าแรกเข้าทุกกรณี **</div>
-        <div class="row">** ชุดฟอร์มซื้อแล้วไม่รับคืน **</div>
-        <div class="row">
-          <div class="col-xs-6">หลังจากชำระค่าเทอม 2 สัปดาห์</div>
-          <div class="col-xs-6 pull-right">คืนเงิน 70%</div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6">เรียน 1 สัปดาห์ (หรือน้อยกว่า)</div>
-          <div class="col-xs-6 pull-right">คืนเงิน 70%</div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6">เรียน 2 สัปดาห์</div>
-          <div class="col-xs-6 pull-right">คืนเงิน 60%</div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6">เรียน 3 สัปดาห์</div>
-          <div class="col-xs-6 pull-right">คืนเงิน 50%</div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6">เรียน 4 สัปดาห์</div>
-          <div class="col-xs-6 pull-right">คืนเงิน 40%</div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">**กรณีเรียนมากกว่า 4 สัปดาห์ ขอสงวนสิทธิ์ในการคืนค่าเทอม**</div>
-        </div>
-      </div>
-      <div class="col-xs-6 text-slip4-refund2">
-        <div class="row">**&nbsp;<b>Entrance fee</b>&nbsp;once paid will not be refunded under any circumstances.**</div>
-        <div class="row">
-          <div class="col-xs-6">After 2 weeks tution paid</div>
-          <div class="col-xs-6 pull-right">Refund 70%</div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6">Study 1 weeks(or less then 1 week)</div>
-          <div class="col-xs-6 pull-right">Refund 70%</div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6">Study 2 weeks</div>
-          <div class="col-xs-6 pull-right">Refund 60%</div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6">Study 3 weeks</div>
-          <div class="col-xs-6 pull-right">Refund 50%</div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6">Study 4 weeks</div>
-          <div class="col-xs-6 pull-right">Refund 40%</div>
-        </div>
-        <div class="row">** After 4 weeks Non Refund **</div>
-      </div>
+      <% end %>
     </div>
     <div class="col-xs-6 mt-50 ml-60p">
       <div class="row">

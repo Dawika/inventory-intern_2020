@@ -306,7 +306,8 @@ class InvoicesController < ApplicationController
         fax:  current_user.school.fax,
         email:  current_user.school.email,
         tax_id:  current_user.school.tax_id,
-        branch:  current_user.school.branch
+        branch:  current_user.school.branch,
+        footer_invoice: current_user.school.note
       },
       parent: {
         display_name: @invoice.parent.full_name

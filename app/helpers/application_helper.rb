@@ -31,6 +31,7 @@ module ApplicationHelper
     if number > 999999999999999 || number.blank?
       return ""
     end
+    number = number.to_s
     number.gsub!(",", "")
     number.gsub!(" ", "")
     number.gsub!("บาท", "")
