@@ -73,9 +73,9 @@ class VacationMailer < ApplicationMailer
   end
 
   def setup_link(vacation)
-    @approve_url = "#{ENV['DEFAULT_SITE_URL']}/vacations/#{vacation.id}/approve"
-    @reject_url = "#{ENV['DEFAULT_SITE_URL']}/vacations/#{vacation.id}/reject"
-    @dashboard_url = "#{ENV['DEFAULT_SITE_URL']}/somsri#/vacation/dashboard/"
+    @approve_url = "#{ENV['DEFAULT_SITE_URL'] || Figaro.env.ENDPOINT}/vacations/#{vacation.id}/approve"
+    @reject_url = "#{ENV['DEFAULT_SITE_URL'] || Figaro.env.ENDPOINT}/vacations/#{vacation.id}/reject"
+    @dashboard_url = "#{ENV['DEFAULT_SITE_URL'] || Figaro.env.ENDPOINT}/somsri#/vacation/dashboard/"
   end
 
   def self.send_mail_to_admin(vacation)

@@ -99,6 +99,7 @@ class VacationsController < ApplicationController
       # redirect_to '/somsri#/vacation/dashboard/'
     end
     response_mail_admin(vacation)
+    redirect_to '/somsri#/vacation/dashboard/'
   end
 
   def reject
@@ -118,6 +119,7 @@ class VacationsController < ApplicationController
       # redirect_to '/somsri#/vacation/dashboard/'
     end
     response_mail_admin(vacation)
+    redirect_to '/somsri#/vacation/dashboard/'
   end
 
   def response_mail_admin(vacation)
