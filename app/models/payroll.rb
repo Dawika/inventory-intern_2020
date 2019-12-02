@@ -249,13 +249,13 @@ class Payroll < ApplicationRecord
     end
 
     def self.generate_tax(payroll, employee)
-      if payroll.employee && payroll.employee.school && payroll.employee.school.school_settings.first
-        using_tax = payroll.employee.school.school_settings.first.tax
+      payroll_real = Payroll.where(id: payroll["id"]).first
+      if payroll_real.employee && payroll_real.employee.school && payroll_real.employee.school.school_settings.first
+        using_tax = payroll_real.employee.school.school_settings.first.tax
       else
         using_tax = SiteConfig.get_cache.tax
       end
       if using_tax
-        payroll_real = Payroll.where(id: payroll["id"]).first
         return payroll_real.tax if payroll_real && payroll_real.closed
         if employee["employee_type"]=='ลูกจ้างประจำ'
           tax = self.generate_income_tax(payroll, employee)
