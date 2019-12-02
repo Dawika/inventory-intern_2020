@@ -16,7 +16,8 @@
         'bold',
         'italic',
         'deleted',
-        'lists'
+        'lists',
+        'link'
       ],
       minHeight: 160,
       maxHeight: 500
