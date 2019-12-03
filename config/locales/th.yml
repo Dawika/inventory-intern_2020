@@ -879,6 +879,7 @@ th:
   export_expenses_payment_report: "ออกรายงานค่าใช้จ่ายแยกตามการชำระเงิน"
   expense_category_placeholder: "ชื่อประเภทค่าใช้จ่าย"
   expense_category_already_used: "ไม่สามารถลบประเภทค่าใช้จ่ายที่ยังถูกใช้งานอยู่ได้"
+  please_setting_expense_category: "กรุณาตั้งค่าประเภทค่าใช้จ่าย"
 
   # Vacation
   day: "วัน"

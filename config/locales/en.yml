@@ -714,6 +714,7 @@ en:
   export_expenses_payment_report: "Export expenses payment method report"
   expense_category_placeholder: "Category name"
   expense_category_already_used: "Cannot delete category that already used."
+  please_setting_expense_category: "Please setting expense category."
 
   # Vacation
   day: "Day"

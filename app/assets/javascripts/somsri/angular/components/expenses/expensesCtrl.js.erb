@@ -140,7 +140,10 @@
       }
 
       ctrl.print_report_by_type = function() {
-        window.open("/expenses/report_by_tag.pdf?start_date="+ctrl.start_date+"&end_date="+ctrl.end_date)
+        if (ctrl.datas.expenses_tag)
+          window.open("/expenses/report_by_tag.pdf?start_date="+ctrl.start_date+"&end_date="+ctrl.end_date)
+        else
+          ctrl.message = translateFilter('please_setting_expense_category');
       }
 
       ctrl.print_expenses_payment_report = function() {
@@ -152,7 +155,10 @@
       }
 
       ctrl.export_report_by_type = function() {
-        window.open("/expenses/report_by_tag.xls?start_date="+ctrl.start_date+"&end_date="+ctrl.end_date)
+        if (ctrl.datas.expenses_tag)
+          window.open("/expenses/report_by_tag.xls?start_date="+ctrl.start_date+"&end_date="+ctrl.end_date)
+        else
+          ctrl.message = translateFilter('please_setting_expense_category');
       }
 
       ctrl.export_expenses_payment_report = function() {
@@ -312,6 +318,7 @@
           ctrl.order
           ).then(function(resp) {
             ctrl.datas = [];
+            ctrl.datas.expenses_tag = resp.data.expenses_tag
             if (resp.data && resp.data.expenses){
               ctrl.datas = resp.data.expenses;
               ctrl.totalItems = resp.data.total_records;

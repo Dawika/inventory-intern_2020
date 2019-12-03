@@ -21,7 +21,8 @@ class ExpensesController < ApplicationController
       format.json do
         result = {
           expenses: qry_expenses.paginate(page: page, per_page: 10),
-          total_price: qry_expenses.sum(:total_cost)
+          total_price: qry_expenses.sum(:total_cost),
+          expenses_tag: ExpenseTag.first.present?
         }
 
         if page
