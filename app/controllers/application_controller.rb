@@ -158,6 +158,7 @@ class ApplicationController < ActionController::Base
   # This will redirect the user to your 404 page if the user can not be found
   # based on the subdomain.
   def validate_subdomain
+    return if !SiteConfig.get_cache.web_cms
     return if subdomain_blank?
     render_404 if current_account_holder.nil?
   end
