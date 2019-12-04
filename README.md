@@ -54,7 +54,7 @@ heroku config:set DEPLOY_TASKS='db:migrate'
 ```
   to adding new build pack we have to add library name to Aptfile
 ```
-bundle exec rake site_config:web_cms
+heroku run bundle exec rake site_config:web_cms
 ```
   set stand-alone version for somsri system
 
