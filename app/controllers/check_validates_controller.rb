@@ -16,7 +16,7 @@ class CheckValidatesController < ApplicationController
     user_in_school = false
 
     if user
-      if user.super_admin?
+      if user.super_admin? || !SiteConfig.get_cache.web_cms
         user_in_school = true
       else
         user_in_school = user.school &&
