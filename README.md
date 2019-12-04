@@ -53,6 +53,10 @@ heroku buildpacks:add --index 1 https://github.com/heroku/heroku-buildpack-apt
 heroku config:set DEPLOY_TASKS='db:migrate'
 ```
   to adding new build pack we have to add library name to Aptfile
+```
+bundle exec rake site_config:web_cms
+```
+  set stand-alone version for somsri system
 
 ##### environment variables (ENV)
   We're using Figaro, so please create your own 'config/application.yml' by running
