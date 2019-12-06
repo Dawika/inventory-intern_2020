@@ -62,7 +62,7 @@ class User < ApplicationRecord
   end
 
   def school_setting
-    self.school.school_settings.first
+    self.school.school_setting
   end
 
   def school_id

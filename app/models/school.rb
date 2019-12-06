@@ -20,6 +20,10 @@ class School < ApplicationRecord
   validates :subdomain_name, presence: true, allow_blank: false, uniqueness: true
   after_create :create_license
 
+  def school_setting
+    school_settings.first || school_settings.create!(school_year: Time.current.year + 543)
+  end
+
   def create_license
       self.licenses.create(expired_date: DateTime.now.utc + 3.month)
   end

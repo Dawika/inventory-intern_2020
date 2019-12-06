@@ -22,7 +22,7 @@
           </div>
           <div class="row">
             <div class="field form-group">
-              <%= f.email_field :email, autofocus: true, class: "form-control input-login" , placeholder: t('user_name'), onkeyup: "validateUserBySubdomain('#{user_by_subdomain_check_validates_path}', this.id)" %>
+              <%= f.email_field :email, autofocus: true, class: "form-control input-login" , placeholder: t('user_name'), onkeyup: "validateUserBySubdomain('#{user_by_subdomain_check_validates_path}', this.id, #{SiteConfig.get_cache.web_cms ? 'false' : 'true'})" %>
             </div>
           </div>
           <div class="row">
@@ -43,10 +43,10 @@
               <%= f.submit t('sign_in'), class: "btn btn-signin", disabled: true %>
             </div>
           </div>
-          <% if (@school.present?) && (@school_config.enable_rollcall) && (@school.school_settings.first.roll_call_apk_url)  %>
+          <% if (@school.present?) && (@school_config.enable_rollcall) && (@school_config.roll_call_apk_url)  %>
             <div class="row">
               <div class="download_android">
-                <a href="<%= @school.school_settings.first.roll_call_apk_url %>" target="_blank"><i class="fa fa-android"></i><%= t('download_somsri_rollcall') %></a>
+                <a href="<%= @school.school_setting.roll_call_apk_url %>" target="_blank"><i class="fa fa-android"></i><%= t('download_somsri_rollcall') %></a>
               </div>
             </div>
           <% end %>
