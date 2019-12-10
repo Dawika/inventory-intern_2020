@@ -1,6 +1,6 @@
-namespace :site_config do
+namespace :site_configs do
   desc "Set site config 'web_cms' = false"
-  task :web_cms,  [] => :environment do |t, args|
-  	SiteConfig.first.update(web_cms: true)
+  task :standalone,  [] => :environment do |t, args|
+		SiteConfig.first.update(web_cms: false)
   end
 end
