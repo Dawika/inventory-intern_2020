@@ -826,6 +826,7 @@ ActiveRecord::Schema.define(version: 20191127055245) do
     t.string  "bank_account"
     t.boolean "enable_scout",                         default: false
     t.string  "reserved_subdomains"
+    t.string  "first_expense_tab", default: "upload_photo"
     t.index ["school_id"], name: "index_school_settings_on_school_id", using: :btree
   end
 
@@ -880,6 +881,7 @@ ActiveRecord::Schema.define(version: 20191127055245) do
     t.string  "bank_account"
     t.boolean "enable_scout",                         default: false
     t.string  "reserved_subdomains"
+    t.string  "first_expense_tab",                    default: "upload_photo"
   end
 
   create_table "skills", force: :cascade do |t|

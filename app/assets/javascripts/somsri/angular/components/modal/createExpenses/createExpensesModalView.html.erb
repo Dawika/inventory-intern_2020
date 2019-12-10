@@ -91,7 +91,7 @@
       <div class="space30"></div>
       <div class="row">
         <div class="col-xs-12">
-          <uib-tabset>
+          <uib-tabset id="expenseTabSet">
             <uib-tab id="upload_photo" index="0" heading="{{ 'upload_photo' | translate }}">
               <div class="col-xs-12 text-center border-choose-file mt-20 mb-20">
                 <div class="show-upload text-center min-h-200 mt-10">
@@ -177,5 +177,14 @@
       </div>
     </div>
   </form>
-
 </div>
+
+<script>
+  <% if @school_config.first_expense_tab == 'item' %>
+    $(document).ready(function() {
+      var itemTab = $('#expenseTabSet .nav-tabs #item')
+      itemTab.prependTo('#expenseTabSet .nav-tabs');
+      itemTab.find('a').click();
+    })
+  <% end %>
+</script>
