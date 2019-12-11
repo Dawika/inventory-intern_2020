@@ -34,13 +34,8 @@
               <i class="fa fa-angle-down"></i>
             </a>
             <div class="dropdown-menu on-nav-bar">
-<<<<<<< HEAD
               <% if (@school_config.enable_rollcall) && (@school_config.roll_call_apk_url) %>
-                <li><a class="dropdown-item" href="<%= @school_config..roll_call_apk_url %>" target="_blank">
-=======
-              <% if (SiteConfig.get_cache.enable_rollcall) && (current_user.school.school_setting.roll_call_apk_url) %>
-                <li><a class="dropdown-item" href="<%= current_user.school.school_setting.roll_call_apk_url %>" target="_blank">
->>>>>>> fix error when there is no school setting
+                <li><a class="dropdown-item" href="<%= @school_config.roll_call_apk_url %>" target="_blank">
                 <i class="fa fa-download"></i> <%= t("roll_download")%> </a></li>
                 <li class="divider"></li>
               <% end %>
