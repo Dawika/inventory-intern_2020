@@ -6,10 +6,77 @@ class Ability
 
     when User
       if user.admin?
-        can :manage, :all
-        can :manage, :cannot_leave
+        can :manage, [:menu, :setting]
+        can :manage, AccountType
+        can :manage, Account
+        can :manage, Alumni
+        can :manage, Bank
+        can :manage, BilInfo
+        can :manage, CandidateFile
+        can :manage, Candidate
+        can :manage, Category
+        can :manage, ChargeInfo
+        can :manage, Classroom
+        can :manage, DailyReport
+        can :manage, DesignSkill
+        can :manage, EmployeeSkill
+        if SiteConfig.get_cache.web_cms
+          can :manage, Employee, school_id: user.school_id
+        else
+          can :manage, Employee
+        end
+        can :manage, Evaluate
+        can :manage, ExpenseItem
+        can :manage, ExpenseTag
+        can :manage, Expense
+        can :manage, Gender
+        can :manage, Grade
+        can :manage, GroupingReportOption
+        can :manage, Holiday
+        can :manage, Individual
+        can :manage, Interview
+        can :manage, InterviewerEmail
+        can :manage, InventoryRepair
+        can :manage, InventoryRequest
+        can :manage, Inventory
+        can :manage, InvoiceStatus
+        can :manage, Invoice
+        can :manage, License
+        can :manage, LineItemQuotation
+        can :manage, LineItem
+        can :manage, List
+        can :manage, LtBank
+        can :manage, ManageInventoryRepair
+        can :manage, ManageInventoryRequest
+        can :manage, Parent
+        can :manage, PaymentMethod
+        can :manage, Payroll
+        can :manage, Plan
+        can :manage, ProgrammingSkill
+        can :manage, QuotationInvoice
+        can :manage, Quotation
+        can :manage, Relationship
+        can :manage, Role
+        can :manage, RollCall
+        can :manage, SchoolSetting
+        can :manage, School
         can :manage, SiteConfig
-        can :update, VacationLeaveRule
+        can :manage, Skill
+        can :manage, SoftSkill
+        can :manage, StudentList
+        can :manage, Student
+        can :manage, StudentsParent
+        can :manage, Supplier
+        can :manage, TaxReduction
+        can :manage, Taxrate
+        can :manage, TeacherAttendanceList
+        can :manage, User
+        can :manage, VacationConfig
+        can :manage, VacationLeaveRule
+        can :manage, VacationSetting
+        can :manage, VacationType
+        can :manage, Vacation
+        can :manage, :cannot_leave
         cannot :access, :rails_admin
         cannot :dashboard
       end

@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
   before_filter :validate_subdomain
 
   def prepare_school_config
-    return if session[:school_config]
     if !subdomain_blank?
       @school_config = SchoolSetting.get_cache(subdomain)
     end
@@ -17,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def notification_payment
-    if current_user.present?
+    if current_user.present? && !current_user.has_role?(:super_admin)
       @success = params[:success].present?
       return true if !SiteConfig.get_cache.web_cms or params[:cancel_check_plan] or request.path.include?('admin') or request.path.include?('purchases/new')
 

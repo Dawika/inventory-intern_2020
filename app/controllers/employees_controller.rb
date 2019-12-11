@@ -21,9 +21,10 @@ class EmployeesController < ApplicationController
 
   # GET /employees/:id/slip
   def slip
-    authorize! :manage, Employee
+    @employee = Employee.with_deleted.find(params[:id])
+    authorize! :manage, @employee
     if Payroll.where({ employee_id: params[:id], closed: true }).count > 0
-      employee = Employee.with_deleted.where(id: params[:id]).first.as_json({ slip: true, payroll_id: params[:payroll_id] })
+      employee = @employee.as_json({ slip: true, payroll_id: params[:payroll_id] })
       employee[:payroll][:fee_orders] = employee[:payroll][:fee_orders]
                                                         .select { |key, value| value[:value] > 0}
       employee[:payroll][:pay_orders] = employee[:payroll][:pay_orders]
@@ -74,16 +75,16 @@ class EmployeesController < ApplicationController
 
   # GET /employees/:id/payrolls
   def payrolls
-    payrolls = Employee.with_deleted.find(params[:id]).payrolls
-                       .order("created_at desc")
-                       .as_json("history")
+    @employee = Employee.with_deleted.find(params[:id])
+    authorize! :manage, @employee
+    payrolls = @employee.payrolls.order("created_at desc").as_json("history")
     render json: payrolls, status: :ok
   end
 
   # GET /employees/:id
   def show
-    authorize! :manage, Employee
     @employee = Employee.with_deleted.find(params[:id])
+    authorize! :manage, @employee
     tax_reduction = @employee.tax_reduction
     if params[:payroll_id]
       payroll = @employee.payroll(params[:payroll_id])
@@ -158,8 +159,10 @@ class EmployeesController < ApplicationController
 
   # POST /employees/:id/calculate_deduction
   def calculate_deduction
+    @employee = Employee.with_deleted.find(params[:id])
+    authorize! :manage, @employee
     p = JSON.parse(params[:payroll])
-    e = Employee.with_deleted.find(params[:id])
+    e = @employee
     e.employee_type = params[:employee_type]
     e.pay_pvf = params[:employee_pay_pvf]
     e.pay_social_insurance = params[:employee_pay_s_ins]
