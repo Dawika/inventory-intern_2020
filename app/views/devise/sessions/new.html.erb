@@ -46,7 +46,7 @@
           <% if (@school.present?) && (@school_config.enable_rollcall) && (@school_config.roll_call_apk_url)  %>
             <div class="row">
               <div class="download_android">
-                <a href="<%= @school.school_setting.roll_call_apk_url %>" target="_blank"><i class="fa fa-android"></i><%= t('download_somsri_rollcall') %></a>
+                <a href="<%= @school_config.roll_call_apk_url %>" target="_blank"><i class="fa fa-android"></i><%= t('download_somsri_rollcall') %></a>
               </div>
             </div>
           <% end %>

@@ -23,7 +23,7 @@ class SchoolSetting < ApplicationRecord
   def self.get_cache(subdomain)
     return Rails.cache.fetch("school_setting_#{subdomain}".to_sym) do
       school = School.find_by_subdomain_name(subdomain)
-      return school ? school.school_settings : nil
+      return school ? school.school_setting : nil
     end
   end
 
