@@ -2,11 +2,11 @@ class CandidatesController < ApplicationController
 
   def index
     filter_candidates
-    total = @candidate.size
-    @candidate = @candidate.offset(params[:offset]).limit(params[:limit])
-    
+    total = @candidates.size
+    @candidates = @candidates.offset(params[:offset]).limit(params[:limit])
+
     render json: {
-      rows: @candidate.as_json('data_table'),
+      rows: @candidates.as_json('data_table'),
       total: total
     }, status: :ok
   end
@@ -32,7 +32,7 @@ class CandidatesController < ApplicationController
     @candidate = Candidate.new(candidate_params)
     @candidate.save
   end
-  
+
   def edit
     @candidate = Candidate.find(params[:id])
     render json: { candidate: @candidate.as_json('show_or_edit') }, status: :ok
@@ -40,7 +40,7 @@ class CandidatesController < ApplicationController
 
   def show
     render json: { candidate: Candidate.with_deleted.where(id: params[:id]).first.as_json('show_or_edit') }, status: :ok
-  end    
+  end
 
   def update_candidate
     @candidate = Candidate.find_by(id: params[:id])
@@ -54,14 +54,14 @@ class CandidatesController < ApplicationController
   end
 
   def filter_candidates
-    @candidate = if params[:shortlist].present?
+    @candidates = if params[:shortlist].present?
                   Candidate.where(shortlist: true).order(created_at: 'desc')
-                 else 
+                 else
                   Candidate.where(shortlist: false).order(created_at: 'desc')
-                 end 
+                 end
     if params[:search].present?
       search = "%#{params[:search]}%"
-      @candidate = @candidate.where('full_name LIKE :search OR
+      @candidates = @candidates.where('full_name LIKE :search OR
                                   nick_name LIKE :search OR
                                   email LIKE :search OR
                                   candidates.from LIKE :search',
@@ -74,17 +74,17 @@ class CandidatesController < ApplicationController
       end
       case params[:sort]
       when 'link_full_name'
-        @candidate = Candidate.where(shortlist: params[:shortlist]).order(full_name: params[:order])
+        @candidates = Candidate.where(shortlist: params[:shortlist]).order(full_name: params[:order])
       when 'school_year'
-        @candidate = Candidate.where(shortlist: params[:shortlist]).order(school_year: params[:order])
+        @candidates = Candidate.where(shortlist: params[:shortlist]).order(school_year: params[:order])
       when 'current_ability'
-        @candidate = Candidate.where(shortlist: params[:shortlist]).order(current_ability: params[:order])
+        @candidates = Candidate.where(shortlist: params[:shortlist]).order(current_ability: params[:order])
       when 'learn_ability'
-        @candidate = Candidate.where(shortlist: params[:shortlist]).order(learn_ability: params[:order])
+        @candidates = Candidate.where(shortlist: params[:shortlist]).order(learn_ability: params[:order])
       when 'attention'
-        @candidate = Candidate.where(shortlist: params[:shortlist]).order(created_at: params[:order])
+        @candidates = Candidate.where(shortlist: params[:shortlist]).order(created_at: params[:order])
       when 'created_at'
-        @candidate = Candidate.where(shortlist: params[:shortlist]).order(created_at: params[:order])
+        @candidates = Candidate.where(shortlist: params[:shortlist]).order(created_at: params[:order])
       end
     end
   end
@@ -93,7 +93,7 @@ class CandidatesController < ApplicationController
     @candidate = Candidate.find_by(id: params[:id])
     @candidate.update(shortlist: params[:shortlist] == "true")
   end
-  
+
   private
 
   def candidate_params
@@ -102,9 +102,9 @@ class CandidatesController < ApplicationController
       programming_skills_attributes: [:id, :skill_name, :skill_point, :_destroy],
       soft_skills_attributes: [:id, :skill_name, :skill_point, :_destroy],
       design_skills_attributes: [:id, :skill_name, :skill_point, :_destroy],
-      candidate_files_attributes: [:id, :files, :_destroy]  
+      candidate_files_attributes: [:id, :files, :_destroy]
     )
   end
 
-  
+
 end

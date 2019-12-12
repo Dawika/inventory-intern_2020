@@ -9,21 +9,23 @@ class Ability
         can :manage, [:menu, :setting]
         can :manage, AccountType
         can :manage, Account
-        can :manage, Alumni
         can :manage, Bank
         can :manage, BilInfo
         can :manage, CandidateFile
         can :manage, Candidate
         can :manage, Category
         can :manage, ChargeInfo
-        can :manage, Classroom
         can :manage, DailyReport
         can :manage, DesignSkill
         can :manage, EmployeeSkill
         if SiteConfig.get_cache.web_cms
+          can :manage, Alumni, student: { school_id: user.school_id }
           can :manage, Employee, school_id: user.school_id
+          can :manage, Classroom, school_id: user.school_id
         else
+          can :manage, Alumni
           can :manage, Employee
+          can :manage, Classroom
         end
         can :manage, Evaluate
         can :manage, ExpenseItem
@@ -89,8 +91,13 @@ class Ability
         can :manage, Student
         can :manage, Parent
         can :manage, School #read
-        can :manage, Classroom
-        can :manage, Alumni
+        if SiteConfig.get_cache.web_cms
+          can :manage, Alumni, student: { school_id: user.school_id }
+          can :manage, Classroom, school_id: user.school_id
+        else
+          can :manage, Alumni
+          can :manage, Classroom
+        end
         can :manage, SiteConfig #read
         can :manage, Expense
         can :manage, ExpenseTag
@@ -105,7 +112,11 @@ class Ability
         can :manage, [:menu, :setting]
         can :manage, Invoice
         can :manage, Payroll
-        can :manage, Employee
+        if SiteConfig.get_cache.web_cms
+          can :manage, Employee, school_id: user.school_id
+        else
+          can :manage, Employee
+        end
         can :manage, Vacation
         can :manage, VacationConfig
         can :manage, Individual
@@ -120,13 +131,21 @@ class Ability
         can :manage, Inventory
         can :manage, InventoryRequest
         can :manage, InventoryRepair
-        can :manage, Employee
+        if SiteConfig.get_cache.web_cms
+          can :manage, Employee, school_id: user.school_id
+        else
+          can :manage, Employee
+        end
         can :manage, Supplier
       end
       if user.teacher?
         can :manage, [:menu, :setting]
         can :manage, Invoice
-        can :manage, Alumni
+        if SiteConfig.get_cache.web_cms
+          can :manage, Alumni, student: { school_id: user.school_id }
+        else
+          can :manage, Alumni
+        end
         can :manage, Student
         can :manage, Parent
         can :read, Individual
@@ -140,8 +159,13 @@ class Ability
         can :manage, Parent
         can :read, School
         can :manage, :setting
-        can :manage, Classroom
-        can :manage, Alumni
+        if SiteConfig.get_cache.web_cms
+          can :manage, Alumni, student: { school_id: user.school_id }
+          can :manage, Classroom, school_id: user.school_id
+        else
+          can :manage, Alumni
+          can :manage, Classroom
+        end
         can :read, SiteConfig
         can :manage, Expense
         can :manage, ExpenseTag

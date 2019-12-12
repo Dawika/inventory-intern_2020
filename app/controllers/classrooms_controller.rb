@@ -1,9 +1,8 @@
 class ClassroomsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:teacher_without_classroom]
 
   # GET /classrooms
   def index
-    @classrooms = Classroom.all.to_a
     if params[:next]
       output = []
       @classrooms.each do |classroom|
@@ -32,10 +31,9 @@ class ClassroomsController < ApplicationController
 
   # GET /classrooms/:id
   def show
-    classroom = Classroom.find(params[:id])
     classroom_result = {
-      classroom: classroom.name,
-      grade: classroom.grade ? classroom.grade.name : ""
+      classroom: @classroom.name,
+      grade: @classroom.grade ? @classroom.grade.name : ""
     }
     render json: classroom_result, status: :ok
   end
@@ -43,7 +41,7 @@ class ClassroomsController < ApplicationController
   # GET /classrooms/classroom_list
   def classroom_list
     classrooms = []
-    Classroom.where(school_id: current_user.school_id).each do |classroom|
+    @classrooms.each do |classroom|
       teacher_count = Employee.where(classroom_id: classroom.id).count
       student_count = Student.where(classroom_id: classroom.id).count
       classrooms << {
@@ -60,8 +58,7 @@ class ClassroomsController < ApplicationController
   # GET /classrooms/:id/teacher_list
   def teacher_list
     teachers = []
-    classroom = Classroom.find(params[:id])
-    Employee.where(classroom: classroom).each do |teacher|
+    @classroom.employees.each do |teacher|
       teachers << {
         img: teacher.img_url.exists? ? teacher.img_url.expiring_url(10, :medium) : nil,
         name: teacher.full_name_with_nickname,
@@ -119,7 +116,7 @@ class ClassroomsController < ApplicationController
 
   # PATCH /classrooms/:id/update_list
   def update_list
-    classroom = Classroom.where(id: params[:id]).first
+    classroom = @classroom
     if classroom
       teacher_ids = params[:teacher_ids]
       if teacher_ids
@@ -145,7 +142,7 @@ class ClassroomsController < ApplicationController
       end
     end
     _student_promote([nil, ''], true) # start with next_id = nil
-    Classroom.find_by_sql(
+    @classrooms.find_by_sql(
       "SELECT * FROM classrooms c1
       JOIN classrooms c2 ON c1.id = c2.id
       WHERE c1.id = c2.next_id").each do |classroom|
