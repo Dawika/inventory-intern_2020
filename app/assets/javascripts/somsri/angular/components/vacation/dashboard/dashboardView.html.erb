@@ -162,10 +162,10 @@
             <p class="color-gray mt-5 mb-0">{{ vacation.detail }}</p>
           </div>
           <div class="col-md-2 icon-check" ng-show="vacation.status == 'pending'">
-            <i class='fa fa-check color-green fa-lg' aria-hidden='true' ng-click="dashboard.approvedVacation(vacation.id)"></i>
+            <a href="#/vacation/dashboard/"><i class='fa fa-check color-green fa-lg' aria-hidden='true' ng-click="dashboard.approvedVacation(vacation.id)"></i></a>
           </div>
           <div class="col-md-1" ng-show="vacation.status == 'pending'">
-            <i class='fa fa-times color-red fa-lg' aria-hidden='true' ng-click="dashboard.rejectedVacation(vacation.id)"></i>
+            <a href="#/vacation/dashboard/"><i class='fa fa-times color-red fa-lg' aria-hidden='true' ng-click="dashboard.rejectedVacation(vacation.id)"></i></a>
           </div>
           <div class="row">
             <div class="col-md-12 p-0">
