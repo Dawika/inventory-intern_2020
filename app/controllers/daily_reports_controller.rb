@@ -3,9 +3,9 @@ class DailyReportsController < ApplicationController
   skip_before_action :verify_authenticity_token, :only => [:create]
   load_and_authorize_resource
 
-  # GET /daily_reports
+  # GET /daily_reports/:id
   def show
-    school = School.first
+    school = current_user.school || School.first
     render json: {
       school: school,
       header: school.daily_report_header_with_logo,

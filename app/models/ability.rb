@@ -15,17 +15,28 @@ class Ability
         can :manage, Candidate
         can :manage, Category
         can :manage, ChargeInfo
-        can :manage, DailyReport
         can :manage, DesignSkill
         can :manage, EmployeeSkill
         if SiteConfig.get_cache.web_cms
           can :manage, Alumni, student: { school_id: user.school_id }
-          can :manage, Employee, school_id: user.school_id
           can :manage, Classroom, school_id: user.school_id
+          can :manage, DailyReport, user: { school_id: user.school_id }
+          can :manage, Employee, school_id: user.school_id
+          can :manage, Invoice, school_id: user.school_id
+          can :manage, Parent, school_id: user.school_id
+          can :manage, Quotation, user: { school_id: user.school_id }
+          can :manage, School, id: user.school_id
+          can :manage, Student, school_id: user.school_id
         else
           can :manage, Alumni
-          can :manage, Employee
           can :manage, Classroom
+          can :manage, DailyReport
+          can :manage, Employee
+          can :manage, Invoice
+          can :manage, Parent
+          can :manage, Quotation
+          can :manage, School
+          can :manage, Student
         end
         can :manage, Evaluate
         can :manage, ExpenseItem
@@ -42,7 +53,6 @@ class Ability
         can :manage, InventoryRequest
         can :manage, Inventory
         can :manage, InvoiceStatus
-        can :manage, Invoice
         can :manage, License
         can :manage, LineItemQuotation
         can :manage, LineItem
@@ -50,23 +60,19 @@ class Ability
         can :manage, LtBank
         can :manage, ManageInventoryRepair
         can :manage, ManageInventoryRequest
-        can :manage, Parent
         can :manage, PaymentMethod
         can :manage, Payroll
         can :manage, Plan
         can :manage, ProgrammingSkill
         can :manage, QuotationInvoice
-        can :manage, Quotation
         can :manage, Relationship
         can :manage, Role
         can :manage, RollCall
         can :manage, SchoolSetting
-        can :manage, School
         can :manage, SiteConfig
         can :manage, Skill
         can :manage, SoftSkill
         can :manage, StudentList
-        can :manage, Student
         can :manage, StudentsParent
         can :manage, Supplier
         can :manage, TaxReduction
@@ -84,38 +90,44 @@ class Ability
       end
       if  user.finance_officer?
         can :manage, [:menu, :setting]
-        can :manage, Invoice
         can :manage, InvoiceStatus
-        can :manage, DailyReport
         can :manage, Grade #read
-        can :manage, Student
-        can :manage, Parent
-        can :manage, School #read
         if SiteConfig.get_cache.web_cms
           can :manage, Alumni, student: { school_id: user.school_id }
           can :manage, Classroom, school_id: user.school_id
+          can :manage, DailyReport, user: { school_id: user.school_id }
+          can :manage, Invoice, school_id: user.school_id
+          can :manage, Parent, school_id: user.school_id
+          can :manage, Quotation, user: { school_id: user.school_id }
+          can :manage, School, id: user.school_id
+          can :manage, Student, school_id: user.school_id
         else
           can :manage, Alumni
           can :manage, Classroom
+          can :manage, DailyReport
+          can :manage, Invoice
+          can :manage, Parent
+          can :manage, Quotation
+          can :manage, School
+          can :manage, Student
         end
         can :manage, SiteConfig #read
         can :manage, Expense
         can :manage, ExpenseTag
         can :manage, ExpenseItem
         can :manage, Bank
-        can :manage, Quotation
         can :manage, QuotationInvoice
         can :manage, LineItemQuotation
-        can :read, School
       end
       if user.human_resource?
         can :manage, [:menu, :setting]
-        can :manage, Invoice
         can :manage, Payroll
         if SiteConfig.get_cache.web_cms
           can :manage, Employee, school_id: user.school_id
+          can :manage, Invoice, school_id: user.school_id
         else
           can :manage, Employee
+          can :manage, Invoice
         end
         can :manage, Vacation
         can :manage, VacationConfig
@@ -140,31 +152,39 @@ class Ability
       end
       if user.teacher?
         can :manage, [:menu, :setting]
-        can :manage, Invoice
         if SiteConfig.get_cache.web_cms
           can :manage, Alumni, student: { school_id: user.school_id }
+          can :manage, Invoice, school_id: user.school_id
+          can :manage, Parent, school_id: user.school_id
+          can :manage, Student, school_id: user.school_id
         else
           can :manage, Alumni
+          can :manage, Invoice
+          can :manage, Parent
+          can :manage, Student
         end
-        can :manage, Student
-        can :manage, Parent
         can :read, Individual
       end
       if user.employee?
         can :manage, [:menu, :setting]
-        can :read, Invoice
-        can :manage, DailyReport
         can :read, Grade
-        can :manage, Student
-        can :manage, Parent
-        can :read, School
         can :manage, :setting
         if SiteConfig.get_cache.web_cms
           can :manage, Alumni, student: { school_id: user.school_id }
           can :manage, Classroom, school_id: user.school_id
+          can :manage, DailyReport, user: { school_id: user.school_id }
+          can :read, Invoice, school_id: user.school_id
+          can :manage, Parent, school_id: user.school_id
+          can :read, School, id: user.school_id
+          can :manage, Student, school_id: user.school_id
         else
           can :manage, Alumni
           can :manage, Classroom
+          can :manage, DailyReport
+          can :read, Invoice
+          can :manage, Parent
+          can :read, School
+          can :manage, Student
         end
         can :read, SiteConfig
         can :manage, Expense
@@ -217,6 +237,7 @@ class Ability
     manage[:vacation_config] = true if self.can? :manage, VacationConfig
     manage[:inventory] = true if self.can? :manage, Inventory
     manage[:employee] = true if self.can? :manage, Employee
+    manage[:quotation] = true if self.can? :manage, Quotation
     manage[:employee_me] = true
     update[:vacation_leave_rules] = true if self.can? :update, VacationLeaveRule
     manage[:supplier_details] = true if self.can :manage, Supplier

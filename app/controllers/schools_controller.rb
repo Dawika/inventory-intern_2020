@@ -1,5 +1,4 @@
 class SchoolsController < ApplicationController
-  
     def new
       @school = School.new
       @school.users.build
@@ -7,9 +6,9 @@ class SchoolsController < ApplicationController
       @school.build_bil_info
       @plans = Plan.all.order(id: 'asc')
     end
-  
+
     def create
-      ActiveRecord::Base.transaction do     
+      ActiveRecord::Base.transaction do
         @school = School.new(school_params)
         @school.auto_subscribe = params[:skip].blank?
         # 4242424242424242 <= credit card number for testing
@@ -29,17 +28,17 @@ class SchoolsController < ApplicationController
           redirect_to change_subdomains_url(subdomain: @school.subdomain_name, id: user)
         else
           redirect_to new_school_path
-        end        
+        end
       end
     end
 
     def update
       @school = School.find_by(id: params[:id])
       @school.update(params[:logo])
-    end  
-  
+    end
+
     private
-  
+
     def school_params
       params.require(:school).permit(
         :name,
@@ -61,4 +60,3 @@ class SchoolsController < ApplicationController
       )
     end
   end
-  

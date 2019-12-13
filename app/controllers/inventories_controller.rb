@@ -10,18 +10,13 @@ class InventoriesController < ApplicationController
     start_date_add = Time.zone.parse(params[:start_date_add]).beginning_of_day if isDate(params[:start_date_add])
     end_date_add = Time.zone.parse(params[:end_date_add]).end_of_day if isDate(params[:end_date_add])
     check_box = params[:check_box]
-		
-		# inventories = get_inventories(params[:search_keyword],start_date_purchase,end_date_purchase,params[:page])
-		# if params[:page] && inventories.total_pages < inventories.current_page
-		# 	inventories = get_inventories(params[:search_keyword],start_date_purchase,end_date_purchase)
-		# end
 
 		inventories = Inventory.all
 
 		if page
 			inventories = inventories.search(search) if search.present?
 
-	    if check_box 
+	    if check_box
 	    	inventories = inventories.joins(:category).where(categories: { category_id: check_box })
 	    end
 
@@ -33,9 +28,9 @@ class InventoriesController < ApplicationController
 	    inventories = inventories.order(updated_at: :desc)
 
 			result = {}
-			if params[:bootstrap_table].to_s == "1" 
+			if params[:bootstrap_table].to_s == "1"
 				result = inventories.as_json({ bootstrap_table: true })
-			else 
+			else
 				result = {
 					inventories: inventories.as_json(methods:[:categories])
 				}
@@ -46,7 +41,7 @@ class InventoriesController < ApplicationController
 				end
 			end
 			render json: result, status: :ok
-			
+
 		 else
 		 	result = {
 		 		inventories: inventories.as_json(methods:[:categories, :inventory_requests])
@@ -58,7 +53,7 @@ class InventoriesController < ApplicationController
 	end
 
 	# GET: /inventories/:id
-	def show 
+	def show
 		inventory = Inventory.find(params[:id])
 		render json: inventory.as_json(methods:[:categories, :inventory_requests]), status: :ok
 	end
@@ -68,7 +63,7 @@ class InventoriesController < ApplicationController
 	end
 
 	#POST: /inventories
-	def create 
+	def create
 
 		#i = Inventory.find(1);
     #e = i.employee
