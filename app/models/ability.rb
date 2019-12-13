@@ -24,6 +24,7 @@ class Ability
           can :manage, Employee, school_id: user.school_id
           can :manage, Invoice, school_id: user.school_id
           can :manage, Parent, school_id: user.school_id
+          can :manage, Payroll, employee: { school_id: user.school_id }
           can :manage, Quotation, user: { school_id: user.school_id }
           can :manage, School, id: user.school_id
           can :manage, Student, school_id: user.school_id
@@ -34,6 +35,7 @@ class Ability
           can :manage, Employee
           can :manage, Invoice
           can :manage, Parent
+          can :manage, Payroll
           can :manage, Quotation
           can :manage, School
           can :manage, Student
@@ -61,7 +63,6 @@ class Ability
         can :manage, ManageInventoryRepair
         can :manage, ManageInventoryRequest
         can :manage, PaymentMethod
-        can :manage, Payroll
         can :manage, Plan
         can :manage, ProgrammingSkill
         can :manage, QuotationInvoice
@@ -121,13 +122,14 @@ class Ability
       end
       if user.human_resource?
         can :manage, [:menu, :setting]
-        can :manage, Payroll
         if SiteConfig.get_cache.web_cms
           can :manage, Employee, school_id: user.school_id
           can :manage, Invoice, school_id: user.school_id
+          can :manage, Payroll, employee: { school_id: user.school_id }
         else
           can :manage, Employee
           can :manage, Invoice
+          can :manage, Payroll
         end
         can :manage, Vacation
         can :manage, VacationConfig
