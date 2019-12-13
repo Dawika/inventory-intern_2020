@@ -250,8 +250,9 @@ class Payroll < ApplicationRecord
 
     def self.generate_tax(payroll, employee)
       payroll_real = Payroll.where(id: payroll["id"]).first
-      if payroll_real.employee && payroll_real.employee.school && payroll_real.employee.school.school_settings.first
-        using_tax = payroll_real.employee.school.school_settings.first.tax
+      employee_real = Employee.where(id: employee["id"]).first
+      if employee_real && employee_real.school
+        using_tax = employee_real.school.school_setting.tax
       else
         using_tax = SiteConfig.get_cache.tax
       end

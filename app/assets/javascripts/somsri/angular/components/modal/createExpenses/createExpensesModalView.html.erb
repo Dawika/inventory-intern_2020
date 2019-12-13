@@ -179,12 +179,12 @@
   </form>
 </div>
 
+<% if @school_config && @school_config.first_expense_tab == 'item' %>
 <script>
-  <% if @school_config.first_expense_tab == 'item' %>
     $(document).ready(function() {
       var itemTab = $('#expenseTabSet .nav-tabs #item')
       itemTab.prependTo('#expenseTabSet .nav-tabs');
       itemTab.find('a').click();
     })
-  <% end %>
 </script>
+<% end %>

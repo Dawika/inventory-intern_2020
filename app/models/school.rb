@@ -21,7 +21,7 @@ class School < ApplicationRecord
   after_create :create_license
 
   def school_setting
-    school_settings.first || school_settings.create!(school_year: Time.current.year + 543)
+    school_settings.first || SiteConfig.get_cache
   end
 
   def create_license
