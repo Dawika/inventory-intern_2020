@@ -1,10 +1,10 @@
 class EmployeesController < ApplicationController
   load_and_authorize_resource except: [:slip, :show, :payrolls, :calculate_deduction]
   skip_before_action :verify_authenticity_token, :only => [:update, :create, :destroy]
-  before_action :load_resource
 
   # GET /employees
   def index
+    puts "EEEEEEEEEEE #{@employees.count}"
     employee = @employees.with_deleted.order('employees.deleted_at DESC ,employees.start_date ASC, employees.created_at ASC')
                               .as_json(employee_list: true)
     render json: employee, status: :ok
