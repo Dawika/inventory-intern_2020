@@ -56,7 +56,7 @@ class Employee < ApplicationRecord
   def has_last_salary
     has_last_closed_payroll = self.payrolls.size > 0 && self.last_closed_payroll
     {
-      salary: (has_last_closed_payroll ? self.last_closed_payroll.salary.to_f : 0) > 0 
+      salary: (has_last_closed_payroll ? self.last_closed_payroll.salary.to_f : 0) > 0
     }
   end
 
@@ -120,7 +120,11 @@ class Employee < ApplicationRecord
   def annual_income_outcome(id)
     employee = Employee.with_deleted.find(id)
 
-    year = employee.last_closed_payroll.effective_date.year
+    year = if employee.last_closed_payroll && employee.last_closed_payroll.effective_date
+      employee.last_closed_payroll.effective_date.year
+    else
+      DateTime.now.year
+    end
     start_year = Date.new(year, 1, 1)
     end_year = Date.new(year, 12, 31)
 

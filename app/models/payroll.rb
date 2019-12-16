@@ -178,16 +178,18 @@ class Payroll < ApplicationRecord
       begin_of_year = Date.new(date_now.year, 1, 1).beginning_of_year
       before_current_day = Date.new(date_now.year, (date_now.month), date_now.day-1)
 
-      before_income = 0
-      employee.payrolls.where(effective_date: [begin_of_year..before_current_day]).each do |pr|
-        before_income += (pr["salary"].to_i + pr["allowance"].to_i + pr["attendance_bonus"].to_i + pr["ot"].to_i + pr["bonus"].to_i + pr["position_allowance"].to_i + pr["extra_etc"].to_i - pr["absence"].to_i - pr["late"].to_i - generate_social_insurance(pr, employee).to_i)
-      end
-
       last_payroll_month = employee.payrolls.where(effective_date: [begin_of_year..before_current_day]).order(effective_date: :desc)&.first&.effective_date&.month
       remain_month = (12 - (date_now.month - 1))
-      remain_month -= 1 if (last_payroll_month == date_now.month)
-
-      before_income + (current_income * remain_month)
+      if last_payroll_month.nil?
+        (current_income * remain_month)
+      else
+        before_income = 0
+        employee.payrolls.where(effective_date: [begin_of_year..before_current_day]).each do |pr|
+          before_income += (pr["salary"].to_i + pr["allowance"].to_i + pr["attendance_bonus"].to_i + pr["ot"].to_i + pr["bonus"].to_i + pr["position_allowance"].to_i + pr["extra_etc"].to_i - pr["absence"].to_i - pr["late"].to_i - generate_social_insurance(pr, employee).to_i)
+        end
+        remain_month -= 1 if (last_payroll_month == date_now.month)
+        before_income + (current_income * remain_month)
+      end
     end
 
     def self.tax_break(payroll, tax_reduction)
