@@ -27,6 +27,14 @@ class SchoolSetting < ApplicationRecord
     end
   end
 
+  def expense_tag_tree_hash
+    if self.expense_tag_tree.present?
+      return JSON.parse(self.expense_tag_tree).collect { |ett| ett.deep_symbolize_keys }
+    else
+      return []
+    end
+  end
+
   def school_year
     self[:school_year] ? self[:school_year] : Time.current.year + 543
   end
