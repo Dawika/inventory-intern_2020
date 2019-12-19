@@ -12,7 +12,7 @@ class User < ApplicationRecord
   belongs_to :role
   delegate :can?, :cannot?, :to => :ability
 
-  validates :full_name, presence: true
+  validates :full_name, presence: true, on: :create
   validates :email, presence: true, allow_blank: false, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, presence: true, allow_blank: false, confirmation: true
   accepts_nested_attributes_for :school
