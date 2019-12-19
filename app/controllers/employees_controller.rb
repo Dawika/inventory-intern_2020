@@ -4,7 +4,6 @@ class EmployeesController < ApplicationController
 
   # GET /employees
   def index
-    puts "EEEEEEEEEEE #{@employees.count}"
     employee = @employees.with_deleted.order('employees.deleted_at DESC ,employees.start_date ASC, employees.created_at ASC')
                               .as_json(employee_list: true)
     render json: employee, status: :ok
