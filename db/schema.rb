@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191213084525) do
+ActiveRecord::Schema.define(version: 20191224141653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,8 @@ ActiveRecord::Schema.define(version: 20191213084525) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "bank_id"
+    t.integer  "school_id"
+    t.index ["school_id"], name: "index_banks_on_school_id", using: :btree
   end
 
   create_table "bil_infos", force: :cascade do |t|
@@ -436,8 +438,10 @@ ActiveRecord::Schema.define(version: 20191213084525) do
   end
 
   create_table "expense_tags", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
+    t.string  "name"
+    t.string  "description"
+    t.integer "school_id"
+    t.index ["school_id"], name: "index_expense_tags_on_school_id", using: :btree
   end
 
   create_table "expenses", force: :cascade do |t|
@@ -458,6 +462,8 @@ ActiveRecord::Schema.define(version: 20191213084525) do
     t.string   "cheque_date"
     t.string   "transfer_bank_name"
     t.string   "transfer_date"
+    t.integer  "school_id"
+    t.index ["school_id"], name: "index_expenses_on_school_id", using: :btree
   end
 
   create_table "genders", force: :cascade do |t|
@@ -470,6 +476,8 @@ ActiveRecord::Schema.define(version: 20191213084525) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "school_id"
+    t.index ["school_id"], name: "index_grades_on_school_id", using: :btree
   end
 
   create_table "grouping_report_options", force: :cascade do |t|
@@ -900,7 +908,6 @@ ActiveRecord::Schema.define(version: 20191213084525) do
     t.string  "bank_account"
     t.boolean "enable_scout",                         default: false
     t.string  "reserved_subdomains"
-    t.string  "first_expense_tab", default: "upload_photo"
     t.index ["school_id"], name: "index_school_settings_on_school_id", using: :btree
   end
 
@@ -974,7 +981,7 @@ ActiveRecord::Schema.define(version: 20191213084525) do
     t.boolean "show_student_number_in_roll_call_report", default: false
     t.boolean "enable_scout",                            default: false
     t.string  "reserved_subdomains"
-    t.string  "first_expense_tab",                    default: "upload_photo"
+    t.string  "first_expense_tab",                       default: "upload_photo"
     t.string  "roll_call_apk_url"
   end
 
@@ -1261,6 +1268,7 @@ ActiveRecord::Schema.define(version: 20191213084525) do
     t.index ["student_id"], name: "index_visa_papers_on_student_id", using: :btree
   end
 
+  add_foreign_key "banks", "schools"
   add_foreign_key "bil_infos", "schools"
   add_foreign_key "candidate_files", "candidates"
   add_foreign_key "charge_infos", "licenses"
@@ -1278,6 +1286,9 @@ ActiveRecord::Schema.define(version: 20191213084525) do
   add_foreign_key "evaluates", "interviewer_emails"
   add_foreign_key "evaluates", "interviews"
   add_foreign_key "expense_items", "expense_tags"
+  add_foreign_key "expense_tags", "schools"
+  add_foreign_key "expenses", "schools"
+  add_foreign_key "grades", "schools"
   add_foreign_key "individuals", "employees", column: "child_id"
   add_foreign_key "individuals", "employees", column: "emergency_call_id"
   add_foreign_key "individuals", "employees", column: "friend_id"
