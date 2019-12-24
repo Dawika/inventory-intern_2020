@@ -9,7 +9,6 @@ class Ability
         can :manage, [:menu, :setting]
         can :manage, AccountType
         can :manage, Account
-        can :manage, Bank
         can :manage, BilInfo
         can :manage, CandidateFile
         can :manage, Candidate
@@ -19,6 +18,7 @@ class Ability
         can :manage, EmployeeSkill
         if SiteConfig.get_cache.web_cms
           can :manage, Alumni, student: { school_id: user.school_id }
+          can :manage, Bank, school_id: user.school_id
           can :manage, Classroom, school_id: user.school_id
           can :manage, DailyReport, user: { school_id: user.school_id }
           can :manage, Employee, school_id: user.school_id
@@ -30,6 +30,7 @@ class Ability
           can :manage, Student, school_id: user.school_id
         else
           can :manage, Alumni
+          can :manage, Bank
           can :manage, Classroom
           can :manage, DailyReport
           can :manage, Employee
@@ -95,6 +96,7 @@ class Ability
         can :manage, Grade #read
         if SiteConfig.get_cache.web_cms
           can :manage, Alumni, student: { school_id: user.school_id }
+          can :manage, Bank, school_id: user.school_id
           can :manage, Classroom, school_id: user.school_id
           can :manage, DailyReport, user: { school_id: user.school_id }
           can :manage, Invoice, school_id: user.school_id
@@ -104,6 +106,7 @@ class Ability
           can :manage, Student, school_id: user.school_id
         else
           can :manage, Alumni
+          can :manage, Bank
           can :manage, Classroom
           can :manage, DailyReport
           can :manage, Invoice
@@ -116,7 +119,6 @@ class Ability
         can :manage, Expense
         can :manage, ExpenseTag
         can :manage, ExpenseItem
-        can :manage, Bank
         can :manage, QuotationInvoice
         can :manage, LineItemQuotation
       end
