@@ -73,7 +73,7 @@ class VacationsController < ApplicationController
 
     render json: {
       maximum_personal_leave: current_user.employee.personal_leave_maximum_days_per_year,
-      remaining_day: current_user.employee.leave_remaining,
+      personal_leave_remaining_day: current_user.employee.personal_leave_remaining,
       maximum_leave: current_user.employee.maximum_leave,
       remaining_day: current_user.employee.leave_remaining,
       sick_leave: sick_leave_count,
