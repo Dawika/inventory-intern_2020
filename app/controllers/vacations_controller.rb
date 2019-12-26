@@ -122,10 +122,6 @@ class VacationsController < ApplicationController
     redirect_to redirect_to_url
   end
 
-  def response_mail_admin(vacation)
-    VacationMailer.send_mail_to_admin(vacation)
-  end
-
   private
 
   def vacation_params
