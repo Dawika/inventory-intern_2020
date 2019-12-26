@@ -1,4 +1,4 @@
-<%= @user.full_name %> ยื่นคำขอลากิจ ซึ่งมีวันลาคงเหลือ <%= @user.leave_remaining %>/<%= @user.maximum_leave %> ในวันที่  <%= @vacation.start_date %> ถึงวันที่ <%= @vacation.end_date %>
+<%= @user.full_name %> ยื่นคำขอลากิจ ซึ่งมีวันลาคงเหลือ <%= @user.personal_leave_remaining %>/<%= @user.personal_leave_maximum_days_per_year %> ในวันที่  <%= @vacation.start_date %> ถึงวันที่ <%= @vacation.end_date %>
 <br/><br/>
 ด้วยเหตุผล
 <br/>
