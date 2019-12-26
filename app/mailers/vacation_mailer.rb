@@ -58,15 +58,15 @@ class VacationMailer < ApplicationMailer
     mail(to: recipient.email, subject: "#{@user.full_name} ยื่นคำขอทำงานที่บ้าน")
   end
 
-  def self.approved_rejected(vacation)
-    send_approved_rejected(vacation.requester, vacation)
-    recipients = User.with_role(:approver)
+  def self.response_mail(vacation)
+    send_response_mail(vacation.requester, vacation)
+    recipients = User.with_any_role(:approver, :admin, :human_resource)
     recipients.each do |recipient|
-      send_approved_rejected(recipient, vacation).deliver
+      send_response_mail(recipient, vacation).deliver
     end
   end
 
-  def send_approved_rejected(recipient, vacation)
+  def send_response_mail(recipient, vacation)
     @vacation = vacation
     setup_link(vacation)
     mail(to: recipient.email, subject: "ผลการยื่นคำขอ #{vacation.vacation_type.name}")

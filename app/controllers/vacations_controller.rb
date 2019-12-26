@@ -90,7 +90,7 @@ class VacationsController < ApplicationController
       vacation.status = 'approved'
       vacation.approver = current_user.employee
       if vacation.save
-        VacationMailer.approved_rejected(vacation)
+        VacationMailer.response_mail(vacation)
         # redirect_to '/somsri#/vacation/dashboard/approved'
       else
         # redirect_to '/somsri#/vacation/dashboard/error'
@@ -98,7 +98,7 @@ class VacationsController < ApplicationController
     else
       # redirect_to '/somsri#/vacation/dashboard/'
     end
-    response_mail_admin(vacation)
+    # response_mail_admin(vacation)
   end
 
   def reject
@@ -109,7 +109,7 @@ class VacationsController < ApplicationController
       vacation.status = 'rejected'
       vacation.approver = current_user.employee
       if vacation.save
-        VacationMailer.approved_rejected(vacation)
+        VacationMailer.response_mail(vacation)
         # redirect_to '/somsri#/vacation/dashboard/rejected'
       else
         # redirect_to '/somsri#/vacation/dashboard/error'
@@ -117,7 +117,7 @@ class VacationsController < ApplicationController
     else
       # redirect_to '/somsri#/vacation/dashboard/'
     end
-    response_mail_admin(vacation)
+    # response_mail_admin(vacation)
   end
 
   def response_mail_admin(vacation)
