@@ -91,7 +91,7 @@ class Ability
 
         if user.approver?
           can :manage, VacationConfig
-          can [:approve, :reject], Vacation
+          can [:approve, :reject, :read, :dashboard], Vacation
         else
           can :read, VacationConfig
         end

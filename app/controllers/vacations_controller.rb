@@ -57,7 +57,7 @@ class VacationsController < ApplicationController
 
     is_me = params["me"].present?
 
-    if is_me && (current_user.super_admin? || current_user.admin? || current_user.human_resource?)
+    if is_me && (current_user.super_admin? || current_user.admin? || current_user.human_resource? || current_user.approver?)
       @vacations = @vacations.where(requester_id: current_user.id)
     end
 
@@ -73,7 +73,7 @@ class VacationsController < ApplicationController
 
     render json: {
       maximum_personal_leave: current_user.employee.personal_leave_maximum_days_per_year,
-      personal_leave_remaining_day: current_user.employee.personal_leave_remaining,
+      remaining_day: current_user.employee.leave_remaining,
       maximum_leave: current_user.employee.maximum_leave,
       remaining_day: current_user.employee.leave_remaining,
       sick_leave: sick_leave_count,
@@ -93,14 +93,14 @@ class VacationsController < ApplicationController
       vacation.approver = current_user.employee
       if vacation.save
         VacationMailer.response_mail(vacation)
-        # redirect_to '/somsri#/vacation/dashboard/approved'
+        redirect_to_url = '/somsri#/vacation/dashboard/approved'
       else
-        # redirect_to '/somsri#/vacation/dashboard/error'
+        redirect_to_url = '/somsri#/vacation/dashboard/error'
       end
     else
-      # redirect_to '/somsri#/vacation/dashboard/'
+      redirect_to_url = '/somsri#/vacation/dashboard/'
     end
-    # response_mail_admin(vacation)
+    redirect_to redirect_to_url
   end
 
   def reject
@@ -112,14 +112,14 @@ class VacationsController < ApplicationController
       vacation.approver = current_user.employee
       if vacation.save
         VacationMailer.response_mail(vacation)
-        # redirect_to '/somsri#/vacation/dashboard/rejected'
+        redirect_to_url = '/somsri#/vacation/dashboard/rejected'
       else
-        # redirect_to '/somsri#/vacation/dashboard/error'
+        redirect_to_url = '/somsri#/vacation/dashboard/error'
       end
     else
-      # redirect_to '/somsri#/vacation/dashboard/'
+      redirect_to_url = '/somsri#/vacation/dashboard/'
     end
-    # response_mail_admin(vacation)
+    redirect_to redirect_to_url
   end
 
   def response_mail_admin(vacation)

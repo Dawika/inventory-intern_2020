@@ -195,11 +195,11 @@
     }
 
     function onChangeSelectRole(roles) {
-      ctrl.is_me = false 
+      ctrl.is_me = false
       var object = roles
 
       for (var i = 0; i < roles.length; i++) {
-        if (roles[i] == 'human_resource' || roles[i] == 'admin') {
+        if (roles[i] == 'human_resource' || roles[i] == 'admin' || roles[i] == 'approver') {
           ctrl.is_me = true
           break
         } else {
@@ -221,10 +221,6 @@
             ctrl.vacation_is_me.push(value)
           }
         });
-        // if (vc.vacation.status == "pending") {
-        //   console.log("pending")
-        // }
-        // ctrl.vacation_is_me = response.data;
       }, function(e) {
         console.log(e)
       });
