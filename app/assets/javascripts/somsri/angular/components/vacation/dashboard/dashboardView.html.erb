@@ -11,8 +11,8 @@
           <div class="col-md-12 p-0">
             <h5 class="title">{{ 'remaining_day' | translate }}:</h5>
             <div class="count orange">
-              {{ dashboard.vacation.remaining_day }}
-              <span class="quota m-0">/ {{ dashboard.vacation.maximum_leave }}</span>
+              {{ dashboard.vacation.personal_leave_remaining_day }}
+              <span class="quota m-0">/ {{ dashboard.vacation.maximum_personal_leave }}</span>
             </div>
           </div>
         </div>
@@ -142,7 +142,7 @@
     </div>
 
   </div>
-  <div class="row mt-15" ng-show="dashboard.is_me"> 
+  <div class="row mt-15" ng-show="dashboard.is_me">
     <div class="col-md-6 p-5">
       <div class="content-wrapper min-h-350 px-50 pt-20">
         <div class="row">
