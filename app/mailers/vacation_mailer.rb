@@ -61,10 +61,12 @@ class VacationMailer < ApplicationMailer
   def self.response_mail(vacation)
     send_response_mail(vacation.requester, vacation)
     recipients = User.with_any_role(:approver, :admin, :human_resource)
+    is_requester = false
     recipients.each do |recipient|
       send_response_mail(recipient, vacation).deliver
+      is_requester = true if recipient.id == vacation.requester.id
     end
-    send_mail_request(vacation.requester, vacation).deliver
+    send_mail_to_requester(vacation.requester, vacation).deliver if !is_requester
   end
 
   def send_response_mail(recipient, vacation)
@@ -79,7 +81,7 @@ class VacationMailer < ApplicationMailer
     @dashboard_url = "#{ENV['DEFAULT_SITE_URL'] || Figaro.env.ENDPOINT}/somsri#/vacation/dashboard/"
   end
 
-  def send_mail_request(recipient, vacation)
+  def send_mail_to_requester(recipient, vacation)
     @vacation = vacation
     mail(to: recipient.email, subject: "#{vacation.approver.first_name} ได้ #{I18n.t(@vacation.status)} คำขอของ #{vacation.requester.first_name}")
   end
