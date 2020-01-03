@@ -34,4 +34,16 @@ class Vacation < ApplicationRecord
       created_at: self.created_at.strftime('%d/%m/%Y'),
     }
   end
+
+  def date_to_s
+    if end_date && start_date != end_date
+      if vacation_type.name == 'สลับวันทำงาน'
+        "จากวันที่ #{start_date} เป็นวันที่ #{end_date}"
+      else
+        "ตั้งแต่ #{start_date} ถึงวันที่ #{end_date}"
+      end
+    else
+      "ในวันที่ #{start_date}"
+    end
+  end
 end

@@ -1,9 +1,19 @@
 class VacationMailer < ApplicationMailer
+  def self.notify(user, vacation)
+    recipients = User.with_any_role(:admin, :human_resource)
+    recipients.each do |recipient|
+      send_notification(recipient, user, vacation).deliver
+    end
+  end
+
+  def send_notification(recipient, user, vacation)
+    @user = user
+    @vacation = vacation
+    mail(to: recipient.email, subject: "#{@user.full_name} #{@vacation.vacation_type.name}")
+  end
 
   def self.sick_leave_request(user, vacation)
-
     recipients = User.with_role(:approver)
-
     recipients.each do |recipient|
       send_sick_leave_request(recipient, user, vacation).deliver
     end
