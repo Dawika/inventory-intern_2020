@@ -37,6 +37,8 @@ class VacationsController < ApplicationController
     if vacation.save
       if send_approve_mail
         send_vacation_request(vacation)
+      else
+        send_notification_email(vacation)
       end
       render json: vacation, status: :ok
     else
@@ -143,6 +145,10 @@ class VacationsController < ApplicationController
     when 'work_at_home'
       VacationType.where(name: 'ทำงานที่บ้าน').first
     end
+  end
+
+  def send_notification_email(vacation)
+    VacationMailer.notify(current_user.employee, vacation)
   end
 
   def send_vacation_request(vacation)
