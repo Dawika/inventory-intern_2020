@@ -156,10 +156,15 @@
         var title = vacation.requester + " " + vacation.detail;
         var startDate = moment(vacation.start_at);
         var endDate = moment(vacation.end_at);
+        var description = vacation.requester + ' ' + vacationTypeName;
+        if(vacation.detail && vacation.detail != '') {
+          description += '\nหมายเหตุ: ' + vacation.detail;
+        }
         var event = {
           'title': title,
           'start': vacation.start_at,
-          'allDay': true
+          'allDay': true,
+          'description': description
         }
         if (!startDate.isSame(endDate)) {
           event['end'] = endDate.add(1, 'days').format('YYYY-MM-DD');
@@ -179,7 +184,13 @@
       rerenderCalendarEvents();
     }
 
-    angular.element('#calendar').fullCalendar({});
+    angular.element('#calendar').fullCalendar({
+      eventAfterRender: function(info, element) {
+        element.attr('data-toggle', 'tooltip');
+        element.attr('data-placement', 'top');
+        element.attr('title', info.description);
+      }
+    });
 
     loadHolidays();
     loadVacations();
