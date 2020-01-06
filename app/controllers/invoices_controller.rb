@@ -1,5 +1,4 @@
 class InvoicesController < ApplicationController
-  before_action :set_invoice, only: [:show, :edit, :update, :destroy, :slip, :cancel]
   skip_before_action :verify_authenticity_token, :only => [:update, :create, :destroy, :cancel]
   load_and_authorize_resource
 
@@ -27,14 +26,6 @@ class InvoicesController < ApplicationController
     result = {}
 
     if params[:bootstrap_table].to_s == "1"
-      # result = {
-      #   rows: @invoices.as_json({ bootstrap_table: true })
-      # }
-      # if params[:page]
-      #   result[:page] = @invoices.current_page
-      #   result[:total] = @invoices.total_entries
-      # end
-
       result = @invoices.as_json({ bootstrap_table: true })
     else
       result = {
@@ -228,13 +219,13 @@ class InvoicesController < ApplicationController
         }) if pm[:is_cheque]
 
       invoice.save
-      
-      unless params['quotation'].blank? 
+
+      unless params['quotation'].blank?
         quotation_param = params['quotation']
-        
+
         @quotation = Quotation.find(quotation_param['id'])
         @quotation.update({quotation_status: 1}) if quotation_param['amount'] >= quotation_param['outstanding']
-        
+
         QuotationInvoice.create({
           quotation_id: quotation_param['id'],
           invoice_id: invoice.id
@@ -615,11 +606,6 @@ class InvoicesController < ApplicationController
         qry_invoices = qry_invoices.paginate(page: page, per_page: 10)
       end
       return qry_invoices.joins(user: [:school]).where("schools.id = #{current_user.school.id}").to_a
-    end
-
-    # Use callbacks to share common setup or constraints between actions.
-    def set_invoice
-      @invoice = Invoice.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

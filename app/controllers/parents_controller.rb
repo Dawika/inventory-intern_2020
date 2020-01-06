@@ -2,15 +2,8 @@ class ParentsController < ApplicationController
   before_action :set_parent, only: [:edit, :update, :destroy]
   before_action :authenticate_user!
   load_and_authorize_resource
-  # before_action :test
-
-  # def test
-  #   @parents = Parent.where(school_id: current_user.school.id)
-  # end
 
   # GET /parents
-  # GET /parents.json
-  
   def index
     filter_parents
     grade_select = (params[:grade_select] || 'All')
@@ -29,13 +22,11 @@ class ParentsController < ApplicationController
         }
       }
     end
-
   end
 
   # GET /parents/new
   def new
     @menu = t('parent')
-    @parent = Parent.new
     @students =  Student.where(school_id: current_user.school.id)
     @relations = Relationship.all
 
@@ -45,11 +36,10 @@ class ParentsController < ApplicationController
   # GET /parents/1/edit
   def edit
     @menu = t('parent')
-    parent = Parent.where(id: params[:id], school_id: current_user.school_id)
     @students = Student.where(school_id: current_user.school.id)
     @relations = Relationship.all
-    if parent.present?
-    render "parents/edit", layout: "application_invoice"
+    if @parent.present?
+      render "parents/edit", layout: "application_invoice"
     else
       redirect_to parents_path
     end
@@ -172,7 +162,6 @@ class ParentsController < ApplicationController
   private
 
   def filter_parents
-    @parents = Parent.where(school_id: current_user.school_id)
     if params[:search].present?
       search = "%#{params[:search]}%"
       @parents = @parents.where('full_name LIKE :search OR
@@ -198,7 +187,7 @@ class ParentsController < ApplicationController
         @parents = @parents.order(full_name: params[:order])
       end
     end
-  end  
+  end
   # Use callbacks to share common setup or constraints between actions.
   def set_parent
     @parent = Parent.includes([:students, :relationships]).find(params[:id])

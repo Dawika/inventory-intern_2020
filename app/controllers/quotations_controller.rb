@@ -219,5 +219,5 @@ class QuotationsController < ApplicationController
   def line_item_params
     params.require(:quotations).permit(items: [[:detail, :amount]])
   end
-  
+
 end

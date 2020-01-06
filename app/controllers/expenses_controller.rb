@@ -91,8 +91,8 @@ class ExpensesController < ApplicationController
   end
 
   def upload_photo
-     @expense = Expense.where(id: params[:id]).update( upload_photo_params )
-     render json: @expense
+    @expense = Expense.where(id: params[:id]).update( upload_photo_params )
+    render json: @expense
   end
 
   def report_by_tag

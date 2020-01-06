@@ -9,13 +9,13 @@ class PayrollsController < ApplicationController
     effective_date = nil
     if params[:effective_date] != "lasted"
       effective_date = Time.zone.parse(params[:effective_date])
-      employee_ids = Payroll.where(effective_date: effective_date.beginning_of_day..effective_date.end_of_day).pluck(:employee_id)
+      employee_ids = @payrolls.where(effective_date: effective_date.beginning_of_day..effective_date.end_of_day).pluck(:employee_id)
       employees = Employee.with_deleted.where(id: employee_ids, school_id: current_user.school.id)
     else
       employees = Employee.where(school_id: current_user.school.id)
     end
 
-    qry_payrolls = Payroll.where(employee_id: employees)
+    qry_payrolls = @payrolls.where(employee_id: employees)
 
     payroll_report = params[:payroll_report]
     normal = params[:normal]
@@ -32,7 +32,7 @@ class PayrollsController < ApplicationController
       employees = employees.where(employee_type: type)
     end
 
-    qry_payrolls = Payroll.with_deleted.where(employee_id: employees.ids)
+    qry_payrolls = @payrolls.with_deleted.where(employee_id: employees.ids)
 
     effective_date = nil
     if params[:effective_date] != "lasted"
@@ -138,7 +138,7 @@ class PayrollsController < ApplicationController
 
   # PATCH /payrolls/:id
   def update
-    payroll = Payroll.find(params[:id])
+    payroll = @payroll
     if payroll.update(params_payroll)
       render json: payroll, status: :ok
     else
@@ -150,7 +150,7 @@ class PayrollsController < ApplicationController
   def social_insurance_pdf
     effective_date = Time.zone.parse(params[:effective_date])
     employees = Employee.with_deleted.all.order(:id).to_a
-    payrolls = Payroll.where(employee_id: employees, effective_date: effective_date.beginning_of_day..effective_date.end_of_day)
+    payrolls = @payrolls.where(employee_id: employees, effective_date: effective_date.beginning_of_day..effective_date.end_of_day)
                       .where("social_insurance > ?", 0)
                       .order('employee_id').to_a
     render plain: I18n.t('social_insurance_pdf'), status: :ok and return if payrolls.size == 0 || payrolls.blank?

@@ -11,7 +11,7 @@ class BanksController < ApplicationController
         image: bank&.lt_bank&.image_path
       }
     end
-    
+
     render json: {
       banks: banks,
       lt_banks: LtBank.all
@@ -20,6 +20,7 @@ class BanksController < ApplicationController
 
   def create
     @bank = Bank.new(params_bank)
+    @bank.school_id = current_user.school.id
     @bank[:bank_name] = LtBank.find_by_id(params[:params][:bank_id])[:name]
     if @bank.save
       redirect_to banks_path

@@ -1,5 +1,5 @@
 class Alumni < ApplicationRecord
-  belongs_to :student
+  belongs_to :student, -> { with_deleted }
 
   def self.newByStudent(student)
     if student && student.instance_of?(Student)
@@ -37,7 +37,7 @@ class Alumni < ApplicationRecord
 
   def self.search(search)
     if search
-      where("name ILIKE ? OR nickname ILIKE ? OR student_number::text ILIKE ? OR grade ILIKE ? OR classroom ILIKE ? ",
+      where("alumnis.name ILIKE ? OR alumnis.nickname ILIKE ? OR alumnis.student_number::text ILIKE ? OR alumnis.grade ILIKE ? OR alumnis.classroom ILIKE ? ",
        "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
     else
       all
