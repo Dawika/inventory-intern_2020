@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191224141653) do
+ActiveRecord::Schema.define(version: 20200108020450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -908,6 +908,7 @@ ActiveRecord::Schema.define(version: 20191224141653) do
     t.string  "bank_account"
     t.boolean "enable_scout",                         default: false
     t.string  "reserved_subdomains"
+    t.boolean "enable_vacation",                      default: false
     t.index ["school_id"], name: "index_school_settings_on_school_id", using: :btree
   end
 
