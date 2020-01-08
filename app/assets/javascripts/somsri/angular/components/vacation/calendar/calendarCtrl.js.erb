@@ -152,6 +152,7 @@
       workAtHomes = [];
       for (var i = 0; i < events.length; i++) {
         var vacation = events[i];
+        if (vacation.status.toLowerCase() != 'approved') { continue; }
         var vacationTypeName = vacation.vacation_type.name;
         var title = vacation.requester + " " + vacation.detail;
         var startDate = moment(vacation.start_at);
