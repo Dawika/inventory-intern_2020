@@ -1,6 +1,6 @@
 class VacationMailer < ApplicationMailer
   def self.notify(user, vacation)
-    recipients = User.with_any_role(:admin, :human_resource)
+    recipients = User.with_any_role(:approver, :admin, :human_resource)
     recipients.each do |recipient|
       send_notification(recipient, user, vacation).deliver
     end
