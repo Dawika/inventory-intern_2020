@@ -1,4 +1,6 @@
 class Vacation < ApplicationRecord
+  include MsTeamWebhook
+
   enum status: [:pending, :approved, :rejected]
 
   scope :not_rejected, -> { where(status: ['pending', 'approved']) }
@@ -13,6 +15,12 @@ class Vacation < ApplicationRecord
   belongs_to :requester, :class_name => "Employee"
   belongs_to :approver, :class_name => "Employee"
   belongs_to :vacation_type
+
+  after_save :send_ms_team_webhook
+
+  def send_ms_team_webhook
+    send_webhook short_description if status_changed? && status == 'approved'
+  end
 
   def deduce_days
     days = (self.end_date.to_date - self.start_date.to_date).to_i + 1
@@ -33,6 +41,10 @@ class Vacation < ApplicationRecord
       end_at: self.end_date.to_date,
       created_at: self.created_at.strftime('%d/%m/%Y'),
     }
+  end
+
+  def short_description
+    "#{requester.full_name} #{vacation_type.name} #{date_to_s}"
   end
 
   def date_to_s
