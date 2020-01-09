@@ -102,7 +102,11 @@ class VacationsController < ApplicationController
     else
       redirect_to_url = '/somsri#/vacation/dashboard/'
     end
-    redirect_to redirect_to_url
+
+    respond_to do |format|
+      format.html { redirect_to redirect_to_url }
+      format.json { head :no_content }
+    end
   end
 
   def reject
@@ -121,7 +125,11 @@ class VacationsController < ApplicationController
     else
       redirect_to_url = '/somsri#/vacation/dashboard/'
     end
-    redirect_to redirect_to_url
+
+    respond_to do |format|
+      format.html { redirect_to redirect_to_url }
+      format.json { head :no_content }
+    end
   end
 
   private
