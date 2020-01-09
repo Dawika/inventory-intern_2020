@@ -28,6 +28,8 @@ gem 'devise'
 
 gem 'omise'
 
+gem 'msteams-ruby-client'
+
 gem 'whenever', require: false
 
 gem 'cancancan'

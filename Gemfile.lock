@@ -260,6 +260,7 @@ GEM
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
+    msteams-ruby-client (0.4.0)
     multi_json (1.13.1)
     multipart-post (2.0.0)
     nested_form (0.3.2)
@@ -532,6 +533,7 @@ DEPENDENCIES
   local-subdomain
   machinist
   meta_request
+  msteams-ruby-client
   numbers_in_words
   omise
   paper_trail
