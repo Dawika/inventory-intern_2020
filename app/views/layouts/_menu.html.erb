@@ -128,7 +128,7 @@
         <%= content_tag(:p, t('.quotation', :default => t("quotation")) ) %>
       </div>
     <% end %>
-    <% if (@school_config.enable_vacation) && (can? :manage, RollCall) %>
+    <% if (@school_config.enable_vacation) && (can? :manage, Vacation) %>
       <div class="col-xs-4 col-centered menu-icon">
         <div class="<%= is_topbar ? 'dropdown-menu-btn' : 'menu-btn' %>">
           <a href="/somsri#/vacation">
