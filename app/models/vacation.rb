@@ -24,6 +24,7 @@ class Vacation < ApplicationRecord
 
   def deduce_days
     days = (self.end_date.to_date - self.start_date.to_date).to_i + 1
+    (self.start_date.to_date..self.end_date.to_date).each { |d| days -= d.wday == 0 || d.wday == 6 ? 1 : 0 }
     deduce_days = days * vacation_type.deduce_days
     deduce_days
   end
