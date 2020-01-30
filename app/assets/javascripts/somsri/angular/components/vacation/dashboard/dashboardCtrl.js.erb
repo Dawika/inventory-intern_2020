@@ -188,6 +188,11 @@
       });
     }
 
+    ctrl.started_vacation = function(vacation,date) {
+      var today = ((new Date()).getMonth() + 1 ).toString().padStart(2, '0') + "-" + ((new Date()).getDate())
+      return today >= date.substring(5,10)
+    }
+
     function getRole() {
       settingService.getRole().then(function(response) {
         onChangeSelectRole(response.data.roles)
@@ -229,6 +234,10 @@
     function loadVacationDashboard() {
       service.getVacations(true).then(function(response) {
         ctrl.vacation = response.data;
+        for (var vacation of ctrl.vacation.vacations) {
+          vacation.start_date = vacation.start_date.substring(0,5)
+          vacation.end_date = vacation.end_date.substring(0,5)
+        }
       }, function(e) {
         console.log(e)
       });
