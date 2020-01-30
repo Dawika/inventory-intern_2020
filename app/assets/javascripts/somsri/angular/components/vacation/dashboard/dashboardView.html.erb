@@ -88,15 +88,15 @@
           </div>
         </div>
         <div class="row" ng-repeat="vacation in dashboard.vacation.vacations">
-          <div class="col-md-9 p-0">
+          <div class="col-sm-9 col-md-7 col-lg-9 p-0">
             <b class="font-12 orange m-0"><span class="font-16 color-orange">{{ vacation.start_date }} - {{ vacation.end_date }}</span> - {{ vacation.vacation_type.name }}</b>
             <p class="color-gray mt-5 mb-0">{{ vacation.detail }}</p>
           </div>
-          <div class="col-md-2 pr-0">
+          <div class="col-sm-2 col-md-3 col-lg-2 pr-0">
             <span class="text-capitalize" ng-class="{'color-green': vacation.status == 'approved', 'color-red': vacation.status == 'rejected', 'color-blue': vacation.status == 'pending'}">{{ vacation.status }}</span>
           </div>
-          <div class="col-md-1" ng-show="vacation.status == 'pending'">
-            <i class='fa fa-trash-o color-gray fa-lg' aria-hidden='true' ng-click="dashboard.deleteVacation(vacation.id)"></i>
+          <div class="col-sm-1 col-md-2 col-lg-1" ng-if="!dashboard.started_vacation(vacation,vacation.start_at)" ng-show="vacation.status == 'pending' || vacation.status == 'approved'">
+            <a href="#/vacation/dashboard/"><i class='fa fa-times color-red fa-lg' aria-hidden='true' ng-click="dashboard.deleteVacation(vacation.id)"></i></a>
           </div>
           <div class="row">
             <div class="col-md-12 p-0">
@@ -156,15 +156,15 @@
           </div>
         </div>
         <div class="row" ng-repeat="vacation in dashboard.vacation_is_me" >
-          <div class="col-md-9 p-0">
+          <div class="col-sm-9 col-md-8 col-lg-9 p-0">
             <b class="font-12 orange m-0"><span class="font-16 color-orange">{{ vacation.requester }}</b>
             <p class="font-8 orange m-0"><span class="font-12 color-black">{{ vacation.start_date }} - {{ vacation.end_date }}</span> - {{ vacation.vacation_type.name }}</p>
             <p class="color-gray mt-5 mb-0">{{ vacation.detail }}</p>
           </div>
-          <div class="col-md-2 icon-check" ng-show="vacation.status == 'pending'">
+          <div class="col-sm-2 col-md-2 col-lg-2 icon-check" ng-show="vacation.status == 'pending'">
             <a href="#/vacation/dashboard/"><i class='fa fa-check color-green fa-lg' aria-hidden='true' ng-click="dashboard.approvedVacation(vacation.id)"></i></a>
           </div>
-          <div class="col-md-1" ng-show="vacation.status == 'pending'">
+          <div class="col-sm-1 col-md-2 col-lg-1" ng-show="vacation.status == 'pending'">
             <a href="#/vacation/dashboard/"><i class='fa fa-times color-red fa-lg' aria-hidden='true' ng-click="dashboard.rejectedVacation(vacation.id)"></i></a>
           </div>
           <div class="row">
