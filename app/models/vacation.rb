@@ -24,8 +24,17 @@ class Vacation < ApplicationRecord
 
   def deduce_days
     days = (self.end_date.to_date - self.start_date.to_date).to_i + 1
+    (self.start_date.to_date..self.end_date.to_date).each { |d| days -= d.wday == 0 || d.wday == 6 || is_holiday(d) ? 1 : 0 }
     deduce_days = days * vacation_type.deduce_days
     deduce_days
+  end
+
+  def is_holiday(day_leave)
+    all_date_holiday = []
+    Holiday.all.each do |h|
+      (h.start_at.to_date..h.end_at.to_date).select { |day| all_date_holiday << day }
+    end
+    all_date_holiday.include?(day_leave)
   end
 
   def as_json(options={})
