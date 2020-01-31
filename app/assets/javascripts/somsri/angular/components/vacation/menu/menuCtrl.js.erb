@@ -5,20 +5,25 @@
   .controller('vacationMenuCtrl', ['$rootScope', 'translateFilter', function ($rootScope, translateFilter) {
     var ctrl = this;
 
-    ctrl.showDashboard = true
-    ctrl.endLine = true
+    ctrl.showDashboard = false
+    ctrl.showCalender = false
+    ctrl.showLeaveRule = false
+    ctrl.endLine = false
+    ctrl.showSetting = false
 
     $rootScope.menu = translateFilter('vacation');
     $rootScope.canManage("all", function(canManange) {
-      ctrl.isAdmin = canManange
+      $rootScope.cannotLeave("cannot_leave", function(cannotLeave) {
+        ctrl.isAdmin = canManange
+        if (!cannotLeave) {
+          ctrl.showDashboard = true
+          ctrl.endLine = true
+        }
+        ctrl.showCalender = true
+        ctrl.showLeaveRule = true
+        ctrl.showSetting = true
+      })
     });
-
-    $rootScope.cannotLeave("cannot_leave", function(cannotLeave) {
-      if (cannotLeave) {
-        ctrl.showDashboard = false
-        ctrl.endLine = false
-      }
-    })
 
   }]);
 })();

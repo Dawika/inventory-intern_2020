@@ -9,7 +9,7 @@
         <p>{{ 'dashboard' | translate }}</p>
     </div>
 
-    <div class="col-xs-4">
+    <div class="col-xs-4" ng-show="menu.showCalender">
         <div class="menu-btn slip" ng-click="openVacationCalendar()">
             <div class="wraptocenter">
                 <%= image_tag 'vacation-calendar-icon.png', class: "" %>
@@ -18,7 +18,7 @@
         <p>{{ 'calendar' | translate }}</p>
     </div>
 
-    <div class="col-xs-4">
+    <div class="col-xs-4" ng-show="menu.showLeaveRule">
         <div class="menu-btn" ng-click="openVacationLeaveRules()">
             <div class="wraptocenter">
                 <%= image_tag 'vacation-rule-icon.png', class: "" %>
