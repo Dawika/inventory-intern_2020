@@ -247,7 +247,7 @@ class Payroll < ApplicationRecord
       return 0 unless employee["pay_social_insurance"]
       income = payroll["salary"].to_i - payroll["absence"].to_i - payroll["late"].to_i
       income = 15000 if income > 15000
-      income >= 1650 ? (income * 0.05).round : 0
+      income >= 1650 ? (income * SiteConfig.get_cache.social_insurance_rate).round : 0
     end
 
     def self.generate_tax(payroll, employee)
