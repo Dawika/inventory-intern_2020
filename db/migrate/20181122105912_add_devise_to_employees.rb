@@ -19,7 +19,7 @@ class AddDeviseToEmployees < ActiveRecord::Migration[5.0]
       t.inet     :last_sign_in_ip
     end
 
-    add_index :employees, :email,                unique: true
-    add_index :employees, :reset_password_token, unique: true
+    # add_index :employees, :email,                unique: true
+    # add_index :employees, :reset_password_token, unique: true
   end
 end
