@@ -379,7 +379,6 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
-    rmagick (2.16.0)
     rolify (5.2.0)
     rspec-core (3.8.0)
       rspec-support (~> 3.8.0)
@@ -550,7 +549,6 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n (~> 5.0.0)
   rails_admin (~> 2.0)
-  rmagick
   rolify
   rspec-rails
   rspec-retry

@@ -43,7 +43,7 @@ gem 'rails-i18n', '~> 5.0.0'
 gem 'bower-rails'
 
 gem 'pdf-forms'
-gem 'rmagick'
+# gem 'rmagick'
 
 gem 'rails_admin', '~> 2.0'
 
