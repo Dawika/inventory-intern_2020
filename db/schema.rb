@@ -54,6 +54,8 @@ ActiveRecord::Schema.define(version: 20200108020450) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "bank_id"
+    t.integer  "school_id"
+    t.index ["school_id"], name: "index_banks_on_school_id", using: :btree
   end
 
   create_table "bil_infos", force: :cascade do |t|
@@ -406,8 +408,10 @@ ActiveRecord::Schema.define(version: 20200108020450) do
   end
 
   create_table "expense_tags", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
+    t.string  "name"
+    t.string  "description"
+    t.integer "school_id"
+    t.index ["school_id"], name: "index_expense_tags_on_school_id", using: :btree
   end
 
   create_table "expenses", force: :cascade do |t|
@@ -428,6 +432,8 @@ ActiveRecord::Schema.define(version: 20200108020450) do
     t.string   "cheque_date"
     t.string   "transfer_bank_name"
     t.string   "transfer_date"
+    t.integer  "school_id"
+    t.index ["school_id"], name: "index_expenses_on_school_id", using: :btree
   end
 
   create_table "genders", force: :cascade do |t|
@@ -440,6 +446,8 @@ ActiveRecord::Schema.define(version: 20200108020450) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "school_id"
+    t.index ["school_id"], name: "index_grades_on_school_id", using: :btree
   end
 
   create_table "grouping_report_options", force: :cascade do |t|
@@ -1102,6 +1110,7 @@ ActiveRecord::Schema.define(version: 20200108020450) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
 
+  add_foreign_key "banks", "schools"
   add_foreign_key "bil_infos", "schools"
   add_foreign_key "candidate_files", "candidates"
   add_foreign_key "charge_infos", "licenses"
@@ -1116,6 +1125,9 @@ ActiveRecord::Schema.define(version: 20200108020450) do
   add_foreign_key "evaluates", "interviewer_emails"
   add_foreign_key "evaluates", "interviews"
   add_foreign_key "expense_items", "expense_tags"
+  add_foreign_key "expense_tags", "schools"
+  add_foreign_key "expenses", "schools"
+  add_foreign_key "grades", "schools"
   add_foreign_key "individuals", "employees", column: "child_id"
   add_foreign_key "individuals", "employees", column: "emergency_call_id"
   add_foreign_key "individuals", "employees", column: "friend_id"
