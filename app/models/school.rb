@@ -8,7 +8,6 @@ class School < ApplicationRecord
   has_many :invoices
   has_many :licenses
   has_one :bil_info
-  has_many :grades
   belongs_to :plan
   has_attached_file :logo, styles: { medium: "200x200>", thumb: "100x100>" }, default_url: "/somsri_logo.png"
   validates_attachment_content_type :logo, content_type: ["image/jpeg", "image/jpg", "image/png"]
@@ -18,7 +17,7 @@ class School < ApplicationRecord
   accepts_nested_attributes_for :licenses
   validates :name, :address, :name_eng, :phone, :logo, presence: true, allow_blank: false
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :subdomain_name, :grades_name, presence: true, allow_blank: false, uniqueness: true
+  validates :subdomain_name, presence: true, allow_blank: false, uniqueness: true
   attr_accessor :grades_name
 
   after_create :create_license

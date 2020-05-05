@@ -168,10 +168,16 @@ function showNewSchool(value) {
     $('body').addClass('backgorund-signup1');
     $('#formSingUp').hide();
     $('#formSchool').show();
-  } else {
+  } else if(value == 'grade'){
+    $('#formSingUp').hide();
+    $('#formSchool').hide();
+    $('#formplan').hide();
+    $('#add_grades').show();
+  }else{
     $('#formSingUp').hide();
     $('#formSchool').hide();
     $('#formplan').show();
+    $('#add_grades').hide();
     $("input[name='school[bil_info_attributes][phone]']").val($("input[name='school[phone]']").val());
     $("input[name='school[bil_info_attributes][branch]']").val($("input[name='school[branch]']").val());
     $("input[name='school[bil_info_attributes][tax_id]']").val($("input[name='school[tax_id]']").val());
@@ -375,3 +381,27 @@ function checkvalidate() {
     }
   }
 }
+
+$(document).ready(function(){
+  var maxField = 30; //Input fields increment limitation
+  var addButton = $('.add_button'); //Add button selector
+  var wrapper = $('.field_wrapper'); //Input field wrapper
+  var fieldHTML = '<div><input type="text" name="grades[name][]" class="form-control" placeholder = "กรุณากรอกชื่อชั้นเรียน"/><a href="javascript:void(0);" class="remove_button"><img src="/remove-icon.png" height="3%" width="3%"/></a></div>'; //New input field html 
+  var x = 1; //Initial field counter is 1
+  
+  //Once add button is clicked
+  $(addButton).click(function(){
+      //Check maximum number of input fields
+      if(x < maxField){ 
+          x++; //Increment field counter
+          $(wrapper).append(fieldHTML); //Add field html
+      }
+  });
+  
+  //Once remove button is clicked
+  $(wrapper).on('click', '.remove_button', function(e){
+      e.preventDefault();
+      $(this).parent('div').remove(); //Remove field html
+      x--; //Decrement field counter
+  });
+});

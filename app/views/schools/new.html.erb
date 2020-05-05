@@ -5,7 +5,7 @@
       <div class="col-lg-12">
         <div>
           <%= simple_form_for @school, action: @school.new_record? ? 'create' : 'update', validate: true do |f| %>
-            <div class="form-sign-in" id="formSingUp" hidden> 
+            <div class="form-sign-in" id="formSingUp"> 
               <div class="row">
                 <div class="col-xs-12">
                   <%= image_tag @school.logo, class: "img-responsive logo-login" %>
@@ -55,7 +55,7 @@
               </div>
               <% end %>
               <%= render 'setting_school_setting',f: f %>
-              <%= render 'add_grades_school',f: f %>
+              <%= render 'add_grade_school',f: f %>
               <%= render 'select_plan',f: f %>
                 <!-- Modal -->
                 <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -109,6 +109,7 @@
     $('#formSchool').hide();
     $('#formModal').hide();
     $('#formplan').hide();
+    $('#add_grades').hide();
     $('#school_school_settings_semesters').removeClass('is-valid')
     $('.validate-sign-in').keyup(function() {
       enableButtonFormAdmin('new_school', 'newStep');
