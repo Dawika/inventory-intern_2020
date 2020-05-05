@@ -10,7 +10,10 @@
     var angularCtrlStr = "angular.element(document.getElementById('angularCtrl')).scope().employee"
 
     $rootScope.loadAndAuthorizeResource("employee", function(){
-
+      ctrl.socialInsuranceRate = 0.05
+      $rootScope.getSiteConfig("social_insurance_rate").then(function(resp) {
+        ctrl.socialInsuranceRate = parseFloat(resp.data);
+      });
       var dateNow = new Date();
       var employeeId = $state.params.id;
       ctrl.currentEffectiveDate = "";
@@ -25,7 +28,7 @@
       ctrl.pinChars = [];
       ctrl.filterKeyword = '';
       ctrl.total = '';
-      ctrl.role = ['account_holder','admin', 'approver','employee', 'finance_officer', 'human_resource', 'procurement_officer', 'teacher']                      
+      ctrl.role = ['account_holder','admin', 'approver','employee', 'finance_officer', 'human_resource', 'procurement_officer', 'teacher']
       ctrl.select_role = []
       ctrl.current_role = []
       ctrl.get_role = []
@@ -51,7 +54,7 @@
       if (!ctrl.getActiveTab) {
         ctrl.activeTab = 'general'
         ctrl.add_button = "add_new_employee"
-        if (ctrl.activeTab == "general" && ctrl.empId == 0){ 
+        if (ctrl.activeTab == "general" && ctrl.empId == 0){
           ctrl.showSaveButton = true
           ctrl.showCancelButton = true
         }
@@ -84,6 +87,9 @@
          return item;
       };
 
+      ctrl.socialInsuranceHeader = function() {
+        return ctrl.socialInsuranceRate * 100 + '%';
+      }
 
       ctrl.selectTab = function(str) {
         settingButton()
@@ -341,7 +347,7 @@
             if(ctrl.datas.tax_reduction.cripple_alimony > 0)
               $scope.numcripple_alimony = (ctrl.datas.tax_reduction.cripple_alimony/60000);
           }
-          
+
 
           // get others employee
           service.getAllEmployee().then(function(resp) {
@@ -371,7 +377,7 @@
           ctrl.showCancelButton = true
           ctrl.showSaveButton = true
           ctrl.can_edit = true
-        } else if (ctrl.activeTab == "general" && ctrl.empId == 0){ 
+        } else if (ctrl.activeTab == "general" && ctrl.empId == 0){
           ctrl.showSaveButton = true
           ctrl.can_edit = true
         } else {
@@ -421,7 +427,7 @@
       }
 
       ctrl.openEmployeeDetails = function(id){
-        if (ctrl.add_button == "add_request_employee") { 
+        if (ctrl.add_button == "add_request_employee") {
           $rootScope.openAddInventoryRequest(ctrl.empId);
         } else {
           ctrl.slectDropDown(id)
@@ -793,7 +799,7 @@
 
       function editInventoryRequestFormatter(value, row, index) {
         return '<a id="editInventory' + row['id'] + '" onclick="' + angularCtrlStr + '.editInventory(' + row['id'] + ')"> <i class=\'fa fa-pencil-square-o fa-fw color-orange cursor-pointer\'></i> </a>';
-      } 
+      }
 
       ctrl.editInventory = function(inventory_id) {
         $rootScope.openInventoryDetails(ctrl.empId,inventory_id)
@@ -808,7 +814,7 @@
         }
 
         if (row['inventory_status'] == 'rejected' || row['inventory_status'] == "delete") {
-          return '<span class="cursor-pointer" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" title="Reason" data-content="' + row['comment'] + '">' +  row['inventory_status'] + '</span>' 
+          return '<span class="cursor-pointer" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" title="Reason" data-content="' + row['comment'] + '">' +  row['inventory_status'] + '</span>'
         } else {
           return '<span class="'+ color + '" tyep="text">' + row['inventory_status'] + '</span>'
         }
@@ -843,7 +849,7 @@
                   if (ctrl.datasReuestExport[i].inventory.serial_number) {
                     serial_number = ctrl.datasReuestExport[i].inventory.serial_number
                   }
-                
+
                   if (ctrl.datasReuestExport[i].inventory.model) {
                     model = ctrl.datasReuestExport[i].inventory.model
                   }

@@ -20,15 +20,15 @@ class ApplicationController < ActionController::Base
       @success = params[:success].present?
       return true if !SiteConfig.get_cache.web_cms or params[:cancel_check_plan] or request.path.include?('admin') or request.path.include?('purchases/new')
 
-      school_license = current_user.school.active_license
-      charge_info = school_license.charge_info
-      is_expired = school_license.expired_date.strftime('%F')  < Time.now.strftime('%F') if school_license.expired_date.present?
-      captured = !charge_info.captured  if charge_info.present?
-      if is_expired or captured
-        @message = 'test' if current_user.school.customer_info.blank?
-        @show = true
-        redirect_to '/' and return unless controller_name == 'home'
-      end
+      # school_license = current_user.school.active_license
+      # charge_info = school_license.charge_info
+      # is_expired = school_license.expired_date.strftime('%F')  < Time.now.strftime('%F') if school_license.expired_date.present?
+      # captured = !charge_info.captured  if charge_info.present?
+      # if is_expired or captured
+      #   @message = 'test' if current_user.school.customer_info.blank?
+      #   @show = true
+      #   redirect_to '/' and return unless controller_name == 'home'
+      # end
     end
   end
 

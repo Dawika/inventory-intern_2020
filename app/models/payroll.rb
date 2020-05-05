@@ -246,8 +246,13 @@ class Payroll < ApplicationRecord
       return payroll_real.social_insurance if payroll_real && payroll_real.closed
       return 0 unless employee["pay_social_insurance"]
       income = payroll["salary"].to_i - payroll["absence"].to_i - payroll["late"].to_i
+      school_config = nil
+      if employee.school && employee.school.subdomain_name
+        school_config = SchoolSetting.get_cache(employee.school.subdomain_name)
+      end
+      school_config ||= SiteConfig.get_cache
       income = 15000 if income > 15000
-      income >= 1650 ? (income * 0.05).round : 0
+      income >= 1650 ? (income * school_config.social_insurance_rate).round : 0
     end
 
     def self.generate_tax(payroll, employee)

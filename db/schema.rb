@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200108074254) do
+ActiveRecord::Schema.define(version: 20200330071338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -357,8 +357,6 @@ ActiveRecord::Schema.define(version: 20200108074254) do
     t.boolean  "work_at_home_allow"
     t.index ["classroom_id"], name: "index_employees_on_classroom_id", using: :btree
     t.index ["deleted_at"], name: "index_employees_on_deleted_at", using: :btree
-    t.index ["email"], name: "index_employees_on_email", unique: true, using: :btree
-    t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true, using: :btree
     t.index ["school_id"], name: "index_employees_on_school_id", using: :btree
   end
 
@@ -837,6 +835,7 @@ ActiveRecord::Schema.define(version: 20200108074254) do
     t.string  "first_expense_tab",                    default: "upload_photo"
     t.boolean "enable_vacation",                      default: false
     t.boolean "enable_inventory",                     default: false
+    t.float   "social_insurance_rate",                default: 0.05
     t.index ["school_id"], name: "index_school_settings_on_school_id", using: :btree
   end
 
@@ -895,6 +894,7 @@ ActiveRecord::Schema.define(version: 20200108074254) do
     t.string  "roll_call_apk_url"
     t.boolean "enable_vacation",                      default: false
     t.boolean "enable_inventory",                     default: false
+    t.float   "social_insurance_rate",                default: 0.05
   end
 
   create_table "skills", force: :cascade do |t|
