@@ -92,7 +92,7 @@
         <%= content_tag(:p, t('.alumni', :default => t("alumni")) ) %>
       </div>
     <% end %>
-    <% if (current_user.procurement_officer? || current_user.super_admin? || current_user.admin?) && (can? :manage, Inventory) %>
+    <% if (@school_config.enable_inventory) && (current_user.procurement_officer? || current_user.super_admin? || current_user.admin?) && (can? :manage, Inventory) %>
       <div class="col-xs-4 col-centered menu-icon">
         <div class="<%= is_topbar ? 'dropdown-menu-btn' : 'menu-btn' %> inventory">
           <a href="/somsri#/inventory">

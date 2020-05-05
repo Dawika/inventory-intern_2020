@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200108020450) do
+ActiveRecord::Schema.define(version: 20200330071338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -357,8 +357,6 @@ ActiveRecord::Schema.define(version: 20200108020450) do
     t.boolean  "work_at_home_allow"
     t.index ["classroom_id"], name: "index_employees_on_classroom_id", using: :btree
     t.index ["deleted_at"], name: "index_employees_on_deleted_at", using: :btree
-    t.index ["email"], name: "index_employees_on_email", unique: true, using: :btree
-    t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true, using: :btree
     t.index ["school_id"], name: "index_employees_on_school_id", using: :btree
   end
 
@@ -812,7 +810,7 @@ ActiveRecord::Schema.define(version: 20200108020450) do
     t.string  "current_semester"
     t.integer "school_id"
     t.string  "roll_call_apk_url"
-    t.boolean "enable_rollcall",                      default: true
+    t.boolean "enable_rollcall",                      default: false
     t.boolean "default_cash_payment_method",          default: true
     t.boolean "default_credit_card_payment_method",   default: false
     t.boolean "default_cheque_payment_method",        default: false
@@ -836,6 +834,8 @@ ActiveRecord::Schema.define(version: 20200108020450) do
     t.string  "reserved_subdomains"
     t.string  "first_expense_tab",                    default: "upload_photo"
     t.boolean "enable_vacation",                      default: false
+    t.boolean "enable_inventory",                     default: false
+    t.float   "social_insurance_rate",                default: 0.05
     t.index ["school_id"], name: "index_school_settings_on_school_id", using: :btree
   end
 
@@ -868,7 +868,7 @@ ActiveRecord::Schema.define(version: 20200108020450) do
   end
 
   create_table "site_configs", force: :cascade do |t|
-    t.boolean "enable_rollcall",                      default: true
+    t.boolean "enable_rollcall",                      default: false
     t.boolean "default_cash_payment_method",          default: true
     t.boolean "default_credit_card_payment_method",   default: false
     t.boolean "default_cheque_payment_method",        default: false
@@ -893,6 +893,8 @@ ActiveRecord::Schema.define(version: 20200108020450) do
     t.string  "first_expense_tab",                    default: "upload_photo"
     t.string  "roll_call_apk_url"
     t.boolean "enable_vacation",                      default: false
+    t.boolean "enable_inventory",                     default: false
+    t.float   "social_insurance_rate",                default: 0.05
   end
 
   create_table "skills", force: :cascade do |t|

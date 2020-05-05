@@ -10,6 +10,7 @@
     ctrl.effectiveDates = []
     ctrl.currentDateString = ""
     ctrl.total = {}
+    ctrl.socialInsuranceRate = 0.05
 
     ctrl.employeeTypeMode = {
       normal: true,
@@ -22,6 +23,9 @@
     $scope.hoverIn = function(i){
         $scope.sel=i;
     };
+    $rootScope.getSiteConfig("social_insurance_rate").then(function(resp) {
+      ctrl.socialInsuranceRate = parseFloat(resp.data);
+    });
     $scope.$on('$viewContentLoaded', function() {
       var fcBody = document.querySelector(".fix-column > .tbody"),
       rcBody = document.querySelector(".rest-columns > .tbody"),
@@ -35,6 +39,10 @@
     });
 
     var effectiveDateParm = $state.params.effective_date;
+
+    ctrl.socialInsuranceHeader = function() {
+      return ctrl.socialInsuranceRate * 100 + ' %';
+    }
 
     ctrl.selectValue = function($event){
       if($event && !$event.target){

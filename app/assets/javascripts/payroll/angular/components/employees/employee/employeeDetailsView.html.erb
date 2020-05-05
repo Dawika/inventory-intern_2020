@@ -33,7 +33,7 @@
               <span class="pin-char" ng-show="employee.pinChars.length > 0" ng-repeat="pinChar in employee.pinChars track by $index">{{pinChar}}</span>
             </div>
           </div>
-          
+
             <div class="col-md-3" style="margin-top:10px;">
               <a ng-click="employee.openEmployeeDetails(0)" ng-show="employee.showButton" href="javascript:void(0)" class="btn btn-custom btn-orange pull-right">
                 + {{ employee.add_button | translate }}
@@ -217,7 +217,7 @@
               <tags-input type="text" class="somsri-select bootstrap" id="role" placeholder="Add a role" ng-model="employee.select_role" required="true" ng-disabled="!(employee.can_edit)">
                 <auto-complete source="employee.role" min-length="0" debounce-delay="0" max-results="10"></auto-complete>
               </tags-input>
-            
+
             </div>
           </div>
           <div class="row">
@@ -739,7 +739,7 @@
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label for="social_insurance">{{ "social_insurance" | translate }}</label>
+                <label for="social_insurance">{{ "social_insurance" | translate }} ({{ employee.socialInsuranceHeader() }})</label>
                 <input class="form-control text-red numberic" id="social_insurance" ng-model="employee.datas.payroll.social_insurance" disabled>
               </div>
             </div>
@@ -836,7 +836,7 @@
                   <label for="personal_leave_maximum_days_per_year">{{ "vacation_leave_max_per_year" | translate }}</label>
                   <input class="form-control" autocomplete="off" type="number" id="personal_leave_maximum_days_per_year" ng-model="employee.datas.employee.personal_leave_maximum_days_per_year" ng-validate="number" ng-pattern="/^[0-9]*$/" step="1" parseFloat>
                 </div>
-              </div>        
+              </div>
             </div>
           <div class="row">
             <div class="col-md-1"><input type="checkbox" class="form-control cbox numberic" id="switching_day_allow" ng-model="employee.datas.employee.switching_day_allow" /></div>
@@ -856,7 +856,7 @@
                   <label for="work_at_home_maximum_days_per_week">{{ "work_at_home_maximum_days_per_week" | translate }}</label>
                   <input class="form-control" autocomplete="off" type="number" id="work_at_home_maximum_days_per_week" ng-model="employee.datas.employee.work_at_home_maximum_days_per_week" ng-validate="number" ng-pattern="/^[0-9]*$/" step="1" parseFloat>
                 </div>
-              </div>        
+              </div>
             </div>
         </div>
       </div>
