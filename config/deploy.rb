@@ -44,8 +44,12 @@ set :rvm_type, :system              # Defaults to: :auto
 set :rvm_ruby_version, '2.3.1'      # Defaults to: 'default'
 # set :rbenv_type, :user # :system or :user
 # set :rbenv_ruby, '2.3.1'
+
 # set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 # set :rbenv_map_bins, %w(rake gem bundle ruby rails)
+
+set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+set :rbenv_map_bins, %w(rake gem bundle ruby rails)
 
 set :rails_env, 'production'
 

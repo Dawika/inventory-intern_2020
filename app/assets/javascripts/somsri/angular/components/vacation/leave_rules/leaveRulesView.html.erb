@@ -6,7 +6,7 @@
   </div>
   <div class="row content-wrapper">
     <p data-ng-bind-html="leaveRules.leaveRulesHtmlText" ng-hide="leaveRules.isAdmin"></p>
-    <ng-ckeditor ng-model="leaveRules.leaveRulesText" skin="moono" ng-show="leaveRules.isAdmin" class="mt-10"></ng-ckeditor>
+    <textarea ng-model="leaveRules.leaveRulesText" skin="moono" ng-show="leaveRules.isAdmin" class="mt-10" redactor  ></textarea>
     <div class="row mt-10" ng-hide="leaveRules.isAdmin">
       <div class="col-md-6"></div>
       <div class="col-md-6 text-right">
