@@ -1,26 +1,24 @@
 <div class="new-school" id="add_grades">
-  <h2>
-    <%= t('.grades') %>
-  </h2>
-  <div class="field_wrapper">
-  <div>
-        <input type="text" name="grades[name][]" class="form-control" placeholder = "กรุณากรอกชื่อชั้นเรียน"/>
-        <a href="javascript:void(0);" class="add_button" title="Add field"><img src="/add.png" height="3%" width="3%"/></a>
+    <h2>
+        <%= t('.grades') %>
+    </h2>
+    <div class="field_wrapper">
+        <div>
+            <input type="text" name="grades[name][]" class="form-control" placeholder="กรุณากรอกชื่อชั้นเรียน" />
+            <a href="javascript:void(0);" class="add_button" title="Add field"><img src="/add.png" height="3%" width="3%" /></a>
         </div>
         <% for i in 0..3 %>
-        <div>
-        <input type="text" name="grades[name][]" class="form-control" placeholder = "กรุณากรอกชื่อชั้นเรียน"/>
-        <a href="javascript:void(0);" class="remove_button"><img src="/remove-icon.png" height="3%" width="3%"/></a> 
-        </div>
-        <% end %>
+            <div>
+                <input type="text" name="grades[name][]" class="form-control" placeholder="กรุณากรอกชื่อชั้นเรียน" />
+                <a href="javascript:void(0);" class="remove_button"><img src="/remove-icon.png" height="3%" width="3%" /></a>
+            </div>
+            <% end %>
     </div>
-      <div class="row">
+    <div class="row">
         <div class="col-md-9">
         </div>
         <div class="col-md-2">
-          <%= button_tag t('.next'), type: 'button', class: 'btn btn-getStarted animated fadeInDown', onclick: 'showNewSchool()', id: 'buuton_grade' %>
+            <%= button_tag t('.next'), type: 'button', class: 'btn btn-getStarted animated fadeInDown', onclick: 'showNewSchool()', id: 'buuton_grade' %>
         </div>
-      </div>
     </div>
-  </div>
 </div>

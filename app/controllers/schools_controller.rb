@@ -16,12 +16,13 @@ class SchoolsController < ApplicationController
         if token.present?
           @customer = Omise::Customer.create({
             email: @school.email,
-            description: "#{@school.name_eng} (id: #{@school.id})",
+            description: "#{@school.name_eng}",
             card: token
           })
           @school.customer_id = @customer.id
         end
         if @school.save(validate: false)
+          @school.create_grades(params[:grades][:name])
           SchoolMailer.school_notification(@school).deliver
           user = @school.users.first
           user.add_role('admin')
