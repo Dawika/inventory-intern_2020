@@ -3,7 +3,7 @@ class GradesController < ApplicationController
 
   # GET /grades
   def index
-    @grades = Grade.all.to_a
+    @grades = Grade.where(school_id: current_user.school.id).to_a
     @grades << Grade.new(name: 'All', id: -1)
     render json: @grades, status: :ok
   end

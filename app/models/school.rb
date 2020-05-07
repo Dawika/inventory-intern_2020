@@ -9,6 +9,7 @@ class School < ApplicationRecord
   has_many :licenses
   has_one :bil_info
   belongs_to :plan
+  has_many :grades
   has_attached_file :logo, styles: { medium: "200x200>", thumb: "100x100>" }, default_url: "/somsri_logo.png"
   validates_attachment_content_type :logo, content_type: ["image/jpeg", "image/jpg", "image/png"]
   accepts_nested_attributes_for :users
@@ -18,7 +19,17 @@ class School < ApplicationRecord
   validates :name, :address, :name_eng, :phone, :logo, presence: true, allow_blank: false
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :subdomain_name, presence: true, allow_blank: false, uniqueness: true
+  attr_accessor :grades_name
+
   after_create :create_license
+
+  def create_grades(data)
+    data.each do |grades|
+      if grades.present?
+        self.grades.create(name: grades, school_id: self.id)
+      end
+    end
+  end
 
   def school_setting
     school_settings.first || SiteConfig.get_cache

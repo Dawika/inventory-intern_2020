@@ -1,0 +1,38 @@
+<div class="new-school" id="add_grades">
+    <h2>
+        <%= t('.grades') %>
+    </h2>
+    <div class="field_wrapper">
+        <div>
+            <div class="row">
+                <div class="col-md-11">
+                    <input type="text" name="grades[name][]" class="form-control" placeholder="กรุณากรอกชื่อชั้นเรียน" />
+                </div>
+            </div>
+        </div><br>
+        <% for i in 0..3 %>
+            <div id="form_grade">
+                <div class="row">
+                    <div class="col-md-11">
+                        <input type="text" name="grades[name][]" class="form-control" placeholder="กรุณากรอกชื่อชั้นเรียน" />
+                    </div>
+                    <div class="col-md-1 button-delete">
+                        <a href="javascript:void(0);" class="remove_button"><img src="/remove-icon.png" height="100%" width="100%" style="margin-top: 36%;margin-left: -30%;" /></a>
+                    </div>
+                </div><br>
+            </div>
+            <% end %>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <a href="javascript:void(0);" class="add_button" title="Add field"><img src="/add.png" height="10%" width="10%" /></a>
+        </div>
+    </div><br>
+    <div class="row">
+        <div class="col-md-10">
+        </div>
+        <div class="col-md-2">
+            <%= button_tag t('.next'), type: 'button', class: 'btn btn-getStarted animated fadeInDown', onclick: 'showNewSchool()', id: 'buuton_grade' %>
+        </div>
+    </div>
+</div>
