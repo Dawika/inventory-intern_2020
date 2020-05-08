@@ -2,7 +2,7 @@ class CheckValidatesController < ApplicationController
 
   def subdomain_uniqueness
     subdomain_not_use = School.where(subdomain_name: params[:subdomain_name]).count.zero? &&
-      !@school_config.reserved_subdomains.split(',').include?(params[:subdomain_name].downcase)
+      !@school_config.reserved_subdomains.try(:split, ",").try(:include , params[:subdomain_name].downcase)
     render json: { status: subdomain_not_use, message: t('subdomain_uniqueness') }
   end
 
