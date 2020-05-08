@@ -13,12 +13,16 @@ Rails.application.routes.draw do
   get "/language" => "home#language"
   get "/locale" => "home#locale"
   get 'holiday.ics' => 'holidays#share'
-
+  get "/signup" => "schools#new"
+  
   resources :schools
+
   resources :purchases, param: :school_id, only: [:new] do
     patch 'renew'
     post 'update_card'
   end
+
+ 
 
   resources :users, only: [] do
     collection do
