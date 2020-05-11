@@ -51,9 +51,9 @@ class SettingsController < ApplicationController
   private
     def getSetting
       {
-        user: current_user,
+        user: current_user.employee,
         school: current_user.school,
-        owner: User.where(school_id: current_user.school.id).with_role(:admin).first,
+        owner: Employee.where(school_id: current_user.school.id).first,
         school_logo: current_user.school.logo_url,
         licenses: current_user.school.active_license,
         plan: current_user.school.active_license.plan || t('trial'),
