@@ -7,8 +7,10 @@
             <div class="col-md-3">
               <label class="style-font">{{ 'logo_school' | translate }}</label>
               <div class="form-group">
-                <img id="s_logo" src="{{ setting.datas.school_logo }}" alt="your image" width="200px" onclick="$('#file-upload').trigger('click')" /><br>
-                <input type="file" id="file-upload" onchange="angular.element(this).scope().fileChange(event, 's_logo')">
+                <img id="s_logo" src="{{ setting.datas.school_logo }}" alt="your image" width="200px"
+                  onclick="$('#file-upload').trigger('click')" /><br>
+                <input type="file" id="file-upload"
+                  onchange="angular.element(this).scope().fileChange(event, 's_logo')">
               </div>
             </div>
             <div class="col-md-9">
@@ -27,7 +29,8 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="name_eng">{{ 'school_name_eng' | translate }}</label>
-                    <input type="text" class="form-control white-bg" id="name_eng" ng-model="setting.datas.school.name_eng">
+                    <input type="text" class="form-control white-bg" id="name_eng"
+                      ng-model="setting.datas.school.name_eng">
                   </div>
                 </div>
               </div>
@@ -35,78 +38,81 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="subdoamin">Subdomain</label>
-                    <input type="text" class="form-control white-bg" id="name_eng" ng-model="setting.datas.school.subdomain_name" disabled>
+                    <input type="text" class="form-control white-bg" id="name_eng"
+                      ng-model="setting.datas.school.subdomain_name" disabled>
                   </div>
                 </div>
                 <div class="col-md-6" style="margin-top: 45px; margin-left: -20px; color:#0098CF;">
-                  <b>.onbananacoding.com</b>
+                  <b>.bananahacking.com</b>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <br><hr><br>
+      <br>
+      <hr><br>
       <div class="row">
         <div class="col-md-5">
-            <div class="row">
-              <label class="style-font">{{ 'billing_info' | translate }}</label>
-            </div><br>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="address">{{ 'address' | translate }}</label>
-                  <input type="text" class="form-control white-bg" id="address" ng-model="setting.datas.school.address">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="phone">{{ 'phone' | translate }}</label>
-                  <input type="text" class="form-control white-bg" id="phone" ng-model="setting.datas.school.phone">
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="fax">{{ 'fax' | translate }}</label>
-                  <input type="text" class="form-control white-bg" id="fax" ng-model="setting.datas.school.fax">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="email">{{ 'school_email' | translate }}</label>
-                  <input type="text" class="form-control white-bg" id="emailSchool" ng-model="setting.datas.school.email">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-8">
-                <div class="form-group">
-                  <label>{{ 'tax_number' | translate}}</label>
-                  <input type="text" class="form-control white-bg" ng-model="setting.datas.school.tax_id">
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="subdoamin">{{ 'branch' | translate}}</label>
-                  <input type="text" class="form-control white-bg" id="name_eng" ng-model="setting.datas.school.branch">
-                </div>
-              </div>
-            </div><br>
-            <div class="row">
-              <label class="style-font">{{ 'last_bil' | translate}}</label>
-            </div><br>
-            <div class="row">
-              <div class="col-md-8 footer-invoice">
-                <textarea id="footer-invoice" rows="100" cols="200" ng-model="setting.datas.school.note" redactor ></textarea>
+          <div class="row">
+            <label class="style-font">{{ 'billing_info' | translate }}</label>
+          </div><br>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="address">{{ 'address' | translate }}</label>
+                <input type="text" class="form-control white-bg" id="address" ng-model="setting.datas.school.address">
               </div>
             </div>
           </div>
-          <!-- end half-->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="phone">{{ 'phone' | translate }}</label>
+                <input type="text" class="form-control white-bg" id="phone" ng-model="setting.datas.school.phone">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="fax">{{ 'fax' | translate }}</label>
+                <input type="text" class="form-control white-bg" id="fax" ng-model="setting.datas.school.fax">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="email">{{ 'school_email' | translate }}</label>
+                <input type="text" class="form-control white-bg" id="emailSchool" ng-model="setting.datas.school.email">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">
+              <div class="form-group">
+                <label>{{ 'tax_number' | translate}}</label>
+                <input type="text" class="form-control white-bg" ng-model="setting.datas.school.tax_id">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="subdoamin">{{ 'branch' | translate}}</label>
+                <input type="text" class="form-control white-bg" id="name_eng" ng-model="setting.datas.school.branch">
+              </div>
+            </div>
+          </div><br>
+          <div class="row">
+            <label class="style-font">{{ 'last_bil' | translate}}</label>
+          </div><br>
+          <div class="row">
+            <div class="col-md-8 footer-invoice">
+              <textarea id="footer-invoice" rows="100" cols="200" ng-model="setting.datas.school.note"
+                redactor></textarea>
+            </div>
+          </div>
         </div>
+        <!-- end half-->
+      </div>
       <div class="row"><br>
         <hr>
       </div><br>
@@ -194,7 +200,8 @@
             <input type="text" class="form-control" id="useremail" ng-model="setting.datas.owner.email">
           </div>
         </div>
-      </div><br><hr>
+      </div><br>
+      <hr>
 
       <div class="row">
         <label class="style-font">{{ 'personal_data' | translate}}</label>
@@ -219,7 +226,8 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label for="password">{{ 'password' | translate }}</label>
-                <input type="password" class="form-control white-bg" id="password" ng-model="setting.datas.password" ng-disabled="true">
+                <input type="password" class="form-control white-bg" id="password" ng-model="setting.datas.password"
+                  ng-disabled="true">
               </div>
             </div>
           </div>
@@ -227,12 +235,14 @@
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
-                <button type="button" class="btn btn-custom btn-green btn-block" ng-click="setting.changePassword()">{{ 'change_password' | translate }}</button>
+                <button type="button" class="btn btn-custom btn-green btn-block"
+                  ng-click="setting.changePassword()">{{ 'change_password' | translate }}</button>
               </div>
             </div>
           </div>
         </div>
-      </div><br><hr>
+      </div><br>
+      <hr>
 
       <div class="row">
         <label class="style-font">{{ 'plan' | translate}}</label>
@@ -247,14 +257,19 @@
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <label>{{'exp' | translate}} {{ setting.datas.licenses.expired_date | date:"MM/dd/yyyy"}} ( {{ ( setting.datas.school.auto_subscribe ? "auto_renew" : "not_auto_renew" ) | translate }} )</label>
+            <label>{{'exp' | translate}} {{ setting.datas.licenses.expired_date | date:"MM/dd/yyyy"}} (
+              {{ ( setting.datas.school.auto_subscribe ? "auto_renew" : "not_auto_renew" ) | translate }} )</label>
           </div>
         </div>
       </div>
       <div class="row">
-        <button type="button" class="btn btn-custom btn-blue float-right size" ng-click="setting.changePlan()">{{'change_plan' | translate}}</button>
-        <button ng-show="setting.button_auto_subscribe" type="button" class="btn btn-custom btn-red float-right size" ng-click="setting.auto_subscribe(setting.datas.school.auto_subscribe)">{{'Cancel_Subscribe' | translate}}</button>
-        <button ng-hide="setting.button_auto_subscribe" type="button" class="btn btn-custom btn-light-green float-right size" ng-click="setting.auto_subscribe(setting.datas.school.auto_subscribe)">{{'auto_subscribe' | translate}}</button>
+        <button type="button" class="btn btn-custom btn-blue float-right size"
+          ng-click="setting.changePlan()">{{'change_plan' | translate}}</button>
+        <button ng-show="setting.button_auto_subscribe" type="button" class="btn btn-custom btn-red float-right size"
+          ng-click="setting.auto_subscribe(setting.datas.school.auto_subscribe)">{{'Cancel_Subscribe' | translate}}</button>
+        <button ng-hide="setting.button_auto_subscribe" type="button"
+          class="btn btn-custom btn-light-green float-right size"
+          ng-click="setting.auto_subscribe(setting.datas.school.auto_subscribe)">{{'auto_subscribe' | translate}}</button>
       </div>
 
     </div>
@@ -265,7 +280,8 @@
       <button type="submit" class="btn btn-custom btn-blue btn-block">{{ 'save' | translate }}</button>
     </div>
     <div class="col-md-2 text-right">
-      <button type="button" class="btn btn-custom btn-gray btn-block" ng-click="openRoot()">{{ 'cancel' | translate }}</button>
+      <button type="button" class="btn btn-custom btn-gray btn-block"
+        ng-click="openRoot()">{{ 'cancel' | translate }}</button>
     </div>
   </div>
 </form>
