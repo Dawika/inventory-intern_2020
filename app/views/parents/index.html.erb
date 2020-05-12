@@ -6,7 +6,8 @@
       <h1><%= t('parent') %></h1>
     </div>
     <div class="col-xs-6 mt-10 px-0" style="text-align: right;">
-      <a class="btn btn-custom btn-blue-sky float-right mr-5" href="#" onclick='exportTable("parents")'><i class="fa fa-share-square-o" aria-hidden="true"></i> <%= t('export') %></a>
+      <a class="btn btn-custom btn-blue-sky float-right mr-5" href="#" onclick='exportTable("parents")'><i
+          class="fa fa-share-square-o" aria-hidden="true"></i> <%= t('export') %></a>
       <%= link_to t('.addparent', :default => t("helpers.links.addparent")), new_parent_path, :class => 'btn btn-custom btn-blue float-right'%>
     </div>
   </div>
@@ -15,50 +16,45 @@
       <div class="col-xs-6">
         <div class="search">
           <i class="fa fa-search" aria-hidden="true"></i>
-          <input class="form-control" id="search" type="text" placeholder=<%= t('find') %> onchange="search()" onkeyup="this.onchange()">
+          <input class="form-control" id="search" type="text" placeholder=<%= t('find') %> onchange="search()"
+            onkeyup="this.onchange()">
         </div>
       </div>
       <div class="col-xs-6 select-filter">
         <span><%= t('select_classroom') %></span>
         <select name="grade_select" id="grade_select" class="btn-grades" onchange="filter()">
           <option value='all'><%= t('all') %></option>
-          <% Grade.all.each do |grade| %>
-          <option value="<%= grade.name %>"<%= @filter_grade.to_s == grade.name.to_s ? "selected" : "" %>> <%= grade.name %> </option>
+          <% @Grade.all.each do |grade| %>
+          <option value="<%= grade.name %>" <%= @filter_grade.to_s == grade.name.to_s ? "selected" : "" %>>
+            <%= grade.name %> </option>
           <% end %>
         </select>
 
         <span><%= t('select_room') %></span>
-        <select name="class_select" id="class_select"  onchange="filter()" class="btn-grades">
+        <select name="class_select" id="class_select" onchange="filter()" class="btn-grades">
           <option value='all'><%= t('all') %></option>
           <% @classroom_display.each do |classroom| %>
-          <option value="<%= classroom %>"<%= @filter_class.to_s == classroom.to_s ? "selected" : "" %>> <%= classroom %> </option>
+          <option value="<%= classroom %>" <%= @filter_class.to_s == classroom.to_s ? "selected" : "" %>>
+            <%= classroom %> </option>
           <% end %>
         </select>
       </div>
     </div>
     <div class="overflow-table">
-      <table id="table"
-        data-toggle="table"
-        data-pagination="true"
-        data-pagination-loop="false"
-        data-pagination-pre-text="&#xf104;"
-        data-pagination-next-text="&#xf105;"
-        data-url="parents.json"
-        data-side-pagination="server"
-        data-sort-name="parents.full_name"
-        data-sort-order="asc"
-        data-query-params-type="page"
-        data-query-params="queryParams"
-        data-locale="<%= I18n.locale %>">
+      <table id="table" data-toggle="table" data-pagination="true" data-pagination-loop="false"
+        data-pagination-pre-text="&#xf104;" data-pagination-next-text="&#xf105;" data-url="parents.json"
+        data-side-pagination="server" data-sort-name="parents.full_name" data-sort-order="asc"
+        data-query-params-type="page" data-query-params="queryParams" data-locale="<%= I18n.locale %>">
         <thead>
           <tr>
             <th data-field="parents.img_url" data-formatter="imgTag"></th>
-            <th data-field="parents.full_name" data-formatter="linkToParentEditFormatter" data-sortable="true" style="width: 300px;" ><%= t('full_name') %></th>
+            <th data-field="parents.full_name" data-formatter="linkToParentEditFormatter" data-sortable="true"
+              style="width: 300px;"><%= t('full_name') %></th>
             <th data-field="parents.mobile" data-sortable="true"><%= t('phone') %></th>
             <th data-field="parents.email" data-sortable="true"><%= t('email') %></th>
             <th data-field="relationships.name" data-sortable="true"><%= t('relationship') %></th>
             <th data-field="students.full_name" data-sortable="true"><%= t('student_name') %></th>
-            <th data-field="parent_options" data-formatter="selectionParentFormatter" ></th>
+            <th data-field="parent_options" data-formatter="selectionParentFormatter"></th>
           </tr>
         </thead>
       </table>
@@ -66,18 +62,15 @@
   </div>
 </div>
 
-<table id="tableForExport"
-  data-toggle="table"
-  data-side-pagination="server"
-  data-tableexport-display="always"
+<table id="tableForExport" data-toggle="table" data-side-pagination="server" data-tableexport-display="always"
   style="display: none;">
   <thead>
     <tr>
-      <th data-field="parents.full_name" style="width: 300px;" ><%= t('full_name') %></th>
-      <th data-field="parents.mobile" ><%= t('phone') %></th>
-      <th data-field="parents.email" ><%= t('email') %></th>
-      <th data-field="relationships.name" ><%= t('relationship') %></th>
-      <th data-field="students.full_name" ><%= t('student_name') %></th>
+      <th data-field="parents.full_name" style="width: 300px;"><%= t('full_name') %></th>
+      <th data-field="parents.mobile"><%= t('phone') %></th>
+      <th data-field="parents.email"><%= t('email') %></th>
+      <th data-field="relationships.name"><%= t('relationship') %></th>
+      <th data-field="students.full_name"><%= t('student_name') %></th>
     </tr>
   </thead>
 </table>
@@ -102,7 +95,8 @@
           </div>
           <div class="col-md-3 pull-right">
             <%= form_tag("", id:"actionModalForm") do %>
-              <a class="btn btn-custom btn-red submit" onclick="document.getElementById('actionModalForm').submit();"><%= t('ok') %></a>
+            <a class="btn btn-custom btn-red submit"
+              onclick="document.getElementById('actionModalForm').submit();"><%= t('ok') %></a>
             <% end %>
           </div>
         </div>

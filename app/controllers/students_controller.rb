@@ -132,6 +132,7 @@ class StudentsController < ApplicationController
   # GET /students.json
   # GET /students.pdf
   def index
+    @Grade = current_user.school.grades
     @menu = t('student')
 
     grade_select = (params[:grade_select] || 'All')

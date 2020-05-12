@@ -5,6 +5,7 @@ class ParentsController < ApplicationController
 
   # GET /parents
   def index
+    @Grade = current_user.school.grades
     filter_parents
     grade_select = (params[:grade_select] || 'All')
     class_select = (params[:class_select] || 'All')

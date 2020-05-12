@@ -27,6 +27,10 @@ if !SchoolSetting.first[:semesters]
   sc.save
 end
 
+if GroupingReportOption.count.zero?
+  GroupingReportOption.create(name: "ค่าเทอม", keyword: "ค่าธรรมเนียม|ค่าเทอม")
+end
+
 if Employee.count.zero?
   Employee.create!([
     {first_name: "Test", email: "test@test.com", password: "password", password_confirmation: "password", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, school_id: schools[0].id, name: nil},
