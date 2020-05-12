@@ -6,6 +6,7 @@
       var ctrl = this
       $rootScope.loadAndAuthorizeResource("setting", function() {
         service.getSetting().then(function(resp) {
+        console.log(resp)
           ctrl.datas = resp.data;
           ctrl.datas.password = "password";
           ctrl.button_auto_subscribe = ctrl.datas.school.auto_subscribe

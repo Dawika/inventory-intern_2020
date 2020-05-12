@@ -16,6 +16,16 @@ class User < ApplicationRecord
   validates :email, presence: true, allow_blank: false, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, presence: true, allow_blank: false, confirmation: true
   accepts_nested_attributes_for :school
+  after_create :update_employee
+
+  def update_employee
+     name = self.full_name.split(" ")
+     if name.count == 2
+     self.employee.update(first_name: name[0], last_name: name[1])
+     else
+     self.employee.update(first_name: name[0])
+     end
+  end
 
   def ability
     Ability.new(self)

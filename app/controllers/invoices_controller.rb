@@ -369,14 +369,14 @@ class InvoicesController < ApplicationController
     all_years = Invoice.pluck(:school_year).uniq
     render json: {
       all_years: all_years,
-      current_year: SchoolSetting.school_year
+      current_year: current_user.school_setting.school_year
     }
   end
 
   def invoice_semesters
     render json: {
-      semesters: SchoolSetting.semesters,
-      current_semester: SchoolSetting.current_semester
+      semesters: current_user.school_setting.semesters,
+      current_semester: current_user.school_setting.current_semester
     }
   end
 
