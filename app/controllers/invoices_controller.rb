@@ -108,7 +108,7 @@ class InvoicesController < ApplicationController
       last_invoice_id: last_invoice_id,
       student_info: student_info,
       parent_info: parent_info,
-      grades: Grade.names,
+      grades: current_user.school.grades.names,
       line_items_info: line_items_info,
       current_semester: current_user.school_setting.current_semester
     }, status: :ok
