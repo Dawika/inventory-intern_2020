@@ -319,7 +319,7 @@ class PayrollsController < ApplicationController
 
   private
     def get_months(isClosed, time_zone)
-      employee_ids = Employee.with_deleted.all
+      employee_ids = Employee.with_deleted.where(school_id: current_user.school.id)
       payroll_dates = Payroll.where(employee_id: employee_ids)
       if isClosed
         payroll_dates = payroll_dates.where(closed: true)

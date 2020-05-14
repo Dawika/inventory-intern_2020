@@ -9,6 +9,7 @@
       ctrl.total = 0
       ctrl.employees
       ctrl.effectiveDates = []
+      ctrl.disable_button_export = false
       ctrl.currentDateString = ""
       ctrl.slipsUrl = "?"
       ctrl.slip_carbon = false
@@ -166,6 +167,8 @@
                 ctrl.slipsUrl += "payroll_ids%5B%5D=" + ctrl.employees[i].payroll_id + "&";
               }
             });
+          }else{
+          ctrl.disable_button_export = true
           }
         });
       }
