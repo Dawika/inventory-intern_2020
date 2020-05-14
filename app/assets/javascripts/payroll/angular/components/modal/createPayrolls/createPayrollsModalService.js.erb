@@ -6,7 +6,7 @@
   .service('createPayrollsModalService', ['$http', '$log', function($http, $log) {
     return {
       createPayrolls: function(data) {
-        return $http.post('/payrolls', data);
+        return $http.post('/payrolls/create_payroll', data);
       }
     };
   }]);

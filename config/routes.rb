@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     collection do
       get "effective_dates"
       get 'social_insurance_pdf'
+      post 'create_payroll'
     end
   end
 

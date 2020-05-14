@@ -293,7 +293,7 @@ class PayrollsController < ApplicationController
   end
 
   # POST /payrolls/
-  def create
+  def create_payroll
     effective_date = Time.zone.parse(create_params[:effective_date])
     if effective_date
       render json: [] and return if Payroll.where(effective_date: effective_date).count > 0
