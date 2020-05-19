@@ -2,4 +2,4 @@
 
 <p>You can set your password through the link below:</p>
 
-<p><%= link_to 'Set my password', edit_password_url(@employee, reset_password_token: @token, subdomain: @subdomain) %></p>
+<p><%= link_to 'Set my password', change_subdomain_send_mail_subdomains_url(reset_password_token: @token, subdomain_name: @subdomain) %></p>

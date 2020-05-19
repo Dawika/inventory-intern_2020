@@ -218,6 +218,7 @@ Rails.application.routes.draw do
   resources :subdomains do
     collection do
       get 'change'
+      get 'change_subdomain_send_mail'
     end
   end
 
