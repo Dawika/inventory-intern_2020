@@ -1149,3 +1149,6 @@ th:
     add_grade_school:
       grades: "กรุณากรอกชั้นเรียนทั้งหมดในโรงเรียน"
 
+      #help
+      Contact us: "ติดต่อเรา"
+
