@@ -1028,6 +1028,11 @@ th:
   #evaluate
   evaluate_candidate: "แบบประเมินหลังการสัมภาษณ์ Candidate"
 
+  #reset password
+  invite_password:
+    title: "ตั้งค่ารหัสผ่าน"
+    submit: ยืนยัน
+
   interview_information: "Interview Information"
   interviewer_email: "อีเมลผู้สัมภาษณ์"
   interviewee_name: "ชื่อผู้ถูกสัมภาษณ์"

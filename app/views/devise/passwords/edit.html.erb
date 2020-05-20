@@ -1,26 +1,115 @@
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
+<style>
+  body {
+    margin-bottom: 0px !important;
+    margin-top: 12%;
+  }
 
-<h2>Please enter your password</h2>
-
-  <div class="field">
-    <%= f.label :password, "Password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-
-    <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
+  .message {
+    color: #D0021B;
+  }
+</style>
+<div id="new-password">
+  <div class="container" id="warp">
+    <div class="row">
+      <%= render 'layouts/messages' %>
+      <div class="col-md-12 box">
+        <div class="form-sign-in">
+          <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, id: 'form' }) do |f| %>
+          <%= f.hidden_field :reset_password_token %>
+          <div class="row">
+            <div class="col-xs-12 text-center">
+              <h2><%= t('invite_password.title') %></h2>
+            </div>
+          </div>
+          <br />
+          <br />
+          <br />
+          <div class="row">
+            <div class="field form-group">
+              <%= f.password_field :password, id: "password-input", autofocus: true, autocomplete: "off", class: "form-control input-login" , placeholder: t('password'), onchange: "checkPasswordMinLength()" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="field form-group">
+              <%= f.password_field :password_confirmation, id: "confirm-password-input", autocomplete: "off", class: "form-control input-login",placeholder: t('new_password_confirmation'), style: "margin-top:10px;", onchange: "checkPasswordMismatch()" %>
+              <br />
+            </div>
+          </div>
+          <div class="row">
+            <div id="min-length-warning" class="waring-message" style="display: none">*
+              <%= t('invite_password.min_length_warning', minimum_password_length: @minimum_password_length) %></div>
+            <div id="mismatch-warning" class="waring-message" style="display: none">*
+              <%= t('invite_password.mismatch_warning') %></div>
+          </div>
+          <div class="row">
+            <div class="sign-in actions">
+              <buttont id="submit-btn" class="btn btn-signin" type="button" onclick="submit()"><%= t('invite_password.submit') %>
+              </buttont>
+            </div>
+          </div>
+          <% if (@school.present?) && (@school_config.enable_rollcall) && (@school_config.roll_call_apk_url)  %>
+          <div class="row">
+            <div class="download_android">
+              <a href="<%= @school_config.roll_call_apk_url %>" target="_blank"><i
+                  class="fa fa-android"></i><%= t('download_somsri_rollcall') %></a>
+            </div>
+          </div>
+          <% end %>
+          <% end %>
+        </div>
+        <%= render "devise/shared/links" %>
+        <footer id="footer">
+          <div class="container">
+            <p class="text-center">© Copyright bananahacking.com</p>
+          </div>
+        </footer>
+      </div>
+    </div>
   </div>
+</div>
+<script>
+  var minimum_password_length = < %= @minimum_password_length % > ;
+  var isSubmited = false;
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm your password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
+  function checkPasswordMismatch() {
+    var confirmPassword = $('#confirm-password-input').val();
+    var password = $('#password-input').val();
+    if (!(password && confirmPassword && confirmPassword === password)) {
+      $('#mismatch-warning').show();
+      return false;
+    } else {
+      $('#mismatch-warning').hide();
+      return true;
+    }
+  }
 
-  <div class="actions">
-    <%= f.submit "save" %>
-  </div>
-<% end %>
+  function checkPasswordMinLength() {
+    var password = $('#password-input').val();
+    if (password.length < minimum_password_length) {
+      $('#min-length-warning').show();
+      return false;
+    } else {
+      $('#min-length-warning').hide();
+      return true
+    }
+  }
 
-<%= render "devise/shared/links" %>
+  function checkPassword() {
+    var password = $('#password-input').val();
+    var confirmPassword = $('#confirm-password-input').val();
+    if (!checkPasswordMismatch()) {
+      return false
+    }
+    if (!checkPasswordMinLength()) {
+      return false
+    }
+    return true;
+  }
+
+  function submit() {
+    if (checkPassword() && !isSubmited) {
+      isSubmited = true;
+      $('#form').submit();
+    }
+  }
+</script>
