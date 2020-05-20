@@ -488,6 +488,7 @@ th:
   employee: "บุคลากร"
   setting: 'การตั้งค่า'
   class_management: จัดการชั้นเรียน
+  school_profile: "ข้อมูลโรงเรียน"
   expense: "บันทึกค่าใช้จ่าย"
   quotation: 'วางบิล'
   inventory: "พัสดุ"
