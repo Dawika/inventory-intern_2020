@@ -5,6 +5,7 @@ class SchoolsController < ApplicationController
       @school.school_settings.build
       @school.build_bil_info
       @plans = Plan.all.order(id: 'asc')
+      @domain_name = request.domain
     end
 
     def create

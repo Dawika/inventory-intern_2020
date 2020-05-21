@@ -35,6 +35,19 @@
       }
     }).
     state({
+      url: '/setting/personal',
+      name: 'personal_setting',
+      templateUrl: "<%= asset_path('main/angular/components/setting/personal/personalView.html') %>",
+      controller: 'personalCtrl as personal',
+      resolve: {
+        resources: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load([
+            ASSETS.somsri.main.personal_setting
+          ]);
+        }]
+      }
+    }).
+    state({
       url: '/classroom',
       name: 'classroom',
       templateUrl: "<%= asset_path('main/angular/components/classroom/classroomView.html') %>",

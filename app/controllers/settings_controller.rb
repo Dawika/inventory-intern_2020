@@ -58,7 +58,8 @@ class SettingsController < ApplicationController
         licenses: current_user.school.active_license,
         plan: current_user.school.active_license.plan || t('trial'),
         billing_info: current_user.school.bil_info,
-        all_plan: Plan.all
+        all_plan: Plan.all,
+        domain: request.domain
 
       }
     end
