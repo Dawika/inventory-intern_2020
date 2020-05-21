@@ -8,7 +8,7 @@
           <span class="icon-bar"></span>
       </button>
       <div class="logo text-center">
-          <a class="navbar-brand" href="/"><%= image_tag 'somsri_logo.png', class: "" %></a>
+          <a class="navbar-brand" href="/"><%= image_tag 'new_somsri_logo.png', class: "" %></a>
       </div>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -55,6 +55,7 @@
                 <li><a class="dropdown-item" href="/main#/setting"><i class="fa fa-cog"></i> <%= t("settings")%></a></li>
                 <li class="divider"></li>
               <% end %>
+              
               <li><a class="dropdown-item" href="<%= destroy_user_session_path(cancel_check_plan: true) %>" rel="nofollow" data-method="DELETE">
               <i class="fas fa-sign-out-alt color-red"></i> <%= t("sign_out")%></a></li>
             </div>
