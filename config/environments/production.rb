@@ -86,7 +86,7 @@ Rails.application.configure do
 
   # mail config
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.default_url_options = { host: 'www.somsri.io' }
+  config.action_mailer.default_url_options = { host: 'www.bananahacking.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:                'smtp.sendgrid.net',
@@ -97,15 +97,15 @@ Rails.application.configure do
     domain:                 'heroku.com',
     enable_starttls_auto:   true
   }
-  config.action_mailer.asset_host = 'https://www.somsri.io'
+  config.action_mailer.asset_host = 'https://www.bananahacking.com'
   config.assets.comple = false
   config.assets.precompile += ['pdf.css']
 
   Rails.application.config.middleware.use ExceptionNotification::Rack,
     :email => {
       :email_prefix => "[Exception] ",
-      :sender_address => %{"notifier" <notifier@somsri.io>},
-      :exception_recipients => %w{exceptions@somsri.io}
+      :sender_address => %{"notifier" <notifier@bananahacking.com>},
+      :exception_recipients => %w{exceptions@bananahacking.com}
     }
 
 end
