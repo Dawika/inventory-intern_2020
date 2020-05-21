@@ -863,6 +863,11 @@ en:
   #evaluate
   evaluate_candidate: "Evaluate Candidate"
 
+  #reset password
+  invite_password:
+    title: "Setting Password"
+    submit: Confirm
+
   interview_information: "Interview Information"
   interviewer_email: "Interviewer email"
   interviewee_name: "Interviewee name"
