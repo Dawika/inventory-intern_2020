@@ -6,4 +6,8 @@ class SubdomainsController < ApplicationController
       redirect_to after_sign_in_path_for(user)
     end  
   end  
-end
+
+  def change_subdomain_send_mail
+    redirect_to edit_user_password_url(@employee, reset_password_token: params[:reset_password_token], subdomain: params[:subdomain_name])
+  end
+end 

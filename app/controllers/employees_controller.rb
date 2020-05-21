@@ -124,7 +124,8 @@ class EmployeesController < ApplicationController
       current_admin: current_user.super_admin? || current_user.admin?,
       current_human_resource: current_user.human_resource?,
       has_last_salary: @employee.has_last_salary,
-      encrypted_password: @employee.encrypted_password?
+      encrypted_password: @employee.encrypted_password?,
+      school_config: SiteConfig.get_cache
     }
   end
 
