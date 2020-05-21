@@ -104,6 +104,16 @@
         checkvalidate();
       });
     });
+      $('#formSingUp').hover(function(){
+      $(this).find("input").hover(function(){
+        $(this).focus();
+      });
+    });
+    $('#formSchool').hover(function(){
+      $(this).find("input").hover(function(){
+        $(this).focus();
+      });
+    });
     $('form.simple_form').enableClientSideValidations();
     $('#new_school abbr').hide()
     $('#formSchool').hide();
