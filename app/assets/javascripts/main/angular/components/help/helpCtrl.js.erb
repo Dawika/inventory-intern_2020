@@ -1,0 +1,11 @@
+(function () {
+  'use strict';
+  angular.module('somsri.main.help', [
+  ])
+    .controller('helpCtrl', ['$rootScope', 'translateFilter', 'helpService', function ($rootScope, translateFilter, service) {
+      $rootScope.menu = translateFilter('help');
+
+
+
+    }]);
+})();

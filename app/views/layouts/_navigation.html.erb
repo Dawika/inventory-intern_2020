@@ -1,19 +1,21 @@
 <nav class="navbar navbar-fixed-top navbar-custom">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
       </button>
       <div class="logo text-center">
-          <a class="navbar-brand" href="/"><%= image_tag 'somsri_logo.png', class: "" %></a>
+        <a class="navbar-brand" href="/"><%= image_tag 'somsri_logo.png', class: "" %></a>
       </div>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <% if user_signed_in? %>
-        <% if current_page?("/") %><ul class="nav navbar-nav" style="display:none;"><% else %><ul class="nav navbar-nav"><% end %>
+      <% if current_page?("/") %><ul class="nav navbar-nav" style="display:none;"><% else %><ul class="nav navbar-nav">
+          <% end %>
           <li class="dropdown">
             <a id="menu" class="dropdown-toggle text-navbar-left" data-toggle="dropdown" href="">
               <span ng-show="menu" ng-bind="menu"></span>
@@ -25,20 +27,21 @@
             </ul>
           </li>
         </ul>
-      <% end %>
-      <ul class="nav navbar-nav navbar-right dropdown" id="dropdownMenu" onclick="showDropdown(this.id)">
+        <% end %>
+        <ul class="nav navbar-nav navbar-right dropdown" id="dropdownMenu" onclick="showDropdown(this.id)">
           <% if user_signed_in? %>
-            <%= image_tag current_user.school.logo_url, width: 30  %>
-            <a class="nav-user avatar" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <%= current_user.name.blank? ? current_user.email : current_user.name %>
-              <i class="fa fa-angle-down"></i>
-            </a>
-            <div class="dropdown-menu on-nav-bar">
-              <% if (@school_config.enable_rollcall) && (@school_config.roll_call_apk_url) %>
-                <li><a class="dropdown-item" href="<%= @school_config.roll_call_apk_url %>" target="_blank">
+          <%= image_tag current_user.school.logo_url, width: 30  %>
+          <a class="nav-user avatar" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <%= current_user.name.blank? ? current_user.email : current_user.name %>
+            <i class="fa fa-angle-down"></i>
+          </a>
+          <div class="dropdown-menu on-nav-bar">
+            <% if (@school_config.enable_rollcall) && (@school_config.roll_call_apk_url) %>
+            <li><a class="dropdown-item" href="<%= @school_config.roll_call_apk_url %>" target="_blank">
                 <i class="fa fa-download"></i> <%= t("roll_download")%> </a></li>
-                <li class="divider"></li>
-              <% end %>
+            <li class="divider"></li>
+            <% end %>
 
               <li class="dropdown-submenu">
                 <a tabindex="-1"><i class="fas fa-comments"></i> <%= t("switch_language")%></a>
@@ -53,16 +56,22 @@
               <li class="divider"></li>
               <% if current_user.super_admin? || current_user.admin? || current_user.finance_officer? %>
                 <li><a class="dropdown-item" href="/main#/setting"><i class="fa fa-cog"></i> <%= t("settings")%></a></li>
-                <li class="divider"></li>
-              <% end %>
-              <li><a class="dropdown-item" href="<%= destroy_user_session_path(cancel_check_plan: true) %>" rel="nofollow" data-method="DELETE">
-              <i class="fas fa-sign-out-alt color-red"></i> <%= t("sign_out")%></a></li>
-            </div>
+            <li class="divider"></li>
+            <% end %>
+
+            <li><a class="dropdown-item" href="/main#/help"><i class="fas fa-question-circle"></i>
+                <%= t("help")%></a></li>
+            <li class="divider"></li>
+
+            <li><a class="dropdown-item" href="<%= destroy_user_session_path(cancel_check_plan: true) %>" rel="nofollow"
+                data-method="DELETE">
+                <i class="fas fa-sign-out-alt color-red"></i> <%= t("sign_out")%></a></li>
+          </div>
 
           <% else %>
 
-            <li class="divider"></li>
-            <li><a class="nav-link" href="/"><i class="fa fa-sign-in"></i> <%= t("log_in")%></a></li>
+          <li class="divider"></li>
+          <li><a class="nav-link" href="/"><i class="fa fa-sign-in"></i> <%= t("log_in")%></a></li>
           <% end %>
         </ul>
     </div>
@@ -70,9 +79,9 @@
 </nav>
 <script>
   function localeTH() {
-    location = "/language?locale=th&weburl="+location.href;
+    location = "/language?locale=th&weburl=" + location.href;
   }
   function localeEN() {
-    location = "/language?locale=en&weburl="+location.href;
+    location = "/language?locale=en&weburl=" + location.href;
   }
 </script>
