@@ -15,7 +15,8 @@ class EmployeesController < ApplicationController
     Employee.where(id: params[:id]).update_all(reset_password_token: enc, reset_password_sent_at: Time.now.utc)
     user = User.find(params[:id])
     subdomain = School.find(user.school_id).subdomain_name
-    EmployeeMailer.send_employee_invite(user, @raw, subdomain).deliver
+    domain_name = request.domain
+    EmployeeMailer.send_employee_invite(user, @raw, subdomain, domain_name).deliver
   end
 
   # GET /employees/:id/slip

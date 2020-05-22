@@ -20,7 +20,7 @@ class CheckValidatesController < ApplicationController
         user_in_school = true
       else
         user_in_school = user.school &&
-          user.school.subdomain_name.downcase == subdomain.downcase
+          user.school.subdomain_name&.downcase == subdomain.downcase
       end
     end
     render json: { status: user_in_school, message: t('user_not_in_school') }

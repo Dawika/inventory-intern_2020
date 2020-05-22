@@ -1,24 +1,24 @@
 <p>สวัสดี, <%= @employee.email %></p>
 
-<p>โปรดตั้งรหัสผ่านเพื่อเข้าระบบ <%=@subdomain%>.bananahacking.com โดยกดที่ลิงก์ "ตั้งรหัสผ่าน" ด้านล่าง</p>
+<p>โปรดตั้งรหัสผ่านเพื่อเข้าระบบ <%=@subdomain%>.<%= @domain_name %> โดยกดที่ลิงก์ "ตั้งรหัสผ่าน" ด้านล่าง</p>
 
 <p><%= link_to 'ตั้งรหัสผ่าน', change_subdomain_send_mail_subdomains_url(reset_password_token: @token, subdomain_name: @subdomain) %></p>
 
 <p>
 ขอบคุณ,
 <br>
-ทีมงาน bananahacking.com
+ทีมงาน Somsri.io
 </p>
 <hr>
 
 <p>Hello, <%= @employee.email %></p>
 
-<p>Please setup your password for log in to <%=@subdomain%>.bananahacking.com You can set your password through the link below.</p>
+<p>Please setup your password for log in to <%=@subdomain%>.<%= @domain_name %> You can set your password through the link below.</p>
 
 <p><%= link_to 'Set my password', change_subdomain_send_mail_subdomains_url(reset_password_token: @token, subdomain_name: @subdomain) %></p>
 
 <p>
 Thank you,
 <br>
-bananahacking.com teams
+Somsri.io teams
 </p>
