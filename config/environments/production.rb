@@ -97,7 +97,7 @@ Rails.application.configure do
     domain:                 'heroku.com',
     enable_starttls_auto:   true
   }
-  config.action_mailer.asset_host = Figaro.env.DEFAULT_URL_MAILER_ON_PRODUCTION
+  config.action_mailer.asset_host = Figaro.env.ASSET_HOST_ON_PRODUCTION
   config.assets.comple = false
   config.assets.precompile += ['pdf.css']
 

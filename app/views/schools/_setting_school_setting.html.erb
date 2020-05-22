@@ -41,23 +41,23 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <br>
-                  <h4><%=@domain_name%></h4>
+                  <h4>.<%=@domain_name%></h4>
                 </div>
               </div>
             </div>
             <div class="row">
               <%= f.simple_fields_for :school_settings, validate: true do |school_setting_form| %>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <%= school_setting_form.input :school_year, label: t('.school_year'), collection: [Time.now.year + 543, Time.now.year + 544], selected: Time.now.year + 543, input_html: { id: 'school_school_settings_school_year', class: 'validate-sign-up' }, required: true %>
-                  </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= school_setting_form.input :school_year, label: t('.school_year'), collection: [Time.now.year + 543, Time.now.year + 544], selected: Time.now.year + 543, input_html: { id: 'school_school_settings_school_year', class: 'validate-sign-up' }, required: true %>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <%= school_setting_form.input :semesters, label: t('.semesters'), collection: 1..3, selected: 2, input_html: { id: 'school_school_settings_semesters' } %>
-                  </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <%= school_setting_form.input :semesters, label: t('.semesters'), collection: 1..3, selected: 2, input_html: { id: 'school_school_settings_semesters' } %>
                 </div>
-                <% end %>
+              </div>
+              <% end %>
             </div>
             <div class="row">
               <div class="col-md-6">
@@ -66,8 +66,8 @@
                     <div class="form-group">
                       <h4>
                         <%= t('.Message3') %>&nbsp;
-                          <%= image_tag '/true.png', id: 'img-sc-true', class: 'hide', :size => "30x30" %>
-                            <%= image_tag '/false.png', id: 'img-sc-false', class: 'hide', :size => "30x30" %>
+                        <%= image_tag '/true.png', id: 'img-sc-true', class: 'hide', :size => "30x30" %>
+                        <%= image_tag '/false.png', id: 'img-sc-false', class: 'hide', :size => "30x30" %>
                       </h4>
                     </div>
                   </div>
@@ -76,7 +76,8 @@
                   <div class="dropzone">
                     <%= image_tag '/icon-file.jpg', id: 'logoSchool', class: 'img-lg' %>
                   </div><br><br>
-                  <button type="button" class="btn btn-getStarted animated fadeInDown" onclick="$('#school_logo').trigger('click')"><%= t('.Choose_file')%></button>
+                  <button type="button" class="btn btn-getStarted animated fadeInDown"
+                    onclick="$('#school_logo').trigger('click')"><%= t('.Choose_file')%></button>
                 </div>
                 <div id="requireimg" class="invalid-feedback" style="display: show;">*จำเป็นต้องใส่</div>
                 <div id="errorMessage" class="invalid-feedback" style="display: none;"></div>
@@ -84,7 +85,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <%= f.input :logo, label: false, as: :file, multiple: true, accept:'image/*', input_html: { onChange: 'changeLogo(event, "logoSchool")', class: 'validate-sign-up' }, required: true %>
-                    <br /><br /><br />*File type support .JPEG, .JPG, .PNG Size 200 x 200px under 2MB
+                  <br /><br /><br />*File type support .JPEG, .JPG, .PNG Size 200 x 200px under 2MB
                 </div>
               </div>
             </div>
