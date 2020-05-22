@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
       </button>
       <div class="logo text-center">
-        <a class="navbar-brand" href="/"><%= image_tag 'somsri_logo.png', class: "" %></a>
+        <a class="navbar-brand" href="/"><%= image_tag 'new_somsri_logo.png', class: "" %></a>
       </div>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -43,19 +43,22 @@
             <li class="divider"></li>
             <% end %>
 
-              <li class="dropdown-submenu">
-                <a tabindex="-1"><i class="fas fa-comments"></i> <%= t("switch_language")%></a>
-                <ul class="dropdown-menu">
-                  <li><a onclick="localeTH()"><img src="/switch_language/flag-thailand.png" alt="flag-thailand">&nbsp;&nbsp; ภาษาไทย</a></li>
-                  <li class="divider"></li>
-                  <li><a onclick="localeEN()"><img src="/switch_language/flag-united-kingdom.png" alt="flag-thailand">&nbsp;&nbsp; English</a></li>
-                </ul>
-              </li>
-              <li class="divider"></li>
-              <li><a class="dropdown-item" href="/main#/setting/personal"><i class="fa fa-user" aria-hidden="true"></i></i> <%= t("profile")%></a></li>
-              <li class="divider"></li>
-              <% if current_user.super_admin? || current_user.admin? || current_user.finance_officer? %>
-                <li><a class="dropdown-item" href="/main#/setting"><i class="fa fa-cog"></i> <%= t("settings")%></a></li>
+            <li class="dropdown-submenu">
+              <a tabindex="-1"><i class="fas fa-comments"></i> <%= t("switch_language")%></a>
+              <ul class="dropdown-menu">
+                <li><a onclick="localeTH()"><img src="/switch_language/flag-thailand.png"
+                      alt="flag-thailand">&nbsp;&nbsp; ภาษาไทย</a></li>
+                <li class="divider"></li>
+                <li><a onclick="localeEN()"><img src="/switch_language/flag-united-kingdom.png"
+                      alt="flag-thailand">&nbsp;&nbsp; English</a></li>
+              </ul>
+            </li>
+            <li class="divider"></li>
+            <li><a class="dropdown-item" href="/main#/setting/personal"><i class="fa fa-user"
+                  aria-hidden="true"></i></i> <%= t("profile")%></a></li>
+            <li class="divider"></li>
+            <% if current_user.super_admin? || current_user.admin? || current_user.finance_officer? %>
+            <li><a class="dropdown-item" href="/main#/setting"><i class="fa fa-cog"></i> <%= t("settings")%></a></li>
             <li class="divider"></li>
             <% end %>
 
