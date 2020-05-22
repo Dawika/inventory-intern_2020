@@ -105,7 +105,7 @@ Rails.application.configure do
     :email => {
       :email_prefix => "[Exception] ",
       :sender_address => %{"notifier" <notifier@#{Figaro.env.EXCEPTIONNOTIFICATION}>},
-      :exception_recipients => Figaro.env.EXCEPTIONNOTIFICATION_RECIPIENTS.presnet? ? Figaro.env.EXCEPTIONNOTIFICATION_RECIPIENTS.split(" ") : ["exception@somsri.io"]
+      :exception_recipients => Figaro.env.EXCEPTIONNOTIFICATION_RECIPIENTS.presnet? ? Figaro.env.EXCEPTIONNOTIFICATION_RECIPIENTS.split(",") : ["exception@somsri.io"]
     }
 
 end
