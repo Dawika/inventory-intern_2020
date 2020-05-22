@@ -9,6 +9,9 @@ BIND_ON: 3000
 ENDPOINT: "localhost:3000"
 OMISE_SECRET_KEY: skey_test_5gt4ctq58chozplemuw
 OMISE_PUPLIC_KEY: pkey_test_5gt4ctq4y99u88fzsoy
+DEFAULT_URL_MAILER_ON_PRODUCTION: www.bananahacking.com
+EXCEPTIONNOTIFICATION: bananahacking.com
+EXCEPTIONNOTIFICATION_RECIPIENTS: exception@bananahacking.com
 # TEAM_CONNECTOR_WEBHOOK_URL: 'https://outlook.office.com/webhook/43beed34-32d3-49bd-b06b-8e683e9148ea@c70ad7a7-3297-49cc-aa05-725ddcb5f870/IncomingWebhook/49f0fa076e4946f69d906d388500bce1/a951322e-7650-443a-9a2f-5870fd9c6073'
 
 production:

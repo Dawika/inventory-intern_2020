@@ -357,8 +357,6 @@ ActiveRecord::Schema.define(version: 20200330071338) do
     t.boolean  "work_at_home_allow"
     t.index ["classroom_id"], name: "index_employees_on_classroom_id", using: :btree
     t.index ["deleted_at"], name: "index_employees_on_deleted_at", using: :btree
-    t.index ["email"], name: "index_employees_on_email", unique: true, using: :btree
-    t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true, using: :btree
     t.index ["school_id"], name: "index_employees_on_school_id", using: :btree
   end
 
