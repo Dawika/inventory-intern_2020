@@ -21,9 +21,15 @@
             </div>
           </div>
           <div class="row">
+          <% if @subdomain.present? %>
             <div class="field form-group">
               <%= f.email_field :email, autofocus: true, class: "form-control input-login" , placeholder: t('user_name'), onkeyup: "validateUserBySubdomain('#{user_by_subdomain_check_validates_path}', this.id, #{SiteConfig.get_cache.web_cms ? 'false' : 'true'})" %>
             </div>
+            <% else %>
+                <div class="field form-group">
+              <%= f.email_field :email, autofocus: true, class: "form-control input-login" , placeholder: t('user_name')%>
+            </div>
+            <% end %>
           </div>
           <div class="row">
             <div class="field form-group">
@@ -78,6 +84,9 @@
 
 <script>
   $(document).ready(function() {
+    if (<%= !@subdomain.present? %>){
+    $(".btn-signin").prop("disabled", false)
+    }
     $('form.simple_form').enableClientSideValidations();
   });
 </script>
