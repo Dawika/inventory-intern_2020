@@ -6,6 +6,7 @@ class Devise::SessionsController < DeviseController
   
     # GET /resource/sign_in
     def new
+      @subdomain = request.subdomain
       self.resource = resource_class.new()
       clean_up_passwords(resource)
       @school = School.find_by(subdomain_name: subdomain)
@@ -16,10 +17,14 @@ class Devise::SessionsController < DeviseController
     # POST /resource/sign_in
     def create
       self.resource = warden.authenticate!(auth_options)
-      set_flash_message!(:notice, :signed_in)
-      sign_in(resource_name, resource)
-      yield resource if block_given?
-      respond_with resource, location: after_sign_in_path_for(resource)
+      if @subdomain.present?
+        set_flash_message!(:notice, :signed_in)
+        sign_in(resource_name, resource)
+        yield resource if block_given?
+        respond_with resource, location: after_sign_in_path_for(resource)
+      else
+        redirect_to change_subdomains_url(subdomain: self.resource.school.subdomain_name, id: self.resource)
+      end
     end
   
     # DELETE /resource/sign_out

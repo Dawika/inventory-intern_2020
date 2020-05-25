@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get "/locale" => "home#locale"
   get 'holiday.ics' => 'holidays#share'
   get "/signup" => "schools#new"
-  
+
   resources :schools
 
   resources :helps
@@ -215,6 +215,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     root 'home#index', as: :web_root
+    get '/signin' => "devise/sessions#new"
   end
 
   resources :subdomains do
