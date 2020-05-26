@@ -29,10 +29,12 @@ body {
 
 .form-sign-in {
   background: #fff;
-  padding: 50px;
+  padding: 70px 100px 25px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
   margin: auto;
-  width: 45%;
+  width: 50%;
+  max-width: auto;
+  
 }
 
 .new-school {
@@ -61,8 +63,8 @@ body {
 }
 
 .logo-login {
-  padding-bottom: 40px;
-  height: 200px;
+  padding-bottom: 20px;
+  height: 90px;
   width: auto;
 }
 
@@ -533,8 +535,13 @@ ul.nav.navbar-nav.navbar-right.dropdown {
   text-align: right;
 }
 
+b, strong {
+  font-weight: 100 !important;
+}
+
 .start-signup {
-  color: #3fa1e6;
+  color:  #737373;
+  font-weight: 100 !important;
   font-size: 20px
 }
 
@@ -603,4 +610,26 @@ section {
 .btn-custom.lg {
   padding: 10px 48px;
   font-size: 24px;
+}
+
+@media only screen and (min-device-width : 320px) and (-webkit-min-device-pixel-ratio: 1)and (max-device-width : 1023px) and (orientation: portrait){
+  .form-sign-in {
+    width: 80%;
+  }
+}
+@media only screen and (min-device-width : 320px) and (-webkit-min-device-pixel-ratio: 1)and (max-device-width : 1023px) and (orientation: landscape){
+  .form-sign-in {
+    width: 80%;
+  }
+}
+@media only screen and (min-device-width : 1024px) and (-webkit-min-device-pixel-ratio: 1)and (max-device-width : 1024px) and (orientation: portrait){
+  .form-sign-in {
+    width: 65%;
+  }
+}
+
+@media only screen and (max-width : 991px) {
+  .form-sign-in {
+    width: auto !important;
+  }
 }
