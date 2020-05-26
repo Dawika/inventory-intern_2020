@@ -10,7 +10,7 @@ th:
   emp_name : ชื่อ
   find : ค้นหา
   current_month : เดือนปัจจุบัน
-  title : สมศรี - ระบบบริหารโรงเรียน 4.0
+  title : SOMSRI - ระบบบริหารโรงเรียน
   export: นำข้อมูลออก
   date:
     abbr_day_names:
