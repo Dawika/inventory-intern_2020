@@ -22,7 +22,7 @@
           </div>
           <div class="row">
             <div class="col-md-12 text-center">
-            <b class="font-style-login">LOGIN</b>
+            <b>LOGIN</b>
             </div>
           </div><br>
           <div class="row">
@@ -68,7 +68,7 @@
             <div class="sign-in actions text-center">
               <%= f.submit t('sign_in'), class: "btn btn-signin", disabled: true %>
             </div>
-          </div>
+          </div><br>
           <% if (@school.present?) && (@school_config.enable_rollcall) && (@school_config.roll_call_apk_url)  %>
             <div class="row">
               <div class="download_android">
