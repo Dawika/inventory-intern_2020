@@ -6,7 +6,6 @@
       var ctrl = this
       $rootScope.loadAndAuthorizeResource("setting", function() {
         service.getSetting().then(function(resp) {
-        console.log(resp)
           ctrl.datas = resp.data;
           ctrl.datas.password = "password";
           ctrl.domain_name = resp.data.domain

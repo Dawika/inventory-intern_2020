@@ -22,19 +22,26 @@
             </div>
           </div>
           <br />
-          <br />
-          <br />
           <div class="row">
-            <div class="field form-group">
-              <%= f.password_field :password, id: "password-input", autofocus: true, autocomplete: "off", class: "form-control input-login" , placeholder: t('password'), onchange: "checkPasswordMinLength()" %>
+          <div class="col-md-12">
+            <label for="password"><%= t('password') %></label>
+          </div>
+          <div class="col-md-12">
+               <div class="field form-group">
+              <%= f.password_field :password, id: "password-input", autofocus: true, autocomplete: "off", class: "form-control input-login", onchange: "checkPasswordMinLength()" %>
             </div>
           </div>
+          </div>
           <div class="row">
+          <div class="col-md-12">
+            <label for="password"><%= t('new_password_confirmation') %></label>
+          </div>
+          <div class="col-md-12">
             <div class="field form-group">
-              <%= f.password_field :password_confirmation, id: "confirm-password-input", autocomplete: "off", class: "form-control input-login",placeholder: t('new_password_confirmation'), style: "margin-top:10px;", onchange: "checkPasswordMismatch()" %>
-              <br />
+              <%= f.password_field :password_confirmation, id: "confirm-password-input", autocomplete: "off", class: "form-control input-login", style: "margin-top:10px;", onchange: "checkPasswordMismatch()" %>
             </div>
           </div>
+          </div><br>
           <div class="row">
             <div id="min-length-warning" class="waring-message" style="display: none">*
               <%= t('invite_password.min_length_warning', minimum_password_length: @minimum_password_length) %></div>
@@ -42,12 +49,12 @@
               <%= t('invite_password.mismatch_warning') %></div>
           </div>
           <div class="row">
-            <div class="sign-in actions">
+            <div class="sign-in actions text-center">
               <buttont id="submit-btn" class="btn btn-signin" type="button" onclick="submit()">
                 <%= t('invite_password.submit') %>
               </buttont>
             </div>
-          </div>
+          </div><br>
           <% if (@school.present?) && (@school_config.enable_rollcall) && (@school_config.roll_call_apk_url)  %>
           <div class="row">
             <div class="download_android">
@@ -58,18 +65,18 @@
           <% end %>
           <% end %>
         </div>
-        <%= render "devise/shared/links" %>
-        <footer id="footer">
-          <div class="container">
-            <p class="text-center">© Copyright Somsri.io</p>
-          </div>
-        </footer>
+        
       </div>
     </div>
   </div>
+  <footer id="footer">
+    <div class="container">
+        <p class="text-center">Copyright © 2017-2020 Banana Coding Co., Ltd. Ail rights reserved</p>
+    </div>
+  </footer>
 </div>
 <script>
-  var minimum_password_length = < %= @minimum_password_length % > ;
+  var minimum_password_length = <%= @minimum_password_length %> ;
   var isSubmited = false;
 
   function checkPasswordMismatch() {

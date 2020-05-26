@@ -41,7 +41,6 @@
         service.getEmployee(ctrl.empId).then(function(resp) {
           ctrl.school_config_enable_inventory = resp.data.school_config.enable_inventory;
           ctrl.school_config_enable_vacation = resp.data.school_config.enable_vacation;
-          console.log(ctrl.school_config_enable_vacation )
           ctrl.employee = resp.data.employee
           ctrl.encrypted_password = resp.data.encrypted_password
           if (resp.data.encrypted_password)
