@@ -5,61 +5,64 @@
       <div>
         <%= simple_form_for @school, action: @school.new_record? ? 'create' : 'update', validate: true do |f| %>
         <div class="form-sign-in" id="formSingUp">
-          <div class="row">
-            <div class="col-xs-12">
-              <%= image_tag @school.logo, class: "img-responsive logo-login" %>
+          <div class="signin-page-one">
+            <div class="row">
+              <div class="col-xs-12">
+                <%= image_tag @school.logo, class: "img-responsive logo-login" %>
+              </div>
+            </div>
+            <div class="row text-center start-signup">
+              <b>สมัครใช้งานวันนี้ ใช้ฟรี 4 เดือน</b><br>
+              <b>ไม่จำกัดจำนวนนักเรียน ไม่จำกัดจำนวนบุคลากร</b><br><br>
+            </div>
+            <%= f.simple_fields_for :users, validate: true do |user_form| %>
+            <div class="row">
+              <p><%= t('full_name') %></p>
+              <div class="field form-group">
+                <%= user_form.input :full_name, label: false, autofocus: true,
+                      input_html: { class: 'border-blue validate-sign-in', id: 'school_users_full_name'}, required: true %>
+              </div>
+            </div>
+            <div class="row">
+              <p><%= t('email') %></p>
+              <div class="field form-group">
+                <%= user_form.input :email,
+                                  required: true,
+                                  label: false,
+                                  input_html: { autocomplete: "email", class: 'validate-sign-in',id: 'school_users_email',
+                                  onkeyup: "validateUniqueness('#{email_uniqueness_check_validates_path}', this.id)" } %>
+              </div>
+            </div>
+            <div class="row">
+              <p><%= t('password')  %></p>
+              <div class="field form-group">
+                <%= user_form.input :password,
+                                  label: false,
+                                  required: true,
+                                  hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                                  input_html: { autocomplete: "new-password", id: 'school_users_password', class: 'validate-sign-in'} %>
+              </div>
+            </div>
+            <div class="row">
+              <p><%= t('confirm_password') %></p>
+              <div class="field form-group">
+                <%= user_form.input :password_confirmation,
+                                  label: false,
+                                  input_html: { autocomplete: "new-password", class: 'validate-sign-in', id: 'school_users_password_confirmation' } %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-actions py-3 text-center">
+                <%= button_tag "สมัครใช้งาน", class: 'btn-btn-getStarted animated fadeInDown', type: 'button', id: 'newStep', onclick: 'showNewSchool("setting")', disabled: true %>
+              </div>
+            </div>
+            <div class="roe">
+              <div class="from-signin">
+                <p>มีบัญชีผู้ใช้งานแล้ว? <a href="/signin">ลงชื้อเข้าใช้งาน</a></p>
+              </div>
             </div>
           </div>
-          <div class="row text-center start-signup">
-            <b>สมัครใช้งานวันนี้ ใช้ฟรี 4 เดือน</b><br>
-            <b>ไม่จำกัดจำนวนนักเรียน ไม่จำกัดจำนวนบุคลากร</b><br><br>
-          </div>
-          <%= f.simple_fields_for :users, validate: true do |user_form| %>
-          <div class="row">
-            <p><%= t('full_name') %></p>
-            <div class="field form-group">
-              <%= user_form.input :full_name, label: false, autofocus: true,
-                    input_html: { class: 'border-blue validate-sign-in', id: 'school_users_full_name'}, required: true %>
-            </div>
-          </div>
-          <div class="row">
-            <p><%= t('email') %></p>
-            <div class="field form-group">
-              <%= user_form.input :email,
-                                required: true,
-                                label: false,
-                                input_html: { autocomplete: "email", class: 'validate-sign-in',id: 'school_users_email',
-                                onkeyup: "validateUniqueness('#{email_uniqueness_check_validates_path}', this.id)" } %>
-            </div>
-          </div>
-          <div class="row">
-            <p><%= t('password')  %></p>
-            <div class="field form-group">
-              <%= user_form.input :password,
-                                label: false,
-                                required: true,
-                                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                                input_html: { autocomplete: "new-password", id: 'school_users_password', class: 'validate-sign-in'} %>
-            </div>
-          </div>
-          <div class="row">
-            <p><%= t('confirm_password') %></p>
-            <div class="field form-group">
-              <%= user_form.input :password_confirmation,
-                                label: false,
-                                input_html: { autocomplete: "new-password", class: 'validate-sign-in', id: 'school_users_password_confirmation' } %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-actions py-3 text-center">
-              <%= button_tag "สมัครใช้งาน", class: 'btn-btn-getStarted animated fadeInDown', type: 'button', id: 'newStep', onclick: 'showNewSchool("setting")', disabled: true %>
-            </div>
-          </div>
-          <div class="roe">
-            <div class="from-signin">
-              <p>มีบัญชีผู้ใช้งานแล้ว? <a href="/signin">ลงชื้อเข้าใช้งาน</a></p>
-            </div>
-          </div>
+
         </div>
         <% end %>
         <%= render 'setting_school_setting',f: f %>
@@ -90,7 +93,7 @@
             <div class="modal-content">
               <%= image_tag @school.logo, class: "img-responsive logo-login" %>
               <h3 class="text-center">ยินดีต้อนรับ เข้าสู่ระบบสมศรี </h3>
-              <h3 class="text-center">ท่านสามารถทดลองใช้งานฟรี <font color="orange"> 3 เดือน</font>
+              <h3 class="text-center">ท่านสามารถทดลองใช้งานฟรี <font color="orange"> 4 เดือน</font>
               </h3>
               <h3 class="text-center">สำหรับ<font color="orange">ความช่วยเหลือ </font>ในการนำข้อมูลเข้าระบบเช่น บุคลากร,
                 นักเรียน</h3>
@@ -109,7 +112,7 @@
 </div>
 <footer id="footer">
   <div class="container">
-    <p class="text-center">Copyright © 2017-2020 Banana Coding Co., Ltd. Ail rights reserved </p>
+    <p class="text-center">Copyright © 2017-2020 Banana Coding Co., Ltd. All rights reserved. </p>
   </div>
 </footer>
 
@@ -152,6 +155,7 @@
       $('input:radio[name="school[licenses_attributes][0][plan_id]"]').val([<%= Plan.find_by(package_name: 'annual fee').id %>]);
     })
   });
+<<<<<<< HEAD
     var maxField = 30; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
     var wrapper = $('.field_wrapper'); //Input field wrapper
@@ -174,3 +178,7 @@
         x--; //Decrement field counter
     });
 </script>
+=======
+</script>
+<s
+>>>>>>> make style signup page
