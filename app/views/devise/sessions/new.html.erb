@@ -4,7 +4,7 @@
   }
 </style>
 
-<div class="container" id="warp" style="margin-top:100px;">
+<div class="container margintop-signin" id="warp">
   <div class="row">
     <%= render 'layouts/messages' %>
     <div class="col-md-12">
@@ -16,25 +16,45 @@
               <% if @school.present? %>
                 <%= image_tag @school&.logo_url, class: "img-responsive logo-login" %>
                 <% else %>
-                <%= image_tag '/somsri_logo.png', class: "img-responsive logo-login" %>
+                <%= image_tag 'new_somsri_logo2.png', class: "img-responsive logo-login" %>
               <% end %>
             </div>
           </div>
           <div class="row">
-          <% if @subdomain.present? %>
-            <div class="field form-group">
-              <%= f.email_field :email, autofocus: true, class: "form-control input-login" , placeholder: t('user_name'), onkeyup: "validateUserBySubdomain('#{user_by_subdomain_check_validates_path}', this.id, #{SiteConfig.get_cache.web_cms ? 'false' : 'true'})" %>
+            <div class="col-md-12 text-center">
+            <b class="font-style-login">LOGIN</b>
             </div>
+          </div><br>
+          <div class="row">
+          <% if @subdomain.present? %>
+          <div class="col-md-12">
+            <label for="Email" class="font-input-signin"><%=t('email')%></label>
+          </div>
+          <div class="col-md-12">
+              <div class="field form-group">
+                <%= f.email_field :email, autofocus: true, class: "form-control input-login", onkeyup: "validateUserBySubdomain('#{user_by_subdomain_check_validates_path}', this.id, #{SiteConfig.get_cache.web_cms ? 'false' : 'true'})" %>
+            </div>
+          </div>
             <% else %>
-                <div class="field form-group">
-              <%= f.email_field :email, autofocus: true, class: "form-control input-login" , placeholder: t('user_name')%>
+          <div class="col-md-12">
+            <label for="Email" class="font-input-signin"><%=t('email')%></label>
+          </div>
+            <div class="col-md-12">
+              <div class="field form-group">
+                <%= f.email_field :email, autofocus: true, class: "form-control input-login"%>
+              </div>
             </div>
             <% end %>
           </div>
           <div class="row">
+          <div class="col-md-12">
+            <label for="password" class="font-input-signin"><%=t('password')%></label>
+          </div>
+          <div class="col-md-12">
             <div class="field form-group">
-              <%= f.password_field :password, autocomplete: "off", class: "form-control input-login",placeholder: t('password'),style: "margin-top:10px;" %>
+              <%= f.password_field :password, autocomplete: "off", class: "form-control input-login",style: "margin-top:10px;" %>
             </div>
+          </div>
           </div>
           <div class="row">
             <% if devise_mapping.rememberable? -%>
@@ -45,7 +65,7 @@
             <% end -%>
           </div>
           <div class="row">
-            <div class="sign-in actions">
+            <div class="sign-in actions text-center">
               <%= f.submit t('sign_in'), class: "btn btn-signin", disabled: true %>
             </div>
           </div>
@@ -78,7 +98,7 @@
 <% end %>
 <footer id="footer">
   <div class="container">
-    <p class="text-center">© Copyright somsri.io</p>
+    <p class="text-center">Copyright © 2017-2020 Banana Coding Co., Ltd. Ail rights reserved</p>
   </div>
 </footer>
 
