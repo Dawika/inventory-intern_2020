@@ -5,7 +5,6 @@
             $rootScope.menu = "ข้อมูลส่วนตัว"
             var ctrl = this
             service.getSetting().then(function(resp) {
-                console.log(resp)
                 ctrl.datas = resp.data;
                 ctrl.datas.password = "password";
             });

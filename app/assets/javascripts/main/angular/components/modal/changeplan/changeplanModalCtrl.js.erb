@@ -8,7 +8,6 @@
       service.getplan().then(function(resp) {
         ctrl.plan_id = resp.data.school.plan_id.toString()
         ctrl.plan = resp.data.all_plan
-        console.log(resp)
       });
 
       ctrl.submit = function(parm) {
