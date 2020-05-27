@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   include LocalSubdomain
   protect_from_forgery with: :exception
   before_filter :prepare_school_config
-  before_action :set_cache_buster, :set_locale, :set_paper_trail_whodunnit, :set_raven_context, :notification_payment
+  before_action :set_cache_buster, :set_locale, :set_paper_trail_whodunnit, :set_raven_context, :notification_payment, :check_path
   after_action :set_csrf_cookie_for_ng
   before_filter :validate_subdomain
 
@@ -13,6 +13,14 @@ class ApplicationController < ActionController::Base
       @school_config = SchoolSetting.get_cache(subdomain)
     end
     @school_config ||= SiteConfig.get_cache
+  end
+
+  def check_path
+    if user_signed_in? and current_user.school.active_license.expired_date.strftime('%F') >=  Time.now.strftime('%F')
+      if request.path == "/homepage" or request.path == "/signup" or request.path == "/purchases/new"
+        redirect_to root_path
+      end
+    end
   end
 
   def notification_payment
