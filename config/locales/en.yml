@@ -865,6 +865,13 @@ en:
   #evaluate
   evaluate_candidate: "Evaluate Candidate"
 
+  #help
+  contact_us: "If you need help, you can contact us via the following methods."
+  send_email: "Send an email to info@somsri.io or"
+  call_number: "Call 053-020078 or"
+  line: "LINE"
+  line_link: "By filling in an email tag / tel tag / และ line link to"
+
   #reset password
   invite_password:
     title: "Setting Password"
@@ -976,6 +983,3 @@ en:
       Credit crad Info: "Credit crad Info"
       Select: "Select"
       company_id: "Company registration number"
-
-      #help
-      Contact us: "Contact us"

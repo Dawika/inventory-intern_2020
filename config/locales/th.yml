@@ -1100,6 +1100,14 @@ th:
   change_plan: เปลี่ยนแพลน
   Cancel_Subscribe: ยกเลิกต่ออายุอัตโนมัติ
   auto_subscribe: ต่ออายุอัตโนมัติ
+
+  #help
+  contact_us: "หากต้องการความช่วยเหลือ สามารถติดต่อเราได้ตามช่องทางดังนี้"
+  send_email: "ส่งอีเมลมาที่ info@somsri.io หรือ"
+  call_number: "โทร 053-020078 หรือ"
+  line: "ไลน์"
+  line_link: "โดยใส่เป็น email tag / tel tag / และ line link ไปที่"
+
   # School Setting
   schools:
     setting_school_setting:
@@ -1148,7 +1156,4 @@ th:
       company_id: "หมายเลขทะเบียนบริษัท"
     add_grade_school:
       grades: "กรุณากรอกชั้นเรียนทั้งหมดในโรงเรียน"
-
-      #help
-      Contact us: "ติดต่อเรา"
 
