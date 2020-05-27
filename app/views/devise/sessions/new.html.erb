@@ -26,7 +26,7 @@
             </div>
           </div><br>
           <div class="row">
-          <% if @subdomain.present? %>
+          <% if @subdomain.present? || @subdomain == "www"%>
           <div class="col-md-12">
             <label for="Email" class="font-input-signin"><%=t('email')%></label>
           </div>
@@ -104,7 +104,7 @@
 
 <script>
   $(document).ready(function() {
-    if (<%= !@subdomain.present? %>){
+    if (<%= !@subdomain.present? %> || <%= @subdomain == "www"%>){
     $(".btn-signin").prop("disabled", false)
     }
     $('form.simple_form').enableClientSideValidations();

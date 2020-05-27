@@ -107,7 +107,7 @@ end
 # Uncomment this module and `config.admin_auth` above to use custom admin authentication
 module ComfyAdminAuthentication
   def authenticate
-    redirect_to unauthenticated_path unless current_user && current_user.has_role?(:admin)
+      redirect_to root_path  unless current_user && current_user.has_role?(:super_admin)
   end
 end
 
