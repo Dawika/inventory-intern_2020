@@ -45,8 +45,8 @@
             </div>
             <div class="row">
               <ul class="nav nav-tabs nav-fill">
-                <li class="nav-item nav-link boder text-center <%=" active " if @school.customer_info.blank?%>"><a class="tab-label" data-toggle="tab" href="#transfer-money" onClick="hidebutton(false)"><i class="fa fa-money" aria-hidden="true"></i><br>โอนเงิน</a></li>
-                <li class="nav-item nav-link  border text-center <%=" active " if @school.customer_info.present?%>"><a class="tab-labe" data-toggle="tab" href="#credit"onClick="hidebutton(true)"><i class="fa fa-credit-card" aria-hidden="true"></i><br>บัตรเครดิต </a></li>
+                <li class="nav-item nav-link boder text-center <%=" active " if @school.customer_info.blank?%>"><a class="tab-label" data-toggle="tab" href="#transfer-money" onClick="hidebutton(false)"><i class="fa fa-money" aria-hidden="true"></i><br><%= t('transfer') %></a></li>
+                <li class="nav-item nav-link  border text-center <%=" active " if @school.customer_info.present?%>"><a class="tab-labe" data-toggle="tab" href="#credit"onClick="hidebutton(true)"><i class="fa fa-credit-card" aria-hidden="true"></i><br><%= t('credit_crad') %> </a></li>
               </ul>
             </div>
             <div class="row">
@@ -55,32 +55,32 @@
                   <div id="transfer-money" class="tab-pane fade <%=" in active " if @school.customer_info.blank?%>">
                     <div class="row">
                       <h3>
-                        รายละเอียดการจ่ายเงิน
+                        <%= t('Payment_d') %>
                       </h3>
                       <div class="col-md-12">
-                        <b>ท่านต้องชำระเงินตามแพ็คเกจที่ท่านสนใจ ดังนี้ รายเดือน 990 บาท รายปี 10,000 บาท</b>
+                        <b><%= t('package') %></b>
                         <div class="col-md-12">
-                          <b>ชื่อบัญชี:</b> บานาน่า โค้ดดิ้ง
+                          <b><%= t('account_name') %>:</b> <%= t('banana') %>
                         </div>
                         <div class="col-md-12">
-                          <b>เลขบัญชี:</b> 511-2-1-14224-1
+                          <b><%= t('bank_account2') %>:</b> 511-2-1-14224-1
                         </div>
                         <div class="col-md-12">
-                          <b>ธนาคาร:</b> กสิกรไทย
+                          <b><%= t('bank') %>:</b> <%= t('kasikorn') %>
                         </div>
                       </div>
                       <div class="col-md-12">
-                        <b class="color-red">หากชำระเงินแล้วกรุณาส่งหลักฐานการชำระเงินมาที่ email: info@bananacoding.com หรือ </b>
+                        <b class="color-red"><%= t('send_payment') %></b>
                       </div>
                       <div class="col-md-12">
-                        <b class="color-red">ติดต่อเจ้าหน้าที่เบอร์ 053-020-078 เพื่อการใช้งานระบบอย่างต่อเนื่อง</b>
+                        <b class="color-red"><%= t('contact_staff') %></b>
                       </div>
                       <%= bil_form.hidden_field :payment_method %>
                     </div>
                   </div>
                   <div id="credit" class="tab-pane fade <%=" in active " if @school.customer_info.present?%>"><br>
                     <div class="row">
-                      <h3 class="font-style">Credit crad Info</h3>
+                      <h3 class="font-style"><%= t('credit_crad_info') %></h3>
                       <div class="col-md-11"><br>
                         <div id="token_errors"></div>
                       </div>

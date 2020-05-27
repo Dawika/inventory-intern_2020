@@ -1114,6 +1114,17 @@ th:
   call_number: "โทร 053-020078 หรือ"
   line: "ไลน์"
   line_link: "โดยใส่เป็น email tag / tel tag / และ line link ไปที่"
+  #purchases
+  credit_crad: "บัตรเครดิต"
+  transfer: "โอนเงิน"
+  credit_crad_info: "ข้อมูลบัตรเครดิต"
+  payment_d: "รายละเอียดการจ่ายเงิน"
+  package: "ท่านต้องชำระเงินตามแพ็คเกจที่ท่านสนใจ ดังนี้ รายเดือน 990 บาท รายปี 10,000 บาท"
+  banana: "บานาน่า โค้ดดิ้ง"
+  bank: "ธนาคาร"
+  kasikorn: "กสิกรไทย"
+  send_payment: "หากชำระเงินแล้วกรุณาส่งหลักฐานการชำระเงินมาที่ email: info@bananacoding.com หรือ "
+  contact_staff: "ติดต่อเจ้าหน้าที่เบอร์ 053-020-078 เพื่อการใช้งานระบบอย่างต่อเนื่อง"
 
   # School Setting
   schools:
