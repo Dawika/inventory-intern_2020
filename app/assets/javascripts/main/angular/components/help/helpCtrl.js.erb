@@ -3,7 +3,8 @@
   angular.module('somsri.main.help', [
   ])
     .controller('helpCtrl', ['$rootScope', '$scope', '$uibModal', '$window', 'translateFilter', function ($rootScope, $scope, $uibModal, $window, translateFilter) {
-      $rootScope.menu = translateFilter('help')
+      $rootScope.menu = I18n.t('help');
+      console.log($rootScope.menu)
 
 
     }]);
