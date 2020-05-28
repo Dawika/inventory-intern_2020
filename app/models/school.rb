@@ -36,7 +36,7 @@ class School < ApplicationRecord
   end
 
   def create_license
-      self.licenses.create(expired_date: DateTime.now.utc + 3.month)
+      self.licenses.create(expired_date: DateTime.now.utc + 4.month)
   end
 
   def default_card
