@@ -38,6 +38,7 @@ Rails.application.routes.draw do
       get "me"
       get "role_employees"
       get "site_config"
+      get "get_password"
     end
   end
 
