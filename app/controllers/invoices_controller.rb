@@ -57,6 +57,8 @@ class InvoicesController < ApplicationController
 
       full_name_display = student.invoice_screen_full_name_display
 
+      grade = Grade.find_by(id: student.grade_id)
+
       student_info << {
         id: student.id,
         parent_id: student.parents[0] ? student.parents[0].id : '',
@@ -64,7 +66,8 @@ class InvoicesController < ApplicationController
         nickname: student.nickname,
         student_number: student.student_number,
         student_number_display: student_number_display,
-        full_name_display: full_name_display
+        full_name_display: full_name_display,
+        grade: grade&.name
       }
     end
 
