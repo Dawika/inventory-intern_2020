@@ -2,7 +2,7 @@
   <div class="container plan" id="school-plan">
     <div class="select-plan" style="margin-left: -10%; margin-top: 130px;">
       <div class="row">
-        <h1 class="font-style">Puechases</h1>
+        <h1 class="font-style"><%= t('.purchases') %></h1>
       </div>
       <section class="sec_4">
         <div class="container">
@@ -18,14 +18,14 @@
                           <%= t(plan.package_name) %>
                         </h3>
                         <p>
-                          <%= plan.description %>
+                          <%= t('.' + plan.description) %>
                         </p>
                         <h3 class="price-l">
-                          <%= number_to_currency(plan.price, precision: 0, unit: '') %> บาท/<%= plan.frequency == 'monthly' ? 'เดือน' : 'ปี'%></h3><br>
-                        <p>ใช้งานแบบออนไลน์ผ่านทาง สมศรี Cloud สามารถเข้าถึงได้จากทั้งที่โรงเรียนและที่บ้าน ข้อมูลไม่สูญหาย ระบบ backup ให้ อัตโนมัติ รับประกันตลอดอายุการใช้งาน </p><br>
+                          <%= number_to_currency(plan.price, precision: 0, unit: '') %> <%= t('.baht')%>/<%= plan.frequency == 'monthly' ? t('.month') : t('.year')%></h3><br>
+                        <p><%= t('.package_monthly') %></p><br>
                         <div class="form-check">
                           <input class="form-check-input radio_buttons optional" type="radio" value="<%= plan.id %>" <%='checked' if @school.plan==plan %> name="school[plan_id]" id="school_plan_id_<%=plan.id %>">
-                            <label class="collection_radio_buttons" for="school_plan_id_<%=plan.id %>">Select</label>
+                            <label class="collection_radio_buttons" for="school_plan_id_<%=plan.id %>"><%= t('.select') %></label>
                         </div>
                       </div>
                     </div>
@@ -40,13 +40,13 @@
           <div class="col-md-6 border-r layout">
             <div class="row">
               <h3 class="font-style">
-                วิธีการชำระเงิน
+                <%= t('.how_to_pay') %>
               </h3>
             </div>
             <div class="row">
               <ul class="nav nav-tabs nav-fill">
-                <li class="nav-item nav-link boder text-center <%=" active " if @school.customer_info.blank?%>"><a class="tab-label" data-toggle="tab" href="#transfer-money" onClick="hidebutton(false)"><i class="fa fa-money" aria-hidden="true"></i><br><%= t('transfer') %></a></li>
-                <li class="nav-item nav-link  border text-center <%=" active " if @school.customer_info.present?%>"><a class="tab-labe" data-toggle="tab" href="#credit"onClick="hidebutton(true)"><i class="fa fa-credit-card" aria-hidden="true"></i><br><%= t('credit_crad') %> </a></li>
+                <li class="nav-item nav-link boder text-center <%=" active " if @school.customer_info.blank?%>"><a class="tab-label" data-toggle="tab" href="#transfer-money" onClick="hidebutton(false)"><i class="fa fa-money" aria-hidden="true"></i><br><%= t('.transfer') %></a></li>
+                <li class="nav-item nav-link  border text-center <%=" active " if @school.customer_info.present?%>"><a class="tab-labe" data-toggle="tab" href="#credit"onClick="hidebutton(true)"><i class="fa fa-credit-card" aria-hidden="true"></i><br><%= t('.credit_crad') %> </a></li>
               </ul>
             </div>
             <div class="row">
@@ -55,32 +55,32 @@
                   <div id="transfer-money" class="tab-pane fade <%=" in active " if @school.customer_info.blank?%>">
                     <div class="row">
                       <h3>
-                        <%= t('Payment_d') %>
+                        <%= t('.payment_details') %>
                       </h3>
                       <div class="col-md-12">
-                        <b><%= t('package') %></b>
+                        <b><%= t('.package') %></b>
                         <div class="col-md-12">
-                          <b><%= t('account_name') %>:</b> <%= t('banana') %>
+                          <b><%= t('.account_name') %>:</b> <%= t('.banana') %>
                         </div>
                         <div class="col-md-12">
-                          <b><%= t('bank_account2') %>:</b> 511-2-1-14224-1
+                          <b><%= t('.bank_account2') %>:</b> 511-2-1-14224-1
                         </div>
                         <div class="col-md-12">
-                          <b><%= t('bank') %>:</b> <%= t('kasikorn') %>
+                          <b><%= t('bank') %>:</b> <%= t('.kasikorn') %>
                         </div>
                       </div>
                       <div class="col-md-12">
-                        <b class="color-red"><%= t('send_payment') %></b>
+                        <b class="color-red"><%= t('.send_payment') %></b>
                       </div>
                       <div class="col-md-12">
-                        <b class="color-red"><%= t('contact_staff') %></b>
+                        <b class="color-red"><%= t('.contact_staff') %></b>
                       </div>
                       <%= bil_form.hidden_field :payment_method %>
                     </div>
                   </div>
                   <div id="credit" class="tab-pane fade <%=" in active " if @school.customer_info.present?%>"><br>
                     <div class="row">
-                      <h3 class="font-style"><%= t('credit_crad_info') %></h3>
+                      <h3 class="font-style"><%= t('.credit_crad_info') %></h3>
                       <div class="col-md-11"><br>
                         <div id="token_errors"></div>
                       </div>
@@ -89,23 +89,23 @@
                       <div class="col-md-7">
                         <%= hidden_field_tag :update_card %>
                           <%= hidden_field_tag :omise_token , @school.customer_id %>
-                            <%= bil_form.input :cardholder_name, input_html: {  data: {omise: 'holder_name'}, value: @school.default_card&.name }%>
+                            <%= bil_form.input :cardholder_name,label: t('.cardholder_name'), input_html: {  data: {omise: 'holder_name'}, value: @school.default_card&.name }%>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-7">
-                        <%= bil_form.input :card_number, input_html: {  data: {omise: 'number'}, value: @school.default_card.present? ? "**** **** **** #{@school.default_card.last_digits}" : nil,  maxlength: 16 } %>
+                        <%= bil_form.input :card_number,label: t('.card_number'), input_html: {  data: {omise: 'number'}, value: @school.default_card.present? ? "**** **** **** #{@school.default_card.last_digits}" : nil,  maxlength: 16 } %>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-2">
-                        <%= bil_form.input :exp_month, label: 'exp month', input_html: {  data: {omise: 'expiration_month'}, value: @school.default_card&.expiration_month,  maxlength: 2 } %>
+                        <%= bil_form.input :exp_month, label: t('.exp_month'), input_html: {  data: {omise: 'expiration_month'}, value: @school.default_card&.expiration_month,  maxlength: 2 } %>
                       </div>
                       <div class="col-md-2">
-                        <%= bil_form.input :exp_year, label: 'exp year', input_html: {  data: {omise: 'expiration_year'}, value: @school.default_card&.expiration_year,  maxlength: 4 } %>
+                        <%= bil_form.input :exp_year, label: t('.exp_year'), input_html: {  data: {omise: 'expiration_year'}, value: @school.default_card&.expiration_year,  maxlength: 4 } %>
                       </div>
                       <div class="col-md-2">
-                        <%= bil_form.input :cvv, label: 'cvv', input_html: { data: {omise: 'security_code'}, value: @school.default_card.present? ? "***" : nil,  maxlength: 3} %>
+                        <%= bil_form.input :cvv, label: t('.cvv'), input_html: { data: {omise: 'security_code'}, value: @school.default_card.present? ? "***" : nil,  maxlength: 3} %>
                       </div>
                     </div>
                   </div>
@@ -115,13 +115,13 @@
           <div class="col-md-5 layout2  pull-right">
             <div class="row">
               <h3 class="font-style">
-                <%=t('.Billing info') %>
+                <%=t('.billing_info') %>
               </h3>
             </div>
             <div class="row">
               <ul class="nav nav-tabs">
-                <li class="nav-item nav-link boder text-center active" id="showBr" onclick="branch(this.id)"><a class="tab-label">นิติบุคคล</a></li>
-                <li class="nav-item nav-link  border text-center" id="hideBr" onclick="branch(this.id)"><a class="tab-labe">บุคคลธรรมดา </a></li>
+                <li class="nav-item nav-link boder text-center active" id="showBr" onclick="branch(this.id)"><a class="tab-label"><%=t('.legal_entity') %></a></li>
+                <li class="nav-item nav-link  border text-center" id="hideBr" onclick="branch(this.id)"><a class="tab-labe"><%=t('.individual') %></a></li>
               </ul>
             </div>
             <div class="row" id="validate-bil">
