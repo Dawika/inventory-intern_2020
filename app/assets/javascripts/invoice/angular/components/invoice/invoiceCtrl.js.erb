@@ -7,13 +7,13 @@
     var defaultInvoice = {
       invoice: {
         items: [
-          { detail: translateFilter('tuition_fee'), amount: 48900.0 }
+          { detail: translateFilter('tuition_fee'), amount: 35000.0}
         ]
       }
     }
 
     $rootScope.loadAndAuthorizeResource("invoice", function(){
-    $rootScope.menu = translateFilter('invoice_form');
+    $rootScope.menu = I18n.t('invoice_form');
       ctrl.title = 'Invoice';
        function isPaymentMethodMoreThanOne(){
          var count = 0;
@@ -30,14 +30,14 @@
 
       function initDatas(){
         if(!ctrl.datas) { ctrl.datas = {} }
-        if(!ctrl.datas.parent) { ctrl.datas.parent = {} }
         if(!ctrl.datas.student) { ctrl.datas.student = {} }
+        ctrl.datas.parent = {};
       }
 
-      function autoFillParent($item){
-        if($item.parent_id){
+      function autoFillParent(parent_id){
+        if(parent_id){
           for(var i = 0;i < ctrl.parent_info.length; i++){
-            if($item.parent_id == ctrl.parent_info[i].id){
+            if(parent_id == ctrl.parent_info[i].id){
               initDatas();
               if(!ctrl.datas.parent.full_name){
                 ctrl.datas.parent.full_name = ctrl.parent_info[i].full_name;
@@ -48,15 +48,27 @@
       }
 
       function autoFillStudent($item){
-        if($item.student_id){
+      console.log($item)
+      console.log(ctrl.student_info)
+        if($item.student_id){        
           for(var i = 0;i < ctrl.student_info.length; i++){
             if($item.student_id == ctrl.student_info[i].id){
               initDatas();
               if(!ctrl.datas.student.full_name){
                 ctrl.datas.student.full_name = ctrl.student_info[i].full_name;
               }
+              if(!ctrl.datas.student.grade){
+                ctrl.datas.student.grade = ctrl.student_info[i].grade
+              }
               if(!ctrl.datas.student.student_number){
                 ctrl.datas.student.student_number = ctrl.student_info[i].student_number;
+                var sel = document.getElementById('grade');
+                var opts = sel.options;
+                for (var j = 0; j < opts.length; j++) {
+                  if (opts[j].label == ctrl.student_info[i].grade) {
+                    sel.selectedIndex = j;
+                  }
+                }
               }
             }
           }
@@ -94,16 +106,33 @@
 
       ctrl.onSelectParent = function ($item) {
         autoFillStudent($item);
+        autoFillParent($item.id);
       };
 
       ctrl.onSelectStudentNumber = function ($item) {
+        var sel = document.getElementById('grade');
+        var opts = sel.options;
+        for (var i = 0; i < opts.length; i++) {
+          if (opts[i].label == $item.grade) {
+            sel.selectedIndex = i;
+          }
+        }
         ctrl.datas.student.full_name = $item.full_name;
-        autoFillParent($item);
+        ctrl.datas.student.grade = $item.grade
+        autoFillParent($item.parent_id);
       };
 
       ctrl.onSelectStudentFullName = function ($item) {
+        var sel = document.getElementById('grade');
+        var opts = sel.options;
+        for (var i = 0; i < opts.length; i++) {
+          if (opts[i].label == $item.grade) {
+            sel.selectedIndex = i;
+          }
+        }
         ctrl.datas.student.student_number = $item.student_number;
-        autoFillParent($item);
+        ctrl.datas.student.grade = $item.grade
+        autoFillParent($item.parent_id);
       };
 
       ctrl.onSelectLineItem = function ($item, $model) {
