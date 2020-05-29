@@ -950,6 +950,12 @@ th:
   vacation_manage: "จัดการวันหยุด"
   sick_leave_saved_success: "ส่งคำขอลาป่วยคุณเรียบร้อยแล้ว กรุณานำส่งใบรับรองแพทย์"
 
+  #passwordmodal
+  mismatch_warning: "รหัสผ่านไม่ตรงกัน"
+  incorrect_password: 'รหัสผ่านเดิมไม่ถูกต้อง'
+  please_enter_your_password: "กรุณากรอกข้อมูลรหัสผ่าน"
+  invalid_password_length: "รหัสผ่านต้องมีมากกว่าหรือเท่ากับ 6 ตัว"
+
   # All
   save_change_confirmation: "คุณต้องการบันทึกการเปลี่ยนแปลงนี้หรือไม่"
   save_success: "บันทึกข้อมูลเรียบร้อยแล้ว"

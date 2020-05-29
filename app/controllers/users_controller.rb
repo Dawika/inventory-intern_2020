@@ -14,4 +14,9 @@ class UsersController < ApplicationController
   def site_config
     render json: @school_config
   end
+
+  def get_password
+    password = current_user.valid_password?(params[:password])
+    render json: { password: password }
+  end
 end
