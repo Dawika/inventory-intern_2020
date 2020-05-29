@@ -1,0 +1,13 @@
+
+<h5><P><%= @school.name %> ได้ทำการสมัครสมาชิค <%= @domain_name %> โดยมีข้อมูลดังนี้</p></h5>
+<hr><br>
+<p><b>Subdomain : </b><%= @school.subdomain_name%>.<%= @domain_name%> </p>  
+<p><b>แพ็คเกจที่ใช้ : </b><%= @school.plan.package_name %></p>
+<p><b>ประเภทการชำระเงิน : </b> <%= @school.customer_id.nil? ? "โอนเงิน" : "บัตรเครดิต"%></p>
+<p><b>วันเริ่ม/วันหมดอายุ : </b><%=Time.now.strftime("%d/%m/%Y")%> - <%= @school.active_license.expired_date.strftime("%d/%m/%Y")%></p><br>
+<u><b>ข้อมูลผู้ติดต่อ</b></u>
+<p><b>ชื่อพนักงาน : </b><%= @school.user.full_name%></p>
+<p><b>Email : </b><%=@school.user.email%></p>
+<p><b>ที่อยู่โรงเรียน : </b> <%=@school.address%></p>
+<p><b>เบอร์ : </b><%= @school.phone%></p>
+<p><b>Fax : </b><%= @school.fax%></p>

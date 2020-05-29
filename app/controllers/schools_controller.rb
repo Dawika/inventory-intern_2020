@@ -25,6 +25,8 @@ class SchoolsController < ApplicationController
         if @school.save(validate: false)
           @school.create_grades(params[:grades][:name])
           SchoolMailer.school_notification(@school).deliver
+          domain = request.domain
+          SchoolMailer.notify_admin(@school, domain).deliver
           user = @school.users.first
           user.add_role('admin')
           redirect_to change_subdomains_url(subdomain: @school.subdomain_name, id: user)
