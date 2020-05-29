@@ -612,6 +612,9 @@ th:
   search_parent: "ค้นหาชื่อผู้ปกครอง"
   select_parent: "เลือกผู้ปกครอง..."
 
+  current_semester: เทอมปัจจุบัน
+  current_school_year: ปีการศึกษาปัจจุบัน
+
   #Students
   add_parent: "+ เพิ่มชื่อผู้ปกครอง"
   student_info_cannot_save: "ข้อมูลของนักเรียนไม่สามารถบันทึกได้ : "

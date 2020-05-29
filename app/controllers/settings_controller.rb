@@ -16,6 +16,7 @@ class SettingsController < ApplicationController
   # PATCH /settings
   def update_current_user
     User.transaction do
+      current_user.school.school_setting.update(params_school_setting)
       update_school_status = true
       if self.can? :update, School
         update_school_status = current_user.school.update(params_school)
@@ -59,9 +60,14 @@ class SettingsController < ApplicationController
         plan: current_user.school.active_license.plan || t('trial'),
         billing_info: current_user.school.bil_info,
         all_plan: Plan.all,
-        domain: request.domain
+        domain: request.domain,
+        school_setting: current_user.school.school_setting
 
       }
+    end
+
+    def params_school_setting
+      params.require(:school_setting).permit(:school_year, :current_semester)
     end
 
     def params_password
