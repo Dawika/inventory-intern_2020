@@ -39,8 +39,8 @@ class SchoolSetting < ApplicationRecord
     self[:school_year] ? self[:school_year] : Time.current.year + 543
   end
 
-  def self.school_year_or_default(default)
-    school_setting = SchoolSetting.first
+  def self.school_year_or_default(default, user)
+    school_setting = user.school_setting
     school_setting ? school_setting.school_year_or_default(default) : default
   end
 

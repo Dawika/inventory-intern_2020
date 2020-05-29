@@ -138,7 +138,7 @@ class StudentsController < ApplicationController
     grade_select = (params[:grade_select] || 'All')
     class_select = (params[:class_select] || 'All')
 
-    @class_display = Classroom.order("id ASC").select(:name).map(&:name).uniq.compact
+    @class_display = Classroom.where(school_id: current_user.school_id).order("id ASC").select(:name).map(&:name).uniq.compact
     year_select = (params[:year_select] || Date.current.year + 543)
     semester_select = params[:semester_select]
     invoice_status = params[:status]
@@ -163,7 +163,7 @@ class StudentsController < ApplicationController
 
     if params[:for_print]
       results = {
-        school_year: SchoolSetting.school_year_or_default(".........."),
+        school_year: SchoolSetting.school_year_or_default("..........", current_user),
         student_list: []
       }
 
@@ -202,7 +202,8 @@ class StudentsController < ApplicationController
           size = 10
           @results = {
             dataPerPages: results[:student_list].each_slice(size).to_a,
-            school_year: results[:school_year]
+            school_year: results[:school_year],
+            current_semester: current_user.school_setting.current_semester
           }
           render pdf: "file_name",
                   template: "students/student_list_with_image.html.erb",

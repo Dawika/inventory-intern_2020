@@ -619,7 +619,7 @@ th:
   student_resigned_success: "เปลี่ยนสถานะนักเรียนเป็นลาออกสำเร็จ"
   student_graduated_success: "เปลี่ยนสถานะนักเรียนเป็นจบการศึกษาสำเร็จ"
   invoice: "Invoice #"
-  school_year: "ปีการศึกษา"
+  student_school_year: "ปีการศึกษา"
   term: "ภาคเรียนที่"
   level: "ระดับชั้น"
   amount: "จำนวนเงิน"
