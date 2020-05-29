@@ -29,8 +29,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="name_eng">{{ 'school_name_eng' | translate }}</label>
-                    <input type="text" class="form-control white-bg" id="name_eng"
-                      ng-model="setting.datas.school.name_eng">
+                    <input type="text" class="form-control white-bg" id="name_eng" ng-model="setting.datas.school.name_eng">
                   </div>
                 </div>
               </div>
@@ -38,12 +37,25 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="subdoamin">Subdomain</label>
-                    <input type="text" class="form-control white-bg" id="name_eng"
-                      ng-model="setting.datas.school.subdomain_name" disabled>
+                    <input type="text" class="form-control white-bg" id="name_eng" ng-model="setting.datas.school.subdomain_name" disabled>
                   </div>
                 </div>
                 <div class="col-md-6" style="margin-top: 45px; margin-left: -20px; color:#0098CF;">
                   <b>{{ setting.domain_name }}</b>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="name_eng">{{ 'current_school_year' | translate }}</label>
+                    <input type="text" class="form-control white-bg" id="name_eng" ng-model="setting.datas.school_setting.school_year">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="name_eng">{{ 'current_semester' | translate }}</label>
+                    <input type="text" class="form-control white-bg" id="name_eng" ng-model="setting.datas.school_setting.current_semester">
+                  </div>
                 </div>
               </div>
             </div>
