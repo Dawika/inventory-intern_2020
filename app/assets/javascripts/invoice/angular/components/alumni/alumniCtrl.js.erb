@@ -9,7 +9,7 @@
     ctrl.graduated_status = [translateFilter('all')]
     ctrl.year = ""
     ctrl.status = ""
-    $rootScope.menu = translateFilter('alumni')
+    $rootScope.menu = I18n.t('alumni')
     $rootScope.loadAndAuthorizeResource("invoice", function(){
       ctrl.bringBack = function(id){
         service.restore(id).then(function(resp) {

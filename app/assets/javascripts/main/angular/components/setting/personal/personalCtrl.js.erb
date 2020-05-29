@@ -2,7 +2,7 @@
     'use strict';
     angular.module('somsri.itpc.personal_setting', [])
         .controller('personalCtrl', ['$rootScope', 'settingService', '$scope', '$uibModal', function($rootScope, service, $scope, $uibModal) {
-            $rootScope.menu = "ข้อมูลส่วนตัว"
+            $rootScope.menu = I18n.t("profile")
             var ctrl = this
             service.getSetting().then(function(resp) {
                 ctrl.datas = resp.data;

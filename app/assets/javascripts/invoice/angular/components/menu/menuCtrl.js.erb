@@ -3,6 +3,6 @@
   angular.module('somsri.invoice.menu', [
   ])
   .controller('menuCtrl', ['$rootScope', 'translateFilter', function ($rootScope, translateFilter) {
-    $rootScope.menu = translateFilter('invoices');
+    $rootScope.menu = I18n.t('invoices');
   }]);
 })();
