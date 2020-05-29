@@ -45,7 +45,7 @@
             </div>
             <div class="row">
               <ul class="nav nav-tabs nav-fill">
-                <li class="nav-item nav-link boder text-center <%=" active " if @school.customer_info.blank?%>"><a class="tab-label" data-toggle="tab" href="#transfer-money" onClick="hidebutton(false)"><i class="fa fa-money" aria-hidden="true"></i><br><%= t('.transfer') %></a></li>
+                <li class="nav-item nav-link boder text-center <%=" active " if @school.customer_info.blank?%>"><a class="tab-label" data-toggle="tab" href="#transfer-money" onClick="hidebutton(false)"><i class="fas fa-money-bill-wave" aria-hidden="true"></i><br><%= t('.transfer') %></a></li>
                 <li class="nav-item nav-link  border text-center <%=" active " if @school.customer_info.present?%>"><a class="tab-labe" data-toggle="tab" href="#credit"onClick="hidebutton(true)"><i class="fa fa-credit-card" aria-hidden="true"></i><br><%= t('.credit_crad') %> </a></li>
               </ul>
             </div>
@@ -60,7 +60,7 @@
                       <div class="col-md-12">
                         <b><%= t('.package') %></b>
                         <div class="col-md-12">
-                          <b><%= t('.account_name') %>:</b> <%= t('.banana') %>
+                          <b><%= t('.bank_account') %>:</b> <%= t('.banana') %>
                         </div>
                         <div class="col-md-12">
                           <b><%= t('.bank_account2') %>:</b> 511-2-1-14224-1
