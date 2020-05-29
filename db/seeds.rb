@@ -594,6 +594,6 @@ if Candidate.count.zero?
   interview2.interviewer_emails.create([{email: "interviewer1@bananacoding.com", skip_send_email: true}, {email: "interviewer2@bananacoding.com", skip_send_email: true}, {email: "interviewer3@bananacoding.com", skip_send_email: true}])
 end
 
-User.find(2).add_role("admin")
+User.find(2).add_role("super_admin")
 
 
