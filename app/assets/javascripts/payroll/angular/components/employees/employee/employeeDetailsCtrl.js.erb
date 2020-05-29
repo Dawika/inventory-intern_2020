@@ -1,910 +1,911 @@
-(function() {
+(function () {
   'use strict';
   angular.module('somsri.payroll.employee_details', [])
-  .controller('employeeDetailsCtrl', ['employeesService', 'studentReportService', '$log', '$state', '$rootScope','$scope', '$uibModal', 'reportService', '$filter', '$location', 'individualsService', 'Upload', 'translateFilter','inventoryRequestService', 'settingService',
-    function(service, studentReportService, $log, $state, $rootScope, $scope, $uibModal, reportService, $filter, $location, individualsService, Upload, translateFilter, inventoryRequestService, settingService) {
-    $rootScope.menu = translateFilter('employee');
-    var ctrl = this;
-    var angularScopeRoot = 'angular.element(document.getElementById("angularCtrl")).scope().$root'
-    var angularScopeInventory = 'angular.element(document.getElementById("angularCtrl")).scope().employeeDetailsCtrl'
-    var angularCtrlStr = "angular.element(document.getElementById('angularCtrl')).scope().employee"
+    .controller('employeeDetailsCtrl', ['employeesService', 'studentReportService', '$log', '$state', '$rootScope', '$scope', '$uibModal', 'reportService', '$filter', '$location', 'individualsService', 'Upload', 'translateFilter', 'inventoryRequestService', 'settingService',
+      function (service, studentReportService, $log, $state, $rootScope, $scope, $uibModal, reportService, $filter, $location, individualsService, Upload, translateFilter, inventoryRequestService, settingService) {
+        $rootScope.menu = translateFilter('employee');
+        var ctrl = this;
+        var angularScopeRoot = 'angular.element(document.getElementById("angularCtrl")).scope().$root'
+        var angularScopeInventory = 'angular.element(document.getElementById("angularCtrl")).scope().employeeDetailsCtrl'
+        var angularCtrlStr = "angular.element(document.getElementById('angularCtrl')).scope().employee"
 
-    $rootScope.loadAndAuthorizeResource("employee", function(){
-      ctrl.socialInsuranceRate = 0.05
-      $rootScope.getSiteConfig("social_insurance_rate").then(function(resp) {
-        ctrl.socialInsuranceRate = parseFloat(resp.data);
-      });
-      var dateNow = new Date();
-      var employeeId = $state.params.id;
-      ctrl.currentEffectiveDate = "";
-      ctrl.empId = employeeId;
-      ctrl.isEdit = employeeId > 0 ? true : false
-      ctrl.grades = []
-      ctrl.datas = { employee: { grade_id: 0 }};
-      ctrl.isSubmit = false;
-      ctrl.activeTab = 'general';
-      ctrl.activeTabPrivate = 'basic';
-      ctrl.hasPayroll =  ctrl.isEdit ? true : false;
-      ctrl.pinChars = [];
-      ctrl.filterKeyword = '';
-      ctrl.total = '';
-      ctrl.role = ['account_holder','admin', 'approver','employee', 'finance_officer', 'human_resource', 'procurement_officer', 'teacher']
-      ctrl.select_role = []
-      ctrl.current_role = []
-      ctrl.get_role = []
-      ctrl.can_edit = true
-      ctrl.school_config_enable_inventory;
-      ctrl.school_config_enable_vacation;
-
-      if (ctrl.empId != 0) {
-        ctrl.showInviteButton = true
-        service.getEmployee(ctrl.empId).then(function(resp) {
-          ctrl.school_config_enable_inventory = resp.data.school_config.enable_inventory;
-          ctrl.school_config_enable_vacation = resp.data.school_config.enable_vacation;
-          ctrl.employee = resp.data.employee
-          ctrl.encrypted_password = resp.data.encrypted_password
-          if (resp.data.encrypted_password)
-            ctrl.showInviteButton = false
-        });
-      }
-
-      ctrl.add_button = "add_new_employee"
-      var employee_inventory_table = $('#employee-inventory-table');
-      ctrl.getActiveTab = $rootScope.activeTab
-      ctrl.show_note_and_comment = true
-      $rootScope.activeTab = null
-
-
-      if (!ctrl.getActiveTab) {
-        ctrl.activeTab = 'general'
-        ctrl.add_button = "add_new_employee"
-        if (ctrl.activeTab == "general" && ctrl.empId == 0){
-          ctrl.showSaveButton = true
-          ctrl.showCancelButton = true
-        }
-      } else {
-        ctrl.activeTab = ctrl.getActiveTab
-        if (ctrl.activeTab == 'inventory') {
-          ctrl.add_button = "add_request_employee"
-        } else {
-          ctrl.add_button = "add_new_employee"
-        }
-      }
-
-      getRole()
-
-      function getRole() {
-        if (ctrl.empId != 0) {
-          settingService.getRoleEmployee(ctrl.empId).then(function(resp) {
-            ctrl.select_role = resp.data.roles
-            ctrl.current_role = resp.data.roles
-          })
-        } else {
-          ctrl.select_role = ["employee"]
-        }
-      }
-
-      ctrl.tagTransform = function (newTag) {
-        var item = {
-           name: newTag
-         };
-         return item;
-      };
-
-      ctrl.socialInsuranceHeader = function() {
-        return ctrl.socialInsuranceRate * 100 + '%';
-      }
-
-      ctrl.selectTab = function(str) {
-        settingButton()
-        if (str == 'inventory') {
-          ctrl.add_button = "add_request_employee"
-        } else {
-          ctrl.add_button = "add_new_employee"
-        }
-      }
-
-      studentReportService.getGrades().then(function(grade_resp) {
-        // remove option 'All'
-        var allIndex = -1;
-        for(var i = 0; i < grade_resp.data.length; i++) {
-          var option = grade_resp.data[i];
-          if (option.name === 'All') {
-            allIndex = i;
-            break;
-          }
-        }
-        if(allIndex > -1) {
-          grade_resp.data.splice(allIndex, 1);
-        }
-        ctrl.grades = grade_resp.data
-      });
-
-      studentReportService.getClassrooms().then(function(classroom_resp) {
-        ctrl.classrooms = classroom_resp.data
-      });
-
-      function openConfirmationModal(message, success, dismiss) {
-        $scope.message = message;
-        $uibModal.open({
-          animation: true,
-          backdrop: 'static',
-          keyboard: false,
-          scope: $scope,
-          templateUrl: "<%= asset_path('payroll/angular/components/modal/confirm/confirmModalView.html') %>",
-          controller: 'confirmModalCtrl as confirm',
-          size: 'md',
-          resolve: {
-            resources: ['$ocLazyLoad', 'ASSETS', function($ocLazyLoad, ASSETS) {
-              return $ocLazyLoad.load([
-                ASSETS.somsri.payroll.confirm_modal
-              ]);
-            }]
-          }
-        }).result.then(function (isConfirm) {
-          if (isConfirm) {
-            if(success){ success() }
-          }else{
-            if(dismiss){ dismiss() }
-          }
-        });
-      }
-
-      function cleanData(str) {
-        if(str){
-          return str.toString().replace(/[\n\r]+/g, '') //remove newline
-        }else{
-          return ""
-        }
-      }
-
-      function isPayrollChange(){
-        var skip = ['deleted_at', 'tax', 'social_insurance', 'pvf', 'closed']
-        if(ctrl.hasPayroll){
-          var keys = Object.keys(ctrl.datas_original.payroll)
-          for(var i = 1; i < keys.length; i++){
-            var isMatchData = cleanData(ctrl.datas.payroll[keys[i]]) != cleanData(ctrl.datas_original.payroll[keys[i]])
-            var isSkip = skip.indexOf(keys[i]) < 0
-            if(isMatchData && isSkip ){
-              return true
-            }
-          }
-        }
-        return false;
-      }
-
-      function isEmployeeChange(){
-        var keys = Object.keys(ctrl.datas_original.employee)
-        for(var i = 1; i < keys.length; i++){
-          if(ctrl.datas.employee[keys[i]] != ctrl.datas_original.employee[keys[i]]){ return true }
-        }
-        return false;
-      }
-
-      function isTaxReductionChange(){
-        if (!ctrl.datas_original.tax_reduction) {
-          return false
-        }
-        var keys = Object.keys(ctrl.datas_original.tax_reduction)
-        for(var i = 1; i < keys.length; i++){
-          if(ctrl.datas.tax_reduction[keys[i]] != ctrl.datas_original.tax_reduction[keys[i]]){ return true }
-        }
-        return false;
-      }
-
-      function isRoleChange() {
-        if (ctrl.current_role != ctrl.get_role) {
-          return true
-        }
-        return false
-      }
-
-      function isDataChange(){
-        return ctrl.isEdit && (isPayrollChange() || isEmployeeChange() || isTaxReductionChange() || isRoleChange());
-      }
-
-      // convert string to float
-      function payrollToFloat(){
-        var skips = ["id", "created_at", "updated_at", "effective_date", "note", "closed"];
-        var keys = Object.keys(ctrl.datas.payroll);
-        for(var i = 1; i < keys.length; i++){
-          if(!(skips.indexOf(keys[i]) > -1)){
-            ctrl.datas.payroll[keys[i]] = parseFloat(ctrl.datas.payroll[keys[i]]);
-          }
-        }
-      }
-
-      function displayEffectiveDate(monthInfo){
-        ctrl.currentDateString = monthInfo["date_string"];
-        ctrl.effectiveDatesDisplay = JSON.parse(JSON.stringify(ctrl.effectiveDates));
-        for(var i = 0; i < ctrl.effectiveDatesDisplay.length; i++){
-          if (I18n.currentLocale() == 'en'){
-            changeYear(ctrl.effectiveDatesDisplay, i)
-          }
-          // if(ctrl.effectiveDatesDisplay[i]["date_string"] == monthInfo["date_string"]){
-          //   ctrl.effectiveDatesDisplay.splice(i, 1);
-          // }
-        }
-      }
-
-      function changeYear(effectiveDatesDisplay, i){
-        if (i != 0){
-          var year = effectiveDatesDisplay[i]["date_string"].split(" ")[2]
-          ctrl.effectiveDatesDisplay[i]["date_string"] = effectiveDatesDisplay[i]["date_string"].replace(year, year - 543);
-        }
-      }
-
-      function changeHistoryYear(employeePayrolls){
-        for(var i = 0; i < employeePayrolls.length; i++){
-          if (i != 0){
-            var year = employeePayrolls[i]["date"].split(" ")[1]
-            ctrl.employeePayrolls[i]["date"] = employeePayrolls[i]["date"].replace(year, year - 543);
-          }
-        }
-      }
-
-      function disableRedactorIfNeeded(){
-        if(ctrl.payroll_closed ){
-          $('.redactor-editor').attr('contenteditable', 'false');
-        }else{
-          $('.redactor-editor').attr('contenteditable', 'true');
-        }
-      }
-
-      function getEmployee(id){
-        var payroll_id = null
-        if($location.search().payroll_id) {
-          payroll_id = $location.search().payroll_id
-        }
-        reportService.getMonths(id).then(function(resp) {
-          if (resp.data.length > 0) {
-            ctrl.effectiveDates = resp.data;
-            ctrl.currentEffectiveDate = ctrl.effectiveDates[0];
-            if (payroll_id) {
-              for (var i = 0; i < ctrl.effectiveDates.length; i++) {
-                var effectiveDate = ctrl.effectiveDates[i];
-                if (effectiveDate.payroll_id == payroll_id) {
-                  ctrl.currentEffectiveDate = effectiveDate;
-                  break;
-                }
-              }
-            }
-            displayEffectiveDate(ctrl.currentEffectiveDate);
-          }
-        });
-
-        service.getEmployee(id, payroll_id).then(function(resp) {
-          ctrl.datas = resp.data;
-          if(ctrl.datas.payroll){
-            ctrl.hasPayroll = true;
-            ctrl.payroll_closed = ctrl.datas.payroll.closed;
-            disableRedactorIfNeeded();
-            payrollToFloat();
-          }else{
-            ctrl.hasPayroll = false;
-          }
-
-          var e = resp.data.employee;
-          ctrl.datas.salary = parseFloat(ctrl.datas.employee.salary);
-          if(e.start_date){
-            ctrl.datas.employee.start_date = new Date(ctrl.datas.employee.start_date);
-          }else{
-            ctrl.datas.employee.start_date = null;
-          }
-
-          if(ctrl.datas.employee.birthdate){
-            ctrl.datas.employee.birthdate = new Date(ctrl.datas.employee.birthdate);
-          }else{
-            ctrl.datas.employee.birthdate = null;
-          }
-
-          ctrl.datas_original = $.extend(true, {}, ctrl.datas);
-          if(ctrl.hasPayroll){
-            ctrl.calTotal();
-          }
-
-          // transform pin number
-          var pin = e.pin;
-          if (pin) {
-            ctrl.pinChars = pin.split('');
-          } else {
-            ctrl.pinChars = []
-          }
-
-          if (!ctrl.datas.employee.note) {
-            ctrl.datas.employee.note = "-"
-          }
-
-          if (!ctrl.datas.employee.comment) {
-            ctrl.datas.employee.comment = "-"
-          }
-
-
-          ctrl.current_employee = ctrl.datas.current_employee
-          ctrl.current_admin = ctrl.datas.current_admin
-          ctrl.current_human_resource = ctrl.datas.current_human_resource
-          if (ctrl.current_admin || ctrl.current_human_resource) {
-            ctrl.show_note_and_comment = true
-          } else {
-            ctrl.show_note_and_comment = false
-          }
-
-          ctrl.has_last_salary = ctrl.datas.has_last_salary.salary
-
-          settingButton()
-          ctrl.displayName = e.id + ': ' + ctrl.datas.employee_display_name;
-
-          // init tax reduction default
-          if (ctrl.datas.tax_reduction) {
-            if(ctrl.datas.tax_reduction.no_income_spouse > 0)
-              $scope.cbox_no_income_spouse = true;
-            if(ctrl.datas.tax_reduction.father_alimony > 0)
-              $scope.cbox_father_alimony = true;
-            if(ctrl.datas.tax_reduction.mother_alimony > 0)
-              $scope.cbox_mother_alimony = true;
-            if(ctrl.datas.tax_reduction.spouse_father_alimony > 0)
-              $scope.cbox_spouse_father_alimony = true;
-            if(ctrl.datas.tax_reduction.spouse_mother_alimony > 0)
-              $scope.cbox_spouse_mother_alimony = true;
-            if(ctrl.datas.tax_reduction.child > 0)
-              $scope.numchild = (ctrl.datas.tax_reduction.child/30000);
-            if(ctrl.datas.tax_reduction.cripple_alimony > 0)
-              $scope.numcripple_alimony = (ctrl.datas.tax_reduction.cripple_alimony/60000);
-          }
-
-
-          // get others employee
-          service.getAllEmployee().then(function(resp) {
-            if (resp.data.length > 0) {
-              ctrl.employee_lists = []; //resp.data
-              for(var i = 0; i < resp.data.length; i++){
-                var employee = resp.data[i];
-                if (employee.id + ': ' + employee.name !== ctrl.displayName) {
-                  // ctrl.employee_lists.splice(i, 1);
-                  if (!employee['deleted_at']) {
-                    ctrl.employee_lists.push({
-                      img: employee.img, name: employee.name,
-                      id: employee.id
-                    });
-                  }
-                }
-              }
-            }
+        $rootScope.loadAndAuthorizeResource("employee", function () {
+          ctrl.socialInsuranceRate = 0.05
+          $rootScope.getSiteConfig("social_insurance_rate").then(function (resp) {
+            ctrl.socialInsuranceRate = parseFloat(resp.data);
           });
-        });
-      }
-
-      function settingButton() {
-        if (ctrl.current_admin || ctrl.current_human_resource) {
-          ctrl.showButton = true
-          ctrl.showDeleteButton = true
-          ctrl.showCancelButton = true
-          ctrl.showSaveButton = true
+          var dateNow = new Date();
+          var employeeId = $state.params.id;
+          ctrl.currentEffectiveDate = "";
+          ctrl.empId = employeeId;
+          ctrl.isEdit = employeeId > 0 ? true : false
+          ctrl.grades = []
+          ctrl.datas = { employee: { grade_id: 0 } };
+          console.log(ctrl.datas)
+          ctrl.isSubmit = false;
+          ctrl.activeTab = 'general';
+          ctrl.activeTabPrivate = 'basic';
+          ctrl.hasPayroll = ctrl.isEdit ? true : false;
+          ctrl.pinChars = [];
+          ctrl.filterKeyword = '';
+          ctrl.total = '';
+          ctrl.role = ['account_holder', 'admin', 'approver', 'employee', 'finance_officer', 'human_resource', 'procurement_officer', 'teacher']
+          ctrl.select_role = []
+          ctrl.current_role = []
+          ctrl.get_role = []
           ctrl.can_edit = true
-        } else if (ctrl.activeTab == "general" && ctrl.empId == 0){
-          ctrl.showSaveButton = true
-          ctrl.can_edit = true
-        } else {
-          ctrl.can_edit = false
-          if (ctrl.activeTab == 'inventory') {
-            ctrl.showButton = true
-            ctrl.showSaveButton = false
-          } else if (ctrl.activeTab == 'private'){
-            ctrl.showDeleteButton = false
-            ctrl.showCancelButton = false
-            ctrl.showSaveButton = true
-            ctrl.showButton = false
-          } else {
-            ctrl.showDeleteButton = false
-            ctrl.showCancelButton = false
-            ctrl.showSaveButton = false
-            ctrl.showButton = false
-          }
-        }
-      }
+          ctrl.school_config_enable_inventory;
+          ctrl.school_config_enable_vacation;
 
-      function switchMonth(effectiveDate) {
-        var payroll_id = effectiveDate.payroll_id;
-        service.getEmployee(employeeId, payroll_id).then(function(resp) {
-          ctrl.currentEffectiveDate = effectiveDate;
-          ctrl.datas.employee.salary = ctrl.datas_original.employee.salary;
-          ctrl.datas.payroll = $.extend(true, {}, resp.data.payroll);
-          ctrl.payroll_closed = ctrl.datas.payroll.closed;
-          payrollToFloat();
-          ctrl.calTotal();
-          ctrl.datas_original.payroll = $.extend(true, {}, ctrl.datas.payroll);
-          displayEffectiveDate(effectiveDate);
-          disableRedactorIfNeeded();
-        });
-      }
-
-      ctrl.slectDropDown = function(id) {
-        if(isDataChange()){
-          openConfirmationModal(translateFilter("close_without_save"), function(){
-            $rootScope.openEmployeeDetails(id);
-          }, function(){
-            $log.info("DISMISS!!");
-          })
-        }else{
-          $rootScope.openEmployeeDetails(id);
-        }
-      }
-
-      ctrl.openEmployeeDetails = function(id){
-        if (ctrl.add_button == "add_request_employee") {
-          $rootScope.openAddInventoryRequest(ctrl.empId);
-        } else {
-          ctrl.slectDropDown(id)
-        }
-      }
-
-      ctrl.changeSalary = function(){
-        ctrl.datas.employee.salary = ctrl.datas.payroll.salary;
-      }
-
-      ctrl.cancel = function(){
-        if (ctrl.isEdit) {
-          if(isDataChange()){
-            openConfirmationModal(translateFilter("close_without_save"), function(){
-              $rootScope.openEmployees();
-            }, function(){
-              $log.info("DISMISS!!");
-            })
-          }else{
-            $rootScope.openEmployees();
-          }
-        } else {
-          $rootScope.openEmployees();
-        }
-      }
-
-      ctrl.uploadPhoto = function(file) {
-        Upload.upload({
-            url: '/employees/' + ctrl.datas.employee.id + '/upload_photo',
-            method: 'PATCH',
-            data: { employee: {
-                file: file
-              }
-            }
-        }).then(function (resp) {
-          ctrl.datas.img_url = resp.data[0].url
-        });
-      };
-
-      function onChangeSelectRole() {
-        ctrl.get_role = []
-        var object = ctrl.select_role
-        angular.forEach(object,function(values,keys){
-          angular.forEach(values,function(value,key){
-              ctrl.get_role.push(value)
-          });
-        });
-      }
-
-      ctrl.submit = function(parm){
-        onChangeSelectRole()
-        var isValid = true
-
-        if (isValid) {
-          ctrl.isSubmit = true
-          if (ctrl.isEdit) {
-            if(isDataChange()){
-              openConfirmationModal(translateFilter("close_with_save"), function(){
-                var datas_result = $.extend(true, {role: ctrl.get_role}, ctrl.datas);
-
-                service.saveEmployee(ctrl.datas.employee.id, datas_result).then(function(resp) {
-                  ctrl.isSubmit = false;
-                  ctrl.datas_original = $.extend(true, {}, ctrl.datas);
-                });
-              }, function(){
-                ctrl.isSubmit = false
-              });
-            }else{
-              ctrl.isSubmit = false
-            }
-          } else {
-            service.createEmployee(parm, ctrl.get_role).then(function(resp) {
-              ctrl.isSubmit = false
-              $rootScope.openEmployees();
+          if (ctrl.empId != 0) {
+            ctrl.showInviteButton = true
+            service.getEmployee(ctrl.empId).then(function (resp) {
+              ctrl.school_config_enable_inventory = resp.data.school_config.enable_inventory;
+              ctrl.school_config_enable_vacation = resp.data.school_config.enable_vacation;
+              ctrl.employee = resp.data.employee
+              ctrl.encrypted_password = resp.data.encrypted_password
+              if (resp.data.encrypted_password)
+                ctrl.showInviteButton = false
             });
           }
-        }
-      }
 
-      ctrl.calTotal = function(){
-        if ( ctrl.isEdit && (isDataChange() || ctrl.total=='')) {
-          var p = ctrl.datas.payroll;
-          var datas_result = $.extend(true, {}, ctrl.datas);
-          service.getEmployeeDeduction(ctrl.datas.employee.id, p.id , datas_result).then(function(resp) {
-            p.tax = resp.data.tax;
-            p.pvf = resp.data.pvf;
-            p.social_insurance = resp.data.social_insurance;
-            ctrl.total = 0;
-            if(p.salary){ ctrl.total += p.salary }
-            if(p.ot){ ctrl.total += p.ot }
-            if(p.position_allowance){ ctrl.total += p.position_allowance }
-            if(p.allowance ){ ctrl.total += p.allowance }
-            if(p.attendance_bonus){ ctrl.total += p.attendance_bonus}
-            if(p.bonus){ ctrl.total += p.bonus}
-            if(p.extra_etc){ ctrl.total += p.extra_etc}
-            if(p.tax){ ctrl.total -= p.tax}
-            if(p.pvf){ ctrl.total -= p.pvf}
-            if(p.absence){ ctrl.total -= p.absence}
-            if(p.late){ ctrl.total -= p.late}
-            if(p.advance_payment){ ctrl.total -= p.advance_payment}
-            if(p.fee_etc){ ctrl.total -= p.fee_etc}
-            if(p.social_insurance){ ctrl.total -= p.social_insurance}
-          });
-        }
-      }
+          ctrl.add_button = "add_new_employee"
+          var employee_inventory_table = $('#employee-inventory-table');
+          ctrl.getActiveTab = $rootScope.activeTab
+          ctrl.show_note_and_comment = true
+          $rootScope.activeTab = null
 
-      ctrl.invite = function(id) {
-        if (ctrl.employee.email) {
-          openConfirmationModal(translateFilter("confirm_invite_employee"), function() {
-            service.invite(id).then(function(resp) {
-              $rootScope.openEmployees();
-            })
-          }, function(){
-          })
-        } else {
-          alert(translateFilter("none_email"))
-        }
-      }
 
-      ctrl.checkInsurance = function() {
-        if(Number(ctrl.datas.tax_reduction.insurance)<100000) {
-          ctrl.datas.tax_reduction.pension_insurance = 0;
-          alert("ท่านไม่สามารถบันทึกเบี้ยประกันชีวิตของผู้มีเงินได้แบบบำนาญได้ เนื่องจากเบี้ยประกันชีวิตมีค่าไม่ถึง 100,000 บาท หากไม่มีเบี้ยประกันชีวิต ให้นำเบี้ยประกันแบบบำนาญบันทึก ที่ช่องเบี้ยประกันชีวิตแทนจนครบ 100,000 บาท จึงจะสามารถนำส่วนที่เหลือมาบันทึกที่ช่องเบี้ยประกันแบบบำนาญ")
-        }
-      }
-
-      ctrl.archiveEmployee = function(id) {
-        openConfirmationModal(translateFilter("confirm_remove_employee"), function() {
-          service.archiveEmployee(id).then(function(resp) {
-            $rootScope.openEmployees();
-          })
-        }, function(){
-          // $log.info("DISMISS!!");
-        })
-      }
-
-      ctrl.restoreEmployees = function(id) {
-        openConfirmationModal(translateFilter("confirm_recovery_employee"), function() {
-          service.restoreEmployees(id).then(function(resp) {
-            $rootScope.openEmployees();
-          })
-        }, function(){
-          // $log.info("DISMISS!!");
-        })
-      }
-
-      ctrl.destroyEmployees = function(id) {
-        openConfirmationModal(translateFilter("confirm_delete_employee"), function() {
-          service.destroyEmployees(id).then(function(resp) {
-            $rootScope.openEmployees();
-          })
-        }, function(){
-          // $log.info("DISMISS!!");
-        })
-      }
-
-      ctrl.switchMonth = function(monthInfo) {
-        if (isPayrollChange()) {
-          openConfirmationModal(translateFilter("close_without_save"), function() {
-            switchMonth(monthInfo);
-          }, function() {
-            // $log.info("DISMISS!!");
-          })
-        } else {
-          switchMonth(monthInfo);
-        }
-      }
-
-      ctrl.getAllPayroll = function(id) {
-        service.getEmployeePayrolls(id).then(function(resp) {
-          ctrl.employeePayrolls = resp.data
-          if (I18n.currentLocale() == 'en'){
-            ctrl.employeePayrolls[0]["date"] = 'Current Month'
-            changeHistoryYear(ctrl.employeePayrolls)
+          if (!ctrl.getActiveTab) {
+            ctrl.activeTab = 'general'
+            ctrl.add_button = "add_new_employee"
+            if (ctrl.activeTab == "general" && ctrl.empId == 0) {
+              ctrl.showSaveButton = true
+              ctrl.showCancelButton = true
+            }
+          } else {
+            ctrl.activeTab = ctrl.getActiveTab
+            if (ctrl.activeTab == 'inventory') {
+              ctrl.add_button = "add_request_employee"
+            } else {
+              ctrl.add_button = "add_new_employee"
+            }
           }
-        })
-      }
 
-      if (ctrl.isEdit) {
-        getEmployee(employeeId);
-      }else{
-        // set defualt value for create employee page
-        ctrl.datas = {};
-        ctrl.datas.employee = {};
-        ctrl.datas.employee.employee_type = "ลูกจ้างประจำ";
-        ctrl.datas.employee.start_date = new Date();
-      }
+          getRole()
 
-      ctrl.openStartDatePopup = function() {
-        ctrl.startDatePopup.opened = true;
-      };
+          function getRole() {
+            if (ctrl.empId != 0) {
+              settingService.getRoleEmployee(ctrl.empId).then(function (resp) {
+                ctrl.select_role = resp.data.roles
+                ctrl.current_role = resp.data.roles
+              })
+            } else {
+              ctrl.select_role = ["employee"]
+            }
+          }
 
-      ctrl.startDatePopup = {
-        opened: false
-      };
+          ctrl.tagTransform = function (newTag) {
+            var item = {
+              name: newTag
+            };
+            return item;
+          };
 
-      ctrl.openBirthdatePopup = function() {
-        ctrl.birthdatePopup.opened = true;
-      };
+          ctrl.socialInsuranceHeader = function () {
+            return ctrl.socialInsuranceRate * 100 + '%';
+          }
 
-      ctrl.birthdatePopup = {
-        opened: false
-      };
+          ctrl.selectTab = function (str) {
+            settingButton()
+            if (str == 'inventory') {
+              ctrl.add_button = "add_request_employee"
+            } else {
+              ctrl.add_button = "add_new_employee"
+            }
+          }
 
-      ctrl.addEmergencyCall = function(){
-        $scope.addEmergencyCallModalParams = {
-          employeeId: employeeId
-        };
-        openEmergencyCallModal();
-      }
-
-      ctrl.editEmergencyCall = function(individual){
-        $scope.addEmergencyCallModalParams = {
-          employeeId: employeeId,
-          individual: individual
-        };
-        openEmergencyCallModal();
-      }
-
-      ctrl.deleteEmergencyCall = function(id){
-        openConfirmationModal(translateFilter("confirm_delete_record"), function(){
-          individualsService.deleteIndividuals(id).then(function(resp) {
-            for(var i = 0; i < ctrl.individuals.emergency_calls.length; i++){
-              if(ctrl.individuals.emergency_calls[i].id == id){
-                ctrl.individuals.emergency_calls.splice(i, 1);
+          studentReportService.getGrades().then(function (grade_resp) {
+            // remove option 'All'
+            var allIndex = -1;
+            for (var i = 0; i < grade_resp.data.length; i++) {
+              var option = grade_resp.data[i];
+              if (option.name === 'All') {
+                allIndex = i;
+                break;
               }
             }
+            if (allIndex > -1) {
+              grade_resp.data.splice(allIndex, 1);
+            }
+            ctrl.grades = grade_resp.data
           });
-        }, function(){
-          $log.info("DISMISS!!");
-        })
-      }
 
-      function openEmergencyCallModal(){
-        $uibModal.open({
-          animation: true,
-          backdrop: 'static',
-          keyboard: false,
-          scope: $scope,
-          templateUrl: "<%= asset_path('payroll/angular/components/modal/emergencyCall/emergencyCallModalView.html') %>",
-          controller: 'emergencyCallModalCtrl as emergencyCall',
-          size: 'lg',
-          resolve: {
-            resources: ['$ocLazyLoad', 'ASSETS', function($ocLazyLoad, ASSETS) {
-              return $ocLazyLoad.load([
-                ASSETS.somsri.payroll.emergency_call_modal
-              ]);
+          studentReportService.getClassrooms().then(function (classroom_resp) {
+            ctrl.classrooms = classroom_resp.data
+          });
+
+          function openConfirmationModal(message, success, dismiss) {
+            $scope.message = message;
+            $uibModal.open({
+              animation: true,
+              backdrop: 'static',
+              keyboard: false,
+              scope: $scope,
+              templateUrl: "<%= asset_path('payroll/angular/components/modal/confirm/confirmModalView.html') %>",
+              controller: 'confirmModalCtrl as confirm',
+              size: 'md',
+              resolve: {
+                resources: ['$ocLazyLoad', 'ASSETS', function ($ocLazyLoad, ASSETS) {
+                  return $ocLazyLoad.load([
+                    ASSETS.somsri.payroll.confirm_modal
+                  ]);
+                }]
+              }
+            }).result.then(function (isConfirm) {
+              if (isConfirm) {
+                if (success) { success() }
+              } else {
+                if (dismiss) { dismiss() }
+              }
+            });
+          }
+
+          function cleanData(str) {
+            if (str) {
+              return str.toString().replace(/[\n\r]+/g, '') //remove newline
+            } else {
+              return ""
+            }
+          }
+
+          function isPayrollChange() {
+            var skip = ['deleted_at', 'tax', 'social_insurance', 'pvf', 'closed']
+            if (ctrl.hasPayroll) {
+              var keys = Object.keys(ctrl.datas_original.payroll)
+              for (var i = 1; i < keys.length; i++) {
+                var isMatchData = cleanData(ctrl.datas.payroll[keys[i]]) != cleanData(ctrl.datas_original.payroll[keys[i]])
+                var isSkip = skip.indexOf(keys[i]) < 0
+                if (isMatchData && isSkip) {
+                  return true
+                }
+              }
+            }
+            return false;
+          }
+
+          function isEmployeeChange() {
+            var keys = Object.keys(ctrl.datas_original.employee)
+            for (var i = 1; i < keys.length; i++) {
+              if (ctrl.datas.employee[keys[i]] != ctrl.datas_original.employee[keys[i]]) { return true }
+            }
+            return false;
+          }
+
+          function isTaxReductionChange() {
+            if (!ctrl.datas_original.tax_reduction) {
+              return false
+            }
+            var keys = Object.keys(ctrl.datas_original.tax_reduction)
+            for (var i = 1; i < keys.length; i++) {
+              if (ctrl.datas.tax_reduction[keys[i]] != ctrl.datas_original.tax_reduction[keys[i]]) { return true }
+            }
+            return false;
+          }
+
+          function isRoleChange() {
+            if (ctrl.current_role != ctrl.get_role) {
+              return true
+            }
+            return false
+          }
+
+          function isDataChange() {
+            return ctrl.isEdit && (isPayrollChange() || isEmployeeChange() || isTaxReductionChange() || isRoleChange());
+          }
+
+          // convert string to float
+          function payrollToFloat() {
+            var skips = ["id", "created_at", "updated_at", "effective_date", "note", "closed"];
+            var keys = Object.keys(ctrl.datas.payroll);
+            for (var i = 1; i < keys.length; i++) {
+              if (!(skips.indexOf(keys[i]) > -1)) {
+                ctrl.datas.payroll[keys[i]] = parseFloat(ctrl.datas.payroll[keys[i]]);
+              }
+            }
+          }
+
+          function displayEffectiveDate(monthInfo) {
+            ctrl.currentDateString = monthInfo["date_string"];
+            ctrl.effectiveDatesDisplay = JSON.parse(JSON.stringify(ctrl.effectiveDates));
+            for (var i = 0; i < ctrl.effectiveDatesDisplay.length; i++) {
+              if (I18n.currentLocale() == 'en') {
+                changeYear(ctrl.effectiveDatesDisplay, i)
+              }
+              // if(ctrl.effectiveDatesDisplay[i]["date_string"] == monthInfo["date_string"]){
+              //   ctrl.effectiveDatesDisplay.splice(i, 1);
+              // }
+            }
+          }
+
+          function changeYear(effectiveDatesDisplay, i) {
+            if (i != 0) {
+              var year = effectiveDatesDisplay[i]["date_string"].split(" ")[2]
+              ctrl.effectiveDatesDisplay[i]["date_string"] = effectiveDatesDisplay[i]["date_string"].replace(year, year - 543);
+            }
+          }
+
+          function changeHistoryYear(employeePayrolls) {
+            for (var i = 0; i < employeePayrolls.length; i++) {
+              if (i != 0) {
+                var year = employeePayrolls[i]["date"].split(" ")[1]
+                ctrl.employeePayrolls[i]["date"] = employeePayrolls[i]["date"].replace(year, year - 543);
+              }
+            }
+          }
+
+          function disableRedactorIfNeeded() {
+            if (ctrl.payroll_closed) {
+              $('.redactor-editor').attr('contenteditable', 'false');
+            } else {
+              $('.redactor-editor').attr('contenteditable', 'true');
+            }
+          }
+
+          function getEmployee(id) {
+            var payroll_id = null
+            if ($location.search().payroll_id) {
+              payroll_id = $location.search().payroll_id
+            }
+            reportService.getMonths(id).then(function (resp) {
+              if (resp.data.length > 0) {
+                ctrl.effectiveDates = resp.data;
+                ctrl.currentEffectiveDate = ctrl.effectiveDates[0];
+                if (payroll_id) {
+                  for (var i = 0; i < ctrl.effectiveDates.length; i++) {
+                    var effectiveDate = ctrl.effectiveDates[i];
+                    if (effectiveDate.payroll_id == payroll_id) {
+                      ctrl.currentEffectiveDate = effectiveDate;
+                      break;
+                    }
+                  }
+                }
+                displayEffectiveDate(ctrl.currentEffectiveDate);
+              }
+            });
+
+            service.getEmployee(id, payroll_id).then(function (resp) {
+              ctrl.datas = resp.data;
+              if (ctrl.datas.payroll) {
+                ctrl.hasPayroll = true;
+                ctrl.payroll_closed = ctrl.datas.payroll.closed;
+                disableRedactorIfNeeded();
+                payrollToFloat();
+              } else {
+                ctrl.hasPayroll = false;
+              }
+
+              var e = resp.data.employee;
+              ctrl.datas.salary = parseFloat(ctrl.datas.employee.salary);
+              if (e.start_date) {
+                ctrl.datas.employee.start_date = new Date(ctrl.datas.employee.start_date);
+              } else {
+                ctrl.datas.employee.start_date = null;
+              }
+
+              if (ctrl.datas.employee.birthdate) {
+                ctrl.datas.employee.birthdate = new Date(ctrl.datas.employee.birthdate);
+              } else {
+                ctrl.datas.employee.birthdate = null;
+              }
+
+              ctrl.datas_original = $.extend(true, {}, ctrl.datas);
+              if (ctrl.hasPayroll) {
+                ctrl.calTotal();
+              }
+
+              // transform pin number
+              var pin = e.pin;
+              if (pin) {
+                ctrl.pinChars = pin.split('');
+              } else {
+                ctrl.pinChars = []
+              }
+
+              if (!ctrl.datas.employee.note) {
+                ctrl.datas.employee.note = "-"
+              }
+
+              if (!ctrl.datas.employee.comment) {
+                ctrl.datas.employee.comment = "-"
+              }
+
+
+              ctrl.current_employee = ctrl.datas.current_employee
+              ctrl.current_admin = ctrl.datas.current_admin
+              ctrl.current_human_resource = ctrl.datas.current_human_resource
+              if (ctrl.current_admin || ctrl.current_human_resource) {
+                ctrl.show_note_and_comment = true
+              } else {
+                ctrl.show_note_and_comment = false
+              }
+
+              ctrl.has_last_salary = ctrl.datas.has_last_salary.salary
+
+              settingButton()
+              ctrl.displayName = ctrl.datas.employee_display_name;
+
+              // init tax reduction default
+              if (ctrl.datas.tax_reduction) {
+                if (ctrl.datas.tax_reduction.no_income_spouse > 0)
+                  $scope.cbox_no_income_spouse = true;
+                if (ctrl.datas.tax_reduction.father_alimony > 0)
+                  $scope.cbox_father_alimony = true;
+                if (ctrl.datas.tax_reduction.mother_alimony > 0)
+                  $scope.cbox_mother_alimony = true;
+                if (ctrl.datas.tax_reduction.spouse_father_alimony > 0)
+                  $scope.cbox_spouse_father_alimony = true;
+                if (ctrl.datas.tax_reduction.spouse_mother_alimony > 0)
+                  $scope.cbox_spouse_mother_alimony = true;
+                if (ctrl.datas.tax_reduction.child > 0)
+                  $scope.numchild = (ctrl.datas.tax_reduction.child / 30000);
+                if (ctrl.datas.tax_reduction.cripple_alimony > 0)
+                  $scope.numcripple_alimony = (ctrl.datas.tax_reduction.cripple_alimony / 60000);
+              }
+
+
+              // get others employee
+              service.getAllEmployee().then(function (resp) {
+                if (resp.data.length > 0) {
+                  ctrl.employee_lists = []; //resp.data
+                  for (var i = 0; i < resp.data.length; i++) {
+                    var employee = resp.data[i];
+                    if (employee.id + ': ' + employee.name !== ctrl.displayName) {
+                      // ctrl.employee_lists.splice(i, 1);
+                      if (!employee['deleted_at']) {
+                        ctrl.employee_lists.push({
+                          img: employee.img, name: employee.name
+                        });
+                      }
+                    }
+                  }
+                }
+              });
+            });
+          }
+
+          function settingButton() {
+            if (ctrl.current_admin || ctrl.current_human_resource) {
+              ctrl.showButton = true
+              ctrl.showDeleteButton = true
+              ctrl.showCancelButton = true
+              ctrl.showSaveButton = true
+              ctrl.can_edit = true
+            } else if (ctrl.activeTab == "general" && ctrl.empId == 0) {
+              ctrl.showSaveButton = true
+              ctrl.can_edit = true
+            } else {
+              ctrl.can_edit = false
+              if (ctrl.activeTab == 'inventory') {
+                ctrl.showButton = true
+                ctrl.showSaveButton = false
+              } else if (ctrl.activeTab == 'private') {
+                ctrl.showDeleteButton = false
+                ctrl.showCancelButton = false
+                ctrl.showSaveButton = true
+                ctrl.showButton = false
+              } else {
+                ctrl.showDeleteButton = false
+                ctrl.showCancelButton = false
+                ctrl.showSaveButton = false
+                ctrl.showButton = false
+              }
+            }
+          }
+
+          function switchMonth(effectiveDate) {
+            var payroll_id = effectiveDate.payroll_id;
+            service.getEmployee(employeeId, payroll_id).then(function (resp) {
+              ctrl.currentEffectiveDate = effectiveDate;
+              ctrl.datas.employee.salary = ctrl.datas_original.employee.salary;
+              ctrl.datas.payroll = $.extend(true, {}, resp.data.payroll);
+              ctrl.payroll_closed = ctrl.datas.payroll.closed;
+              payrollToFloat();
+              ctrl.calTotal();
+              ctrl.datas_original.payroll = $.extend(true, {}, ctrl.datas.payroll);
+              displayEffectiveDate(effectiveDate);
+              disableRedactorIfNeeded();
+            });
+          }
+
+          ctrl.slectDropDown = function (id) {
+            if (isDataChange()) {
+              openConfirmationModal(translateFilter("close_without_save"), function () {
+                $rootScope.openEmployeeDetails(id);
+              }, function () {
+                $log.info("DISMISS!!");
+              })
+            } else {
+              $rootScope.openEmployeeDetails(id);
+            }
+          }
+
+          ctrl.openEmployeeDetails = function (id) {
+            if (ctrl.add_button == "add_request_employee") {
+              $rootScope.openAddInventoryRequest(ctrl.empId);
+            } else {
+              ctrl.slectDropDown(id)
+            }
+          }
+
+          ctrl.changeSalary = function () {
+            ctrl.datas.employee.salary = ctrl.datas.payroll.salary;
+          }
+
+          ctrl.cancel = function () {
+            if (ctrl.isEdit) {
+              if (isDataChange()) {
+                openConfirmationModal(translateFilter("close_without_save"), function () {
+                  $rootScope.openEmployees();
+                }, function () {
+                  $log.info("DISMISS!!");
+                })
+              } else {
+                $rootScope.openEmployees();
+              }
+            } else {
+              $rootScope.openEmployees();
+            }
+          }
+
+          ctrl.uploadPhoto = function (file) {
+            Upload.upload({
+              url: '/employees/' + ctrl.datas.employee.id + '/upload_photo',
+              method: 'PATCH',
+              data: {
+                employee: {
+                  file: file
+                }
+              }
+            }).then(function (resp) {
+              ctrl.datas.img_url = resp.data[0].url
+            });
+          };
+
+          function onChangeSelectRole() {
+            ctrl.get_role = []
+            var object = ctrl.select_role
+            angular.forEach(object, function (values, keys) {
+              angular.forEach(values, function (value, key) {
+                ctrl.get_role.push(value)
+              });
+            });
+          }
+
+          ctrl.submit = function (parm) {
+            onChangeSelectRole()
+            var isValid = true
+
+            if (isValid) {
+              ctrl.isSubmit = true
+              if (ctrl.isEdit) {
+                if (isDataChange()) {
+                  openConfirmationModal(translateFilter("close_with_save"), function () {
+                    var datas_result = $.extend(true, { role: ctrl.get_role }, ctrl.datas);
+
+                    service.saveEmployee(ctrl.datas.employee.id, datas_result).then(function (resp) {
+                      ctrl.isSubmit = false;
+                      ctrl.datas_original = $.extend(true, {}, ctrl.datas);
+                    });
+                  }, function () {
+                    ctrl.isSubmit = false
+                  });
+                } else {
+                  ctrl.isSubmit = false
+                }
+              } else {
+                service.createEmployee(parm, ctrl.get_role).then(function (resp) {
+                  ctrl.isSubmit = false
+                  $rootScope.openEmployees();
+                });
+              }
+            }
+          }
+
+          ctrl.calTotal = function () {
+            if (ctrl.isEdit && (isDataChange() || ctrl.total == '')) {
+              var p = ctrl.datas.payroll;
+              var datas_result = $.extend(true, {}, ctrl.datas);
+              service.getEmployeeDeduction(ctrl.datas.employee.id, p.id, datas_result).then(function (resp) {
+                p.tax = resp.data.tax;
+                p.pvf = resp.data.pvf;
+                p.social_insurance = resp.data.social_insurance;
+                ctrl.total = 0;
+                if (p.salary) { ctrl.total += p.salary }
+                if (p.ot) { ctrl.total += p.ot }
+                if (p.position_allowance) { ctrl.total += p.position_allowance }
+                if (p.allowance) { ctrl.total += p.allowance }
+                if (p.attendance_bonus) { ctrl.total += p.attendance_bonus }
+                if (p.bonus) { ctrl.total += p.bonus }
+                if (p.extra_etc) { ctrl.total += p.extra_etc }
+                if (p.tax) { ctrl.total -= p.tax }
+                if (p.pvf) { ctrl.total -= p.pvf }
+                if (p.absence) { ctrl.total -= p.absence }
+                if (p.late) { ctrl.total -= p.late }
+                if (p.advance_payment) { ctrl.total -= p.advance_payment }
+                if (p.fee_etc) { ctrl.total -= p.fee_etc }
+                if (p.social_insurance) { ctrl.total -= p.social_insurance }
+              });
+            }
+          }
+
+          ctrl.invite = function (id) {
+            if (ctrl.employee.email) {
+              openConfirmationModal(translateFilter("confirm_invite_employee"), function () {
+                service.invite(id).then(function (resp) {
+                  $rootScope.openEmployees();
+                })
+              }, function () {
+              })
+            } else {
+              alert(translateFilter("none_email"))
+            }
+          }
+
+          ctrl.checkInsurance = function () {
+            if (Number(ctrl.datas.tax_reduction.insurance) < 100000) {
+              ctrl.datas.tax_reduction.pension_insurance = 0;
+              alert("ท่านไม่สามารถบันทึกเบี้ยประกันชีวิตของผู้มีเงินได้แบบบำนาญได้ เนื่องจากเบี้ยประกันชีวิตมีค่าไม่ถึง 100,000 บาท หากไม่มีเบี้ยประกันชีวิต ให้นำเบี้ยประกันแบบบำนาญบันทึก ที่ช่องเบี้ยประกันชีวิตแทนจนครบ 100,000 บาท จึงจะสามารถนำส่วนที่เหลือมาบันทึกที่ช่องเบี้ยประกันแบบบำนาญ")
+            }
+          }
+
+          ctrl.archiveEmployee = function (id) {
+            openConfirmationModal(translateFilter("confirm_remove_employee"), function () {
+              service.archiveEmployee(id).then(function (resp) {
+                $rootScope.openEmployees();
+              })
+            }, function () {
+              // $log.info("DISMISS!!");
+            })
+          }
+
+          ctrl.restoreEmployees = function (id) {
+            openConfirmationModal(translateFilter("confirm_recovery_employee"), function () {
+              service.restoreEmployees(id).then(function (resp) {
+                $rootScope.openEmployees();
+              })
+            }, function () {
+              // $log.info("DISMISS!!");
+            })
+          }
+
+          ctrl.destroyEmployees = function (id) {
+            openConfirmationModal(translateFilter("confirm_delete_employee"), function () {
+              service.destroyEmployees(id).then(function (resp) {
+                $rootScope.openEmployees();
+              })
+            }, function () {
+              // $log.info("DISMISS!!");
+            })
+          }
+
+          ctrl.switchMonth = function (monthInfo) {
+            if (isPayrollChange()) {
+              openConfirmationModal(translateFilter("close_without_save"), function () {
+                switchMonth(monthInfo);
+              }, function () {
+                // $log.info("DISMISS!!");
+              })
+            } else {
+              switchMonth(monthInfo);
+            }
+          }
+
+          ctrl.getAllPayroll = function (id) {
+            service.getEmployeePayrolls(id).then(function (resp) {
+              ctrl.employeePayrolls = resp.data
+              if (I18n.currentLocale() == 'en') {
+                ctrl.employeePayrolls[0]["date"] = 'Current Month'
+                changeHistoryYear(ctrl.employeePayrolls)
+              }
+            })
+          }
+
+          if (ctrl.isEdit) {
+            getEmployee(employeeId);
+          } else {
+            // set defualt value for create employee page
+            ctrl.datas = {};
+            ctrl.datas.employee = {};
+            ctrl.datas.employee.employee_type = "ลูกจ้างประจำ";
+            ctrl.datas.employee.start_date = new Date();
+          }
+
+          ctrl.openStartDatePopup = function () {
+            ctrl.startDatePopup.opened = true;
+          };
+
+          ctrl.startDatePopup = {
+            opened: false
+          };
+
+          ctrl.openBirthdatePopup = function () {
+            ctrl.birthdatePopup.opened = true;
+          };
+
+          ctrl.birthdatePopup = {
+            opened: false
+          };
+
+          ctrl.addEmergencyCall = function () {
+            $scope.addEmergencyCallModalParams = {
+              employeeId: employeeId
+            };
+            openEmergencyCallModal();
+          }
+
+          ctrl.editEmergencyCall = function (individual) {
+            $scope.addEmergencyCallModalParams = {
+              employeeId: employeeId,
+              individual: individual
+            };
+            openEmergencyCallModal();
+          }
+
+          ctrl.deleteEmergencyCall = function (id) {
+            openConfirmationModal(translateFilter("confirm_delete_record"), function () {
+              individualsService.deleteIndividuals(id).then(function (resp) {
+                for (var i = 0; i < ctrl.individuals.emergency_calls.length; i++) {
+                  if (ctrl.individuals.emergency_calls[i].id == id) {
+                    ctrl.individuals.emergency_calls.splice(i, 1);
+                  }
+                }
+              });
+            }, function () {
+              $log.info("DISMISS!!");
+            })
+          }
+
+          function openEmergencyCallModal() {
+            $uibModal.open({
+              animation: true,
+              backdrop: 'static',
+              keyboard: false,
+              scope: $scope,
+              templateUrl: "<%= asset_path('payroll/angular/components/modal/emergencyCall/emergencyCallModalView.html') %>",
+              controller: 'emergencyCallModalCtrl as emergencyCall',
+              size: 'lg',
+              resolve: {
+                resources: ['$ocLazyLoad', 'ASSETS', function ($ocLazyLoad, ASSETS) {
+                  return $ocLazyLoad.load([
+                    ASSETS.somsri.payroll.emergency_call_modal
+                  ]);
+                }]
+              }
+            }).result.then(function (data) {
+              if (data) {
+                if ($scope.addEmergencyCallModalParams.individual) {
+                  // update
+                  for (var i = 0; i < ctrl.individuals.emergency_calls.length; i++) {
+                    if (ctrl.individuals.emergency_calls[i].id == data.id) {
+                      ctrl.individuals.emergency_calls[i] = data;
+                    }
+                  }
+                } else {
+                  // create
+                  ctrl.individuals.emergency_calls.push(data);
+                }
+              }
+            });
+          }
+
+          individualsService.getIndividuals(employeeId).then(function (resp) {
+            ctrl.individuals = resp.data;
+            ctrl.individuals.emergency_calls.reverse();
+          });
+
+          $scope.check_not_null = function (e) {
+            if (ctrl.datas.tax_reduction[e] == null) ctrl.datas.tax_reduction[e] = 0
+          }
+
+          $scope.set_no_income_spouse = function (value) {
+            if (value)
+              ctrl.datas.tax_reduction.no_income_spouse = 60000;
+            else
+              ctrl.datas.tax_reduction.no_income_spouse = 0;
+          };
+
+          $scope.set_father_alimony = function (value) {
+            if (value)
+              ctrl.datas.tax_reduction.father_alimony = 30000;
+            else
+              ctrl.datas.tax_reduction.father_alimony = 0;
+          };
+          $scope.set_mother_alimony = function (value) {
+            if (value)
+              ctrl.datas.tax_reduction.mother_alimony = 30000;
+            else
+              ctrl.datas.tax_reduction.mother_alimony = 0;
+          };
+          $scope.set_spouse_father_alimony = function (value) {
+            if (value)
+              ctrl.datas.tax_reduction.spouse_father_alimony = 30000;
+            else
+              ctrl.datas.tax_reduction.spouse_father_alimony = 0;
+          };
+          $scope.set_spouse_mother_alimony = function (value) {
+            if (value)
+              ctrl.datas.tax_reduction.spouse_mother_alimony = 30000;
+            else
+              ctrl.datas.tax_reduction.spouse_mother_alimony = 0;
+          };
+          $scope.set_child = function (value) {
+            ctrl.datas.tax_reduction.child = 30000 * value;
+          };
+          $scope.set_cripple_alimony = function (value) {
+            ctrl.datas.tax_reduction.cripple_alimony = 60000 * value;
+          };
+
+          function filterDate(value, row, index) {
+            if (value) {
+              return $filter('date')(Date.parse(value), 'dd/MM/yyyy');
+            }
+            return "-";
+          }
+
+          function formatePrice(value, row, index) {
+            if (value) {
+              return $filter('number')(value.toFixed(2), 2);
+            }
+            return "-"
+          }
+          var bootstrapTableOptionsInvetoryRequest = {
+            sortName: 'updated_at',
+            sortOrder: 'desc',
+            columns: [{
+              field: 'number',
+              title: '#',
+              classes: 'text-right',
+              sortable: true,
+            }, {
+              field: 'item_name',
+              title: translateFilter("item_name"),
+              sortable: true,
+            }, {
+              field: 'serial_number',
+              title: translateFilter("serial_number"),
+              sortable: true,
+              class: 'font-weight-bold'
+            }, {
+              field: 'model',
+              title: translateFilter("model"),
+              class: 'text-currency',
+              align: 'right',
+              sortable: true,
+            }, {
+              field: 'description',
+              title: translateFilter("description"),
+              sortable: true,
+            }, {
+              field: 'inventory_status',
+              title: translateFilter("status"),
+              align: 'center',
+              formatter: statusFormmatter,
+              sortable: true,
+              class: 'font-weight-bold',
+            }, {
+              field: 'edit',
+              title: "",
+              class: 'text-right',
+              sortable: false,
+              formatter: editInventoryRequestFormatter
             }]
           }
-        }).result.then(function (data) {
-          if(data){
-            if($scope.addEmergencyCallModalParams.individual){
-              // update
-              for(var i = 0; i < ctrl.individuals.emergency_calls.length; i++){
-                if(ctrl.individuals.emergency_calls[i].id == data.id){
-                  ctrl.individuals.emergency_calls[i] = data;
-                }
-              }
-            }else{
-              // create
-              ctrl.individuals.emergency_calls.push(data);
+
+          function editInventoryRequestFormatter(value, row, index) {
+            return '<a id="editInventory' + row['id'] + '" onclick="' + angularCtrlStr + '.editInventory(' + row['id'] + ')"> <i class=\'fa fa-pencil-square-o fa-fw color-orange cursor-pointer\'></i> </a>';
+          }
+
+          ctrl.editInventory = function (inventory_id) {
+            $rootScope.openInventoryDetails(ctrl.empId, inventory_id)
+          }
+
+          function statusFormmatter(value, row, index) {
+            var color = ""
+            if (row['inventory_status'] == "delete") {
+              color = "color-red"
+            } else if (row['inventory_status'] == "waiting repair") {
+              color = "color-orange"
+            }
+
+            if (row['inventory_status'] == 'rejected' || row['inventory_status'] == "delete") {
+              return '<span class="cursor-pointer" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" title="Reason" data-content="' + row['comment'] + '">' + row['inventory_status'] + '</span>'
+            } else {
+              return '<span class="' + color + '" tyep="text">' + row['inventory_status'] + '</span>'
             }
           }
-        });
-      }
 
-      individualsService.getIndividuals(employeeId).then(function(resp) {
-        ctrl.individuals = resp.data;
-        ctrl.individuals.emergency_calls.reverse();
-      });
+          employee_inventory_table.bootstrapTable($.extend(bootstrapTableOptionsInvetoryRequest, { toolbar: "date-filter" }));
 
-      $scope.check_not_null = function(e) {
-        if(ctrl.datas.tax_reduction[e]==null) ctrl.datas.tax_reduction[e] = 0
-      }
+          function getInventoryRequest() {
+            if (!ctrl.requestCurrentPage) { ctrl.requestCurrentPage = 1 }
+            inventoryRequestService.getInventoryRequest(ctrl.requestCurrentPage, ctrl.empId).then(function (resp) {
+              ctrl.datasReuestExport = [];
+              if (resp.data) {
+                ctrl.requestTotalItems = resp.data.total_records;
+                ctrl.requestCurrentPage = resp.data.current_page;
+                ctrl.datasReuestExport = resp.data.inventories_requests
+                var datas = []
+                var count = ctrl.datasReuestExport.length
+                for (var i = 0; i < count; i++) {
+                  var status = ctrl.datasReuestExport[i].inventory_status
+                  if (ctrl.datasReuestExport[i].inventory_status == "wait") {
+                    status = "-"
+                  } else if (ctrl.datasReuestExport[i].inventory_status == "delete_inventory") {
+                    status = "delete"
+                  } else if (ctrl.datasReuestExport[i].inventory_status == "repair") {
+                    status = "waiting repair"
+                  }
 
-      $scope.set_no_income_spouse = function(value) {
-        if(value)
-          ctrl.datas.tax_reduction.no_income_spouse = 60000;
-        else
-          ctrl.datas.tax_reduction.no_income_spouse = 0;
-      };
+                  var serial_number = "-"
+                  var model = "-"
+                  var description = ctrl.datasReuestExport[i].description
+                  if (ctrl.datasReuestExport[i].inventory) {
+                    if (ctrl.datasReuestExport[i].inventory.serial_number) {
+                      serial_number = ctrl.datasReuestExport[i].inventory.serial_number
+                    }
 
-      $scope.set_father_alimony = function(value) {
-        if(value)
-          ctrl.datas.tax_reduction.father_alimony = 30000;
-        else
-          ctrl.datas.tax_reduction.father_alimony = 0;
-      };
-      $scope.set_mother_alimony = function(value) {
-        if(value)
-          ctrl.datas.tax_reduction.mother_alimony = 30000;
-        else
-          ctrl.datas.tax_reduction.mother_alimony = 0;
-      };
-      $scope.set_spouse_father_alimony = function(value) {
-        if(value)
-          ctrl.datas.tax_reduction.spouse_father_alimony = 30000;
-        else
-          ctrl.datas.tax_reduction.spouse_father_alimony = 0;
-      };
-      $scope.set_spouse_mother_alimony = function(value) {
-        if(value)
-          ctrl.datas.tax_reduction.spouse_mother_alimony = 30000;
-        else
-          ctrl.datas.tax_reduction.spouse_mother_alimony = 0;
-      };
-      $scope.set_child = function(value) {
-        ctrl.datas.tax_reduction.child = 30000*value;
-      };
-      $scope.set_cripple_alimony = function(value) {
-        ctrl.datas.tax_reduction.cripple_alimony = 60000*value;
-      };
+                    if (ctrl.datasReuestExport[i].inventory.model) {
+                      model = ctrl.datasReuestExport[i].inventory.model
+                    }
+                    if (ctrl.datasReuestExport[i].inventory.description) {
+                      description = ctrl.datasReuestExport[i].inventory.description
+                    }
+                  }
 
-      function filterDate(value, row, index) {
-        if (value) {
-          return $filter('date')(Date.parse(value), 'dd/MM/yyyy');
-        }
-        return "-";
-      }
-
-      function formatePrice(value, row, index) {
-        if (value) {
-            return $filter('number')(value.toFixed(2), 2);
-        }
-        return "-"
-      }
-      var bootstrapTableOptionsInvetoryRequest = {
-        sortName: 'updated_at',
-        sortOrder: 'desc',
-        columns : [{
-          field: 'number',
-          title: '#',
-          classes: 'text-right',
-          sortable: true,
-        },{
-          field: 'item_name',
-          title: translateFilter("item_name"),
-          sortable: true,
-        },{
-          field: 'serial_number',
-          title: translateFilter("serial_number"),
-          sortable: true,
-          class: 'font-weight-bold'
-        },{
-          field: 'model',
-          title: translateFilter("model"),
-          class: 'text-currency',
-          align: 'right',
-          sortable: true,
-        },{
-          field: 'description',
-          title: translateFilter("description"),
-          sortable: true,
-        },{
-          field: 'inventory_status',
-          title: translateFilter("status"),
-          align: 'center',
-          formatter: statusFormmatter,
-          sortable: true,
-          class: 'font-weight-bold',
-        },{
-          field: 'edit',
-          title: "",
-          class: 'text-right',
-          sortable: false,
-          formatter : editInventoryRequestFormatter
-        }]
-      }
-
-      function editInventoryRequestFormatter(value, row, index) {
-        return '<a id="editInventory' + row['id'] + '" onclick="' + angularCtrlStr + '.editInventory(' + row['id'] + ')"> <i class=\'fa fa-pencil-square-o fa-fw color-orange cursor-pointer\'></i> </a>';
-      }
-
-      ctrl.editInventory = function(inventory_id) {
-        $rootScope.openInventoryDetails(ctrl.empId,inventory_id)
-      }
-
-      function statusFormmatter(value, row, index) {
-        var color = ""
-        if (row['inventory_status'] == "delete") {
-          color = "color-red"
-        } else if (row['inventory_status'] == "waiting repair") {
-          color = "color-orange"
-        }
-
-        if (row['inventory_status'] == 'rejected' || row['inventory_status'] == "delete") {
-          return '<span class="cursor-pointer" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" title="Reason" data-content="' + row['comment'] + '">' +  row['inventory_status'] + '</span>'
-        } else {
-          return '<span class="'+ color + '" tyep="text">' + row['inventory_status'] + '</span>'
-        }
-      }
-
-      employee_inventory_table.bootstrapTable($.extend(bootstrapTableOptionsInvetoryRequest, {toolbar: "date-filter"}));
-
-      function getInventoryRequest() {
-        if(!ctrl.requestCurrentPage){ ctrl.requestCurrentPage = 1 }
-          inventoryRequestService.getInventoryRequest(ctrl.requestCurrentPage, ctrl.empId).then(function(resp) {
-            ctrl.datasReuestExport = [];
-            if (resp.data) {
-              ctrl.requestTotalItems = resp.data.total_records;
-              ctrl.requestCurrentPage = resp.data.current_page;
-              ctrl.datasReuestExport = resp.data.inventories_requests
-              var datas = []
-              var count = ctrl.datasReuestExport.length
-              for(var i = 0; i<count; i++) {
-                var status = ctrl.datasReuestExport[i].inventory_status
-                if (ctrl.datasReuestExport[i].inventory_status == "wait") {
-                  status = "-"
-                } else if (ctrl.datasReuestExport[i].inventory_status == "delete_inventory") {
-                  status = "delete"
-                } else if (ctrl.datasReuestExport[i].inventory_status == "repair") {
-                  status = "waiting repair"
+                  datas.push({
+                    number: ((ctrl.requestCurrentPage - 1) * 10) + i + 1,
+                    id: ctrl.datasReuestExport[i].id,
+                    item_name: ctrl.datasReuestExport[i].item_name,
+                    serial_number: serial_number,
+                    model: model,
+                    description: description,
+                    inventory_status: status,
+                    comment: ctrl.datasReuestExport[i].comment,
+                    created_at: ctrl.datasReuestExport[i].created_at,
+                    updated_at: ctrl.datasReuestExport[i].updated_at
+                  })
                 }
-
-                var serial_number = "-"
-                var model = "-"
-                var description = ctrl.datasReuestExport[i].description
-                if (ctrl.datasReuestExport[i].inventory) {
-                  if (ctrl.datasReuestExport[i].inventory.serial_number) {
-                    serial_number = ctrl.datasReuestExport[i].inventory.serial_number
-                  }
-
-                  if (ctrl.datasReuestExport[i].inventory.model) {
-                    model = ctrl.datasReuestExport[i].inventory.model
-                  }
-                  if (ctrl.datasReuestExport[i].inventory.description) {
-                    description = ctrl.datasReuestExport[i].inventory.description
-                  }
-                }
-
-                datas.push({
-                  number: ((ctrl.requestCurrentPage - 1) * 10) + i + 1,
-                  id: ctrl.datasReuestExport[i].id,
-                  item_name: ctrl.datasReuestExport[i].item_name,
-                  serial_number: serial_number,
-                  model: model,
-                  description: description,
-                  inventory_status: status,
-                  comment: ctrl.datasReuestExport[i].comment,
-                  created_at: ctrl.datasReuestExport[i].created_at,
-                  updated_at: ctrl.datasReuestExport[i].updated_at
-                })
+                ctrl.datasReuestExport = datas
+              } else {
+                ctrl.requestTotalItems = 0;
+                ctrl.requestCurrentPage = 0;
               }
-              ctrl.datasReuestExport = datas
-            } else {
-              ctrl.requestTotalItems = 0;
-              ctrl.requestCurrentPage = 0;
-            }
-            ctrl.paginateButtonMaxSize = 5;
-            employee_inventory_table.bootstrapTable('load', ctrl.datasReuestExport);
+              ctrl.paginateButtonMaxSize = 5;
+              employee_inventory_table.bootstrapTable('load', ctrl.datasReuestExport);
+            });
+          }
+
+          ctrl.pageRequestChanged = function () {
+            getInventoryRequest()
+          };
+
+          getInventoryRequest()
+        });
+      }])
+    .directive('stringToNumber', function () {
+      return {
+        require: 'ngModel',
+        link: function (scope, element, attrs, ngModel) {
+          ngModel.$parsers.push(function (value) {
+            return '' + value;
           });
-      }
-
-      ctrl.pageRequestChanged = function() {
-        getInventoryRequest()
+          ngModel.$formatters.push(function (value) {
+            return parseFloat(value);
+          });
+        }
       };
-
-      getInventoryRequest()
     });
-  }])
-  .directive('stringToNumber', function() {
-    return {
-      require: 'ngModel',
-      link: function(scope, element, attrs, ngModel) {
-        ngModel.$parsers.push(function(value) {
-          return '' + value;
-        });
-        ngModel.$formatters.push(function(value) {
-          return parseFloat(value);
-        });
-      }
-    };
-  });
 
   angular.module('somsri.payroll.employee_details').controller('TaxReductionCtrl', ['$scope', '$sce', function ($scope, $sce) {
     $scope.expenses = $sce.trustAsHtml('หักลดหย่อนได้ 60,000 บาท (ไม่ว่าจะอยู่ในประเทศไทยถึง 180 วัน หรือไม่ก็ตาม)');

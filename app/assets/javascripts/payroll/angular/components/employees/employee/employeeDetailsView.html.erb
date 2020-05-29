@@ -7,7 +7,7 @@
           <div class="col-md-6">
             <div class="dropdown" >
               <small>Select employee</small>
-              <h1 id="employeeName" onclick="window.setTimeout(function(){ $('#employeeFilter').val('').trigger('change').focus()}, 100)" class="dropdown-toggle" ng-class="{ 'disabled' : !(employee.can_edit) }" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+              <h1 id="employeeName" onclick="window.setTimeout(function(){ $('#employeeFilter').val('').trigger('change').focus()}, 100)" class="dropdown-toggle" ng-class="{!(employee.can_edit) }" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
                 <span ng-bind="employee.displayName"></span>
                 <span class="fa fa-angle-down" ng-hide="employee.current_employee" ></span>
               </h1>
@@ -21,7 +21,7 @@
                       <i class="fa fa-user font-white" aria-hidden="true"></i>
                       <span class="bg-light-gray circle"></span>
                     </span>
-                    <span class="dropdown-employee-name">{{data.id}}: {{data.name}}</span>
+                    <span class="dropdown-employee-name">{{data.name}}</span>
                   </a>
                 </li>
               </ul>
