@@ -113,7 +113,7 @@
       <div class="form-group ">
         <%= f.label :grade_id, :class => 'control-label' %>
         <div class="col-md-12">
-          <%= f.collection_select :grade_id, Grade.all, :id, :name, {prompt: t('please_select_grade')}, {class: "form-control"} %>
+          <%= f.collection_select :grade_id, Grade.where(school_id: @school_id) , :id, :name, {prompt: t('please_select_grade')}, {class: "form-control"} %>
         </div>
       </div>
     </div>
