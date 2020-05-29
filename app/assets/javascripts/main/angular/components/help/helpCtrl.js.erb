@@ -2,9 +2,9 @@
   'use strict';
   angular.module('somsri.main.help', [
   ])
-    .controller('helpCtrl', ['$rootScope', 'translateFilter', 'helpService', function ($rootScope, translateFilter, service) {
-      $rootScope.menu = translateFilter('help');
-
+    .controller('helpCtrl', ['$rootScope', '$scope', '$uibModal', '$window', 'translateFilter', function ($rootScope, $scope, $uibModal, $window, translateFilter) {
+      $rootScope.menu = I18n.t('help');
+      console.log($rootScope.menu)
 
 
     }]);

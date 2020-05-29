@@ -3,7 +3,7 @@
   angular.module('somsri.payroll.payroll', [
   ])
   .controller('payrollCtrl', ['$filter', 'reportService', 'payrollService', 'employeesService', '$rootScope', '$state', '$uibModal', '$scope', 'translateFilter', function($filter, reportService, payrollService, employeesService, $rootScope, $state, $uibModal, $scope, translateFilter) {
-    $rootScope.menu = translateFilter("payroll")
+    $rootScope.menu = I18n.t("payroll")
     var ctrl = this
     ctrl.total = 0
     ctrl.employees = []
