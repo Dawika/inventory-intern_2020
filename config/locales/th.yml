@@ -1103,10 +1103,10 @@ th:
 
   #help
   contact_us: "หากต้องการความช่วยเหลือ สามารถติดต่อเราได้ตามช่องทางดังนี้"
-  send_email: "ส่งอีเมลมาที่ info@somsri.io หรือ"
-  call_number: "โทร 053-020078 หรือ"
-  line: "ไลน์"
-  line_link: "โดยใส่เป็น email tag / tel tag / และ line link ไปที่"
+  send_email: "ส่งอีเมลมาที่"
+  or: "or"
+  call_number: "โทร"
+  line: "LINE"
 
   # School Setting
   schools:
