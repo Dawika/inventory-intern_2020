@@ -138,7 +138,6 @@ class StudentsController < ApplicationController
     grade_select = (params[:grade_select] || 'All')
     class_select = (params[:class_select] || 'All')
     @class_display = Grade.where(school_id: current_user.school_id, name: params[:grade_select]).first.classrooms.order("id ASC").select(:name).map(&:name).compact if params[:grade_select].present? and params[:grade_select] != "all"
-    # @class_display = Classroom.where(school_id: current_user.school_id).order("id ASC").select(:name).map(&:name).compact
     year_select = (params[:year_select] || Date.current.year + 543)
     semester_select = params[:semester_select]
     invoice_status = params[:status]
