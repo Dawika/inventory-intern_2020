@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   def notification_payment
     if current_user.present? && !current_user.has_role?(:super_admin)
       @success = params[:success].present?
-      return true if !SiteConfig.get_cache.web_cms or params[:cancel_check_plan] or request.path.include?('admin') or request.path.include?('purchases/new')
+      return true if !SiteConfig.get_cache.web_cms or params[:cancel_check_plan] or request.path.include?('admin') or request.path.include?('purchases/new') or request.path.include?('purchase')
 
       school_license = current_user.school.active_license
       charge_info = school_license.charge_info

@@ -9,7 +9,8 @@
       <td></td>
     </tr>
     <tr>
-      <td class="border-1 p-5 min-w-200 text-center"><%= t('emp_name') %> </td>
+     
+      <td class="border-1 p-5 min-w-200 text-center" colspan="2"><%= t('emp_name') %> </td>
       <td class="border-1 p-5 min-w-80 text-center"><%= t('salary') %> </td>
       <td class="border-1 p-5 min-w-80 text-center"><%= t('ot') %> </td>
       <td class="border-1 p-5 min-w-80 text-center"><%= t('position_allowance') %> </td>
@@ -30,7 +31,8 @@
   <tbody>
     <% @results.each do |result| %>
     <tr>
-      <td class="border-1 p-5"><%= result[:name] %></td>
+    
+      <td class="border-1 p-5" colspan="2"><%= result[:name] %></td>
       <td class="border-1 text-right p-5 font-roboto"><%= number_with_precision(result[:salary], precision: 2, delimiter: ',') %></td>
       <td class="border-1 text-right p-5 font-roboto"><%= number_with_precision(result[:ot], precision: 2, delimiter: ',') %></td>
       <td class="border-1 text-right p-5 font-roboto"><%= number_with_precision(result[:position_allowance], precision: 2, delimiter: ',') %></td>

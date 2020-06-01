@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get "/locale" => "home#locale"
   get 'holiday.ics' => 'holidays#share'
   get "/signup" => "schools#new"
+  get '/purchase' => "purchases#new"
 
   resources :schools
 
