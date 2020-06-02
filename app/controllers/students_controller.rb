@@ -233,6 +233,7 @@ class StudentsController < ApplicationController
   # GET /students/new
   def new
     @class_display = Grade.where(school_id: current_user.school_id, id: params[:grade_select]).first.classrooms.order("id ASC").select(:name).map(&:name).compact if params[:grade_select].present?
+    classroom_id =  Classroom.where(name: @class_display).collect {|c| c.id} if params[:grade_select].present?
     @menu = t('student')
     @student = Student.new
     @school_id = current_user.school_id
@@ -242,7 +243,8 @@ class StudentsController < ApplicationController
       f.html { render "students/new", layout: "application_invoice" }
       f.json {
         render json: {
-          classroom: @class_display
+          classroom: @class_display,
+          classroom_id: classroom_id
         }
       }
     end
