@@ -209,7 +209,7 @@ function classroom_grade(url) {
             for (var i = 0; i < response.classroom.length; i++) {
               var option = document.createElement("option");
               option.text += response.classroom[i];
-              option.value = response.classroom[i];
+              option.value = response.classroom_id[i];
               select.add(option);
             }   
           }
