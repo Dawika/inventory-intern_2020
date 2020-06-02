@@ -2444,9 +2444,37 @@ ul.rich-autocomplete-list {
       width: auto;
     }
   }
+  //signup/credit
+  #credit{
+    color: #808080;
+    font-size: 16px;
+    .form-control {
+        border-radius: 1px;
+        border: 1px solid  #d9d9d9;            
+        line-height: 27.5px;
+        box-shadow: none !important;
+        height: 40px;
+        position: relative
+    }
+    .star{
+        color: red;
+    }
+    i{
+        color: #00b3b3;
+        margin-left: 2px ;
+    }
+    .errspan {
+        float: right;
+        margin-right: 10px;
+        margin-top: -42px;
+        position: relative;
+        z-index: 2;
+        color: #808080;
+    }
+  }
 }
 
-//purchases/new
+//purchases
 #school-plan{
     #credit{
         color: #808080;
@@ -2481,3 +2509,5 @@ ul.rich-autocomplete-list {
         }
     }
 }
+
+
