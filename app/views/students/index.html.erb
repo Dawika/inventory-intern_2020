@@ -37,7 +37,7 @@
       </div>
       <div class="col-xs-6 select-filter">
         <span class="text-label"><%= t('select_classroom') %></span>
-        <select name="grade_select" id="grade_select" class="btn-grades" onchange="filter()">
+        <select name="grade_select" id="grade_select" class="btn-grades" onchange="filter(), getclassroom('/students')">
           <option value='all'><%= t('all_class') %></option>
           <% @Grade.all.each do |grade| %>
           <option name="grade" value="<%= grade.name %>" <%= @filter_grade.to_s == grade.name.to_s ? "selected" : "" %>>
@@ -48,10 +48,6 @@
         <span class="text-label"><%= t('select_rooms') %></span>
         <select name="class_select" id="class_select" class="btn-grades" onchange="filter()">
           <option value='all'><%= t('all_room') %></option>
-          <% @class_display.each do |classroom| %>
-          <option value="<%= classroom %>" <%= @filter_class == classroom ? "selected" : "" %>> <%= classroom %>
-          </option>
-          <% end %>
         </select>
       </div>
     </div>
@@ -127,3 +123,4 @@
 </div>
 <%= javascript_include_tag 'print_student_list' %>
 <%= javascript_include_tag 'custom_bootstrap_table' %>
+

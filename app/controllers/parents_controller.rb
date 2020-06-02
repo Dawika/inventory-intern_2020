@@ -9,7 +9,7 @@ class ParentsController < ApplicationController
     filter_parents
     grade_select = (params[:grade_select] || 'All')
     class_select = (params[:class_select] || 'All')
-    @classroom_display = Classroom.where(school_id: current_user.school_id).order("id ASC").select(:name).map(&:name).uniq.compact
+    @class_display = Grade.where(school_id: current_user.school_id, name: params[:grade_select]).first.classrooms.order("id ASC").select(:name).map(&:name).compact if params[:grade_select].present? and params[:grade_select] != "all"
     total = @parents.count
     @parents = @parents.limit(params[:limit]).offset(params[:offset])
     @menu = t('parent')
