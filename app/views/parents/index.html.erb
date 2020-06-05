@@ -6,9 +6,24 @@
       <h1><%= t('parent') %></h1>
     </div>
     <div class="col-xs-6 mt-10 px-0" style="text-align: right;">
-      <a class="btn btn-custom btn-blue-sky float-right mr-5" href="#" onclick='exportTable("parents")'><i
-          class="fa fa-share-square-o" aria-hidden="true"></i> <%= t('export') %></a>
+      <a class="btn btn-custom btn-ligth-green float-right mr-5" href="#" onclick='toggleImportSection()'><i class="fa fa-upload" aria-hidden="true"></i> <%= t('import') %></a>
+      <a class="btn btn-custom btn-blue-sky float-right mr-5" href="#" onclick='exportTable("parents")'><i class="fa fa-share" aria-hidden="true"></i> <%= t('export') %></a>
       <%= link_to t('.addparent', :default => t("helpers.links.addparent")), new_parent_path, :class => 'btn btn-custom btn-blue float-right'%>
+    </div>
+  </div>
+    <div class="row" style="margin: 2px 20px 30px auto;" id="importSection" hidden>
+      <div class="row">
+        <div class="col-xs-7"></div>
+        <div class="col-xs-5">
+          <p>ท่านสามารถ Download ไฟล์ผู้ปกครองได้ <a href="./file_import/parents.xlsx" download>ที่นี่</a> เพื่อนำไปแก้ไขและ import เข้าสู่ระบบต่อไป</p>
+        </div>
+      </div><br>
+      <div class="col-xs-9"></div>
+      <div class="col-xs-3 text-right">
+      <%= form_tag import_parents_path, multipart: true do %>
+        <%= file_field_tag :file %>
+        <%= submit_tag "Import", class: "btn btn-primary", style: 'margin-top: -15%;'%>
+      <% end %>
     </div>
   </div>
   <div class="content-student-parent">
@@ -38,7 +53,7 @@
     </div>
     <div class="overflow-table">
       <table id="table" data-toggle="table" data-pagination="true" data-pagination-loop="false"
-        data-pagination-pre-text="&#xf104;" data-pagination-next-text="&#xf105;" data-url="parents.json"
+        data-pagination-pre-text="&#xf104;" data-pagination-next-text="&#xf105;" data-url="/parents.json"
         data-side-pagination="server" data-sort-name="parents.full_name" data-sort-order="asc"
         data-query-params-type="page" data-query-params="queryParams" data-locale="<%= I18n.locale %>">
         <thead>

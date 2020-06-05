@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200330071338) do
+ActiveRecord::Schema.define(version: 20200605044900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,20 @@ ActiveRecord::Schema.define(version: 20200330071338) do
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
     t.index ["name"], name: "index_accounts_on_name", using: :btree
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.string   "address_text"
+    t.string   "sub_district"
+    t.string   "district"
+    t.string   "province"
+    t.string   "country"
+    t.string   "postcode"
+    t.string   "reference"
+    t.string   "reference_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "address_type"
   end
 
   create_table "alumnis", force: :cascade do |t|
@@ -263,6 +277,10 @@ ActiveRecord::Schema.define(version: 20200330071338) do
     t.index ["site_id", "position"], name: "index_comfy_cms_snippets_on_site_id_and_position", using: :btree
   end
 
+  create_table "current_users", force: :cascade do |t|
+    t.string "current_user"
+  end
+
   create_table "daily_reports", force: :cascade do |t|
     t.float    "real_start_cash",  default: 0.0
     t.float    "real_cash",        default: 0.0
@@ -438,6 +456,7 @@ ActiveRecord::Schema.define(version: 20200330071338) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "name_th"
   end
 
   create_table "grades", force: :cascade do |t|
@@ -687,8 +706,8 @@ ActiveRecord::Schema.define(version: 20200330071338) do
     t.string   "mobile"
     t.string   "email"
     t.string   "line_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.string   "id_card_no"
     t.datetime "deleted_at"
     t.string   "img_url_file_name"
@@ -696,6 +715,22 @@ ActiveRecord::Schema.define(version: 20200330071338) do
     t.integer  "img_url_file_size"
     t.datetime "img_url_updated_at"
     t.integer  "school_id"
+    t.date     "birthdate"
+    t.integer  "gender_id"
+    t.string   "blood_type"
+    t.string   "nationality",          default: "THA"
+    t.string   "race"
+    t.string   "religion",             default: "Buddhism"
+    t.string   "marital_status"
+    t.string   "relation"
+    t.string   "education"
+    t.string   "education_title"
+    t.string   "occupation"
+    t.string   "occupation_title"
+    t.string   "work_place"
+    t.string   "registration_number"
+    t.string   "live_status"
+    t.string   "average_salary"
     t.index ["deleted_at"], name: "index_parents_on_deleted_at", using: :btree
     t.index ["school_id"], name: "index_parents_on_school_id", using: :btree
   end
@@ -778,6 +813,7 @@ ActiveRecord::Schema.define(version: 20200330071338) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "name_th"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -910,6 +946,20 @@ ActiveRecord::Schema.define(version: 20200330071338) do
     t.index ["candidate_id"], name: "index_soft_skills_on_candidate_id", using: :btree
   end
 
+  create_table "student_illnesses", force: :cascade do |t|
+    t.string   "name"
+    t.string   "symptoms"
+    t.string   "medicine"
+    t.string   "medicine_allergy"
+    t.string   "remark"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "food_allergy"
+    t.string   "operation_history"
+    t.string   "student_reference"
+    t.string   "illness_type"
+  end
+
   create_table "student_lists", force: :cascade do |t|
     t.integer  "student_id"
     t.integer  "list_id"
@@ -934,8 +984,8 @@ ActiveRecord::Schema.define(version: 20200330071338) do
     t.integer  "student_number"
     t.string   "national_id"
     t.text     "remark"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.integer  "school_id"
     t.datetime "deleted_at"
     t.string   "status"
@@ -945,6 +995,12 @@ ActiveRecord::Schema.define(version: 20200330071338) do
     t.datetime "img_url_updated_at"
     t.integer  "classroom_id"
     t.string   "nationality"
+    t.string   "blood_type"
+    t.string   "race",                 default: "THA"
+    t.string   "religion",             default: "Buddhism"
+    t.integer  "Number_of_Relatives",  default: 1
+    t.integer  "Being_the_Number_of",  default: 1
+    t.string   "registration_number"
     t.index ["classroom_id"], name: "index_students_on_classroom_id", using: :btree
     t.index ["deleted_at"], name: "index_students_on_deleted_at", using: :btree
     t.index ["school_id"], name: "index_students_on_school_id", using: :btree

@@ -152,9 +152,9 @@ end
 
 # invoice
 AccountType.create([{ name: 'Income' }, { name: 'Expenses' }]) if AccountType.count == 0
-Gender.create([{ name: 'Male'},{ name: 'Female'}]) if Gender.count == 0
+Gender.create([{ name: 'Male', name_th: 'ชาย'},{ name: 'Female', name_th: 'หญิง'}]) if Gender.count == 0
 Grade.create([{ name: 'Preschool' },{ name: 'Kindergarten 1' },{ name: 'Kindergarten 2' },{ name: 'Kindergarten 3' }]) if Grade.count == 0
-Relationship.create([{ name: 'Father' }, { name: 'Mother' }, { name: 'Grandfather' }, { name: 'Grandmother' }, { name: 'Uncle' }, { name: 'Aunt' }, { name: 'Cousin' }]) if Relationship.count == 0
+Relationship.create([{ name: 'Father', name_th: "บิดา" }, { name: 'Mother', name_th: "มารดา" }, { name: 'Grandfather', name_th: "ปู่"}, { name: 'Grandmother', name_th: "ย่า" }, { name: 'Uncle', name_th: "ลุง"}, { name: 'Aunt',name_th: "ป้า" }, { name: 'Cousin', name_th: "ลูกพี่ลูกน้อง" }]) if Relationship.count == 0
 InvoiceStatus.create([{ name: 'Active' }, { name: 'Canceled' }]) if InvoiceStatus.count == 0
 
 #roll calls

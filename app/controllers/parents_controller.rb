@@ -11,17 +11,28 @@ class ParentsController < ApplicationController
     class_select = (params[:class_select] || 'All')
     @class_display = Grade.where(school_id: current_user.school_id, name: params[:grade_select]).first.classrooms.order("id ASC").select(:name).map(&:name).compact if params[:grade_select].present? and params[:grade_select] != "all"
     total = @parents.count
-    @parents = @parents.limit(params[:limit]).offset(params[:offset])
     @menu = t('parent')
-
+    @parents.limit(params[:per_page]).offset(params[:page])
+    rows = @parents.as_json({ index: true, school_id: current_user.school_id })
     respond_to do |f|
       f.html { render "parents/index", layout: "application_invoice" }
       f.json {
         render json: {
           total: total,
-          rows: @parents.as_json({ index: true })
+          rows: rows
         }
       }
+    end
+  end
+
+  def import
+    begin 
+      Parent.import(params[:file], current_user.school_id)
+      flash[:notice] = "Import parent success"
+      redirect_to parents_path
+    rescue
+      flash[:error] = "Import parent fail"
+      redirect_to parents_path
     end
   end
 

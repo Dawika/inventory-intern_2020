@@ -150,3 +150,5 @@ gem 'awesome_print', require: 'ap'
 gem 'acts_as_paranoid'
 gem "i18n-js"
 gem 'local-subdomain'
+
+gem "roo", "~> 2.8.0"

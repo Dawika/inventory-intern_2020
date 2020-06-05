@@ -116,6 +116,7 @@ Rails.application.routes.draw do
     delete 'real_destroy'
     collection do
       get 'get_autocomplete'
+      post 'import'
     end
     member do
       patch 'upload_photo'
@@ -147,6 +148,7 @@ Rails.application.routes.draw do
     collection do
       post 'restore'
       post 'create_by_name'
+      post 'import'
     end
   end
   resources :abilities, only: [:index]

@@ -16,6 +16,14 @@ class ApplicationController < ActionController::Base
   end
 
   def check_path
+    # use current user with model
+    if user_signed_in?
+      if CurrentUser.all.empty?
+        CurrentUser.create(current_user: current_user)
+      elsif CurrentUser.first.current_user != current_user.school_id
+        CurrentUser.first.update(current_user: current_user.school_id)
+      end
+    end
     if user_signed_in? and current_user.school.active_license.expired_date.strftime('%F') >=  Time.now.strftime('%F')
       if request.path == "/homepage" or request.path == "/signup" or request.path == "/purchases/new" or request.path == "/purchase"
         redirect_to root_path
