@@ -659,6 +659,9 @@ th:
   select_class: "โปรดเลือกห้อง"
   search_student: "ค้นหาชื่อนักเรียน"
   select_students: "เลือกนักเรียน..."
+  import: "Import"
+  download_table: "ท่านสามารถ download ตารางผู้ปกครองได้ ที่นี้"
+  import_table: "เพื่อนำไปแก้ไขและ import เข้าสู่ระบบต่อไป"
 
   #Alumni
   year_of_graduation: "จบปีการศึกษา"

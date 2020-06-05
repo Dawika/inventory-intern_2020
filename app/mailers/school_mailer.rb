@@ -1,5 +1,5 @@
 class SchoolMailer < ApplicationMailer
-  default from: 'somsri.io'
+  default from: 'info@somsri.io'
   
   def school_notification(school)
     @school = school
@@ -11,7 +11,7 @@ class SchoolMailer < ApplicationMailer
   def notify_admin(school, domain)
     @school = school
     @domain_name = domain
-    mail(to: 'accounting@bananacoding.com', subject: 'sign up')
+    mail(to: 'accounting@bananacoding.com', subject: 'แจ้งผลการสมัครสมาชิคของ somsri.io')
   end
 
   def license_renewal_reminder(schools)

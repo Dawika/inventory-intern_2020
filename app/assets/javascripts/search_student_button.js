@@ -11,8 +11,8 @@ var student_classroom_number = $("#student_classroom_number").val()
 var student_student_number = $("#student_student_number").val()
 var student_national_id = $("#student_national_id").val()
 var parents = []
-for(var i = 0; i < $('select[name="parent[]"]').length; i++) {
-  if($('#parent' + i).val()){
+for (var i = 0; i < $('select[name="parent[]"]').length; i++) {
+  if ($('#parent' + i).val()) {
     parents.push({
       parent_id: $('#parent' + i).val(),
       relationship_id: $('#relationship' + i).val(),
@@ -27,14 +27,14 @@ var searchInput = $('#search-by-name');
 var nameLabel = $('#full-name-label');
 var delayTimer;
 
-function imgTag(value){
+function imgTag(value) {
   if (value) {
-    return '<div class="img-bg circle" style="background: url('+ value +')"></div>';
+    return '<div class="img-bg circle" style="background: url(' + value + ')"></div>';
   }
   return '<div class="img-bg bg-light-gray circle"><i class="fa fa-user icon-default-img" aria-hidden="true"></i></div>'
 }
 
-function displaySearchInput(){
+function displaySearchInput() {
   nameLabel.hide();
   // searchInput.show();
   $('.rich-autocomplete').show();
@@ -42,30 +42,30 @@ function displaySearchInput(){
   searchInputDisplay = true;
 }
 
-function displayNameLabel(){
+function displayNameLabel() {
   nameLabel.show();
   // searchInput.hide();
   $('.rich-autocomplete').hide();
   searchInputDisplay = false;
 }
 
-function toggleSearchInput(){
-  if(searchInputDisplay){
+function toggleSearchInput() {
+  if (searchInputDisplay) {
     displayNameLabel();
-  }else{
+  } else {
     displaySearchInput();
   }
 }
 
-var loadServerPage = function(searchTerm, pageNumber, pageSize) {
+var loadServerPage = function (searchTerm, pageNumber, pageSize) {
   var deferred = $.Deferred();
-  $.get( "/students.json", { search: searchTerm, autocomplete: true } ).done(function( data ) {
+  $.get("/students.json", { search: searchTerm, autocomplete: true }).done(function (data) {
     deferred.resolve(data);
   });
   return deferred.promise();
 };
 
-var renderSearch = function(item){
+var renderSearch = function (item) {
   var html = "<div class='row'>"
   html += "<div class='col-xs-2'>"
   html += imgTag(item.img_url)
@@ -76,29 +76,28 @@ var renderSearch = function(item){
   return html
 }
 
-var isChange = function(){
-  if( $("#imageUpload").val() ||
-      student_full_name != $("#student_full_name").val() ||
-      student_nickname != $("#student_nickname").val() ||
-      student_full_name_english != $("#student_full_name_english").val() ||
-      student_nickname_english != $("#student_nickname_english").val() ||
-      student_nickname_english != $("#student_nickname_english").val() ||
-      student_gender_id != $("#student_gender_id").val() ||
-      student_birthdate != $("#student_birthdate").val() ||
-      student_grade_id != $("#student_grade_id").val() ||
-      student_classroom_id != $("#student_classroom_id").val() ||
-      student_classroom_number != $("#student_classroom_number").val() ||
-      student_student_number != $("#student_student_number").val() ||
-      student_national_id != $("#student_national_id").val())
-  {
+var isChange = function () {
+  if ($("#imageUpload").val() ||
+    student_full_name != $("#student_full_name").val() ||
+    student_nickname != $("#student_nickname").val() ||
+    student_full_name_english != $("#student_full_name_english").val() ||
+    student_nickname_english != $("#student_nickname_english").val() ||
+    student_nickname_english != $("#student_nickname_english").val() ||
+    student_gender_id != $("#student_gender_id").val() ||
+    student_birthdate != $("#student_birthdate").val() ||
+    student_grade_id != $("#student_grade_id").val() ||
+    student_classroom_id != $("#student_classroom_id").val() ||
+    student_classroom_number != $("#student_classroom_number").val() ||
+    student_student_number != $("#student_student_number").val() ||
+    student_national_id != $("#student_national_id").val()) {
     return true
   }
 
 
   // get current parent
   var parentsNew = []
-  $('[name="parent[]"]').each(function(){
-    if($(this).val()){
+  $('[name="parent[]"]').each(function () {
+    if ($(this).val()) {
       var index = $(this).attr("index")
 
       parentsNew.push({
@@ -110,40 +109,39 @@ var isChange = function(){
   })
 
   // check parent change?
-  if(parents.length == parentsNew.length){
-    for(var i = 0; i < parents.length; i++) {
+  if (parents.length == parentsNew.length) {
+    for (var i = 0; i < parents.length; i++) {
       var found_matching = false
-      for(var j = 0; j < parentsNew.length; j++) {
-        if( parents[i]["parent_id"] == parentsNew[j]["parent_id"] &&
-            parents[i]["relationship_id"] == parentsNew[j]["relationship_id"] &&
-            parents[i]["mobile"] == parentsNew[j]["mobile"])
-        {
+      for (var j = 0; j < parentsNew.length; j++) {
+        if (parents[i]["parent_id"] == parentsNew[j]["parent_id"] &&
+          parents[i]["relationship_id"] == parentsNew[j]["relationship_id"] &&
+          parents[i]["mobile"] == parentsNew[j]["mobile"]) {
           // parent property are change
           found_matching = true
         }
       }
-      if(!found_matching){
+      if (!found_matching) {
         return true
       }
     }
-  }else{
+  } else {
     // number of valid parent not same
     return true
   }
   return false
 }
-var selected = function(item){
+var selected = function (item) {
   searchInput.val("")
   goToUrl("/students/" + item.id + "/edit#/")
 }
 
-function goToUrl(url){
-  if(isChange()){
+function goToUrl(url) {
+  if (isChange()) {
     $("#warningModal").modal()
-    $("#force-change-page").click(function(){
+    $("#force-change-page").click(function () {
       window.location = url
     })
-  }else{
+  } else {
     window.location = url
   }
 }
@@ -158,6 +156,6 @@ searchInput.richAutocomplete({
 
 $('.rich-autocomplete').hide();
 
-searchInput.blur(function(){
+searchInput.blur(function () {
   displayNameLabel();
 });
