@@ -189,7 +189,7 @@ Rails.application.routes.draw do
       get "bill"
     end
     collection do
-      post 'create_bil'
+      post 'create_bill'
     end
   end
 
