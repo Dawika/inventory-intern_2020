@@ -7,25 +7,35 @@
       <h1><%= t('student') %></h1>
     </div>
     <div class="col-xs-6 px-0 mt-15" style="text-align: right;">
+      <a class="btn btn-custom btn-ligth-green float-right mr-5" href="#" onclick='toggleImportSection()'><i class="fa fa-upload" aria-hidden="true"></i> <%= t('import') %></a>
       <span class="dropdown float-right">
         <span div data-toggle="dropdown" class="btn btn-custom btn-black mr-5" id="print-student-list">
           <%= t('print_list') %> <i class='fa fa-chevron-down'></i>
         </span>
         <ul class="dropdown-menu mt-15" aria-labelledby="print-student-list">
-          <li><a target="_blank" id="print-student-list-with-image"
-              href="/students.pdf?for_print=true"><%= t('show_photo') %></a></li>
+          <li><a target="_blank" id="print-student-list-with-image" href="/students.pdf?for_print=true"><%= t('show_photo') %></a></li>
           <li><a href="#" onclick='printStudent()'><%= t('disable_photo') %></a></li>
         </ul>
       </span>
-
-      <a class="btn btn-custom btn-blue-sky float-right mr-5" href="#" onclick='exportTable("students")'><i
-          class="fa fa-share-square-o" aria-hidden="true"></i> <%= t('export') %></a>
-      <%= link_to t('.addstudent', :default => t("helpers.links.addstudent")),
-      new_student_path,
-      :class => 'btn btn-custom btn-blue float-right' %>
+      <a class="btn btn-custom btn-blue-sky float-right mr-5" href="#" onclick='exportTable("students")'><i class="fa fa-share-square-o" aria-hidden="true"></i> <%= t('export') %></a>
+      <%= link_to t('.addstudent', :default => t("helpers.links.addstudent")), new_student_path, :class => 'btn btn-custom btn-blue float-right' %>
     </div>
   </div>
-
+     <div class="row" style="margin: 2px 20px 30px auto;" id="importSection" hidden>
+      <div class="row">
+        <div class="col-xs-7"></div>
+        <div class="col-xs-5">
+          <p>ท่านสามารถ Download ไฟล์ผู้ปกครองได้ <a href="./file_import/students.xlsx" download>ที่นี่</a> เพื่อนำไปแก้ไขและ import เข้าสู่ระบบต่อไป</p>
+        </div>
+      </div><br>
+      <div class="col-xs-9"></div>
+      <div class="col-xs-3 text-right">
+      <%= form_tag import_students_path, multipart: true do %>
+        <%= file_field_tag :file %>
+        <%= submit_tag "Import", class: "btn btn-primary", style: 'margin-top: -15%;'%>
+      <% end %>
+    </div>
+  </div>
   <div class="content-student-parent">
     <div class="row toolbar-student-parent">
       <div class="col-xs-6">

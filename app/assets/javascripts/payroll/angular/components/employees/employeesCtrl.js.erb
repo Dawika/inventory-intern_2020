@@ -1,242 +1,270 @@
 (function() {
-  'use strict';
-  angular.module('somsri.payroll.employees', [])
-  .controller('employeesCtrl', ['employeesService','$log', '$rootScope', 'translateFilter', function(employeeService, $log, $rootScope, translateFilter) {
-    $rootScope.menu = I18n.t('employee')
-    var ctrl = this
-    var dateNow = new Date();
-    var $table = $('#employeesTable')
-    var displayMode = 'grid';
-    var initDisplay = true;
-    $rootScope.archive_employee = "color"
+    'use strict';
+    angular.module('somsri.payroll.employees', [])
+        .controller('employeesCtrl', ['employeesService', '$log', '$rootScope', '$scope', '$window', '$timeout', function(employeeService, $log, $rootScope, scope, $window, $timeout) {
+            $rootScope.menu = I18n.t('employee')
+            var ctrl = this
+            var dateNow = new Date();
+            var $table = $('#employeesTable')
+            var displayMode = 'grid';
+            var initDisplay = true;
+            ctrl.timeout = false
+            ctrl.import = true;
+            $rootScope.archive_employee = "color"
 
-    getPayroll(dateNow.getMonth() + 1, dateNow.getFullYear());
-    function getPayroll(month, year){
-      employeeService.getAllEmployee().then(function(resp) {
-        ctrl.datas = resp.data;
-        ctrl.display_datas = [];
-        ctrl.delete_datas = [];
-        for(var i = 0; i < ctrl.datas.length; i++) {
-          var data = ctrl.datas[i];
-          if (data['id']) {
-            if (!data['deleted_at']) {
-              ctrl.display_datas.push({
-                full_name: data['name'],
-                id: data['id'],
-                position: data['position'],
-                salary: data['salary'],
-                fee: data['extra_fee'],
-                extra: data['extra_pay'],
-                imgUrl: data['img'],
-                deleted_at: data['deleted_at']
-              });
-            } else {
-              ctrl.delete_datas.push({
-                full_name: data['name'],
-                id: data['id'],
-                position: data['position'],
-                salary: data['salary'],
-                fee: data['extra_fee'],
-                extra: data['extra_pay'],
-                imgUrl: data['img'],
-                deleted_at: data['deleted_at']
-              });
+            getPayroll(dateNow.getMonth() + 1, dateNow.getFullYear());
+
+            ctrl.toggleImportSection = function() {
+                var button_import = $('#importSection')
+                button_import.is(':hidden') ? ctrl.import = false : ctrl.import = true
             }
-          }
-        }
-        
-        $table.bootstrapTable('load', ctrl.display_datas);
-      });
-    }
 
-    ctrl.employeeTypeMode = {
-      delete: false,
-    }
+            scope.import_employee = function(event) {
+                employeeService.importEmployee(event.target.files[0]).then(function(resp) {
+                    $window.location.reload();
+                    alert(resp.data.message)
+                })
+            }
 
-    ctrl.employeeTypeFilter = function (){
-      if(ctrl.employeeTypeMode.delete){
-        $rootScope.archive_employee = "gray"
-        $table.bootstrapTable('load',ctrl.delete_datas);
-        $table.bootstrapTable('toggleView');
-      } else {
-        $rootScope.archive_employee = "color"
-        $table.bootstrapTable('load',ctrl.display_datas);
-        $table.bootstrapTable('toggleView');
-      }
-      $table.bootstrapTable('toggleView');
-    }
+            function displayFlashMessage(message) {
+                console.log(message)
+                ctrl.timeout = true
+                ctrl.message = message;
+                $timeout(function() {
+                    ctrl.timeout = false
+                }, 5000);
+            }
 
-    ctrl.openEmployeeDetails = function(id){
-      $rootScope.openEmployeeDetails(id);
-    }
+            function getPayroll(month, year) {
+                employeeService.getAllEmployee().then(function(resp) {
+                    ctrl.datas = resp.data;
+                    ctrl.display_datas = [];
+                    ctrl.delete_datas = [];
+                    for (var i = 0; i < ctrl.datas.length; i++) {
+                        var data = ctrl.datas[i];
+                        if (data['id']) {
+                            if (!data['deleted_at']) {
+                                ctrl.display_datas.push({
+                                    full_name: data['name'],
+                                    id: data['id'],
+                                    position: data['position'],
+                                    salary: data['salary'],
+                                    fee: data['extra_fee'],
+                                    extra: data['extra_pay'],
+                                    imgUrl: data['img'],
+                                    deleted_at: data['deleted_at']
+                                });
+                            } else {
+                                ctrl.delete_datas.push({
+                                    full_name: data['name'],
+                                    id: data['id'],
+                                    position: data['position'],
+                                    salary: data['salary'],
+                                    fee: data['extra_fee'],
+                                    extra: data['extra_pay'],
+                                    imgUrl: data['img'],
+                                    deleted_at: data['deleted_at']
+                                });
+                            }
+                        }
+                    }
 
-    function salary(value, row, index){
-      if (value) {
-        return '<div class="text-blue text-right" ><span class="numberic">'+ value.toLocaleString() +'</span> ' + I18n.t("baht") + '</div>';
-      }
-      return '<div class="text-blue text-right" ><span class="numberic">0</span> ' + I18n.t("baht") + '</div>';
-    }
+                    $table.bootstrapTable('load', ctrl.display_datas);
+                });
+            }
 
-    function extra(value, row, index){
-      if (value) {
-        return '<div class="text-green text-right" ><span class="numberic">'+ value.toLocaleString() +'</span> ' + I18n.t("baht") + '</div>';
-      }
-      return '<div class="text-green text-right" ><span class="numberic">0</span> ' + I18n.t("baht") + '</div>';
-    }
+            ctrl.employeeTypeMode = {
+                delete: false,
+            }
 
-    function fee(value, row, index){
-      if (value) {
-        return '<div class="text-red text-right" ><span class="numberic">'+ value.toLocaleString() +'</span> ' + I18n.t("baht") + '</div>';
-      }
-      return '<div class="text-red text-right" ><span class="numberic">0</span> ' + I18n.t("baht") + '</div>';
-    }
+            ctrl.employeeTypeFilter = function() {
+                if (ctrl.employeeTypeMode.delete) {
+                    $rootScope.archive_employee = "gray"
+                    $table.bootstrapTable('load', ctrl.delete_datas);
+                    $table.bootstrapTable('toggleView');
+                } else {
+                    $rootScope.archive_employee = "color"
+                    $table.bootstrapTable('load', ctrl.display_datas);
+                    $table.bootstrapTable('toggleView');
+                }
+                $table.bootstrapTable('toggleView');
+            }
 
-    var angularScopeEmployees = "angular.element(document.getElementById('angularCtrl')).scope().employees";
+            ctrl.openEmployeeDetails = function(id) {
+                $rootScope.openEmployeeDetails(id);
+            }
 
-    function edit(value, row, index){
-      if (row) {
-        return '<a href="javascript:void(0)" class="td-edit-employee-link text-center" onclick="'+ angularScopeEmployees +'.openEmployeeDetails('+row.id+')"><i class="fa fa-pencil-square-o"></i>' + I18n.t("edit") + '</a>';
-      }
-    }
+            function salary(value, row, index) {
+                if (value) {
+                    return '<div class="text-blue text-right" ><span class="numberic">' + value.toLocaleString() + '</span> ' + I18n.t("baht") + '</div>';
+                }
+                return '<div class="text-blue text-right" ><span class="numberic">0</span> ' + I18n.t("baht") + '</div>';
+            }
 
-    function linkName(value, row, index){
-      if (value) {
-        return '<a href="javascript:void(0)" class="td-edit-employee-link text-center" onclick="'+ angularScopeEmployees +'.openEmployeeDetails('+row.id+')">'+ value +'</a>';
-      }
-      return '-'
-    }
+            function extra(value, row, index) {
+                if (value) {
+                    return '<div class="text-green text-right" ><span class="numberic">' + value.toLocaleString() + '</span> ' + I18n.t("baht") + '</div>';
+                }
+                return '<div class="text-green text-right" ><span class="numberic">0</span> ' + I18n.t("baht") + '</div>';
+            }
 
-    function imgTag(value, row, index){
-      if (value) {
-        return '<div class="img-bg circle" style="background: url('+ value +')"></div>';
-      }
-      return '<div class="img-bg bg-light-gray circle"><i class="fa fa-user icon-default-img" aria-hidden="true"></i></div>'
-      //return '<span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-camera fa-stack-1x fa-inverse"></i></span>'
-    }
+            function fee(value, row, index) {
+                if (value) {
+                    return '<div class="text-red text-right" ><span class="numberic">' + value.toLocaleString() + '</span> ' + I18n.t("baht") + '</div>';
+                }
+                return '<div class="text-red text-right" ><span class="numberic">0</span> ' + I18n.t("baht") + '</div>';
+            }
 
-    function cardViewToggle(cardView){
-      if(cardView){
-        $('#employeesTable > tbody').addClass('bootstrapCardView');
-        $('#employeesTable > tbody > tr').addClass('col-xs-2 card-employees card cursor-pointer');
-        $('#angularCtrl > div:nth-child(2) > div > div').addClass('cardViewEmployees')
-        $('#employeesTable > tbody > tr > td > div > div').addClass('row')
-        $('#employeesTable > tbody > tr > td > div > div:nth-child(n+4) > span.title').addClass('col-md-4 padding0')
-        $('#employeesTable > tbody > tr > td > div > div:nth-child(n+4) > span.value').addClass('col-md-8')
-        $('#employeesTable > tbody > tr > td > div > div:nth-child(1) > span.value').addClass('col-md-12')
-        $('#employeesTable > tbody').removeClass('bootstrapListView');
-        $('#angularCtrl > div:nth-child(2) > div > div.col-md-12 > div').removeClass('list-view');
-      }else{
-        $('#employeesTable > tbody').addClass('bootstrapListView');
-        $('#angularCtrl > div:nth-child(2) > div > div.col-md-12 > div').addClass('list-view')
-        $('#angularCtrl > div:nth-child(2) > div > div').removeClass('cardViewEmployees')
-        $('#employeesTable > tbody').removeClass('bootstrapCardView');
-      }
-    }
-    
-    $table.bootstrapTable({
-      onToggle: cardViewToggle,
-      sortName: 'full_name',
-      sortOrder: 'asc',
-      columns: [{
-        title: '',
-        field: 'imgUrl',
-        formatter: imgTag,
-      },{
-        title: I18n.t("full_name"),
-        field: 'full_name',
-        sortable: true,
-        formatter: linkName,
-      },{
-        title: I18n.t("position"),
-        field: 'position',
-        sortable: true,
-      },{
-        title: I18n.t("payroll"),
-        field: 'salary',
-        align: 'right',
-        formatter: salary,
-        sortable: true,
-      },{
-        title: I18n.t("extra_money"),
-        field: 'extra',
-        align: 'right',
-        formatter: extra,
-        sortable: true,
-      },{
-        title: I18n.t("deduct_money"),
-        field: 'fee',
-        align: 'right',
-        formatter: fee,
-        sortable: true,
-      },{
-        title: '',
-        field: 'edit',
-        formatter: edit,
-      }],
-      onPostBody: function(data){
-        if(data && initDisplay){
-          initDisplayMode()
-        }
-      },
-      onClickRow: function(row, $element, field){
-        angular.element(document.getElementById('angularCtrl')).scope().employees.openEmployeeDetails(row.id);
-      }
-    })
+            var angularScopeEmployees = "angular.element(document.getElementById('angularCtrl')).scope().employees";
 
-    function gridClick() {
-      $table.bootstrapTable('toggleView');
-      $("#grid").addClass('active')
-      $("#list").removeClass('active')
-      displayMode = 'grid'
-    }
+            function edit(value, row, index) {
+                if (row) {
+                    return '<a href="javascript:void(0)" class="td-edit-employee-link text-center" onclick="' + angularScopeEmployees + '.openEmployeeDetails(' + row.id + ')"><i class="fa fa-pencil-square-o"></i>' + I18n.t("edit") + '</a>';
+                }
+            }
 
-    function listClick() {
-      $table.bootstrapTable('toggleView');
-      $("#list").addClass('active')
-      $("#grid").removeClass('active')
-      displayMode = 'list'
-    }
+            function linkName(value, row, index) {
+                if (value) {
+                    return '<a href="javascript:void(0)" class="td-edit-employee-link text-center" onclick="' + angularScopeEmployees + '.openEmployeeDetails(' + row.id + ')">' + value + '</a>';
+                }
+                return '-'
+            }
 
-    $("#list").on('click',function(){
-      if(displayMode!='list'){
-        listClick()
-      }
-    });
+            function imgTag(value, row, index) {
+                if (value) {
+                    return '<div class="img-bg circle" style="background: url(' + value + ')"></div>';
+                }
+                return '<div class="img-bg bg-light-gray circle"><i class="fa fa-user icon-default-img" aria-hidden="true"></i></div>'
+                    //return '<span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-camera fa-stack-1x fa-inverse"></i></span>'
+            }
 
-    $("#grid").on('click',function(){
-      if(displayMode!='grid' || initDisplay){
-        initDisplay = false;
-        gridClick()
-      }
-    });
+            function cardViewToggle(cardView) {
+                if (cardView) {
+                    $('#employeesTable > tbody').addClass('bootstrapCardView');
+                    $('#employeesTable > tbody > tr').addClass('col-xs-2 card-employees card cursor-pointer');
+                    $('#angularCtrl > div:nth-child(2) > div > div').addClass('cardViewEmployees')
+                    $('#employeesTable > tbody > tr > td > div > div').addClass('row')
+                    $('#employeesTable > tbody > tr > td > div > div:nth-child(n+4) > span.title').addClass('col-md-4 padding0')
+                    $('#employeesTable > tbody > tr > td > div > div:nth-child(n+4) > span.value').addClass('col-md-8')
+                    $('#employeesTable > tbody > tr > td > div > div:nth-child(1) > span.value').addClass('col-md-12')
+                    $('#employeesTable > tbody').removeClass('bootstrapListView');
+                    $('#angularCtrl > div:nth-child(2) > div > div.col-md-12 > div').removeClass('list-view');
+                } else {
+                    $('#employeesTable > tbody').addClass('bootstrapListView');
+                    $('#angularCtrl > div:nth-child(2) > div > div.col-md-12 > div').addClass('list-view')
+                    $('#angularCtrl > div:nth-child(2) > div > div').removeClass('cardViewEmployees')
+                    $('#employeesTable > tbody').removeClass('bootstrapCardView');
+                }
+            }
 
-    function initDisplayMode(){
-      if(displayMode=='list'){
-        $("#list").addClass('active')
-        initDisplay = false;
-      }else{
-        $("#grid").addClass('active')
-        $("#grid").click();
-      }
-    }
+            $table.bootstrapTable({
+                onToggle: cardViewToggle,
+                sortName: 'full_name',
+                sortOrder: 'asc',
+                columns: [{
+                    title: '',
+                    field: 'imgUrl',
+                    formatter: imgTag,
+                }, {
+                    title: I18n.t("full_name"),
+                    field: 'full_name',
+                    sortable: true,
+                    formatter: linkName,
+                }, {
+                    title: I18n.t("position"),
+                    field: 'position',
+                    sortable: true,
+                }, {
+                    title: I18n.t("payroll"),
+                    field: 'salary',
+                    align: 'right',
+                    formatter: salary,
+                    sortable: true,
+                }, {
+                    title: I18n.t("extra_money"),
+                    field: 'extra',
+                    align: 'right',
+                    formatter: extra,
+                    sortable: true,
+                }, {
+                    title: I18n.t("deduct_money"),
+                    field: 'fee',
+                    align: 'right',
+                    formatter: fee,
+                    sortable: true,
+                }, {
+                    title: '',
+                    field: 'edit',
+                    formatter: edit,
+                }],
+                onPostBody: function(data) {
+                    if (data && initDisplay) {
+                        initDisplayMode()
+                    }
+                },
+                onClickRow: function(row, $element, field) {
+                    angular.element(document.getElementById('angularCtrl')).scope().employees.openEmployeeDetails(row.id);
+                }
+            })
 
-    $('#exportTable').on('click',function(){
-      if(displayMode!='list'){
-        listClick()
-        $table = $('#employeesTable')
-        $table.bootstrapTable('hideColumn', 'imgUrl');
-        $table.bootstrapTable('hideColumn', 'edit');
-        $table.tableExport({type:'excel'});
-        $table.bootstrapTable('showColumn', 'imgUrl');
-        $table.bootstrapTable('showColumn', 'edit');
-      }else{
-        $table = $('#employeesTable')
-        $table.bootstrapTable('hideColumn', 'imgUrl');
-        $table.bootstrapTable('hideColumn', 'edit');
-        $table.tableExport({type:'excel'});
-        $table.bootstrapTable('showColumn', 'imgUrl');
-        $table.bootstrapTable('showColumn', 'edit');
-      }
-    })
-  }]);
+            function gridClick() {
+                $table.bootstrapTable('toggleView');
+                $("#grid").addClass('active')
+                $("#list").removeClass('active')
+                displayMode = 'grid'
+            }
+
+            function listClick() {
+                $table.bootstrapTable('toggleView');
+                $("#list").addClass('active')
+                $("#grid").removeClass('active')
+                displayMode = 'list'
+            }
+
+            $("#list").on('click', function() {
+                if (displayMode != 'list') {
+                    listClick()
+                }
+            });
+
+            $("#grid").on('click', function() {
+                if (displayMode != 'grid' || initDisplay) {
+                    initDisplay = false;
+                    gridClick()
+                }
+            });
+
+            function initDisplayMode() {
+                if (displayMode == 'list') {
+                    $("#list").addClass('active')
+                    initDisplay = false;
+                } else {
+                    $("#grid").addClass('active')
+                    $("#grid").click();
+                }
+            }
+
+            $('#exportTable').on('click', function() {
+                if (displayMode != 'list') {
+                    listClick()
+                    $table = $('#employeesTable')
+                    $table.bootstrapTable('hideColumn', 'imgUrl');
+                    $table.bootstrapTable('hideColumn', 'edit');
+                    $table.tableExport({
+                        type: 'excel'
+                    });
+                    $table.bootstrapTable('showColumn', 'imgUrl');
+                    $table.bootstrapTable('showColumn', 'edit');
+                } else {
+                    $table = $('#employeesTable')
+                    $table.bootstrapTable('hideColumn', 'imgUrl');
+                    $table.bootstrapTable('hideColumn', 'edit');
+                    $table.tableExport({
+                        type: 'excel'
+                    });
+                    $table.bootstrapTable('showColumn', 'imgUrl');
+                    $table.bootstrapTable('showColumn', 'edit');
+                }
+            })
+        }]);
 })();

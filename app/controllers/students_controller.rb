@@ -9,6 +9,18 @@ class StudentsController < ApplicationController
     !params[:pin].blank?
   end
 
+  def import
+    begin 
+      Student.import(params[:file], current_user.school_id)
+      flash[:notice] = "Import student success"
+      redirect_to students_path
+    rescue
+      flash[:error] = "Import student fail"
+      redirect_to students_path
+    end
+  end
+
+
   def student_report
     grade_select = (params[:grade_select] || 'All')
     class_select = (params[:class_select] || 'All')
@@ -252,9 +264,10 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
+    @school_id = current_user.school_id
     @menu = t('student')
-    student = Student.where(id: params[:id], school_id: current_user.school_id)
-    @parents = Parent.where(school_id: current_user.school_id)
+    student = Student.where(id: params[:id], school_id: @school_id)
+    @parents = Parent.where(school_id: @school_id)
     @relations = Relationship.all
 
     if student.present?

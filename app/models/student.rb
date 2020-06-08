@@ -577,4 +577,141 @@ class Student < ApplicationRecord
     end
   end
 
+  def self.open_file(file)
+  	case File.extname(file.original_filename)
+  	when ".csv" then Roo::Csv.new(file.path, options={})
+  	when ".xls" then Roo::Excel.new(file.path, options={})
+  	when ".xlsx" then Roo::Excelx.new(file.path, options={})
+  	else raise "Unknown file type: #{file.original_filename}"
+  	end
+  end
+
+
+  def self.import(file_path, school_id)
+    sheet = open_file(file_path).sheet('students')
+    sheet.each_with_index( 
+      name_prefix: 'name_prefix',
+      name: 'name',
+      grade: 'grade',
+      classroom_name: 'classroom_name',
+      middle_name: 'middle_name',
+      last_name: 'last_name',
+      name_eng: 'name_eng',
+      middle_name_eng: 'middle_name_eng',
+      last_name_eng: 'last_name_eng',
+      nickname: 'nickname',
+      nickname_english: 'nickname_english',
+      gender: 'gender',
+      birthdate: 'birthdate',
+      national_id: 'national_id',
+      nationality: 'nationality',
+      blood_type: 'blood_type',
+      race: 'race',
+      religion: 'religion',
+      Number_of_Relatives: 'Number_of_Relatives',
+      Being_the_Number_of: 'Being_the_Number_of',
+      student_number: 'student_number',
+      classroom_number: 'classroom_number',
+      identificatio_no_parent: 'identificatio_no_parent',
+      illness: 'illness',
+      symptoms: 'symptoms',
+      medicine: 'medicine',
+      medicine_allergy: 'medicine_allergy',
+      food_allergy: 'food_allergy',
+      operation_history: 'operation_history',
+      contact_house_no: 'contact_house_no',
+      contact_house_title: 'contact_house_title',
+      contact_alley: 'contact_alley',
+      contact_road: 'contact_road',
+      contact_sub_district: 'contact_sub_district',
+      contact_district: 'contact_district',
+      contact_province: 'contact_province',
+      contact_postcode: 'contact_postcode',
+      registered_house_no: 'registered_house_no',
+      registered_house_title: 'registered_house_title',
+      registered_alley: 'registered_alley',
+      registered_road: 'registered_road',
+      registered_sub_district: 'registered_sub_district',
+      registered_district: 'registered_district',
+      registered_province: 'registered_province',
+      registered_postcode: 'registered_postcode'
+      ) do |row,index|
+      if index > 0
+        student = Student.find_or_create_by(national_id: row[:national_id])
+
+        student.full_name = row[:middle_name]? "#{row[:name]} #{row[:middle_name]} #{row[:last_name]}" : "#{row[:name]} #{row[:last_name]}"
+        student.full_name_english = row[:middle_name_eng]? "#{row[:name_eng]} #{row[:middle_name_eng]} #{row[:last_name_eng]}" : "#{row[:name_eng]} #{row[:last_name_eng]}"
+        student.nickname = row[:nickname]
+        student.nickname_english = row[:nickname_english]
+        gender = Gender.where(["name = ? or name_th = ?",row[:gender],row[:gender]])
+        student.gender_id = (gender != nil ? gender.ids[0] : 0)
+        student.birthdate = row[:birthdate]
+        grade = Grade.where(["name = ?", row[:grade].to_s])
+        student.grade_id = (grade != nil ? grade.ids[0] : 0)
+        student.classroom_number = row[:classroom_number]
+        student.student_number = row[:student_number]
+        student.national_id = row[:national_id]
+        student.nationality = row[:nationality]
+        student.school_id = school_id
+        student.blood_type = row[:blood_type]
+        student.race = row[:race]
+        student.religion = row[:religion]
+        student.Number_of_Relatives = row[:Number_of_Relatives]
+        student.Being_the_Number_of = row[:Being_the_Number_of]
+        classroom = Classroom.where(["name = ?", row[:classroom_name].to_s])
+        student.classroom_id = (classroom != nil ? classroom.ids[0] : 0)
+        student.save!
+
+        student_illness = StudentIllness.find_or_create_by(student_reference: row[:national_id])
+
+        student_illness.illness_type = row[:illness] 
+        student_illness.name = row[:illness] 
+        student_illness.symptoms = row[:symptoms]
+        student_illness.medicine = row[:medicine]
+        student_illness.medicine_allergy = row[:medicine_allergy]
+        student_illness.food_allergy = row[:food_allergy]
+        student_illness.operation_history = row[:operation_history]
+        student_illness.student_reference = row[:national_id]
+        student_illness.save!
+
+        contact_address = Address.where(reference_id: row[:national_id]).find_or_create_by(address_type: "Contact")
+
+        contact_address.address_type = "Contact"
+        contact_address.address_text = "#{row[:contact_house_title]} #{row[:contact_house_title]} #{row[:contact_alley]} #{row[:contact_road]}"
+        contact_address.sub_district = row[:contact_sub_district]
+        contact_address.district = row[:contact_district]
+        contact_address.province = row[:contact_province]
+        contact_address.postcode = row[:contact_postcode]
+        contact_address.country = row[:contact_country]
+        contact_address.reference = "student"
+        contact_address.reference_id = row[:national_id]
+        contact_address.save!
+        
+        registered_address = Address.where(reference_id: row[:national_id]).find_or_create_by(address_type: "Registered")
+
+        registered_address.address_type = "Registered"
+        registered_address.address_text = "#{row[:registered_house_title]} #{row[:registered_house_title]} #{row[:registered_alley]} #{row[:registered_road]}"
+        registered_address.sub_district = row[:registered_sub_district]
+        registered_address.district = row[:registered_district]
+        registered_address.province = row[:registered_province]
+        registered_address.postcode = row[:registered_postcode]
+        registered_address.country = row[:registered_country]
+        registered_address.reference = "student"
+        registered_address.reference_id = row[:national_id]
+        registered_address.save!
+
+        parents = Parent.where(id_card_no: row[:identificatio_no_parent])
+
+        if parents != nil && parents.count > 0
+          parents.each do |parent|
+            relationship_mapping = StudentsParent.where(student_id: student.id).find_or_create_by(parent_id: parent.id)
+            relationship_mapping.student_id = student.id
+            relationship_mapping.parent_id = parent.id
+            relationship_mapping.relationship_id = parent.relation
+            relationship_mapping.save!
+          end
+        end
+      end
+    end
+  end
 end

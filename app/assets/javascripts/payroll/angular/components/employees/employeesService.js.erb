@@ -26,6 +26,19 @@
       );
     };
 
+    this.importEmployee = function(file){
+       var data = new FormData();
+       data.append('file', file);
+       return $http.post('/employees/import' , data, { 
+            withCredentials: true,
+            headers: {
+                'Content-Type': undefined,
+                'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')
+            },
+            transformRequest: angular.identity
+        })
+    }
+
     this.getEmployee = function(id, payroll_id, current_employee) {
       if (!id) {
         return $http.get('/employees/me')

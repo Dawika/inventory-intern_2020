@@ -196,3 +196,8 @@ function getclassroom(url) {
         }
     });
 }
+
+function toggleImportSection() {
+    var button_import = $('#importSection')
+    button_import.is(':hidden') ? button_import.show() : button_import.hide()
+}
