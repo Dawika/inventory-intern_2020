@@ -48,8 +48,6 @@
       }
 
       function autoFillStudent($item){
-      console.log($item)
-      console.log(ctrl.student_info)
         if($item.student_id){        
           for(var i = 0;i < ctrl.student_info.length; i++){
             if($item.student_id == ctrl.student_info[i].id){

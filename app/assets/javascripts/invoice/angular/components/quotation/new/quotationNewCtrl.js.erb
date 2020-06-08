@@ -6,7 +6,7 @@
   quotationNewCtrl.$inject = ['$rootScope', 'translateFilter', 'quotationNewService', 'Currency'];
 
   function quotationNewCtrl($rootScope, translateFilter, quotationNewService, Currency) {
-    $rootScope.menu = translateFilter('quotation_link_nav')
+    $rootScope.menu = I18n.t('quotation_link_nav')
     var quotationNew = this;
     var defaultDatas = {
       quotations: {
@@ -131,22 +131,46 @@
 
     quotationNew.onSelectParent = function ($item) {
       autoFillStudent($item);
+      autoFillParent($item.id);
     };
 
     quotationNew.onSelectStudentNumber = function ($item) {
+      var sel = document.getElementById('grade');
+      var opts = sel.options;
+      for (var i = 0; i < opts.length; i++) {
+        if (opts[i].label == $item.grade) {
+            sel.selectedIndex = i;
+        }
+      }
       quotationNew.datas.student.full_name = $item.full_name;
-      autoFillParent($item);
+      quotationNew.datas.student.grade = $item.grade
+       autoFillParent($item.parent_id);
     };
 
     quotationNew.onSelectStudentFullName = function ($item) {
+      var sel = document.getElementById('grade');
+      var opts = sel.options;
+      for (var i = 0; i < opts.length; i++) {
+        if (opts[i].label == $item.grade) {
+            sel.selectedIndex = i;
+        }
+      }
+      quotationNew.datas.student.full_name = $item.full_name;
       quotationNew.datas.student.student_number = $item.student_number;
-      autoFillParent($item);
+      autoFillParent($item.parent_id);
     };
 
-    function autoFillParent($item){
-        if($item.parent_id){
+    function initDatas(){
+      if(!quotationNew.datas) { quotationNew.datas = {} }
+      if(!quotationNew.datas.student) { quotationNew.datas.student = {} }
+      quotationNew.datas.parent = {};
+    }
+
+    function autoFillParent(parent_id){
+        if(parent_id){
           for(var i = 0;i < quotationNew.parent_info.length; i++){
-            if($item.parent_id == quotationNew.parent_info[i].id){
+            if(parent_id == quotationNew.parent_info[i].id){
+              initDatas();
               if(!quotationNew.datas.parent.full_name){
                 quotationNew.datas.parent.full_name = quotationNew.parent_info[i].full_name;
               }
@@ -159,11 +183,22 @@
         if($item.student_id){
           for(var i = 0;i < quotationNew.student_info.length; i++){
             if($item.student_id == quotationNew.student_info[i].id){
+              initDatas();
               if(!quotationNew.datas.student.full_name){
                 quotationNew.datas.student.full_name = quotationNew.student_info[i].full_name;
               }
+              if(!quotationNew.datas.student.grade){
+                quotationNew.datas.student.grade = quotationNew.student_info[i].grade
+              }
               if(!quotationNew.datas.student.student_number){
                 quotationNew.datas.student.student_number = quotationNew.student_info[i].student_number;
+                var sel = document.getElementById('grade');
+                var opts = sel.options;
+                for (var j = 0; j < opts.length; j++) {
+                  if (opts[j].label == quotationNew.student_info[i].grade) {
+                    sel.selectedIndex = j;
+                  }
+                }
               }
             }
           }
