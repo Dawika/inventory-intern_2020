@@ -37,8 +37,8 @@ class QuotationsController < ApplicationController
     }
   end
 
-  def create
-    grade = Grade.find_by_name(params["quotations"]["grade_name"]["value"])
+  def create_bil
+    grade = Grade.find_by_name(params[:student][:grade])
 
     Quotation.transaction do
       parent = Parent.find_or_create_by(parent_params);
