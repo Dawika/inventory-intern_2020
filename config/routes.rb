@@ -188,6 +188,9 @@ Rails.application.routes.draw do
     member do
       get "bill"
     end
+    collection do
+      post 'create_bil'
+    end
   end
 
   resources :banks
