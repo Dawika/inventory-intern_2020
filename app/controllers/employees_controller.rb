@@ -9,6 +9,11 @@ class EmployeesController < ApplicationController
     render json: employee, status: :ok
   end
 
+  def import
+      Employee.import(params[:file], current_user.school_id)
+      render json: {message: 'บันทึกข้อมูลสำเร็จ'}, status: :ok
+  end
+
   #POST /employees/:id/invite
   def invite
     @raw, enc = Devise.token_generator.generate(Employee, :reset_password_token)

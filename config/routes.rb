@@ -84,6 +84,7 @@ Rails.application.routes.draw do
       get 'me'
       get 'slips'
       post 'create_by_name'
+      post 'import'
     end
     member do
       get 'slip'

@@ -1,36 +1,49 @@
 <div class="container-fluid employees-list btn-add-employee-list">
-  <div class="row">
-    <div class="col-md-6 icons">
-      <i class="fa fa-th-large employee-view-icon" id="grid"></i>
-      <i class="fa fa-list-ul employee-view-icon" id="list"></i>
+    <div class="row">
+        <div class="col-md-6 icons">
+            <i class="fa fa-th-large employee-view-icon" id="grid"></i>
+            <i class="fa fa-list-ul employee-view-icon" id="list"></i>
+        </div>
+        <div class="col-md-6 text-right">
+            <a ng-click='employees.toggleImportSection()' class="btn btn-custom btn-ligth-green float-right mr-5" href="javascript:void(0)"><i class="fa fa-upload" aria-hidden="true"></i>Import</a>
+            <a href="javascript:void(0)" id="exportTable" class="btn btn-custom btn-blue-sky mr-10"><i
+                    class="fa fa-share-square-o" aria-hidden="true"></i> {{ 'export' | translate }}</a>
+            <a ng-click="employees.openEmployeeDetails(0)" href="javascript:void(0)" class="btn btn-custom btn-orange pull-right">+ {{ "add_new_employee" | translate }}</a>
+        </div>
+    </div><br>
+    <div ng-if="employees.timeout">
+     <div class="alert alert-success" role="alert">{{employees.message}}</div>
     </div>
-    <div class="col-md-6 text-right">
-      <a href="javascript:void(0)" id="exportTable" class="btn btn-custom btn-blue-sky mr-10">
-        <i class="fa fa-share-square-o" aria-hidden="true"></i> {{ 'export' | translate }}
-      </a>
-
-      <a ng-click="employees.openEmployeeDetails(0)" href="javascript:void(0)" class="btn btn-custom btn-orange pull-right">
-        + {{ "add_new_employee" | translate }}
-      </a>
+    <div class="row" style="margin: 2px 20px 30px auto;" id="importSection" ng-hide="employees.import">
+        <div class="row">
+            <div class="col-xs-7"></div>
+            <div class="col-xs-5">
+                <p>ท่านสามารถ Download ไฟล์ผู้ปกครองได้ <a href="./file_import/employees.xlsx" download>ที่นี่</a> เพื่อนำไปแก้ไขและ import เข้าสู่ระบบต่อไป</p>
+            </div>
+        </div><br>
+        <div class="col-xs-9"></div>
+        <div class="col-xs-3 text-right">
+            <input type="file" id="import" onchange="angular.element($('#import')).scope().import_employee(event)" style="display: none;">
+            <button onclick="$('#import').trigger('click')" class="btn btn-primary">{{ 'choose_file' | translate }}</button>
+        </div>
     </div>
-  </div>
 </div>
 <div class="container-fluid employees-list {{ archive_employee }}">
-  <div class="total-wrapper payroll-content container-fluid">
-    <div class="row for-display">
-      <div class="col-md-12">
-        <div class="pull-right">
-          <div class="btn-group filter-btn">
-            <label  class="btn btn-md employee-type" ng-click="employees.employeeTypeFilter()" ng-model="employees.employeeTypeMode.delete" style="border-radius: 50px;" uib-btn-checkbox>{{ "show_data_delete" | translate }}</label>
+    <div class="total-wrapper payroll-content container-fluid">
+        <div class="row for-display">
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <div class="btn-group filter-btn">
+                        <label class="btn btn-md employee-type" ng-click="employees.employeeTypeFilter()" ng-model="employees.employeeTypeMode.delete" style="border-radius: 50px;" uib-btn-checkbox>{{ "show_data_delete" | translate }}</label>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="row same-height">
+            <div class="col-md-12">
+                <div class="list-view">
+                    <table id="employeesTable" data-locale="{{ 'locale' | translate }}"></table>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="row same-height">
-    <div class="col-md-12">
-      <div class="list-view">
-        <table id="employeesTable" data-locale="{{ 'locale' | translate }}"></table>
-      </div>
-    </div>
-  </div>
-</div>

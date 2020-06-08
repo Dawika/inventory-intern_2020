@@ -380,4 +380,93 @@ class Employee < ApplicationRecord
       TaxReduction.create(employee_id: self.id)
     end
 
+
+    def self.open_file(file)
+      case File.extname(file.original_filename)
+      when ".csv" then Roo::Csv.new(file.path, options={})
+      when ".xls" then Roo::Excel.new(file.path, options={})
+      when ".xlsx" then Roo::Excelx.new(file.path, options={})
+      else raise "Unknown file type: #{file.original_filename}"
+      end
+    end
+
+    def self.import(file_path, school_id)
+      sheet = open_file(file_path).sheet('employees')
+      sheet.each_with_index(
+        identification_no: 'identification_no',
+        position: 'position',
+        gade_name: 'gade_name',
+        classroom_name: 'classroom_name',
+        prefix_th: 'prefix_th',
+        first_name_th: 'first_name_th',
+        last_name_th: 'last_name_th',
+        prefix_en: 'prefix_en',
+        first_name_en: 'first_name_en',
+        middle_name_en: 'middle_name_en',
+        last_name_en: 'last_name_en',
+        nickname: 'nickname',
+        status: 'status',
+        birthday: 'birthday',
+        email: 'email',
+        phone: 'phone',
+        start_working: 'start_working',
+        address: 'address',
+        passport_no: 'passport_no',
+        nationality: 'nationality',
+        race: 'race',
+        bank_name: 'bank_name', 
+        bank_branch: 'bank_branch',
+        bank_account_number: 'bank_account_number',
+        salary: 'salary',
+        ot: 'ot',
+        position_allowance: 'position_allowance',
+        allowance: 'allowance',
+        attendance_bonus: 'attendance_bonus',
+        bonus: 'bonus',
+        extra_etc: 'extra_etc'
+      
+      ) do |row, index|
+          if index > 0
+            employee = Employee.find_or_create_by(personal_id: row[:identification_no], school_id: school_id, email: row[:email] )
+            employee.prefix = row[:prefix_en]
+            employee.first_name = row[:first_name_en]
+            employee.middle_name = row[:middle_name_en] || ""
+            employee.last_name = row[:last_name_en]
+            employee.nickname = row[:nickname]
+            employee.prefix_thai  = row[:prefix_th]
+            employee.first_name_thai = row[:first_name_th]
+            employee.last_name_thai = row[:last_name_th]
+            employee.passport_number = row[:passport_no]
+            employee.nationality = row[:nationality]
+            employee.race = row[:race]
+            employee.bank_name = row[:bank_name]
+            employee.bank_branch = row[:bank_branch]
+            employee.account_number = row[:bank_account_number]
+            employee.email = row[:email]
+            employee.school_id = school_id
+            employee.position = row[:position]
+            employee.birthdate = row[:birthday].to_time
+            employee.tel = row[:phone]
+            employee.start_date = row[:start_working].to_time
+            employee.address = row[:address]
+            employee.status = row[:status]
+            grade = Grade.where(["name = ?", row[:gade_name].to_s])
+            employee.grade_id = (grade != nil ? grade.ids[0] : 0)
+            classroom = Classroom.where(["name = ?", row[:classroom_name].to_s])
+            employee.classroom_id = (classroom != nil ? classroom.ids[0] : 0)
+            # income
+            payroll = employee.payrolls.first
+            payroll.salary = row[:salary] || 0
+            payroll.ot = row[:ot] || 0
+            payroll.position_allowance = row[:position_allowance] || 0
+            payroll.allowance = row[:allowance] || 0
+            payroll.attendance_bonus = row[:attendance_bonus] || 0
+            payroll.bonus = row[:bonus] || 0
+            payroll.extra_etc = row[:extra_etc] || 0
+            payroll.save
+            employee.save!
+          end
+      end
+    end
+
 end

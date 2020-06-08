@@ -646,7 +646,7 @@ class Student < ApplicationRecord
         gender = Gender.where(["name = ? or name_th = ?",row[:gender],row[:gender]])
         student.gender_id = (gender != nil ? gender.ids[0] : 0)
         student.birthdate = row[:birthdate]
-        grade = Grade.where(["name = ?", row[:grade]])
+        grade = Grade.where(["name = ?", row[:grade].to_s])
         student.grade_id = (grade != nil ? grade.ids[0] : 0)
         student.classroom_number = row[:classroom_number]
         student.student_number = row[:student_number]
@@ -658,7 +658,7 @@ class Student < ApplicationRecord
         student.religion = row[:religion]
         student.Number_of_Relatives = row[:Number_of_Relatives]
         student.Being_the_Number_of = row[:Being_the_Number_of]
-        classroom = Classroom.where(["name = ?", row[:classroom_name]])
+        classroom = Classroom.where(["name = ?", row[:classroom_name].to_s])
         student.classroom_id = (classroom != nil ? classroom.ids[0] : 0)
         student.save!
 

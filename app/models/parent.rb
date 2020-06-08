@@ -101,7 +101,7 @@ class Parent < ApplicationRecord
   end
 
   def self.open_file(file)
-  	case File.extname(file.original_filename)
+    case File.extname(file.original_filename)
   	when ".csv" then Roo::Csv.new(file.path, options={})
   	when ".xls" then Roo::Excel.new(file.path, options={})
   	when ".xlsx" then Roo::Excelx.new(file.path, options={})
