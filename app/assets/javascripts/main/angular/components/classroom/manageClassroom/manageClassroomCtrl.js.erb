@@ -1,0 +1,9 @@
+(function() {
+  'use strict';
+  angular.module('somsri.main.manage_classroom', [
+    ])
+  .controller('manageClassroomCtrl', ['$rootScope','$scope', 'translateFilter', function($rootScope, $scope, translateFilter) {
+    $rootScope.menu = translateFilter('setting')
+
+  }]);
+})();

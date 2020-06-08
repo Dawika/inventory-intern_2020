@@ -66,6 +66,10 @@
         $window.location.href = "/main#/profile";
       };
 
+      $rootScope.manageClassroom = function(){
+        $window.location.href = "/main#/manage_classroom";
+      }
+
       $rootScope.opensuccessModal = function(message, success, dismiss) {
         $scope.message = message;
         $uibModal.open({
