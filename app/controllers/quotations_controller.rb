@@ -37,8 +37,9 @@ class QuotationsController < ApplicationController
     }
   end
 
-  def create_bil
-    grade = Grade.find_by_name(params[:student][:grade])
+  def create_bill
+    grade = Grade.find_by_name(params[:student][:grade]) if params[:student][:grade].present?
+    grade = Student.where(full_name: params[:student][:full_name]).first.grade if params[:student][:grade].nil?
 
     Quotation.transaction do
       parent = Parent.find_or_create_by(parent_params);
