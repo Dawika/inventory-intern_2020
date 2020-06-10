@@ -46,3 +46,5 @@
 
 //= require redactor/redactor.min.js
 //= require redactor/angular-redactor-2.js
+//= require angular-ui-sortable/sortable.min.js
+//= require jquery-ui

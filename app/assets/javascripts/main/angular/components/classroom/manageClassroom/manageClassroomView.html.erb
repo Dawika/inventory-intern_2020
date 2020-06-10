@@ -1,1 +1,62 @@
-<h1>test</h1>
+<form ng-submit="manageClassroom.update(manageClassroom.list)">
+    <div class="container" id="classroom-manage">
+        <div class="space20"></div>
+        <div class="space20"></div>
+        <div class="content-box-classroom-manage">
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" ng-disabled="manageClassroom.button_create" ng-click="manageClassroom.show_create(false)" class="btn btn-primary"><i
+                            class="fas fa-plus"></i> {{'เพิ่มระดับชั้น'}}</button>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-md-12">
+                    <form ng-submit="manageClassroom.create(manageClassroom.grade)">
+                        <ul class="list-group" ng-hide="manageClassroom.input_create">
+                            <li class="list-group-item-create">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <i class="fas fa-ellipsis-v ellipis"></i>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" ng-model="manageClassroom.grade.name" class="form-input pull-left">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="javascript:void(0)" ng-click="manageClassroom.show_create(true)" class="far fa-trash-alt trash color-red pull-right"> ลบ</a>
+                                        <a type="submit" href="javascript:void(0)" class="fas fa-save trash color-blue pull-right">
+                                            บันทึก</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="list-group" ui-sortable="manageClassroom.sortableOptions" ng-model="manageClassroom.list">
+                        <li ng-repeat="item in manageClassroom.list" class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <i class="fas fa-ellipsis-v ellipis"></i>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" ng-model="manageClassroom.list[$index].name" class="form-input pull-left">
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="javascript:void(0)" ng-click="manageClassroom.delete(item.id)" class="far fa-trash-alt trash color-red pull-right"> ลบ</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div><br>
+    <div class="row" id="classroom-manage">
+        <div class="col-md-1"></div>
+        <div class="col-md-11">
+            <button type="submit" class="btn btn-primary" style="margin-left: -75px;">{{'Save'}}</button>
+        </div>
+    </div>
+</form>

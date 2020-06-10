@@ -1,9 +1,50 @@
 (function() {
-  'use strict';
-  angular.module('somsri.main.manage_classroom', [
-    ])
-  .controller('manageClassroomCtrl', ['$rootScope','$scope', 'translateFilter', function($rootScope, $scope, translateFilter) {
-    $rootScope.menu = translateFilter('setting')
+'use strict';
+angular.module('somsri.main.manage_classroom', [])
+    .controller('manageClassroomCtrl', ['$rootScope', '$scope', 'translateFilter', 'classroomService', function($rootScope, $scope, translateFilter, service) {
+        $rootScope.menu = translateFilter('setting')
+        var ctrl = this;
+        ctrl.list = new Array
+        ctrl.input_create = true
+        ctrl.button_create = false
+        ctrl.class_info_sorting = [];
 
-  }]);
+        service.getGrades().then(function(resp) {
+            for(var i=0 ; i < resp.data.length ; i++){
+                resp.data[i].school_id != null ? ctrl.list.push(resp.data[i]) : false
+            }
+        })
+
+        ctrl.show_create = function(show){
+          ctrl.input_create = show
+          ctrl.button_create = !show
+        }
+
+        ctrl.create = function(grade){
+          consoel.log(grade)
+        }
+
+        ctrl.delete = function(id){
+          service.delete_grade(id).then(function(resp){
+            console.log(resp)
+          })
+        }
+
+        ctrl.update = function(data){
+          service.update_grade(data).then(function(resp){
+            console.log(resp)
+          })
+        }
+
+        ctrl.sortableOptions = {
+          stop: function() { 
+            for(var index = 0; index < ctrl.list.length; index++){
+              ctrl.class_info_sorting.push(ctrl.list[index])
+            }
+            service.sorting(ctrl.class_info_sorting)
+          }
+        }
+
+
+    }]);
 })();
