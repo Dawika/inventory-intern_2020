@@ -21,18 +21,18 @@
 
             scope.import_employee = function(event) {
                 employeeService.importEmployee(event.target.files[0]).then(function(resp) {
-                    $window.location.reload();
-                    alert(resp.data.message)
+                    getPayroll()
+                    $table.bootstrapTable('toggleView');
+                    displayFlashMessage(resp.data.message)
                 })
             }
 
             function displayFlashMessage(message) {
-                console.log(message)
                 ctrl.timeout = true
                 ctrl.message = message;
                 $timeout(function() {
                     ctrl.timeout = false
-                }, 5000);
+                }, 10000);
             }
 
             function getPayroll(month, year) {
