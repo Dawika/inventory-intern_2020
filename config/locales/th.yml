@@ -802,6 +802,12 @@ th:
   password_not_match: รหัสผ่านใหม่ไม่ตรงกัน
 
   # Setting > Classroom
+  create_grade: "เพิ่มระดับชั้น"
+  grade_level: "ระดับชั้น"
+  confirm_delete_grade: "คุณต้องการลบชั้นเรียนใช่หรือไม่?"
+  confirm_update_grade: "คุณต้องการอัพเดทชื่อชั้นเรียนใช่หรือไม่"
+  update_data_success: "อัพเดทข้อมูลสำเร็จ"
+  class_manage: "จัดการระดับชั้น"
   create_classroom: สร้างห้องเรียน
   create_new_classroom: สร้างห้องเรียนใหม่
   edit_classroom: แก้ไขห้องเรียน

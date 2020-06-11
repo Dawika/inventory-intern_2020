@@ -19,6 +19,10 @@
       }
     }
 
+    this.create_grade = function(grade_name){
+      return $http.post('/grades/', { grade: grade_name })
+    }
+
     this.delete_grade = function(id){
       return $http.delete('/grades/'+ id)
     }

@@ -96,8 +96,9 @@
         });
       }
 
-      $rootScope.openConfirmationModal = function(message, success, dismiss) {
+      $rootScope.openConfirmationModal = function(message, confirm_delete, success, dismiss) {
         $scope.message = message;
+        $scope.delete = confirm_delete;
         $uibModal.open({
           animation: true,
           backdrop: 'static',

@@ -11,28 +11,37 @@ angular.module('somsri.main.manage_classroom', [])
 
         service.getGrades().then(function(resp) {
             for(var i=0 ; i < resp.data.length ; i++){
-                resp.data[i].school_id != null ? ctrl.list.push(resp.data[i]) : false
+                resp.data[i].id != -1 ? ctrl.list.push(resp.data[i]) : false
             }
         })
 
         ctrl.show_create = function(show){
           ctrl.input_create = show
           ctrl.button_create = !show
+          show == 'create' ? true : ctrl.grade_name = ""
         }
 
         ctrl.create = function(grade){
-          consoel.log(grade)
-        }
-
-        ctrl.delete = function(id){
-          service.delete_grade(id).then(function(resp){
-            console.log(resp)
+          service.create_grade(grade).then(function(resp){
+            ctrl.list = resp.data
+            ctrl.openmodal(resp, I18n.t('save_success'))
           })
         }
 
         ctrl.update = function(data){
-          service.update_grade(data).then(function(resp){
-            console.log(resp)
+         $rootScope.openConfirmationModal(I18n.t('confirm_update_grade') , false, function(){
+            service.update_grade(data).then(function(resp){
+              ctrl.openmodal(resp, I18n.t('update_data_success'))
+            })
+          })
+        }
+
+        ctrl.delete = function(id){
+          $rootScope.openConfirmationModal(I18n.t('confirm_delete_grade'), true , function(){
+            service.delete_grade(id).then(function(resp){
+              ctrl.list = resp.data
+              ctrl.openmodal(resp, I18n.t('delete_success'))
+            })
           })
         }
 
@@ -43,6 +52,10 @@ angular.module('somsri.main.manage_classroom', [])
             }
             service.sorting(ctrl.class_info_sorting)
           }
+        }
+
+        ctrl.openmodal = function(resp, message){
+          !resp.data.error ? $rootScope.opensuccessModal(message) : $rootScope.opensuccessModal(I18n.t('vacation_save_error'));
         }
 
 

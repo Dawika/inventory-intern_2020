@@ -572,7 +572,7 @@ table.classroom-table {
         display: block;
         padding: 10px 15px;
         margin-bottom: -1px;
-        background-color: rgba(213, 211, 211, 0.48);
+        background-color: rgba(227, 227, 227, 0.48);
         border: 1px solid #ddd;
         margin-top: 5px;
     }
@@ -592,5 +592,21 @@ table.classroom-table {
     .trash {
         margin-top: 9px;
         font-size: 17px;
+    }
+    .save {
+        margin-top: 9px;
+        font-size: 17px;
+        margin-right: 14px;
+    }
+    .header {
+        margin-top: 11px;
+    }
+    .button-header {
+        margin-left: -25px;
+        padding: 8px 21px;
+        font-size: 14px;
+    }
+    .back-hearder {
+        margin-left: -102px;
     }
 }

@@ -632,6 +632,12 @@ en:
   password_not_match: "Password not match"
 
   # Setting > Classroom
+  create_grade: "Create Grade"
+  grade_level: "Grade"
+  class_manage: "Grade Manage"
+  confirm_delete_grade: "Do you want to delete the class?"
+  confirm_update_grade: "Do you want to update the class?"
+  update_data_success: "Update Success"
   create_classroom: "Create Classroom"
   create_new_classroom: "Create New Classroom"
   edit_classroom: "Edit Classroom"
