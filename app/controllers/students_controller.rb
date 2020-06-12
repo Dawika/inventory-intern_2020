@@ -10,9 +10,20 @@ class StudentsController < ApplicationController
   end
 
   def import
-      Student.import(params[:file], current_user.school_id)
-      flash[:notice] = "Import student success"
-      redirect_to students_path
+      student = Student.import(params[:file], current_user.school_id)
+      if student.present?
+        flash[:error] = {
+          type: "alert",
+          message: "Import student fail line #{student}"
+        }
+        redirect_to students_path
+      else
+        flash[:notice] = {
+          type: "alert",
+          message: "Import student success"
+        }
+        redirect_to students_path
+      end
   end
 
 

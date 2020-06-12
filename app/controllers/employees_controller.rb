@@ -12,9 +12,9 @@ class EmployeesController < ApplicationController
   def import
       employee = Employee.import(params[:file], current_user.school_id)
       if employee.present?
-        render json: {message: "Import employee fail line #{employee}"}, status: :ok
+        render json: {message: "Import employee fail line #{employee}", fail: true}, status: :ok
       else
-        render json: {message: "Import employee Success"}, status: :ok
+        render json: {message: "Import employee Success", fail: false}, status: :ok
       end
   end
 

@@ -22,17 +22,20 @@
             scope.import_employee = function(event) {
                 employeeService.importEmployee(event.target.files[0]).then(function(resp) {
                     getPayroll()
+                    $rootScope.archive_employee = "color"
+                    $table.bootstrapTable('load', ctrl.display_datas);
                     $table.bootstrapTable('toggleView');
-                    displayFlashMessage(resp.data.message)
+                    displayFlashMessage(resp.data.message, resp.data.fail)
                 })
             }
 
-            function displayFlashMessage(message) {
+            function displayFlashMessage(message, fail) {
                 ctrl.timeout = true
                 ctrl.message = message;
+                fail ? ctrl.alert = "alert alert-danger" : ctrl.alret = "alert alert-success"
                 $timeout(function() {
                     ctrl.timeout = false
-                }, 10000);
+                }, 15000);
             }
 
             function getPayroll(month, year) {
