@@ -23,7 +23,7 @@ class SchoolsController < ApplicationController
           @school.customer_id = @customer.id
         end
         if @school.save(validate: false)
-          @school.create_grades(params[:grades][:name])
+          @school.create_grades(params[:grades])
           SchoolMailer.school_notification(@school).deliver
           domain = request.domain
           SchoolMailer.notify_admin(@school, domain).deliver

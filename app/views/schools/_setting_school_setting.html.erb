@@ -1,4 +1,4 @@
-<div class="new-school" id="formSchool">
+<div class="new-school" id="formSchools">
   <h1>
     <%= t('.header') %>
   </h1><br>
@@ -143,6 +143,45 @@
                 </div>
               </div>
             </div>
+             <div class="class_data row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="class-that"><%= t('.class_that') %></label>
+                </div>
+                <div>
+                  <input class="checkbox-orange" type="checkbox" id="pre-school" name="grades[pre_school]" checked>
+                  <label for="pre_school"><%= t('.pre_school') %></label>
+                </div>
+                <div>
+                  <input class="checkbox-orange" type="checkbox" id="kindergarten" name="grades[kindergarten]">
+                  <label for="kindergarten"><%= t('.kindergarten') %></label>
+                </div>
+                <div>
+                  <input class="checkbox-orange" type="checkbox" id="primary-school" name="grades[primary_school]">
+                  <label for="primary-school"><%= t('.primary_school') %></label>
+                </div>
+                <div>
+                  <input class="checkbox-orange" type="checkbox" id="junior-high-school" name="grades[junior_high_school]">
+                  <label for="junior-high-school"><%= t('.junior_high_school') %></label>
+                </div>
+                <div>
+                  <input class="checkbox-orange" type="checkbox" id="senior-high-school" name="grades[senior_high_school]">
+                  <label for="senior-high-school"><%= t('.senior_high_school') %></label>
+                </div>
+                <div>
+                  <input class="checkbox-orange" type="checkbox" id="voc_cert" name="grades[voc_cert]">
+                  <label for="voc_cert"><%= t('.voc_cert') %></label>
+                </div>
+                <div>
+                  <input class="checkbox-orange" type="checkbox" id="dip_high_voc_cert" name="grades[dip_high_voc_cert]">
+                  <label for="dip_high_voc_cert"><%= t('.dip_high_voc_cert') %></label>
+                </div>
+                <div>
+                  <input class="checkbox-orange" type="checkbox" id="other" name="grades[other]">
+                  <label for="other"><%= t('.other') %></label>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="row">
@@ -152,7 +191,7 @@
         <div class="col-md-9">
         </div>
         <div class="col-md-2">
-          <%= button_tag t('.next'), type: 'button', class: 'btn btn-getStarted animated fadeInDown', onclick: 'showNewSchool("grade")', id: 'new_modal', disabled: true %>
+          <%= button_tag t('.next'), type: 'button', class: 'btn btn-getStarted animated fadeInDown', onclick: 'showNewSchool()', id: 'new_modal', disabled: true %>
         </div>
       </div>
     </div>
