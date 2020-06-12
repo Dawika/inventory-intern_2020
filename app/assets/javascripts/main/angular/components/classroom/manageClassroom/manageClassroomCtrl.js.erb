@@ -8,10 +8,12 @@ angular.module('somsri.main.manage_classroom', [])
         ctrl.input_create = true
         ctrl.button_create = false
         ctrl.class_info_sorting = [];
+        ctrl.update_button = []
 
         service.getGrades().then(function(resp) {
             for(var i=0 ; i < resp.data.length ; i++){
                 resp.data[i].id != -1 ? ctrl.list.push(resp.data[i]) : false
+                resp.data[i].id != -1 ? ctrl.update_button[i] = true : false
             }
         })
 
@@ -26,6 +28,11 @@ angular.module('somsri.main.manage_classroom', [])
             ctrl.list = resp.data
             ctrl.openmodal(resp, I18n.t('save_success'))
           })
+        }
+
+        ctrl.button_update = function(index, check){
+        console.log(check)
+          ctrl.update_button[index] = false
         }
 
         ctrl.update = function(data){

@@ -38,7 +38,6 @@
             </ul>
         </div>
     </div>
-    <form ng-submit="manageClassroom.update(manageClassroom.list)">
         <div class="row">
             <div class="col-md-12">
                 <ul class="list-group" ui-sortable="manageClassroom.sortableOptions" ng-model="manageClassroom.list">
@@ -48,23 +47,16 @@
                                 <i class="fas fa-ellipsis-v ellipis"></i>
                             </div>
                             <div class="col-md-9">
-                                <input type="text" ng-model="manageClassroom.list[$index].name" class="form-input pull-left">
+                                <input type="text" ng-model="manageClassroom.list[$index].name"  ng-blur = "manageClassroom.button_update($index, true)"ng-focus="manageClassroom.button_update($index, false)"class="form-input pull-left">
                             </div>
                             <div class="col-md-2">
                                 <a href="javascript:void(0)" ng-click="manageClassroom.delete(item.id)" class="far fa-trash-alt trash color-red pull-right"> {{ "delete" | translate }}</a>
+                                <a ng-hide="manageClassroom.update_button[$index]" href="javascript:void(0)" ng-click="manageClassroom.update(manageClassroom.list[$index].name)" class="fas fa-save save color-blue pull-right"> {{ "save" | translate }}</a>                            
                             </div>
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
-        <input type="submit" id="update_grade" hidden>
-    </form>
-</div>
-</div><br>
-<div class="row" id="classroom-manage">
-    <div class="col-md-1"></div>
-    <div class="col-md-11">
-        <button onclick="$('#update_grade').trigger('click')" class="btn btn-primary" style="margin-left: -75px;"><i class="fas fa-save"></i> {{ "save" | translate }}</button>
     </div>
 </div>
