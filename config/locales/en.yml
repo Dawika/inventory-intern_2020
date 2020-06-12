@@ -493,6 +493,9 @@ en:
   select_class: "Select Class"
   search_student: "Search name student"
   select_students: "Select student..."
+  import: "Import"
+  download_table: "You can download the parent table here"
+  import_table: "In order to edit and import into the system further"
 
   #Alumni
   year_of_graduation: "Graduation Year"
