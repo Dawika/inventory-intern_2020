@@ -70,8 +70,9 @@
         $window.location.href = "/main#/manage_classroom";
       }
 
-      $rootScope.opensuccessModal = function(message, success, dismiss) {
+      $rootScope.opensuccessModal = function(message, error, success, dismiss) {
         $scope.message = message;
+        $scope.error = error;
         $uibModal.open({
           animation: true,
           backdrop: 'static',

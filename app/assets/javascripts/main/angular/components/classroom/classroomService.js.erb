@@ -27,8 +27,8 @@
       return $http.delete('/grades/'+ id)
     }
 
-    this.update_grade = function(data){
-      return $http.patch('/grades/update_grade', {grades: data })
+    this.update_grade = function(data, id){
+      return $http.patch('/grades/'+ id +'/', {grade: data })
     }
 
     this.sorting = function(data){

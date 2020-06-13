@@ -26,18 +26,20 @@ angular.module('somsri.main.manage_classroom', [])
         ctrl.create = function(grade){
           service.create_grade(grade).then(function(resp){
             ctrl.list = resp.data
+             for(var i=0 ; i < resp.data.length ; i++){
+                resp.data[i].id != -1 ? ctrl.update_button[i] = true : false
+            }
             ctrl.openmodal(resp, I18n.t('save_success'))
           })
         }
 
-        ctrl.button_update = function(index, check){
-        console.log(check)
-          ctrl.update_button[index] = false
+        ctrl.button_update = function(index, show_butoon){
+          !show_butoon ? ctrl.update_button[index] = false : ctrl.update_button[index] = true 
         }
 
-        ctrl.update = function(data){
+        ctrl.update = function(name, id){
          $rootScope.openConfirmationModal(I18n.t('confirm_update_grade') , false, function(){
-            service.update_grade(data).then(function(resp){
+            service.update_grade(name, id).then(function(resp){
               ctrl.openmodal(resp, I18n.t('update_data_success'))
             })
           })
@@ -62,7 +64,7 @@ angular.module('somsri.main.manage_classroom', [])
         }
 
         ctrl.openmodal = function(resp, message){
-          !resp.data.error ? $rootScope.opensuccessModal(message) : $rootScope.opensuccessModal(I18n.t('vacation_save_error'));
+          !resp.data.error ? $rootScope.opensuccessModal(message, false) : $rootScope.opensuccessModal(I18n.t('vacation_save_error'), true);
         }
 
 

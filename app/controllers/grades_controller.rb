@@ -26,11 +26,14 @@ class GradesController < ApplicationController
     end
   end
 
-  def update_grade
-    params[:grades].each_with_index do |info, index|
-      grade_sorting = Grade.find_by(id: params[:grades][index][:id])
-      grade_sorting.name = params[:grades][index][:name]
-      grade_sorting.save
+  def update
+    grade = Grade.find(params[:id])
+    if grade.name != params[:grade]
+      grade.name = params[:grade]
+      grade.save
+      render json: {error: false}
+    else
+      render json: {error: true}
     end
   end
   

@@ -125,7 +125,6 @@ Rails.application.routes.draw do
   end
   resources :grades do
     collection do
-      patch 'update_grade'
       post 'grade_sorting'
     end
   end
