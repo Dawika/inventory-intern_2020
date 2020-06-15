@@ -24,7 +24,6 @@ class School < ApplicationRecord
   after_create :create_license
 
   def create_grades(data) 
-    ap data
     if data.present?
       if data.dig(:pre_school).present?
         self.grades.create(name: "Pre School", school_id: self.id)
