@@ -645,16 +645,3 @@ section {
     font-family: 'Prompt', sans-serif;
     font-size: 16px;
 }
-
-#formSchools {
-    input .checkbox-purple input[type="checkbox"]:checked + label::before {
-      background-color: #6055CD;
-      border-color: #6055CD;
-      width: 14px;
-      height: 14px;
-      margin-top: 2px;
-      }
-      input .checkbox-purple input[type="checkbox"]:checked + label::after {
-      color: #fff;
-      }
-  }
