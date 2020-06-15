@@ -119,7 +119,6 @@ class InvoicesController < ApplicationController
 
   # POST /invoices
   def create
-    ap params[:student][:grade]
     grade = Grade.find_by_name(params[:student][:grade]) if params[:student][:grade].present?
     grade = Student.where(full_name: params[:student][:full_name]).first.grade if params[:student][:grade].nil?
     grade = Grade.where(name: params[:invoice][:grade_name][:value]).first if params[:invoice][:grade_name].present?
