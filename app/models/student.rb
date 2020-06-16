@@ -610,6 +610,8 @@ class Student < ApplicationRecord
       classroom_number: 'classroom_number',
       identificatio_no_parent: 'identificatio_no_parent'
       ) do |row,index|
+        ap row
+        ap index
       if index > 0 and ( row[:name] || row[:name_eng] )
         student = Student.find_or_create_by(national_id: row[:national_id])
 
@@ -643,7 +645,7 @@ class Student < ApplicationRecord
           end
         end
       else
-        not_save << index + 1 if index != 0 
+        not_save << index + 3 if index != 0 
       end
     end
     return not_save

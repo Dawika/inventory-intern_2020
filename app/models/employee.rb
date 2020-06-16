@@ -467,7 +467,7 @@ class Employee < ApplicationRecord
             payroll.save
             employee.save!
           else
-            not_save << index + 1 if index != 0
+            not_save << index + 3 if index != 0
           end
       end
       return not_save

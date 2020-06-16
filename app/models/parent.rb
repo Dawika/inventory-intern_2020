@@ -134,20 +134,20 @@ class Parent < ApplicationRecord
         ap row
       if index > 0 and (row[:name].present? || row[:name_eng])
         parent = Parent.find_or_create_by(id_card_no: row[:identificatio_no_parent], email: row[:email])
-        first_name = row[:name] != nil ? row[:name].strip : ''
-        middle_name = row[:middle_name] != nil ? row[:middle_name].strip : ''
-        last_name = row[:last_name] != nil ? row[:last_name].strip : ''
+        first_name = row[:name] != nil ? row[:name].to_s.strip : ''
+        middle_name = row[:middle_name] != nil ? row[:middle_name].to_s.strip : ''
+        last_name = row[:last_name] != nil ? row[:last_name].to_s.strip : ''
 
-        first_name_eng = row[:name_eng] != nil ? row[:name_eng].strip : ''
-        middle_name_eng = row[:middle_name_eng] != nil ? row[:middle_name_eng].strip : ''
-        last_name_eng = row[:last_name_eng] != nil ? row[:last_name_eng].strip : ''
+        first_name_eng = row[:name_eng] != nil ? row[:name_eng].to_s.strip : ''
+        middle_name_eng = row[:middle_name_eng] != nil ? row[:middle_name_eng].to_s.strip : ''
+        last_name_eng = row[:last_name_eng] != nil ? row[:last_name_eng].to_s.strip : ''
 
         full_name = middle_name != '' ? ("#{first_name} #{middle_name} #{last_name}") : ("#{first_name} #{last_name}")
         full_name_eng = middle_name != '' ? ("#{first_name_eng} #{middle_name_eng} #{last_name_eng}") : ("#{first_name_eng} #{last_name_eng}")
 
         parent.full_name = full_name
         parent.full_name_english = full_name_eng
-        gender = Gender.where(["name = ? or name_th = ?",row[:gender].strip,row[:gender].strip])
+        gender = Gender.where(["name = ? or name_th = ?",row[:gender].to_s.strip,row[:gender].to_s.strip])
         parent.gender_id = (gender != nil ? gender.ids[0] : 0)
         parent.email = row[:email]
         parent.mobile = row[:mobile]
@@ -170,7 +170,7 @@ class Parent < ApplicationRecord
           end
         end
       else
-        not_save << index + 1 if index != 0
+        not_save << index + 3 if index != 0
       end
     end
    return not_save
