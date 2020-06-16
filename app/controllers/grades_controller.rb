@@ -31,7 +31,7 @@ class GradesController < ApplicationController
     if grade.name != params[:grade]
       grade.name = params[:grade]
       grade.save
-      render json: {error: false}
+      list_grade
     else
       render json: {error: true}
     end

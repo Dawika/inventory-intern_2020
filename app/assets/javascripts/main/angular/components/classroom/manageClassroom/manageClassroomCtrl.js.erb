@@ -5,43 +5,37 @@ angular.module('somsri.main.manage_classroom', [])
         $rootScope.menu = translateFilter('setting')
         var ctrl = this;
         ctrl.list = new Array
-        ctrl.input_create = true
-        ctrl.button_create = false
-        ctrl.class_info_sorting = [];
-        ctrl.update_button = []
+        ctrl.inputCreate = true
+        ctrl.buttonCreate = false
+        ctrl.classInfoSorting = [];
         ctrl.oldList = []
 
         service.getGrades().then(function(resp) {
             for(var i=0 ; i < resp.data.length ; i++){
                 resp.data[i].id != -1 ? ctrl.list.push(resp.data[i]) : false
-                resp.data[i].id != -1 ? ctrl.update_button[i] = true : false
             }
              ctrl.oldList = JSON.parse(JSON.stringify(ctrl.list))
         })
 
         ctrl.show_create = function(show){
-          ctrl.input_create = show
-          ctrl.button_create = !show
+          ctrl.inputCreate = show
+          ctrl.buttonCreate = !show
           show == 'create' ? true : ctrl.grade_name = ""
         }
 
         ctrl.create = function(grade){
           service.create_grade(grade).then(function(resp){
             ctrl.list = resp.data
-             for(var i=0 ; i < resp.data.length ; i++){
-                resp.data[i].id != -1 ? ctrl.update_button[i] = true : false
-            }
+            ctrl.oldList = JSON.parse(JSON.stringify(ctrl.list))
             ctrl.openmodal(resp, I18n.t('save_success'))
           })
-        }
-
-        ctrl.button_update = function(index, show_butoon){
-          !show_butoon ? ctrl.update_button[index] = false : ctrl.update_button[index] = true 
         }
 
         ctrl.update = function(name, id){
          $rootScope.openConfirmationModal(I18n.t('confirm_update_grade') , false, function(){
             service.update_grade(name, id).then(function(resp){
+              ctrl.list = resp.data
+              ctrl.oldList = JSON.parse(JSON.stringify(ctrl.list))
               ctrl.openmodal(resp, I18n.t('update_data_success'))
             })
           })
@@ -51,6 +45,7 @@ angular.module('somsri.main.manage_classroom', [])
           $rootScope.openConfirmationModal(I18n.t('confirm_delete_grade'), true , function(){
             service.delete_grade(id).then(function(resp){
               ctrl.list = resp.data
+              ctrl.oldList = JSON.parse(JSON.stringify(ctrl.list))
               ctrl.openmodal(resp, I18n.t('delete_success'))
             })
           })
@@ -59,9 +54,9 @@ angular.module('somsri.main.manage_classroom', [])
         ctrl.sortableOptions = {
           stop: function() { 
             for(var index = 0; index < ctrl.list.length; index++){
-              ctrl.class_info_sorting.push(ctrl.list[index])
+              ctrl.classInfoSorting.push(ctrl.list[index])
             }
-            service.sorting(ctrl.class_info_sorting)
+            service.sorting(ctrl.classInfoSorting)
           }
         }
 
