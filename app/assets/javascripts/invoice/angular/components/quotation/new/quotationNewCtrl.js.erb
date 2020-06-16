@@ -76,7 +76,7 @@
     quotationNew.save = function() {
       quotationNewService.create(quotationNew.datas).then(function(resp) {
         if($rootScope.openQuotationSlip(resp.data.id)) {
-            window.location.reload();
+             $rootScope.openQuotation();
           }
       })
     }
