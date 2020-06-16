@@ -9,12 +9,14 @@ angular.module('somsri.main.manage_classroom', [])
         ctrl.button_create = false
         ctrl.class_info_sorting = [];
         ctrl.update_button = []
+        ctrl.oldList = []
 
         service.getGrades().then(function(resp) {
             for(var i=0 ; i < resp.data.length ; i++){
                 resp.data[i].id != -1 ? ctrl.list.push(resp.data[i]) : false
                 resp.data[i].id != -1 ? ctrl.update_button[i] = true : false
             }
+             ctrl.oldList = JSON.parse(JSON.stringify(ctrl.list))
         })
 
         ctrl.show_create = function(show){
