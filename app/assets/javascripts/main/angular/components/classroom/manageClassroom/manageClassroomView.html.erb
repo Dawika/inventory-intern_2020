@@ -1,0 +1,64 @@
+<div class="container" id="classroom-manage">
+<div class="space20"></div>
+<div class="space20"></div>
+<div class="row">
+    <div class="col-md-2">
+        <a href="/main#/classroom">
+            <h3><i class="back-hearder fas fa-long-arrow-alt-left color-orange"></i> {{"class_manage" | translate}}</h3>
+        </a>
+    </div>
+</div><br>
+<div class="content-box-classroom-manage">
+  <div class="row">
+      <div class="col-md-1">
+          <h4 class="header">{{ "grade_level" | translate }}</h4>
+      </div>
+      <div class="col-md-11">
+          <button type="button" ng-disabled="manageClassroom.buttonCreate" ng-click="manageClassroom.show_create(false)" class="btn btn-primary button-header"><i class="fas fa-plus"></i> {{ "create_grade" | translate }}</button>
+      </div>
+  </div><br>
+  <div class="row">
+      <div class="col-md-12">
+          <ul class="list-group" ng-hide="manageClassroom.inputCreate">
+              <li class="list-group-item-create">
+                  <form ng-submit="manageClassroom.create(manageClassroom.grade_name)" id="create-form">
+                      <div class="row">
+                          <div class="col-md-1">
+                              <i class="fas fa-ellipsis-v ellipis"></i>
+                          </div>
+                          <div class="col-md-9">
+                              <input type="text" ng-model="manageClassroom.grade_name" class="form-input pull-left" required>
+                          </div>
+                          <div class="col-md-2">
+                              <input type="submit" id="create_grade" hidden>
+                              <a href="javascript:void(0)" ng-click="manageClassroom.show_create(true)" class="far fa-trash-alt trash color-red pull-right"> {{ "delete" | translate }}</a>
+                              <a onclick="$('#create_grade').trigger('click')" ng-click="manageClassroom.grade_name != '' ? manageClassroom.show_create('create') : false" class="fas fa-save save color-blue pull-right"> {{ "save" | translate }}</a>
+                          </div>
+                      </div>
+                  </form>
+              </li>
+          </ul>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-12">
+          <ul class="list-group" ui-sortable="manageClassroom.sortableOptions" ng-model="manageClassroom.list">
+              <li ng-repeat="grade in manageClassroom.list" class="list-group-item">
+                  <div class="row">
+                      <div class="col-md-1">
+                          <i class="fas fa-ellipsis-v ellipis"></i>
+                      </div>
+                      <div class="col-md-9">
+                          <input type="text" ng-model="grade.name" class="form-input pull-left">
+                      </div>
+                      <div class="col-md-2">
+                          <a href="javascript:void(0)" ng-click="manageClassroom.delete(grade.id)" class="far fa-trash-alt trash color-red pull-right"> {{ "delete" | translate }}</a>
+                          <a ng-show="manageClassroom.oldList[$index].name != grade.name" href="javascript:void(0)" ng-click="manageClassroom.update(grade.name, grade.id)" class="fas fa-save save color-blue pull-right"> {{ "save" | translate }}</a>
+                      </div>
+                  </div>
+              </li>
+          </ul>
+      </div>
+    </div>
+  </div>
+  </div>

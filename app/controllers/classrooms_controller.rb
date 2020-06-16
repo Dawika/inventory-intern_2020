@@ -28,7 +28,7 @@ class ClassroomsController < ApplicationController
       render json: @classrooms, status: :ok
     end
   end
-
+  
   # GET /classrooms/:id
   def show
     classroom_result = {

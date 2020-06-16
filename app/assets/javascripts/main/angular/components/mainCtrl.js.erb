@@ -66,8 +66,13 @@
         $window.location.href = "/main#/profile";
       };
 
-      $rootScope.opensuccessModal = function(message, success, dismiss) {
+      $rootScope.manageClassroom = function(){
+        $window.location.href = "/main#/manage_classroom";
+      }
+
+      $rootScope.opensuccessModal = function(message, error, success, dismiss) {
         $scope.message = message;
+        $scope.error = error;
         $uibModal.open({
           animation: true,
           backdrop: 'static',
@@ -92,8 +97,9 @@
         });
       }
 
-      $rootScope.openConfirmationModal = function(message, success, dismiss) {
+      $rootScope.openConfirmationModal = function(message, confirm_delete, success, dismiss) {
         $scope.message = message;
+        $scope.delete = confirm_delete;
         $uibModal.open({
           animation: true,
           backdrop: 'static',

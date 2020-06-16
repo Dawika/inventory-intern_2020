@@ -4,6 +4,7 @@
   ])
   .controller('confirmModalCtrl', ['$scope', '$uibModalInstance', function($scope, $uibModalInstance) {
     this.message = $scope.message;
+    $scope.delete ? this.style_button = "btn btn-custom btn-red" : this.style_button = "btn btn-custom btn-green"
 
     this.ok = function () {
       $uibModalInstance.close(true);

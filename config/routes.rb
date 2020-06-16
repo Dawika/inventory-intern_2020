@@ -123,7 +123,11 @@ Rails.application.routes.draw do
       patch 'upload_photo'
     end
   end
-  resources :grades
+  resources :grades do
+    collection do
+      post 'grade_sorting'
+    end
+  end
   resources :classrooms do
     collection do
       get 'classroom_list'
