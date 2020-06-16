@@ -805,17 +805,17 @@ body {
 }
 
 .btn-blue-sky {
-    background-color: #00D2D7;
-    color: #fff !important;
+  background-color: #00D2D7;
+  color: #fff !important;
+  border: 2px solid #00D2D7;
+  margin-right: -50px;
+  &:hover {
     border: 2px solid #00D2D7;
-    margin-right: -50px;
-    &:hover {
-        border: 2px solid #00D2D7;
-        color: #fff !important;
-    }
-    &:focus {
-        color: #fff;
-    }
+    color: #fff !important;
+  }
+  &:focus {
+    color: #fff;
+  }
 }
 
 .btn-orange {
