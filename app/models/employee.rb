@@ -391,6 +391,7 @@ class Employee < ApplicationRecord
     end
 
     def self.import(file_path, school_id)
+      not_save = []
       sheet = open_file(file_path).sheet('employees')
       sheet.each_with_index(
         identification_no: 'identification_no',
@@ -426,18 +427,18 @@ class Employee < ApplicationRecord
         extra_etc: 'extra_etc'
       
       ) do |row, index|
-          if index > 0
+          if index > 0 and ( row[:first_name_en].present? || row[:first_name_th].present? )
             employee = Employee.find_or_create_by(personal_id: row[:identification_no], school_id: school_id, email: row[:email] )
-            employee.prefix = row[:prefix_en]
-            employee.first_name = row[:first_name_en]
+            employee.prefix = row[:prefix_en] || ""
+            employee.first_name = row[:first_name_en] || ""
             employee.middle_name = row[:middle_name_en] || ""
-            employee.last_name = row[:last_name_en]
-            employee.nickname = row[:nickname]
-            employee.prefix_thai  = row[:prefix_th]
-            employee.first_name_thai = row[:first_name_th]
-            employee.last_name_thai = row[:last_name_th]
-            employee.passport_number = row[:passport_no]
-            employee.nationality = row[:nationality]
+            employee.last_name = row[:last_name_en] || ""
+            employee.nickname = row[:nickname] || ""
+            employee.prefix_thai  = row[:prefix_th] || ""
+            employee.first_name_thai = row[:first_name_th] || ""
+            employee.last_name_thai = row[:last_name_th] || ""
+            employee.passport_number = row[:passport_no] || ""
+            employee.nationality = row[:nationality] 
             employee.race = row[:race]
             employee.bank_name = row[:bank_name]
             employee.bank_branch = row[:bank_branch]
@@ -445,9 +446,9 @@ class Employee < ApplicationRecord
             employee.email = row[:email]
             employee.school_id = school_id
             employee.position = row[:position]
-            employee.birthdate = row[:birthday].to_time
+            employee.birthdate = row[:birthday].present? ? row[:birthday].to_time : nil
             employee.tel = row[:phone]
-            employee.start_date = row[:start_working].to_time
+            employee.start_date = row[:start_working].present? ? row[:start_working].to_time : nil
             employee.address = row[:address]
             employee.status = row[:status]
             grade = Grade.where(["name = ?", row[:gade_name].to_s])
@@ -465,8 +466,11 @@ class Employee < ApplicationRecord
             payroll.extra_etc = row[:extra_etc] || 0
             payroll.save
             employee.save!
+          else
+            not_save << index + 3 if index != 0
           end
       end
+      return not_save
     end
 
 end

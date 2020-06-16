@@ -10,8 +10,12 @@ class EmployeesController < ApplicationController
   end
 
   def import
-      Employee.import(params[:file], current_user.school_id)
-      render json: {message: 'บันทึกข้อมูลสำเร็จ'}, status: :ok
+      employee = Employee.import(params[:file], current_user.school_id)
+      if employee.present?
+        render json: {message: "Import employee fail line #{employee}", fail: true}, status: :ok
+      else
+        render json: {message: "Import employee Success", fail: false}, status: :ok
+      end
   end
 
   #POST /employees/:id/invite
