@@ -131,7 +131,6 @@ class Parent < ApplicationRecord
       mobile: 'mobile',
       line_id: 'line_id'
       ) do |row,index|
-        ap row
       if index > 0 and (row[:name].present? || row[:name_eng])
         parent = Parent.find_or_create_by(id_card_no: row[:identificatio_no_parent], email: row[:email])
         first_name = row[:name] != nil ? row[:name].to_s.strip : ''
