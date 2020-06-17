@@ -2495,5 +2495,7 @@ ul.rich-autocomplete-list {
         }
     }
 }
-
+div:focus , ul:focus , span:focus , button:focus , a:focus , input:focus{
+    outline: none !important;
+}
 

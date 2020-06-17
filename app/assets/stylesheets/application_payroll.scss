@@ -1812,7 +1812,7 @@ ul.uib-datepicker-popup.dropdown-menu {
   #payroll .thead > span{
     line-height: 35px;
   }
-  #payroll .trow > span.code,{
+  #payroll .trow > span.code{
     width: 35px !important;
     border-left: 1px solid #cccccc;
   }
@@ -1826,7 +1826,7 @@ ul.uib-datepicker-popup.dropdown-menu {
     border-left: none;
   }
   #payroll .fix-column > .tbody,
-  #payroll .fix-column > .thead,{
+  #payroll .fix-column > .thead{
     width: 264px;
   }
   #payroll .trow.tfoot > span.text_total_tfoot{
