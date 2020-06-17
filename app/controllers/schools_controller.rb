@@ -8,32 +8,30 @@ class SchoolsController < ApplicationController
     @domain_name = request.domain
   end
 
-    def create
-      ActiveRecord::Base.transaction do
-        @school = School.new(school_params)
-        @school.auto_subscribe = params[:skip].blank?
-        # 4242424242424242 <= credit card number for testing
-        token = params[:omise_token]
-        if token.present?
-          @customer = Omise::Customer.create({
-            email: @school.email,
-            description: "#{@school.name_eng}",
-            card: token
-          })
-          @school.customer_id = @customer.id
-        end
-        if @school.save(validate: false)
-          @school.school_setting.update(enable_quotation: true)
-          @school.create_grades(params[:grades][:name])
-          SchoolMailer.school_notification(@school).deliver
-          domain = request.domain
-          SchoolMailer.notify_admin(@school, domain).deliver
-          user = @school.users.first
-          user.add_role('admin')
-          redirect_to change_subdomains_url(subdomain: @school.subdomain_name, id: user)
-        else
-          redirect_to new_school_path
-        end
+  def create
+    ActiveRecord::Base.transaction do
+      @school = School.new(school_params)
+      @school.auto_subscribe = params[:skip].blank?
+      # 4242424242424242 <= credit card number for testing
+      token = params[:omise_token]
+      if token.present?
+        @customer = Omise::Customer.create({
+        email: @school.email,
+        description: "#{@school.name_eng}",
+        card: token
+      })
+      @school.customer_id = @customer.id
+      end
+      if @school.save(validate: false)
+        @school.create_grades(params[:grades])
+        SchoolMailer.school_notification(@school).deliver
+        domain = request.domain
+        SchoolMailer.notify_admin(@school, domain).deliver
+        user = @school.users.first
+        user.add_role('admin')
+        redirect_to change_subdomains_url(subdomain: @school.subdomain_name, id: user)
+      else
+        redirect_to new_school_path
       end
     end
   end
