@@ -23,6 +23,7 @@ class SchoolsController < ApplicationController
           @school.customer_id = @customer.id
         end
         if @school.save(validate: false)
+          @school.school_setting.update(enable_quotation: true)
           @school.create_grades(params[:grades][:name])
           SchoolMailer.school_notification(@school).deliver
           domain = request.domain
