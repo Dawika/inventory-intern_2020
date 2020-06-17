@@ -457,6 +457,7 @@ ul.nav.navbar-nav.navbar-right.dropdown {
 .img-lg {
     height: 200px;
     width: 200px;
+    object-fit: cover;
 }
 
 .btn-bg-blue {
@@ -644,4 +645,8 @@ section {
 .font-input-signin {
     font-family: 'Prompt', sans-serif;
     font-size: 16px;
+}
+
+div:focus , ul:focus , span:focus , button:focus , a:focus , input:focus{
+    outline: none !important;
 }
