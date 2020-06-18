@@ -467,6 +467,7 @@ en:
   paid_by: "Payment Method"
   student_info: "Student's info"
   receipts_info: "Receipt's info"
+  quotation_info: "Quotation's info"
   print_list: "Print List"
   show_photo: "Display Photo"
   disable_photo: "Disable Photo"

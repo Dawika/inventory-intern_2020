@@ -8,11 +8,17 @@ class QuotationsController < ApplicationController
 
     methods = %i[student_name quotator_name grade_name total_amount paid_at
                  outstanding_balance]
-    render json: {
-      quotations: @quotations.as_json(methods: methods),
-      current_page: @quotations.current_page,
-      total_records: @quotations.total_entries
-    }
+
+    if params[:bootstrap_table].to_s == "1"
+      @quotations = @quotations.where(student_id: params[:student_id])
+      render json: @quotations.as_json(methods: methods)
+    else
+      render json: {
+        quotations: @quotations.as_json(methods: methods),
+        current_page: @quotations.current_page,
+        total_records: @quotations.total_entries
+      }
+    end
   end
 
   def show
