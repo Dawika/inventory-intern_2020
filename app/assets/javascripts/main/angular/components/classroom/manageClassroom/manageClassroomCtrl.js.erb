@@ -2,7 +2,7 @@
 'use strict';
 angular.module('somsri.main.manage_classroom', [])
     .controller('manageClassroomCtrl', ['$rootScope', '$scope', 'translateFilter', 'classroomService', function($rootScope, $scope, translateFilter, service) {
-        $rootScope.menu = translateFilter('setting')
+        $rootScope.menu = I18n.t('setting')
         var ctrl = this;
         ctrl.list = new Array
         ctrl.inputCreate = true
