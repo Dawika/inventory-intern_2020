@@ -633,6 +633,7 @@ th:
   paid_by: "ชำระโดย"
   student_info: "ข้อมูลนักเรียน"
   receipts_info: "ข้อมูลใบเสร็จ"
+  quotation_info: "ข้อมูลใบวางบิล"
   print_list: "พิมพ์รายชื่อ"
   show_photo: "แสดงรูป"
   disable_photo: "ไม่แสดงรูป"

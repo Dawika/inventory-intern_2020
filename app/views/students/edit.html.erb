@@ -11,6 +11,7 @@
   <ul class="nav nav-tabs">
      <li class="active"><a class="tab-label" data-toggle="tab" href="#info"><%= t('student_info') %></a></li>
      <li><a class="tab-label" data-toggle="tab" href="#invoices"><%= t('receipts_info') %></a></li>
+     <li><a class="tab-label" data-toggle="tab" href="#quotation"><%= t('quotation_info') %></a></li>
   </ul>
   <div class="tab-content">
     <div id="info" class="tab-pane fade in active">
@@ -18,6 +19,9 @@
     </div>
     <div id="invoices" class="tab-pane fade">
       <%= render :partial => 'invoices' %>
+    </div>
+     <div id="quotation" class="tab-pane fade">
+      <%= render :partial => 'quotation' %>
     </div>
   </div>
 </div>

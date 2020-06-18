@@ -1,0 +1,30 @@
+<div class="content-student-parent">
+  <div class="row add-st-pr">
+    <table
+      id="student-invoice"
+      data-toggle="table"
+      data-url="/quotations"
+      data-query-params="invoiceQueryParams"
+      data-response-handle="invoiceResponseHandler"
+      data-pagination="true"
+      data-page-size="10"
+      data-smart-display="true"
+      data-side-pagination="client"
+      data-sort-name="created_at"
+      data-sort-order="desc"
+      data-locale="<%= I18n.locale %>">
+      <thead>
+        <tr>
+          <th data-field="id" class="text-center" data-formatter="quotation_id" data-sortable="true"><%= t('buy_slip') %></th>
+          <th data-field="grade_name" data-sortable="true"><%= t('level') %></th>
+          <th data-field="quotator_name" data-sortable="true"><%= t('receiver') %></th>
+          <th data-field="created_at" data-formatter="createdAtFormatter"><%= t('quotation_printed_at') %></th>
+          <th data-field="paid_at" class="text-center" data-formatter="paidAtFormatter" data-sortable="true"><%= t('payment_date') %></th>
+          <th data-field="total_amount" data-formatter="filterCurrency"><%= t('paid_amount') %></th>
+          <th data-field="outstanding_balance" data-formatter="filterCurrency"><%= t('quotation_outstanding_balance') %></th>
+          <th data-field="quotation_status" data-formatter="linkToInvoiceFormatter"><%= t('quotation_outstanding_balance') %></th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</div>
