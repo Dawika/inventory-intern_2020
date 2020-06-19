@@ -48,6 +48,7 @@ class GradesController < ApplicationController
         number_sorting = params[:params].count + 1
       end
     end
+    list_grade
   end
 
   def list_grade

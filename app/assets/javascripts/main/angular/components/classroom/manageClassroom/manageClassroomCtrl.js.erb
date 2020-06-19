@@ -7,7 +7,6 @@ angular.module('somsri.main.manage_classroom', [])
         ctrl.list = new Array
         ctrl.inputCreate = true
         ctrl.buttonCreate = false
-        ctrl.classInfoSorting = [];
         ctrl.oldList = []
 
         service.getGrades().then(function(resp) {
@@ -53,10 +52,15 @@ angular.module('somsri.main.manage_classroom', [])
 
         ctrl.sortableOptions = {
           stop: function() { 
+          ctrl.classInfoSorting = []
             for(var index = 0; index < ctrl.list.length; index++){
-              ctrl.classInfoSorting.push(ctrl.list[index])
+              ctrl.classInfoSorting.push({id: ctrl.list[index].id})
             }
-            service.sorting(ctrl.classInfoSorting)
+              ctrl.oldList = JSON.parse(JSON.stringify(ctrl.list))
+            service.sorting(ctrl.classInfoSorting).then(function(resp){
+              ctrl.list = resp.data
+              ctrl.oldList = JSON.parse(JSON.stringify(ctrl.list))
+            })
           }
         }
 
