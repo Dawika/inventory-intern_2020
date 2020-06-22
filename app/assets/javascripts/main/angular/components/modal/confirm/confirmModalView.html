@@ -13,7 +13,7 @@
         <button class="btn btn-custom btn-gray" ng-click="confirm.close()">{{ 'cancel' | translate }}</button>
       </div>
       <div class="col-md-3 pull-right">
-        <button class="btn btn-custom btn-green" ng-click="confirm.ok()">{{ 'ok' | translate }}</button>
+        <button ng-class="confirm.style_button" ng-click="confirm.ok()">{{ 'ok' | translate }}</button>
       </div>
     </div>
   </div>

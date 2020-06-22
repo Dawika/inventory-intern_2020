@@ -633,6 +633,7 @@ th:
   paid_by: "ชำระโดย"
   student_info: "ข้อมูลนักเรียน"
   receipts_info: "ข้อมูลใบเสร็จ"
+  quotation_info: "ข้อมูลใบวางบิล"
   print_list: "พิมพ์รายชื่อ"
   show_photo: "แสดงรูป"
   disable_photo: "ไม่แสดงรูป"
@@ -659,6 +660,9 @@ th:
   select_class: "โปรดเลือกห้อง"
   search_student: "ค้นหาชื่อนักเรียน"
   select_students: "เลือกนักเรียน..."
+  import: "Import"
+  download_table: "ท่านสามารถ download ตารางผู้ปกครองได้ ที่นี้"
+  import_table: "เพื่อนำไปแก้ไขและ import เข้าสู่ระบบต่อไป"
 
   #Alumni
   year_of_graduation: "จบปีการศึกษา"
@@ -802,6 +806,12 @@ th:
   password_not_match: รหัสผ่านใหม่ไม่ตรงกัน
 
   # Setting > Classroom
+  create_grade: "เพิ่มระดับชั้น"
+  grade_level: "ระดับชั้น"
+  confirm_delete_grade: "คุณต้องการลบชั้นเรียนใช่หรือไม่?"
+  confirm_update_grade: "คุณต้องการอัพเดทชื่อชั้นเรียนใช่หรือไม่"
+  update_data_success: "อัพเดทข้อมูลสำเร็จ"
+  class_manage: "จัดการระดับชั้น"
   create_classroom: สร้างห้องเรียน
   create_new_classroom: สร้างห้องเรียนใหม่
   edit_classroom: แก้ไขห้องเรียน
@@ -1155,7 +1165,8 @@ th:
       tax_id: "เลขประจำตัวผู้เสียภาษี"
       branch: "สาขาที่"
       select: "เลือก"
-      my: "MM/YY"
+      month: "MM"
+      year: "YYYY"
       bank_account: "ชื่อบัญชี "
       bank_account2: "เลขบัญชี"
       แบบรายเดือนเหมาะสำหรับโรงเรียนที่สามารถเข้าถึงอินเตอร์เน็ตได้ และไม่ต้องการดูแลอุปกรณ์: "แบบรายเดือนเหมาะสำหรับโรงเรียนที่สามารถเข้าถึงอินเตอร์เน็ตได้ และไม่ต้องการดูแลอุปกรณ์"
@@ -1215,9 +1226,9 @@ th:
       cvv: "CVV"
       Credit crad Info: "ข้อมูลบัตรเครดิต"
       Select: "เลือก"
-      exp_day: "วันหมดอายุ"
       company_id: "หมายเลขทะเบียนบริษัท"
-      my: "MM/YY"
+      month: "MM"
+      year: "YYYY"
       package: "ท่านต้องชำระเงินตามแพ็คเกจที่ท่านสนใจ ดังนี้ รายเดือน 990 บาท และ รายปี 10,000 บาท"
       banana: "บานาน่า โค้ดดิ้ง"
       bank_account: "ชื่อบัญชี "

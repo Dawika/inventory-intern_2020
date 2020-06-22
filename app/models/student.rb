@@ -588,6 +588,7 @@ class Student < ApplicationRecord
 
 
   def self.import(file_path, school_id)
+    not_save = []
     sheet = open_file(file_path).sheet('students')
     sheet.each_with_index( 
       name_prefix: 'name_prefix',
@@ -605,38 +606,11 @@ class Student < ApplicationRecord
       birthdate: 'birthdate',
       national_id: 'national_id',
       nationality: 'nationality',
-      blood_type: 'blood_type',
-      race: 'race',
-      religion: 'religion',
-      Number_of_Relatives: 'Number_of_Relatives',
-      Being_the_Number_of: 'Being_the_Number_of',
       student_number: 'student_number',
       classroom_number: 'classroom_number',
-      identificatio_no_parent: 'identificatio_no_parent',
-      illness: 'illness',
-      symptoms: 'symptoms',
-      medicine: 'medicine',
-      medicine_allergy: 'medicine_allergy',
-      food_allergy: 'food_allergy',
-      operation_history: 'operation_history',
-      contact_house_no: 'contact_house_no',
-      contact_house_title: 'contact_house_title',
-      contact_alley: 'contact_alley',
-      contact_road: 'contact_road',
-      contact_sub_district: 'contact_sub_district',
-      contact_district: 'contact_district',
-      contact_province: 'contact_province',
-      contact_postcode: 'contact_postcode',
-      registered_house_no: 'registered_house_no',
-      registered_house_title: 'registered_house_title',
-      registered_alley: 'registered_alley',
-      registered_road: 'registered_road',
-      registered_sub_district: 'registered_sub_district',
-      registered_district: 'registered_district',
-      registered_province: 'registered_province',
-      registered_postcode: 'registered_postcode'
+      identificatio_no_parent: 'identificatio_no_parent'
       ) do |row,index|
-      if index > 0
+      if index > 0 and ( row[:name] || row[:name_eng] )
         student = Student.find_or_create_by(national_id: row[:national_id])
 
         student.full_name = row[:middle_name]? "#{row[:name]} #{row[:middle_name]} #{row[:last_name]}" : "#{row[:name]} #{row[:last_name]}"
@@ -653,52 +627,9 @@ class Student < ApplicationRecord
         student.national_id = row[:national_id]
         student.nationality = row[:nationality]
         student.school_id = school_id
-        student.blood_type = row[:blood_type]
-        student.race = row[:race]
-        student.religion = row[:religion]
-        student.Number_of_Relatives = row[:Number_of_Relatives]
-        student.Being_the_Number_of = row[:Being_the_Number_of]
         classroom = Classroom.where(["name = ?", row[:classroom_name].to_s])
         student.classroom_id = (classroom != nil ? classroom.ids[0] : 0)
         student.save!
-
-        student_illness = StudentIllness.find_or_create_by(student_reference: row[:national_id])
-
-        student_illness.illness_type = row[:illness] 
-        student_illness.name = row[:illness] 
-        student_illness.symptoms = row[:symptoms]
-        student_illness.medicine = row[:medicine]
-        student_illness.medicine_allergy = row[:medicine_allergy]
-        student_illness.food_allergy = row[:food_allergy]
-        student_illness.operation_history = row[:operation_history]
-        student_illness.student_reference = row[:national_id]
-        student_illness.save!
-
-        contact_address = Address.where(reference_id: row[:national_id]).find_or_create_by(address_type: "Contact")
-
-        contact_address.address_type = "Contact"
-        contact_address.address_text = "#{row[:contact_house_title]} #{row[:contact_house_title]} #{row[:contact_alley]} #{row[:contact_road]}"
-        contact_address.sub_district = row[:contact_sub_district]
-        contact_address.district = row[:contact_district]
-        contact_address.province = row[:contact_province]
-        contact_address.postcode = row[:contact_postcode]
-        contact_address.country = row[:contact_country]
-        contact_address.reference = "student"
-        contact_address.reference_id = row[:national_id]
-        contact_address.save!
-        
-        registered_address = Address.where(reference_id: row[:national_id]).find_or_create_by(address_type: "Registered")
-
-        registered_address.address_type = "Registered"
-        registered_address.address_text = "#{row[:registered_house_title]} #{row[:registered_house_title]} #{row[:registered_alley]} #{row[:registered_road]}"
-        registered_address.sub_district = row[:registered_sub_district]
-        registered_address.district = row[:registered_district]
-        registered_address.province = row[:registered_province]
-        registered_address.postcode = row[:registered_postcode]
-        registered_address.country = row[:registered_country]
-        registered_address.reference = "student"
-        registered_address.reference_id = row[:national_id]
-        registered_address.save!
 
         parents = Parent.where(id_card_no: row[:identificatio_no_parent])
 
@@ -711,7 +642,11 @@ class Student < ApplicationRecord
             relationship_mapping.save!
           end
         end
+      else
+        not_save << index + 3 if index != 0 
       end
     end
+    return not_save
   end
+
 end

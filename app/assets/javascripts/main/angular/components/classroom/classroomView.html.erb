@@ -4,8 +4,9 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="pull-right">
-        <button class="btn btn-custom btn-blue mr-5" ng-click="classroom.createClassroom()">{{ 'create_classroom' | translate }}</button>
-        <button class="btn btn-custom btn-blue-sky" ng-click="classroom.studentPromote()">{{ 'up_grade_classroom' | translate }}</button>
+        <button class="btn btn-custom btn-blue mr-5" ng-click="classroom.createClassroom()"><i class="fas fa-plus"></i> {{ 'create_classroom' | translate }}</button>&nbsp; 
+        <button class="btn btn-custom btn-blue-sky" ng-click="classroom.studentPromote()"><i class="fas fa-level-up-alt"></i> {{ 'up_grade_classroom' | translate }}</button>  &nbsp;
+        <button class="btn btn btn-primary btn-lg active" ng-click="manageClassroom()"><i class="fas fa-tools"></i> {{ 'class_management' | translate }}</button>
       </div>
     </div>
   </div>

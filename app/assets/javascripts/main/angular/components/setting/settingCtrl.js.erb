@@ -18,7 +18,7 @@
 
         ctrl.submit = function(params) {
           service.saveSetting(params).then(function(resp) {
-            $rootScope.opensuccessModal('บันทึกข้อมูลสำเร็จ');
+            $rootScope.opensuccessModal('บันทึกข้อมูลสำเร็จ', false);
           });
         }
 
@@ -26,7 +26,7 @@
           ctrl.button_auto_subscribe = !value
           service.subscription(ctrl.button_auto_subscribe).then(function(resp) {
             ctrl.datas.school.auto_subscribe = resp.data
-            $rootScope.opensuccessModal('บันทึกข้อมูลสำเร็จ');
+            $rootScope.opensuccessModal('บันทึกข้อมูลสำเร็จ', false);
           })
 
         }

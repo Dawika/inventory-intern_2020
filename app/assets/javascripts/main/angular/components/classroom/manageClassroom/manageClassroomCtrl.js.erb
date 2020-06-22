@@ -1,0 +1,73 @@
+(function() {
+'use strict';
+angular.module('somsri.main.manage_classroom', [])
+    .controller('manageClassroomCtrl', ['$rootScope', '$scope', 'translateFilter', 'classroomService', function($rootScope, $scope, translateFilter, service) {
+        $rootScope.menu = I18n.t('setting')
+        var ctrl = this;
+        ctrl.list = new Array
+        ctrl.inputCreate = true
+        ctrl.buttonCreate = false
+        ctrl.oldList = []
+
+        service.getGrades().then(function(resp) {
+            for(var i=0 ; i < resp.data.length ; i++){
+                resp.data[i].id != -1 ? ctrl.list.push(resp.data[i]) : false
+            }
+             ctrl.oldList = JSON.parse(JSON.stringify(ctrl.list))
+        })
+
+        ctrl.show_create = function(show){
+          ctrl.inputCreate = show
+          ctrl.buttonCreate = !show
+          show == 'create' ? true : ctrl.grade_name = ""
+        }
+
+        ctrl.create = function(grade){
+          service.create_grade(grade).then(function(resp){
+            ctrl.list = resp.data
+            ctrl.oldList = JSON.parse(JSON.stringify(ctrl.list))
+            ctrl.openmodal(resp, I18n.t('save_success'))
+          })
+        }
+
+        ctrl.update = function(name, id){
+         $rootScope.openConfirmationModal(I18n.t('confirm_update_grade') , false, function(){
+            service.update_grade(name, id).then(function(resp){
+              ctrl.list = resp.data
+              ctrl.oldList = JSON.parse(JSON.stringify(ctrl.list))
+              ctrl.openmodal(resp, I18n.t('update_data_success'))
+            })
+          })
+        }
+
+        ctrl.delete = function(id){
+          $rootScope.openConfirmationModal(I18n.t('confirm_delete_grade'), true , function(){
+            service.delete_grade(id).then(function(resp){
+              ctrl.list = resp.data
+              ctrl.oldList = JSON.parse(JSON.stringify(ctrl.list))
+              ctrl.openmodal(resp, I18n.t('delete_success'))
+            })
+          })
+        }
+
+        ctrl.sortableOptions = {
+          stop: function() { 
+          ctrl.classInfoSorting = []
+            for(var index = 0; index < ctrl.list.length; index++){
+              ctrl.classInfoSorting.push({id: ctrl.list[index].id})
+            }
+              ctrl.oldList = JSON.parse(JSON.stringify(ctrl.list))
+            service.sorting(ctrl.classInfoSorting).then(function(resp){
+              ctrl.list = resp.data
+              ctrl.oldList = JSON.parse(JSON.stringify(ctrl.list))
+            })
+          }
+        }
+
+        ctrl.openmodal = function(resp, message){
+          !resp.data.error ? $rootScope.opensuccessModal(message, false) : $rootScope.opensuccessModal(I18n.t('vacation_save_error'), true);
+        }
+
+
+    }]);
+})();

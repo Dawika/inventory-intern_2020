@@ -26,14 +26,20 @@ class ParentsController < ApplicationController
   end
 
   def import
-    begin 
-      Parent.import(params[:file], current_user.school_id)
-      flash[:notice] = "Import parent success"
-      redirect_to parents_path
-    rescue
-      flash[:error] = "Import parent fail"
-      redirect_to parents_path
-    end
+      parent = Parent.import(params[:file], current_user.school_id)
+      if parent.present?
+        flash[:error] = {
+          type: "alert",
+          message: "Import parent fail line #{parent}"
+        }
+        redirect_to parents_path
+      else
+        flash[:notice] = {
+          type: "alert",
+          message: "Import parent success"
+        }
+        redirect_to parents_path
+      end
   end
 
   # GET /parents/new

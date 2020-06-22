@@ -8,11 +8,17 @@ class QuotationsController < ApplicationController
 
     methods = %i[student_name quotator_name grade_name total_amount paid_at
                  outstanding_balance]
-    render json: {
-      quotations: @quotations.as_json(methods: methods),
-      current_page: @quotations.current_page,
-      total_records: @quotations.total_entries
-    }
+
+    if params[:bootstrap_table].to_s == "1"
+      @quotations = @quotations.where(student_id: params[:student_id])
+      render json: @quotations.as_json(methods: methods)
+    else
+      render json: {
+        quotations: @quotations.as_json(methods: methods),
+        current_page: @quotations.current_page,
+        total_records: @quotations.total_entries
+      }
+    end
   end
 
   def show
@@ -40,7 +46,7 @@ class QuotationsController < ApplicationController
   def create_bill
     grade = Grade.find_by_name(params[:student][:grade]) if params[:student][:grade].present?
     grade = Student.where(full_name: params[:student][:full_name]).first.grade if params[:student][:grade].nil?
-    grade = Grade.where(name: params[:quotations][:grade_name][:value]).first if params[:quotations][:grade_name][:value].present?
+    grade = Grade.where(name: params[:quotations][:grade_name][:value]).first if params[:quotations][:grade_name].present?
     Quotation.transaction do
       parent = Parent.find_or_create_by(parent_params);
       student = nil

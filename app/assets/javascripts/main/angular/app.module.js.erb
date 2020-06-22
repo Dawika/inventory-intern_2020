@@ -10,7 +10,8 @@
     'ui.utils.masks',
     'angular-redactor',
     'somsri.translate',
-    'ngFileUpload'
+    'ngFileUpload',
+    'ui.sortable'
   ]);
 
   app.config(['stateHelperProvider', 'ASSETS', '$urlRouterProvider', '$httpProvider', function(stateHelperProvider, ASSETS, $urlRouterProvider, $httpProvider) {
@@ -30,6 +31,19 @@
         resources: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load([
             ASSETS.somsri.main.setting
+          ]);
+        }]
+      }
+    }).
+    state({
+      url: '/manage_classroom',
+      name: 'manage_classroom',
+      templateUrl: "<%= asset_path('main/angular/components/classroom/manageClassroom/manageClassroomView.html') %>",
+      controller: 'manageClassroomCtrl as manageClassroom',
+      resolve: {
+        resources: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load([
+            ASSETS.somsri.main.manage_classroom
           ]);
         }]
       }

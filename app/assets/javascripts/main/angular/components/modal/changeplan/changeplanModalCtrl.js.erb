@@ -13,7 +13,7 @@
       ctrl.submit = function(parm) {
         service.setting_change_plan(parm).then(function(resp) {
           $uibModalInstance.close();
-          $rootScope.opensuccessModal('บันทึกข้อมูลสำเร็จ');
+          $rootScope.opensuccessModal('บันทึกข้อมูลสำเร็จ', false);
         });
       }
 

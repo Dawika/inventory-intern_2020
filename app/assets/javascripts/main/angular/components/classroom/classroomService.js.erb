@@ -19,6 +19,22 @@
       }
     }
 
+    this.create_grade = function(grade_name){
+      return $http.post('/grades/', { grade: grade_name })
+    }
+
+    this.delete_grade = function(id){
+      return $http.delete('/grades/'+ id)
+    }
+
+    this.update_grade = function(data, id){
+      return $http.patch('/grades/'+ id +'/', {grade: data })
+    }
+
+    this.sorting = function(data){
+      return $http.post('/grades/grade_sorting', {params: data })
+    }
+
     this.removeClassroom = function(id) {
       return $http.delete('/classrooms/' + id)
     }
