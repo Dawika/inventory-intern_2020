@@ -23,12 +23,41 @@ class School < ApplicationRecord
 
   after_create :create_license
 
-  def create_grades(data)
-    data.each do |grades|
-      if grades.present?
-        self.grades.create(name: grades, school_id: self.id)
+  def create_grades(data) 
+    if data.present?
+      if data.dig(:pre_school).present?
+        self.grades.create(name: "Pre School", school_id: self.id)
+      end 
+      if data.dig(:kindergarten).present? 
+        (1..3).each do |i|
+          self.grades.create(name: "Kindergarten #{i}", school_id: self.id)
+        end
       end
-    end
+      if data.dig(:primary_school).present? 
+        (1..6).each do |i|
+          self.grades.create(name: "Primary School #{i}", school_id: self.id)
+        end
+      end  
+      if data.dig(:junior_high_school).present? 
+        (1..3).each do |i|
+          self.grades.create(name: "Junior High School #{i}", school_id: self.id)
+        end
+      end  
+      if data.dig(:senior_high_school).present? 
+        (1..3).each do |i|
+          self.grades.create(name: "Senior High School #{i}", school_id: self.id)
+        end
+      end 
+      if data.dig(:voc_cert).present? 
+        self.grades.create(name: "Vocational Certificate (Voc. Cert.)", school_id: self.id)
+      end 
+      if data.dig(:dip_high_voc_cert).present? 
+        self.grades.create(name: "High Vocational Certificate (High Voc. Cert.)", school_id: self.id)
+      end 
+      if data.dig(:other).present? 
+        self.grades.create(name: "Other", school_id: self.id)
+      end 
+    end 
   end
 
   def school_setting

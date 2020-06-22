@@ -61,6 +61,6 @@ class SchoolsController < ApplicationController
       [{ school_settings_attributes: [:id, :school_year, :semesters ] }],
       [{ users_attributes: [:id, :full_name, :email, :password ] }],
       [{ bil_info_attributes: [ :name, :address, :district, :province, :zip_code, :phone, :tax_id, :branch, :company_id ] }]
-      )
+    )
   end
 end
