@@ -9,6 +9,7 @@
       data-pagination="true"
       data-page-size="10"
       data-smart-display="true"
+      data-show-footer="true"
       data-side-pagination="client"
       data-sort-name="created_at"
       data-sort-order="desc"
@@ -20,8 +21,8 @@
           <th data-field="quotator_name" data-sortable="true"><%= t('receiver') %></th>
           <th data-field="created_at" data-formatter="createdAtFormatter"><%= t('quotation_printed_at') %></th>
           <th data-field="paid_at" class="text-center" data-formatter="paidAtFormatter" data-sortable="true"><%= t('payment_date') %></th>
-          <th data-field="total_amount" data-formatter="filterCurrency"><%= t('paid_amount') %></th>
-          <th data-field="outstanding_balance" data-formatter="filterCurrency"><%= t('quotation_outstanding_balance') %></th>
+          <th data-field="total_amount" data-footer-formatter="stringtotalFormatter"  data-formatter="filterCurrency"><%= t('paid_amount') %></th>
+          <th data-field="outstanding_balance" data-footer-formatter="totalFormatter" data-formatter="filterCurrency"><%= t('quotation_outstanding_balance') %></th>
           <th data-field="quotation_status" data-formatter="linkToInvoiceFormatter"><%= t('quotation_outstanding_balance') %></th>
         </tr>
       </thead>
