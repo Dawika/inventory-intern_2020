@@ -191,3 +191,27 @@ function linkToInvoiceFormatter(index, row, element) {
 
     return link;
 }
+
+function stringtotalFormatter() {
+    return '<b>รวมทั้งสิ้น</b>';
+}
+
+function totalFormatter(data) {
+    field = this.field;
+    var total = data.reduce(function(sum, row) {
+        return sum + (+row[field])
+    }, 0);
+    return '<b><u>' + total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '</u> บาท</b>'
+
+}
+
+function invoicetotalFormatter(data) {
+    field = this.field;
+    var total = data.reduce(function(sum, row) {
+        row[field] = parseFloat(row[field].replace(/,/g, ''))
+        return sum + row[field]
+    }, 0);
+
+    return '<b><u>' + total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + '</u> บาท</b>'
+
+}

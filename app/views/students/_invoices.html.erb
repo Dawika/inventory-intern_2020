@@ -9,6 +9,7 @@
       data-pagination="true"
       data-page-size="10"
       data-smart-display="true"
+      data-show-footer="true"
       data-side-pagination="client"
       data-sort-name="created_at"
       data-sort-order="desc"
@@ -18,8 +19,8 @@
           <th data-field="id" data-formatter="idFormatter" data-sortable="true"><%= t('invoice') %></th>
           <th data-field="school_year" data-sortable="true"><%= t('school_year') %></th>
           <th data-field="semester" data-sortable="true"><%= t('term') %></th>
-          <th data-field="grade_classroom" data-sortable="true"><%= t('level') %></th>
-          <th data-field="amount" ><%= t('amount') %></th>
+          <th data-field="grade_classroom" data-footer-formatter="stringtotalFormatter" data-sortable="true"><%= t('level') %></th>
+          <th data-field="amount" data-footer-formatter="invoicetotalFormatter"><%= t('amount') %></th>
           <th data-field="created_at" data-formatter="createdAtFormatter" data-sortable="true"><%= t('payment_date') %></th>
           <th data-field="payment_methods" ><%= t('paid_by') %></th>
         </tr>
