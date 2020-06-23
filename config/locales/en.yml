@@ -334,6 +334,10 @@ en:
   inventory: "Inventory"
   vacation: "Vacation"
   scout: "Scout"
+  school_bus: "School Bus"
+  #menu school bus
+  manage_school_bus: "Manage School Bus"
+  bus_lane: "Bus Lane"
 
   activerecord:
     attributes:
