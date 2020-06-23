@@ -495,7 +495,10 @@ th:
   inventory: "พัสดุ"
   vacation: "วันลา"
   scout: "แมวมอง"
-
+  school_bus: "รถโรงเรียน"
+  #menu school bus
+  manage_school_bus: จัดการรถรับ - ส่ง
+  bus_lane: "เส้นทางเดินรถ"
 
   activerecord:
     attributes:
