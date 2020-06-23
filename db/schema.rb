@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200609100019) do
+ActiveRecord::Schema.define(version: 20200622084025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,27 @@ ActiveRecord::Schema.define(version: 20200609100019) do
     t.integer "school_id"
     t.string  "company_id"
     t.index ["school_id"], name: "index_bil_infos_on_school_id", using: :btree
+  end
+
+  create_table "bus_lanes", force: :cascade do |t|
+    t.string  "name"
+    t.integer "school_id"
+    t.integer "bus_id"
+    t.index ["bus_id"], name: "index_bus_lanes_on_bus_id", using: :btree
+    t.index ["school_id"], name: "index_bus_lanes_on_school_id", using: :btree
+  end
+
+  create_table "buses", force: :cascade do |t|
+    t.string   "license_plate"
+    t.string   "province"
+    t.string   "car_brand"
+    t.string   "note"
+    t.integer  "employee_id"
+    t.integer  "school_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["employee_id"], name: "index_buses_on_employee_id", using: :btree
+    t.index ["school_id"], name: "index_buses_on_school_id", using: :btree
   end
 
   create_table "candidate_files", force: :cascade do |t|
@@ -376,6 +397,13 @@ ActiveRecord::Schema.define(version: 20200609100019) do
     t.index ["classroom_id"], name: "index_employees_on_classroom_id", using: :btree
     t.index ["deleted_at"], name: "index_employees_on_deleted_at", using: :btree
     t.index ["school_id"], name: "index_employees_on_school_id", using: :btree
+  end
+
+  create_table "employees_bus_lanes", force: :cascade do |t|
+    t.integer "employee_id"
+    t.integer "bus_lane_id"
+    t.index ["bus_lane_id"], name: "index_employees_bus_lanes_on_bus_lane_id", using: :btree
+    t.index ["employee_id"], name: "index_employees_bus_lanes_on_employee_id", using: :btree
   end
 
   create_table "employees_roles", id: false, force: :cascade do |t|
@@ -1007,6 +1035,13 @@ ActiveRecord::Schema.define(version: 20200609100019) do
     t.index ["school_id"], name: "index_students_on_school_id", using: :btree
   end
 
+  create_table "students_bus_lanes", force: :cascade do |t|
+    t.integer "student_id"
+    t.integer "bus_lane_id"
+    t.index ["bus_lane_id"], name: "index_students_bus_lanes_on_bus_lane_id", using: :btree
+    t.index ["student_id"], name: "index_students_bus_lanes_on_student_id", using: :btree
+  end
+
   create_table "students_parents", force: :cascade do |t|
     t.integer  "student_id",      null: false
     t.integer  "parent_id",       null: false
@@ -1171,6 +1206,8 @@ ActiveRecord::Schema.define(version: 20200609100019) do
 
   add_foreign_key "banks", "schools"
   add_foreign_key "bil_infos", "schools"
+  add_foreign_key "buses", "employees"
+  add_foreign_key "buses", "schools"
   add_foreign_key "candidate_files", "candidates"
   add_foreign_key "charge_infos", "licenses"
   add_foreign_key "class_permisions", "employees"
