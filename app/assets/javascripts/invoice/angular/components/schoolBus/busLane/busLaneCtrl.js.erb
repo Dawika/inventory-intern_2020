@@ -1,0 +1,35 @@
+(function() {
+  'use strict';
+  angular.module('somsri.invoice.buslane', [
+  ])
+  .controller('buslaneCtrl', ['$scope', '$rootScope',  function($scope, $rootScope) {
+    $rootScope.menu = I18n.t('bus_lane')
+
+    var buslaneTable = $('#buslane-table')
+    var buslaneTableOptions = {
+      sidePagination: "server",
+      pageSize: 10, 
+      pagination: true,
+      search: false,
+      toolbar: ".toolbar",
+      url: "/candidates",
+      columns: [{
+        field: 'link_full_name',
+        title: I18n.t("bus_lane_name")  
+      },{
+        field: 'nick_name',
+        title: I18n.t("license_plate")
+      },{
+        field: 'school_year',
+        title: I18n.t("employee_name"),
+      },{
+        field: 'current_ability',
+        title: I18n.t("total_student"),
+      }]
+    }
+    buslaneTable.bootstrapTable(buslaneTableOptions)
+
+
+
+  }]);
+})();
