@@ -48,37 +48,30 @@ class InvoicesController < ApplicationController
     last_invoice_id = Invoice.last ? Invoice.last.id : 0
 
     # get stduent info
-    students = Student.where(school_id: current_user.school.id).to_a
     student_info = []
     student_code = []
-    students.each do |student|
-
+    Student.includes(:parents, :grade, school: [:school_settings]).where(school_id: current_user.school_id).map do |student|
       student_number_display = student.invoice_screen_student_number_display
-
       full_name_display = student.invoice_screen_full_name_display
-
-      grade = Grade.find_by(id: student.grade_id)
-
       student_info << {
         id: student.id,
-        parent_id: student.parents[0] ? student.parents[0].id : '',
+        parent_id: student.students_parents.first&.parent_id,
         full_name: student.full_name_with_title,
         nickname: student.nickname,
         student_number: student.student_number,
         student_number_display: student_number_display,
         full_name_display: full_name_display,
-        grade: grade&.name
+        grade: student.grade&.name
       }
     end
 
     # get parent info
-    parents = Parent.where(school_id: current_user.school.id).to_a
     parent_info = []
-    parents.each do |parent|
+    Parent.includes(:students).map do |parent|
       fullname_display = parent.invoice_screen_full_name_display
       parent_info << {
         id: parent.id,
-        student_id: parent.students[0] ? parent.students[0].id : '',
+        student_id: parent.students.first&.id,
         full_name: parent.full_name,
         mobile: parent.mobile,
         full_name_display: fullname_display

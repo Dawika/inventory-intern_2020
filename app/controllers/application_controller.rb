@@ -8,14 +8,14 @@ class ApplicationController < ActionController::Base
   after_action :set_csrf_cookie_for_ng
 
   def prepare_school_config
-    if !subdomain_blank?
+    if !subdomain_blank? || current_user&.school&.subdomain_name.present?
       @school_config = SchoolSetting.get_cache(subdomain)
     end
     @school_config ||= SiteConfig.get_cache
   end
 
   def check_path
-    # use current user with model
+    # use current.school id user with model
     if user_signed_in?
       if CurrentUser.all.empty?
         CurrentUser.create(current_user: current_user)
