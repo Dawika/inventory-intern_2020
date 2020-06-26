@@ -152,7 +152,7 @@
       <%= content_tag(:p, t('.scout', :default => t("scout")) ) %>
     </div>
     <% end %>
-    <% if true%>
+    <% if @school_config.enable_schoolbus%>
     <div class="col-xs-4 col-centered menu-icon">
       <div class="<%= is_topbar ? 'dropdown-menu-btn' : 'menu-btn' %>">
         <a href="/somsri_invoice#/menu">
