@@ -61,8 +61,8 @@ class QuotationsController < ApplicationController
           end
     
           quotation_new = Quotation.new(quotation_hash)
-          quotation_new.parent_id = parent.id
-          quotation_new.parent_name = parent.full_name
+          quotation_new.parent_id = parent.present? ? parent.id : nil
+          quotation_new.parent_name = parent.present? ? parent.full_name : ''
           quotation_new.student_id = student.id
           quotation_new.student_name = student.invoice_screen_full_name_display
           quotation_new.user_id = current_user.id
