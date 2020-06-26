@@ -465,6 +465,8 @@ th:
   add_quotation: "เพิ่มใบวางบิล"
   choose_level: "ระบุชั้นเรียน"
   quotation_print: "พิมพ์ใบวางบิล"
+  grade_quotation_success: "บึกทึกข้อมูลใบวางบิลชั้นเรียนสำเร็จ"
+  quotation_success: "บึกทึกข้อมูลใบวางบิลนักเรียนสำเร็จ"
 
   # Quotation bill
   quotation_receipt: "ใบแจ้งการชำระเงิน"

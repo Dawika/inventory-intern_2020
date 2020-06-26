@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200622084025) do
+ActiveRecord::Schema.define(version: 20200626092010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -901,6 +901,7 @@ ActiveRecord::Schema.define(version: 20200622084025) do
     t.boolean "enable_vacation",                      default: false
     t.boolean "enable_inventory",                     default: false
     t.float   "social_insurance_rate",                default: 0.05
+    t.boolean "enable_schoolbus",                     default: false
     t.index ["school_id"], name: "index_school_settings_on_school_id", using: :btree
   end
 
@@ -960,6 +961,7 @@ ActiveRecord::Schema.define(version: 20200622084025) do
     t.boolean "enable_vacation",                      default: false
     t.boolean "enable_inventory",                     default: false
     t.float   "social_insurance_rate",                default: 0.05
+    t.boolean "enable_schoolbus",                     default: false
   end
 
   create_table "skills", force: :cascade do |t|

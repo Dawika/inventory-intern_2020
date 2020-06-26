@@ -44,9 +44,42 @@ class QuotationsController < ApplicationController
   end
 
   def create_bill
-    grade = Grade.find_by_name(params[:student][:grade]) if params[:student][:grade].present?
-    grade = Student.where(full_name: params[:student][:full_name]).first.grade if params[:student][:grade].nil?
-    grade = Grade.where(name: params[:quotations][:grade_name][:value]).first if params[:quotations][:grade_name].present?
+    grade = Grade.where(name: params[:quotation][:grade_name][:value]).first if params[:quotation][:grade_name].present?  
+    if params[:quotation][:grade_name].present? && !params[:student].present?
+      Quotation.transaction do
+        Student.where(grade_id: grade.id).each do |student|
+          next if student.parents.nil?
+          parent = student.parents.first
+
+          quotation_hash = quotation_params
+          quotation_hash.delete(:items)
+          quotation_hash.delete(:grade)
+          quotation_hash.delete(:grade_name)
+    
+          if quotation_hash[:school_year].blank?
+            quotation_hash[:school_year] = SchoolSetting.school_year
+          end
+    
+          quotation_new = Quotation.new(quotation_hash)
+          quotation_new.parent_id = parent.id
+          quotation_new.parent_name = parent.full_name
+          quotation_new.student_id = student.id
+          quotation_new.student_name = student.invoice_screen_full_name_display
+          quotation_new.user_id = current_user.id
+          quotation_new.user_name = current_user.name
+          quotation_new.grade_name = grade.name
+          quotation_new.quotation_status = 0
+    
+          line_item_params.to_h[:items].each do |item|
+            quotation_new.line_item_quotations << LineItemQuotation.new(item)
+          end
+          quotation_new.save
+        end
+      end
+      render json: { success: true}, status: :ok
+    else
+      grade = Student.where(full_name: params[:student][:full_name]).first.grade if params[:student][:grade].nil?
+      grade = Grade.where(name: params[:quotation][:grade_name][:value]).first if params[:quotation][:grade_name].present?  
     Quotation.transaction do
       parent = Parent.find_or_create_by(parent_params);
       student = nil
@@ -124,6 +157,7 @@ class QuotationsController < ApplicationController
 
       quotation_new.save
       render json: { id: quotation_new.id }, status: :ok
+    end
     end
   end
 
