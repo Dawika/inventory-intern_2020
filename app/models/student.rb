@@ -627,7 +627,7 @@ class Student < ApplicationRecord
         student.nationality = row[:nationality]
         student.school_id = school_id
         grade = Grade.where(name: row[:grade].to_s)
-        classroom = Classroom.where(name: row[:classroom_name].to_s, grade_id: grade != nil ? grade.ids[0] : 0)
+        classroom = Classroom.where(name: row[:classroom_name].to_s, grade_id: grade != nil ? grade.ids[0] : 0, school_id: school_id)
         student.grade_id = (grade != nil ? grade.ids[0] : 0)
         student.classroom_id = (classroom != nil ? classroom.ids[0] : 0)
         student.save!
