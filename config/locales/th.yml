@@ -446,6 +446,12 @@ th:
   select_all: เลือกทั้งหมด
   save_data: "คุณต้องการบันทึกการเปลี่ยนแปลงนี้หรือไม่?"
 
+  #bus lane
+  bus_lane_name: "ชื่อเส้นทาง"
+  license_plate: "รถรับ - ส่ง"
+  bus_employee: "พนักงานขับรถ"
+  total_student: "จำนวนนักเรียน"
+
   # Quotation
   quotation_link_nav: "ใบแจ้งการชำระเงินค่าเทอม"
   quotation_new: "ออกใบวางบิล"
