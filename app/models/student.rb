@@ -621,14 +621,14 @@ class Student < ApplicationRecord
         gender = Gender.where(["name = ? or name_th = ?",row[:gender],row[:gender]])
         student.gender_id = (gender != nil ? gender.ids[0] : 0)
         student.birthdate = row[:birthdate]
-        grade = Grade.where(["name = ?", row[:grade].to_s])
-        student.grade_id = (grade != nil ? grade.ids[0] : 0)
         student.classroom_number = row[:classroom_number]
         student.student_number = row[:student_number]
         student.national_id = row[:national_id]
         student.nationality = row[:nationality]
         student.school_id = school_id
-        classroom = Classroom.where(["name = ?", row[:classroom_name].to_s])
+        grade = Grade.where(name: row[:grade].to_s)
+        classroom = Classroom.where(name: row[:classroom_name].to_s, grade_id: grade != nil ? grade.ids[0] : 0)
+        student.grade_id = (grade != nil ? grade.ids[0] : 0)
         student.classroom_id = (classroom != nil ? classroom.ids[0] : 0)
         student.save!
 

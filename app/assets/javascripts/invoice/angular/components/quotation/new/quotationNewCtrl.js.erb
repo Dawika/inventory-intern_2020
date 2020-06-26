@@ -3,9 +3,9 @@
   angular.module('somsri.invoice.quotation_new', [])
     .controller('quotationNewCtrl', quotationNewCtrl);
 
-  quotationNewCtrl.$inject = ['$rootScope', 'translateFilter', 'quotationNewService', 'Currency'];
+  quotationNewCtrl.$inject = ['$rootScope', 'translateFilter', 'quotationNewService', 'Currency', '$timeout'];
 
-  function quotationNewCtrl($rootScope, translateFilter, quotationNewService, Currency) {
+  function quotationNewCtrl($rootScope, translateFilter, quotationNewService, Currency, $timeout) {
     $rootScope.menu = I18n.t('quotation_link_nav')
     var quotationNew = this;
     var defaultDatas = {
@@ -75,10 +75,24 @@
 
     quotationNew.save = function() {
       quotationNewService.create(quotationNew.datas).then(function(resp) {
-        if($rootScope.openQuotationSlip(resp.data.id)) {
+        if(resp.data.success){
+          $rootScope.openQuotation();
+          displayFlashMessage(I18n.t('grade_quotation_success'), false)
+        }else{
+          if($rootScope.openQuotationSlip(resp.data.id)) {
              $rootScope.openQuotation();
+             displayFlashMessage(I18n.t('quotation_success'), false)
           }
+        }
       })
+    }
+
+    function displayFlashMessage(message, fail) {
+        $rootScope.timeout = true
+        $rootScope.message = message;
+        $timeout(function() {
+            $rootScope.timeout = false
+        }, 5000);
     }
 
     quotationNew.selectDate = function(selected_date){

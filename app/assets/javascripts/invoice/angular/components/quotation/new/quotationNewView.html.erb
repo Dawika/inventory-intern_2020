@@ -15,17 +15,17 @@
       <div class="row">
         <div class="col-md-2">
           <div class="form-group">
-            <input type="text" class="form-control" id="student_code" placeholder="{{ 'student_id1' | translate }}" ng-model="quotationNew.datas.student.student_number"  typeahead-on-select="quotationNew.onSelectStudentNumber($item)" uib-typeahead="student.student_number as student.student_number_display for student in quotationNew.student_info | filter:{student_number:$viewValue} | limitTo:8"  autocomplete="off">
+            <input type="text" class="form-control" ng-required = "quotationNew.datas.student != null ? true : false" id="student_code" placeholder="{{ 'student_id1' | translate }}" ng-model="quotationNew.datas.student.student_number"  typeahead-on-select="quotationNew.onSelectStudentNumber($item)" uib-typeahead="student.student_number as student.student_number_display for student in quotationNew.student_info | filter:{student_number:$viewValue} | limitTo:8",   autocomplete="off">
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <input type="text" class="form-control" id="student_name" placeholder="{{ 'student_name' | translate }}" ng-model="quotationNew.datas.student.full_name"  typeahead-on-select="quotationNew.onSelectStudentFullName($item)" uib-typeahead="student.full_name as student.full_name_display for student in quotationNew.student_info | filter:{full_name_display:$viewValue} | limitTo:8" required , autocomplete="off">
+            <input type="text" class="form-control" ng-required = "quotationNew.datas.student != null ? true : false" id="student_name" placeholder="{{ 'student_name' | translate }}" ng-model="quotationNew.datas.student.full_name"  typeahead-on-select="quotationNew.onSelectStudentFullName($item)" uib-typeahead="student.full_name as student.full_name_display for student in quotationNew.student_info | filter:{full_name_display:$viewValue} | limitTo:8" , autocomplete="off">
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <input type="text" class="form-control" id="parent_name" placeholder="{{ 'parent_name' | translate }}" ng-model="quotationNew.datas.parent.full_name"  typeahead-on-select="quotationNew.onSelectParent($item)" uib-typeahead="parent.full_name as parent.full_name_display for parent in quotationNew.parent_info | filter:{full_name_display:$viewValue} | limitTo:8" required , autocomplete="off">
+            <input type="text" class="form-control" ng-required = "quotationNew.datas.parent != null ? true : false" id="parent_name" placeholder="{{ 'parent_name' | translate }}" ng-model="quotationNew.datas.parent.full_name"  typeahead-on-select="quotationNew.onSelectParent($item)" uib-typeahead="parent.full_name as parent.full_name_display for parent in quotationNew.parent_info | filter:{full_name_display:$viewValue} | limitTo:8" , autocomplete="off">
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@
       <div class="row form-1_2">
         <div class="col-md-3">
           <div class="form-group">
-            <select id="grade" class="btn btn-grades" ng-model="quotationNew.datas.quotations.grade_name" ng-options=" obj.value for obj in quotationNew.grades"  required="required">
+            <select id="grade" class="btn btn-grades" ng-model="quotationNew.datas.grade_name" ng-options=" obj.value for obj in quotationNew.grades"  required="required">
               <option value>{{ 'choose_level' | translate }}</option>
             </select>
           </div>

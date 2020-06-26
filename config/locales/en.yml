@@ -302,6 +302,8 @@ en:
   add_quotation: "Add Quatation"
   choose_level: "Choose Level"
   quotation_print: "Print Quotation"
+  quotation_success: "Success"
+  grade_quotation_success: "Success"
 
   # Quotation bill
   quotation_receipt: "Payment receipt"
