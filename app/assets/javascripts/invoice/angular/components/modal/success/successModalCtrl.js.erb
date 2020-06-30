@@ -1,0 +1,21 @@
+(function() {
+  'use strict';
+  angular.module('somsri.somsri.success_modal', [
+  ])
+  .controller('successModalCtrl', ['$scope', '$uibModalInstance', function($scope, $uibModalInstance) {
+    this.message = $scope.message;
+    if ($scope.error){
+      this.icon = "far fa-times-circle fa-8x color-orange"
+      this.button = "btn btn-custom lg btn-orange"
+    } 
+    else{
+      this.icon = "fa fa-check-circle fa-8x color-light-green"
+      this.button = "btn btn-custom lg btn-light-green"
+    }
+
+    this.close = function () {
+      $uibModalInstance.close();
+    };
+
+  }]);
+})();

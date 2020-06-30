@@ -1,6 +1,14 @@
 <div class="space20"></div>
 <div class="space20"></div>
-<div class="container-fluid padding30">
+<div class="row">
+  <div class="col-xs-2">
+    <h3>{{'bus_lane' | translate}}</h3>
+  </div>
+  <div class="col-xs-10" style="text-align: right;">
+      <a class="btn btn-custom btn-blue" href="/somsri_invoice#/createbuslane"><i class="fas fa-folder-plus"></i>  {{ 'new_create' | translate }}</a>
+  </div>
+</div> <br>
+<div class="container-fluid">
   <div class="row paper-white container-fluid">
     <table id="buslane-table" data-locale="{{ 'locale' | translate }} "></table><br>
   </div>

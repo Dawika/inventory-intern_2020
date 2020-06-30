@@ -1,0 +1,66 @@
+(function() {
+  'use strict';
+  angular.module('somsri.invoice.createbuslane', [
+  ])
+  .controller('createbuslaneCtrl', ['$scope', '$rootScope', 'buslaneService', function($scope, $rootScope, service) {
+    $rootScope.menu = I18n.t('bus_lane')
+    var ctrl = this
+    ctrl.studentInfo = []
+    ctrl.employeeInfo = []
+    ctrl.busInfo = []
+    ctrl.haveStudent = false
+    ctrl.studentSelect = []
+    ctrl.datas = {
+      name: '',
+      note: '',
+      bus: '',
+      employee: '',
+      students: ''
+    }
+
+    service.getInfo().then(function(resp){
+      ctrl.studentInfo = resp.data.students
+      ctrl.employeeInfo = resp.data.employees
+      ctrl.busInfo = resp.data.bus
+    })
+
+    // add student
+    ctrl.addStudent = function(students){
+      for(var i = 0; i < ctrl.studentInfo.length ; i++){
+        if(students != null){
+          if(students.full_name == ctrl.studentInfo[i].full_name){
+              ctrl.haveStudent = true
+              ctrl.studentSelect.push({
+              id: students.id,
+              full_name: students.full_name,
+              classroom: students.classroom
+              })    
+              ctrl.studentInfo.splice(i,1)
+              ctrl.datas.students = ''
+          }
+        }
+      } 
+      ctrl.haveStudent ? true : $rootScope.opensuccessModal('ไม่มีนักเรียนในระบบ', true), ctrl.haveStudent = false
+    }
+    
+    // remove student
+    ctrl.cancelStudent = function(student){
+      for(var index = 0 ; index < ctrl.studentSelect.length ; index++){
+         student.id == ctrl.studentSelect[index].id ? ( ctrl.haveStudent = false, ctrl.studentSelect.splice(index, 1), ctrl.studentInfo.push(student) ): false
+      }
+    }
+
+   // create
+    ctrl.submit = function(data){
+      if (ctrl.studentSelect == ''){
+        $rootScope.opensuccessModal('กรุณาเพิ่มนักเรียน', true)
+        ctrl.haveStudent = false
+        ctrl.datas.students = ''
+      }else{
+        service.create(data, ctrl.studentSelect).then(function(resp){
+          resp.data.success ? ( $rootScope.openBusLane(), $rootScope.opensuccessModal('บันทึกข้อมูลสำเร็จ', false) ) : false
+        })
+      }
+    }
+  }]);
+})();

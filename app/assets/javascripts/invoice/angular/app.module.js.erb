@@ -172,6 +172,19 @@
           }]
         }
       }).
+       state({
+        url: '/createbuslane',
+        name: 'createbuslane',
+        templateUrl: "<%= asset_path('invoice/angular/components/schoolBus/busLane/create/createView.html') %>",
+        controller: 'createbuslaneCtrl as createbuslane',
+        resolve: {
+          resources: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              ASSETS.somsri.invoice.createbuslane
+            ]);
+          }]
+        }
+      }).
       state({
         url: '/daily_report',
         name: 'daily_report',

@@ -2,7 +2,7 @@
   'use strict';
   angular.module('somsri.invoice.main', [
   ])
-  .controller('mainCtrl', ['$rootScope','$state', '$http', function($rootScope, $state, $http) {
+  .controller('mainCtrl', ['$rootScope','$state', '$http', '$scope', '$uibModal', function($rootScope, $state, $http, $scope, $uibModal) {
 
     function checkAbility(model, callback){
       if($rootScope.abilities.manage && $rootScope.abilities.manage.all){
@@ -42,6 +42,33 @@
         });
       }
     };
+
+    $rootScope.opensuccessModal = function(message, error, success, dismiss) {
+      $scope.message = message;
+      $scope.error = error;
+      $uibModal.open({
+        animation: true,
+        backdrop: 'static',
+        keyboard: false,
+        scope: $scope,
+        templateUrl: "<%= asset_path('invoice/angular/components/modal/success/successModalView.html') %>",
+        controller: 'successModalCtrl as success',
+        size: 'md',
+        resolve: {
+          resources: ['$ocLazyLoad', 'ASSETS', function($ocLazyLoad, ASSETS) {
+            return $ocLazyLoad.load([
+              ASSETS.somsri.invoice.success_modal
+            ]);
+          }]
+        }
+      }).result.then(function(isConfirm) {
+        if (isConfirm) {
+          if (success) { success() }
+        } else {
+          if (dismiss) { dismiss() }
+        }
+      });
+    }
 
     $rootScope.openPayment = function () {
       $state.go('invoice')

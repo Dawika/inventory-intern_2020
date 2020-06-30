@@ -31,16 +31,30 @@
             "<%= asset_path('invoice/angular/components/report/studentReportService.js') %>"
           ]
         },
+        'success_modal': {
+          name: 'somsri.invoice.success_modal',
+          files: [
+            "<%= asset_path('invoice/angular/components/modal/success/successModalCtrl.js') %>"          
+          ]
+        },
         'school_bus': {
           name: 'somsri.invoice.school_bus',
           files: [
             "<%= asset_path('invoice/angular/components/schoolBus/menu/menuCtrl.js') %>"
           ]
         },
-         'buslane': {
+        'buslane': {
           name: 'somsri.invoice.buslane',
           files: [
-            "<%= asset_path('invoice/angular/components/schoolBus/busLane/busLaneCtrl.js') %>"
+            "<%= asset_path('invoice/angular/components/schoolBus/busLane/busLaneCtrl.js') %>",
+            "<%= asset_path('invoice/angular/components/schoolBus/busLane/busLaneService.js') %>"
+          ]
+        },
+        'createbuslane': {
+          name: 'somsri.invoice.createbuslane',
+          files: [
+            "<%= asset_path('invoice/angular/components/schoolBus/busLane/create/createCtrl.js') %>",
+            "<%= asset_path('invoice/angular/components/schoolBus/busLane/busLaneService.js') %>"
           ]
         },
         'groupingReport': {

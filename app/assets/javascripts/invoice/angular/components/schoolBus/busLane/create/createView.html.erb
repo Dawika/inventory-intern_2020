@@ -1,0 +1,84 @@
+<div class="space20"></div>
+<div class="space20"></div>
+<form ng-submit="createbuslane.submit(createbuslane.datas)">
+<div class="row">
+  <div class="col-xs-12">
+    <h3><a href="/somsri_invoice#/buslane"><i class="fas fa-arrow-left color-orange"></i> {{'bus_lane' | translate}}</a></h3>
+  </div>
+</div> <br>
+ <!-- bus lane -->
+<div class="container-fluid" id="buslane">
+  <div class="row paper-white padding30 container-fluid">
+    <div class="row">
+      <div class="col-xs-6" style="border-right: 2px solid #b8b1a7;">
+        <div class="row">
+          <div class="col-xs-11">
+            <div class="form-group">
+              <label for="name">{{ 'bus_lane_name' | translate }}</label>
+              <input type="text" class="form-control white-bg" ng-model="createbuslane.datas.name" required>
+            </div>
+          </div>
+        </div>
+         <!-- bus -->
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <label for="name">{{ 'license_plate' | translate }}</label>
+              <select class="form-control" ng-model="createbuslane.datas.bus" ng-options="bus.license_plate for bus in createbuslane.busInfo" required>
+                <option value="">เลือกรถรับ - ส่ง</option>
+              </select>   
+            </div>
+          </div>
+        </div>
+        <!-- employee -->
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <label for="name">{{ 'bus_employee' | translate }}</label>
+              <select class="form-control" ng-model="createbuslane.datas.employee" ng-options="employee.full_name for employee in createbuslane.employeeInfo" required>
+                <option value="">เลือกครูประจำรถ</option>
+              </select>   
+            </div>
+          </div>
+        </div>
+        <!--note-->
+        <div class="row">
+          <div class="col-xs-11">
+            <label for="name">{{ 'note' | translate }}</label>
+            <textarea class="form-control border-textarea" rows="9" id="note" ng-model="createbuslane.datas.note"></textarea>
+          </div>
+        </div>
+      </div>
+      <!-- between -->
+      <div class="col-xs-6">
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <label for="name">{{ 'student' | translate }}</label>
+              <input type="text" ng-required="createbuslane.studentSelect == ''" placeholder= "เลือกนักเรียน" class="form-control white-bg" ng-model= "createbuslane.datas.students" uib-typeahead="student as student.full_name for student in createbuslane.studentInfo | filter:{full_name:$viewValue} | limitTo:8"  autocomplete="off">
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <button type="button" ng-click="createbuslane.addStudent(createbuslane.datas.students)" class="btn btn-custom btn-green button-add"><i class="fas fa-plus"></i> {{'add' | translate}}</button>
+          </div>
+        </div><br>
+        <!--list students-->
+        <div class="row panel-body">
+          <div class="row" ng-repeat="student in createbuslane.studentSelect">
+            <div class="col-xs-10">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item line">{{student.full_name}}  <p style="float: right;" >{{student.classroom}} &nbsp;&nbsp;<a ng-click="createbuslane.cancelStudent(student)" href="javascription:voic(0)"><i class="fas fa-times color-red"></i></a></p></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><br>
+<div class="row">
+  <div class="col-xs-4">
+    <button type= "submit" class="btn btn-custom btn-blue"> {{ 'save' | translate }}</button>
+    <a href="/somsri_invoice#/buslane" class="btn btn-custom btn-gray"> {{ 'Canceled' | translate }}</a>
+  </div>
+</div>
