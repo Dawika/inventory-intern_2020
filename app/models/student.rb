@@ -66,8 +66,6 @@ class Student < ApplicationRecord
     if full_name
       full_name = full_name.gsub('ด.ช.', '')
       .gsub('ด.ญ.', '')
-      .gsub("ดช" , '')
-      .gsub('ดญ' , '')
       .gsub('เด็กหญิง', '')
       .gsub('เด็กชาย', '')
       .gsub('Master', '')
