@@ -283,6 +283,17 @@ en:
   select_all: Select All
   save_data: "Do you want to save this change?"
 
+  #bus lane
+  bus_lane_name: "Bus lane name"
+  license_plate: "Bus"
+  bus_employee: "Employee"
+  total_student: "The number of student"
+  not_student: "Student not found!"
+  please_add_student: "Please add student"
+  choose_bus: "Choose bus"
+  choose_employee: "Choose employee"
+
+
   # Quotation
   quotation_link_nav: "Quotation"
   quotation_new: "New Quotation"

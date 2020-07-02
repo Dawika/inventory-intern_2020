@@ -25,7 +25,7 @@
             <div class="form-group">
               <label for="name">{{ 'license_plate' | translate }}</label>
               <select class="form-control" ng-model="createbuslane.datas.bus" ng-options="bus.license_plate for bus in createbuslane.busInfo" required>
-                <option value="">เลือกรถรับ - ส่ง</option>
+                <option value="">{{'choose_bus' | translate}}</option>
               </select>   
             </div>
           </div>
@@ -36,7 +36,7 @@
             <div class="form-group">
               <label for="name">{{ 'bus_employee' | translate }}</label>
               <select class="form-control" ng-model="createbuslane.datas.employee" ng-options="employee.full_name for employee in createbuslane.employeeInfo" required>
-                <option value="">เลือกครูประจำรถ</option>
+                <option value="">{{'choose_employee' | translate}}</option>
               </select>   
             </div>
           </div>
@@ -77,8 +77,10 @@
   </div>
 </div><br>
 <div class="row">
-  <div class="col-xs-4">
-    <button type= "submit" class="btn btn-custom btn-blue"> {{ 'save' | translate }}</button>
-    <a href="/somsri_invoice#/buslane" class="btn btn-custom btn-gray"> {{ 'Canceled' | translate }}</a>
+  <div class="col-xs-2">
+    <button type= "submit" class="btn btn-custom btn-blue btn-block"> {{ 'save' | translate }}</button>
+  </div>
+  <div class="col-xs-2">
+    <a href="/somsri_invoice#/buslane" class="btn btn-custom btn-gray btn-block"> {{ 'Canceled' | translate }}</a>
   </div>
 </div>

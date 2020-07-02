@@ -40,7 +40,7 @@
           }
         }
       } 
-      ctrl.haveStudent ? true : $rootScope.opensuccessModal('ไม่มีนักเรียนในระบบ', true), ctrl.haveStudent = false
+      ctrl.haveStudent ? true : $rootScope.opensuccessModal(I18n.t('not_student'), true), ctrl.haveStudent = false
     }
     
     // remove student
@@ -53,12 +53,12 @@
    // create
     ctrl.submit = function(data){
       if (ctrl.studentSelect == ''){
-        $rootScope.opensuccessModal('กรุณาเพิ่มนักเรียน', true)
+        $rootScope.opensuccessModal(I18n.t('please_add_student'), true)
         ctrl.haveStudent = false
         ctrl.datas.students = ''
       }else{
         service.create(data, ctrl.studentSelect).then(function(resp){
-          resp.data.success ? ( $rootScope.openBusLane(), $rootScope.opensuccessModal('บันทึกข้อมูลสำเร็จ', false) ) : false
+          resp.data.success ? ( $rootScope.openBusLane(), $rootScope.opensuccessModal(I18n.t('save_success'), false) ) : false
         })
       }
     }

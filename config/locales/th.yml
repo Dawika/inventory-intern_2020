@@ -451,6 +451,10 @@ th:
   license_plate: "รถรับ - ส่ง"
   bus_employee: "พนักงานขับรถ"
   total_student: "จำนวนนักเรียน"
+  not_student: "ไม่มีนักเรียนในระบบ"
+  please_add_student: "กรุณาเพิ่มนักเรียน"
+  choose_bus: "เลือกรถรับ - ส่ง"
+  choose_employee: "เลือกครูประจำรถ"
 
   # Quotation
   quotation_link_nav: "ใบแจ้งการชำระเงินค่าเทอม"
