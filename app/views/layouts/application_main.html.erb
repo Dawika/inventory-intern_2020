@@ -3,7 +3,8 @@
     <head>
         <title><%= t('title') %></title>
         <%= csrf_meta_tags %>
-
+        <%# purechat %>
+        <script type='text/javascript' data-cfasync='false'>window.purechatApi = { l: [], t: [], on: function () { this.l.push(arguments); } }; (function () { var done = false; var script = document.createElement('script'); script.async = true; script.type = 'text/javascript'; script.src = 'https://app.purechat.com/VisitorWidget/WidgetScript'; document.getElementsByTagName('HEAD').item(0).appendChild(script); script.onreadystatechange = script.onload = function (e) { if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) { var w = new PCWidget({c: '5b8aadbe-ba44-42c5-9934-b676d1a46c0f', f: true }); done = true; } }; })();</script>
         <%= favicon_link_tag 'apple-touch-icon-57x57.png', rel: 'apple-touch-icon-precomposed', type: 'image/png', size: '57x57' %>
         <%= favicon_link_tag 'apple-touch-icon-114x114.png', rel: 'apple-touch-icon-precomposed', type: 'image/png', size: '114x114' %>
         <%= favicon_link_tag 'apple-touch-icon-72x72.png', rel: 'apple-touch-icon-precomposed', type: 'image/png', size: '72x72' %>
