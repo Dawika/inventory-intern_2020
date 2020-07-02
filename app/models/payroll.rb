@@ -166,9 +166,9 @@ class Payroll < ApplicationRecord
     def set_default_val
       if defined?(self.closed) && !self.closed
         e = Employee.with_deleted.find(self.employee_id)
-        # self.tax = Payroll.generate_tax(self, e)
-        # self.social_insurance = Payroll.generate_social_insurance(self, e)
-        # self.pvf = Payroll.generate_pvf(self, e)
+        self.tax = Payroll.generate_tax(self, e)
+        self.social_insurance = Payroll.generate_social_insurance(self, e)
+        self.pvf = Payroll.generate_pvf(self, e)
       end
     end
 
