@@ -1,0 +1,49 @@
+(function() {
+  'use strict';
+  angular.module('somsri.invoice.buslane', [
+  ])
+  .controller('buslaneCtrl', ['$scope', '$rootScope',  function($scope, $rootScope) {
+    $rootScope.menu = I18n.t('bus_lane')
+
+    var buslaneTable = $('#buslane-table')
+    var buslaneTableOptions = {
+      pagination: true,
+      sidePagination: "server",
+      pageSize: 10, 
+      showColumns: true,
+      height: 'auto',
+      striped: false,
+      pageList: [10, 25, 50, 100],
+      showRefresh: true,
+      search: false,
+      toolbar: ".toolbar",
+      url: "/candidates",
+      columns: [{
+        field: 'link_full_name',
+        title: I18n.t("bus_lane_name")  
+      },{
+        field: 'nick_name',
+        title: I18n.t("license_plate")
+      },{
+        field: 'school_year',
+        title: I18n.t("bus_employee"),
+      },{
+        field: 'current_ability',
+        title: I18n.t("total_student"),
+      },{
+        field: 'bring_back',
+        formatter: editBtnFormatter
+      }]
+    }
+    buslaneTable.bootstrapTable(buslaneTableOptions)
+
+    var angularCtrlStr = "angular.element(document.getElementById('angularCtrl')).scope().buslane"
+    function editBtnFormatter(index, row, element){
+      var html =  '<a href="javascript:void(0)" class="color-orange" onclick="' + angularCtrlStr + '.removeCandidate(' + row.id + ')"><i class="fas fa-edit color-orange"></i> แก้ไข</a>';
+      return html;
+    }
+
+
+
+  }]);
+})();

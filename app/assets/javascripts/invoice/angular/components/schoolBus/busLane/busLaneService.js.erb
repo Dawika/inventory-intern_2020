@@ -1,0 +1,25 @@
+(function() {
+  'use strict';
+
+  angular.module('somsri.main.buslane.service', [
+  ])
+  .service('buslaneService', ['$http', function($http) {
+
+    this.getInfo = function() {
+      return $http.get('/bus_lanes/get_info')
+    }
+
+    this.create = function(data, students){
+      return $http.post('/bus_lanes/', { 
+        bus_lane : {
+          name: data.name,
+          note: data.note,
+          bus_id: data.bus.id,
+          employee_id: data.employee.id,
+          student_id: students
+        }
+      })
+    }
+
+  }]);
+})();
