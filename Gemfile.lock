@@ -65,6 +65,7 @@ GEM
     aws-sdk-resources (2.3.22)
       aws-sdk-core (= 2.3.22)
     bcrypt (3.1.12)
+    bcrypt_pbkdf (1.0.1)
     bindex (0.5.0)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
@@ -160,6 +161,7 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     dropzonejs-rails (0.8.4)
       rails (> 3.1)
+    ed25519 (1.2.4)
     erubis (2.7.0)
     exception_notification (4.3.0)
       actionmailer (>= 4.0, < 6)
@@ -499,6 +501,7 @@ DEPENDENCIES
   acts_as_paranoid
   awesome_print
   aws-sdk (< 3.0)
+  bcrypt_pbkdf
   bootstrap-sass (~> 3.3.7)
   bootstrap-table-rails
   bootstrap-tagsinput-rails
@@ -521,6 +524,7 @@ DEPENDENCIES
   detect_timezone_rails
   devise
   dropzonejs-rails
+  ed25519
   exception_notification
   faker
   figaro

@@ -107,6 +107,9 @@ Rails.application.routes.draw do
       get "slip"
       patch "cancel"
     end
+    collection do
+      get 'permission'
+    end
   end
 
   resources :evaluates

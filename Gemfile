@@ -127,6 +127,8 @@ group :development do
   gem 'meta_request' # for analyze query
   gem "letter_opener"
   gem 'letter_opener_web', '~> 1.0'
+  gem 'ed25519'
+  gem 'bcrypt_pbkdf'
 end
 
 group :production do

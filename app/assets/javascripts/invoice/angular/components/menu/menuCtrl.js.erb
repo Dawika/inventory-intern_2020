@@ -2,7 +2,11 @@
   'use strict';
   angular.module('somsri.invoice.menu', [
   ])
-  .controller('menuCtrl', ['$rootScope', 'translateFilter', function ($rootScope, translateFilter) {
+  .controller('menuCtrl', ['$rootScope', 'translateFilter', 'menuService', '$scope', function ($rootScope, translateFilter, service, $scope) {
     $rootScope.menu = I18n.t('invoices');
+      $scope.isAdmin = false
+      service.getPermission().then(function(resp){
+        $scope.isAdmin = resp.data.permission
+      })
   }]);
 })();

@@ -1,3 +1,8 @@
+<div ng-if="!isAdmin">
+    <div class="space20"></div>
+    <div class="space20"></div>
+    <div class="space20"></div>
+</div>
 <div class="container main-menu main">
 
       <div class="col-xs-4">
@@ -17,7 +22,7 @@
           </div>
           <p>{{ 'receipt' | translate }}</p>
       </div>
-
+    
       <div class="col-xs-4">
           <div class="menu-btn" ng-click="openDailyReport()">
               <div class="wraptocenter">
@@ -26,7 +31,7 @@
           </div>
           <p>{{ 'delivery_note' | translate }}</p>
       </div>
-
+    <div ng-if="isAdmin">
       <div class="col-xs-12 free-space"></div>
 
       <div class="col-xs-4">
@@ -54,4 +59,5 @@
           </div>
           <p>{{ 'classification_report_2' | translate }}</p>
       </div>
+    </div>
 </div>
