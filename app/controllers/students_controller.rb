@@ -34,14 +34,15 @@ class StudentsController < ApplicationController
     semester_select = params[:semester_select]
     invoice_status = params[:status]
     student_index = Array.new
-    students = Student.where(school_id: current_user.school.id)
+    students = Student.includes(:parents, :students_parents, :grade, :classroom, school: [:school_settings]).where(school_id: current_user.school.id)
     if grade_select.downcase == 'all'
       @students_all = students.order("student_number ASC").search(params[:search]).with_deleted.to_a
     else
-      grade = Grade.where(name: grade_select).first
+      grade = Grade.includes(:classrooms).where(name: grade_select).first
       @students_all = students.where(grade_id: grade.id).order("classroom_id ASC, classroom_number ASC").search(params[:search]).with_deleted.to_a
     end
-
+    invoice_status_id = InvoiceStatus.status_active_id
+    school_setting = SchoolSetting.semesters
     datas = []
     total_tuition = 0.0
     total_other = 0.0
@@ -55,17 +56,17 @@ class StudentsController < ApplicationController
       year_fee = 0.0
       payment_method = ""
       last_tuition_invoice = nil
-      qry_invoice = Invoice.where(student_id: student.id, school_year: year_select, invoice_status_id: InvoiceStatus.status_active_id)
-      invoices = qry_invoice.order("created_at ASC").to_a
+      qry_invoice = Invoice.includes(:line_items, :payment_methods).where(student_id: student.id, school_year: year_select, invoice_status_id: invoice_status_id).order("created_at ASC").to_a
+      invoices = qry_invoice
 
       #skip student no invoice and deleted
       next if invoices.count == 0 && student.deleted_at
 
       semester_exclude = []
       if semester_select == "อื่นๆ"
-        semester_exclude = SchoolSetting.semesters
+        semester_exclude = school_setting
       else
-        semester_exclude = SchoolSetting.semesters - [semester_select.to_s]
+        semester_exclude = school_setting - [semester_select.to_s]
       end
 
       invoices.each do |invoice|
@@ -92,7 +93,7 @@ class StudentsController < ApplicationController
         student_number: student.student_number,
         grade_name: last_tuition_invoice ? last_tuition_invoice.grade_name : student.grade_name,
         classroom: student.classroom ? student.classroom.name : "",
-        parent_names: student.parent_names,
+        parent_names: student.parents.collect(&:full_name).join(', '),
         active_invoice_status: paid ? "ชำระแล้ว" : "ยังไม่ได้ชำระ",
         active_invoice_payment_method: payment_method,
         active_invoice_tuition_fee: tuition_fee,
