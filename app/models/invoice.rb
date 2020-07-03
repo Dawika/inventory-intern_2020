@@ -58,7 +58,7 @@ class Invoice < ApplicationRecord
   end
 
   def payee_name
-    self.user.full_name if self.user
+    self.user.employee.full_name if self.user
   end
 
   def payment_method_names
