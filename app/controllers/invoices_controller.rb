@@ -189,7 +189,7 @@ class InvoicesController < ApplicationController
       invoice.student_id = student.id
       invoice.student_name = student.invoice_screen_full_name_display
       invoice.user_id = current_user.id
-      invoice.user_name = current_user.name
+      invoice.user_name = current_user.employee.full_name
       invoice.grade_name = grade.name
       invoice.classroom = student.classroom ? student.classroom.name : nil
       invoice.invoice_status_id = InvoiceStatus.find_by_name("Active").id
