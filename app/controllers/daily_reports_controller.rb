@@ -1,7 +1,7 @@
 class DailyReportsController < ApplicationController
   before_action :set_daily_report, only: [:show]
   skip_before_action :verify_authenticity_token, :only => [:create]
-  authorize_resource
+  # load_and_authorize_resource
 
   # GET /daily_reports/:id
   def show
@@ -38,7 +38,15 @@ class DailyReportsController < ApplicationController
     end_time = nil
     end_time = Time.zone.parse(params[:end_time]) if params[:end_time]
     end_time = Time.zone.now if !end_time
-    invoice_ids = Invoice.joins(user: [:school]).where("schools.id = #{current_user.school.id}").where(created_at: start_time..end_time, invoice_status_id: InvoiceStatus.find_by_name('Active')).ids
+    invoices =  Invoice.joins(user: [:school]).where("schools.id = #{current_user.school.id}").where(created_at: start_time..end_time, invoice_status_id: InvoiceStatus.find_by_name('Active'))
+    invoice_ids = []
+    unless current_user.admin? || current_user.super_admin?
+      invoices.each do |invoice|
+        invoice_ids << invoice.id unless invoice.user.admin?
+      end
+    else
+      invoice_ids = invoices.ids
+    end
 
     Invoice.where(created_at: Date.today.beginning_of_day..Date.today.end_of_day)
     PaymentMethod.where(invoice_id: invoice_ids).each do |pm|
