@@ -12,8 +12,7 @@ class ParentsController < ApplicationController
     @class_display = Grade.where(school_id: current_user.school_id, name: params[:grade_select]).first.classrooms.order("id ASC").select(:name).map(&:name).compact if params[:grade_select].present? and params[:grade_select] != "all"
     total = @parents.count
     @menu = t('parent')
-    @parents.limit(params[:per_page]).offset(params[:page])
-    rows = @parents.as_json({ index: true, school_id: current_user.school_id })
+    rows = @parents.limit(params[:limit]).offset(params[:offset]).as_json({index: true})
     respond_to do |f|
       f.html { render "parents/index", layout: "application_invoice" }
       f.json {
