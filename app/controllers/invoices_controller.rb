@@ -39,6 +39,11 @@ class InvoicesController < ApplicationController
     render json: result
   end
 
+  def permission
+    permission = current_user.has_role? :admin
+    render json: {permission: permission}
+  end
+
   # GET /invoices/:id
   def show
   end
@@ -189,7 +194,7 @@ class InvoicesController < ApplicationController
       invoice.student_id = student.id
       invoice.student_name = student.invoice_screen_full_name_display
       invoice.user_id = current_user.id
-      invoice.user_name = current_user.name
+      invoice.user_name = current_user.employee.full_name
       invoice.grade_name = grade.name
       invoice.classroom = student.classroom ? student.classroom.name : nil
       invoice.invoice_status_id = InvoiceStatus.find_by_name("Active").id
@@ -379,6 +384,7 @@ class InvoicesController < ApplicationController
   end
 
   def invoice_grouping
+    authorize! :invoice_grouping, GroupingReportOption
     display_payment_method = params[:display_payment_method].to_s == "true" ? true : false
     display_etc = params[:display_etc].to_s == "true" ? true : false
     grouping_keyword = GroupingReportOption.all.order(:id).to_a

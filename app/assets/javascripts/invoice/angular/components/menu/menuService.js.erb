@@ -1,0 +1,10 @@
+(function() {
+  'use strict';
+  angular.module('somsri.invoice.menu.service', [
+  ])
+  .service('menuService', ['$http', function($http) {
+    this.getPermission = function() {
+      return $http.get('/invoices/permission');
+    };
+  }]);
+})();
