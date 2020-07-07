@@ -1,5 +1,15 @@
 class BusLanesController < ApplicationController
 
+  def index
+    bus = BusLane.where(school_id: current_user.school_id)
+    bus = bus.offset(params[:offset]).limit(params[:limit])
+
+    render json: {
+      rows: bus.as_json('index'),
+      total: 11
+    }, status: :ok
+  end
+
   def get_info
     bus = Bus.where(school_id: current_user.school_id)
     employees = Employee.where(school_id: current_user.school_id)
