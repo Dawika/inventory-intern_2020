@@ -8,8 +8,28 @@
     this.getInfo = function() {
       return $http.get('/bus_lanes/get_info')
     }
+    
+    this.getBusLane = function(id){
+      return $http.post('/bus_lanes/get_buslane', {bus_lane: id})
+    }
 
-    this.create = function(data, students){
+    this.deleteBusLane = function(id){
+      return $http.delete('/bus_lanes/' + id)
+    }
+
+    this.updateBusLane = function(id, data, students){
+      return $http.patch('/bus_lanes/'+ id , { 
+        bus_lane : {
+          name: data.name,
+          note: data.note,
+          bus_id: data.bus.id,
+          employee_id: data.employee.id,
+          student_id: students
+        }
+      })
+    }
+
+    this.createBusLane = function(data, students){
       return $http.post('/bus_lanes/', { 
         bus_lane : {
           name: data.name,

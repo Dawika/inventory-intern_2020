@@ -24,9 +24,10 @@
           <div class="col-xs-6">
             <div class="form-group">
               <label for="name">{{ 'license_plate' | translate }}</label>
-              <select class="form-control" ng-model="createbuslane.datas.bus" ng-options="bus.license_plate for bus in createbuslane.busInfo" required>
+              <select class="form-control" ng-model="createbuslane.datas.bus" ng-options="bus.license_plate for bus in createbuslane.busInfo track by bus.id" required>
                 <option value="">{{'choose_bus' | translate}}</option>
               </select>   
+          
             </div>
           </div>
         </div>
@@ -35,7 +36,7 @@
           <div class="col-xs-6">
             <div class="form-group">
               <label for="name">{{ 'bus_employee' | translate }}</label>
-              <select class="form-control" ng-model="createbuslane.datas.employee" ng-options="employee.full_name for employee in createbuslane.employeeInfo" required>
+              <select class="form-control" ng-model="createbuslane.datas.employee" ng-options="employee.full_name for employee in createbuslane.employeeInfo track by employee.id" required>
                 <option value="">{{'choose_employee' | translate}}</option>
               </select>   
             </div>
@@ -81,6 +82,7 @@
     <button type= "submit" class="btn btn-custom btn-blue btn-block"> {{ 'save' | translate }}</button>
   </div>
   <div class="col-xs-2">
-    <a href="/somsri_invoice#/buslane" class="btn btn-custom btn-gray btn-block"> {{ 'Canceled' | translate }}</a>
+    <a ng-if="createbuslane.id == null" href="/somsri_invoice#/buslane" class="btn btn-custom btn-gray btn-block"> {{ 'Canceled' | translate }}</a>
+    <a ng-if="createbuslane.id != null" ng-click="createbuslane.delete()" class="btn btn-custom btn-red btn-block"> {{ 'cancel_bus_lane' | translate }}</a>
   </div>
 </div>

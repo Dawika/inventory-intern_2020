@@ -25,9 +25,10 @@ Rails.application.routes.draw do
     post 'update_card'
   end
 
-  resources :bus_lanes, only: [:create, :index] do
+  resources :bus_lanes, only: [:create, :index, :destroy, :update] do
     collection do
       get "get_info"
+      post "get_buslane"
     end
   end
 

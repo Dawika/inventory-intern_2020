@@ -43,6 +43,33 @@
       }
     };
 
+    $rootScope.openConfirmationModal = function(message, confirm_delete, success, dismiss) {
+        $scope.message = message;
+        $scope.delete = confirm_delete;
+        $uibModal.open({
+          animation: true,
+          backdrop: 'static',
+          keyboard: false,
+          scope: $scope,
+          templateUrl: "<%= asset_path('invoice/angular/components/modal/confirm/confirmModalView.html') %>",
+          controller: 'confirmModalCtrl as confirm',
+          size: 'md',
+          resolve: {
+            resources: ['$ocLazyLoad', 'ASSETS', function($ocLazyLoad, ASSETS) {
+              return $ocLazyLoad.load([
+                ASSETS.somsri.invoice.confirm_modal
+              ]);
+            }]
+          }
+        }).result.then(function(isConfirm) {
+          if (isConfirm) {
+            if (success) { success() }
+          } else {
+            if (dismiss) { dismiss() }
+          }
+        });
+     }
+
     $rootScope.opensuccessModal = function(message, error, success, dismiss) {
       $scope.message = message;
       $scope.error = error;

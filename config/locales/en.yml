@@ -292,6 +292,8 @@ en:
   please_add_student: "Please add student"
   choose_bus: "Choose bus"
   choose_employee: "Choose employee"
+  confirm_delete_bus_lane: "Confirm Delete"
+  cancel_bus_lane: "Cancel bus lane"
 
 
   # Quotation
