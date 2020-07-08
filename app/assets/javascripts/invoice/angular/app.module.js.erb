@@ -175,7 +175,20 @@
        state({
         url: '/createbuslane',
         name: 'createbuslane',
-        templateUrl: "<%= asset_path('invoice/angular/components/schoolBus/busLane/create/createView.html') %>",
+        templateUrl: "<%= asset_path('invoice/angular/components/schoolBus/busLane/createupdate/createupdateView.html') %>",
+        controller: 'createbuslaneCtrl as createbuslane',
+        resolve: {
+          resources: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              ASSETS.somsri.invoice.createbuslane
+            ]);
+          }]
+        }
+      }).
+      state({
+        url: '/updatebuslane/:id',
+        name: 'updatebuslane',
+        templateUrl: "<%= asset_path('invoice/angular/components/schoolBus/busLane/createupdate/createupdateView.html') %>",
         controller: 'createbuslaneCtrl as createbuslane',
         resolve: {
           resources: ['$ocLazyLoad', function($ocLazyLoad) {
