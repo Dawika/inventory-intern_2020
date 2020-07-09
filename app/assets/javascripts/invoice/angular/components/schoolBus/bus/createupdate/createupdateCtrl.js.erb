@@ -1,0 +1,13 @@
+(function() {
+  'use strict';
+  angular.module('somsri.invoice.createupdatebus', [
+  ])
+  .controller('createupdatebusCtrl', ['$scope', '$rootScope', 'busService', '$stateParams',function($scope, $rootScope, service, $stateParams) {
+    $rootScope.menu = I18n.t('bus_lane')
+    var ctrl = this
+    
+    ctrl.submit = function(data){
+      console.log(data)
+    }
+  }]);
+})();

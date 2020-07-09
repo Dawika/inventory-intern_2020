@@ -448,8 +448,9 @@ th:
 
   #bus lane
   bus_lane_name: "ชื่อเส้นทาง"
-  license_plate: "รถรับ - ส่ง"
-  bus_employee: "พนักงานขับรถ"
+  license_plate: "ทะเบียนรถ"
+  bus: "รถรับ - ส่ง"
+  bus_employee: "ครูประจำรถ"
   total_student: "จำนวนนักเรียน"
   not_student: "ไม่มีนักเรียนในระบบ"
   please_add_student: "กรุณาเพิ่มนักเรียน"
@@ -457,6 +458,10 @@ th:
   choose_employee: "เลือกครูประจำรถ"
   confirm_delete_bus_lane: "ยืนยันการยกเลิกใช่หรือไม่ ?"
   cancel_bus_lane: "ยกเลิกเส้นทาง"
+  car_brand: "ยี่ห้อรถ"
+  create_bus: "เพิ่มรถรับ - ส่ง"
+  the_driver: "พนักงานขับรถ"
+  new_bus_lane: "เพิ่มเส้นทางเดินรถ"
 
   # Quotation
   quotation_link_nav: "ใบแจ้งการชำระเงินค่าเทอม"

@@ -285,7 +285,8 @@ en:
 
   #bus lane
   bus_lane_name: "Bus lane name"
-  license_plate: "Bus"
+  license_plate: "License plate"
+  bus: "Bus"
   bus_employee: "Employee"
   total_student: "The number of student"
   not_student: "Student not found!"
@@ -294,6 +295,10 @@ en:
   choose_employee: "Choose employee"
   confirm_delete_bus_lane: "Confirm Delete"
   cancel_bus_lane: "Cancel bus lane"
+  car_brand: "Car brand"
+  create_bus: "Create bus"
+  the_driver: "The driver"
+  new_bus_lane: "New bus lane"
 
 
   # Quotation

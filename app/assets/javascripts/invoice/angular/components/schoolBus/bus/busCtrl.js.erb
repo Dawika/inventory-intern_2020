@@ -1,16 +1,16 @@
 (function() {
   'use strict';
-  angular.module('somsri.invoice.buslane', [
+  angular.module('somsri.invoice.bus', [
   ])
-  .controller('buslaneCtrl', ['$scope', '$rootScope',  function($scope, $rootScope) {
-    $rootScope.menu = I18n.t('bus_lane')
+  .controller('busCtrl', ['$scope', '$rootScope', 'translateFilter',  function($scope, $rootScope, translateFilter) {
+      $rootScope.menu = I18n.t('school_bus')
 
-    var buslaneTable = $('#buslane-table')
+    var buslaneTable = $('#bus-table')
     var buslaneTableOptions = {
       sidePagination: "server",
       pagination: true,
       pageSize: 10, 
-      showColumns: false,
+      showColumns: true,
       height: 'auto',
       striped: false,
       search: false,
@@ -39,7 +39,6 @@
       var html =  '<a href="somsri_invoice#/updatebuslane/'+ row.id +'" class="color-orange"><i class="fas fa-edit color-orange"></i> แก้ไข</a>';
       return html;
     }
-
 
 
   }]);
