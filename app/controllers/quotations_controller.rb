@@ -3,12 +3,11 @@ class QuotationsController < ApplicationController
 
   def index
     quotations_filter
-
+    @quotations = @quotations.order(created_at: "desc")
     @quotations = @quotations.paginate(page: params[:page], per_page: 10)
 
     methods = %i[student_name quotator_name grade_name total_amount paid_at
                  outstanding_balance]
-
     if params[:bootstrap_table].to_s == "1"
       @quotations = @quotations.where(student_id: params[:student_id])
       render json: @quotations.as_json(methods: methods)
@@ -222,7 +221,7 @@ class QuotationsController < ApplicationController
   end
 
   def destroy
-    @quotation.destroy
+    @quotation.update(quotation_status: "cancelled")
     render json: { head: :no_content }, status: :ok
   end
 

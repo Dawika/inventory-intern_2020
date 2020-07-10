@@ -49,6 +49,7 @@
         ctrl.datas.quotation.id = ctrl.quotationId
         ctrl.grades = resp.data.grades;
         ctrl.datas.quotation.outstanding = resp.data.outstanding
+        ctrl.datas.status = resp.data.quotation.quotation_status
         ctrl.invoices = resp.data.invoices
 
         ctrl.datas.invoice.payment_date_start =  new Date(resp.data.payment_date_start)

@@ -156,11 +156,11 @@
 
       <div class="row noPrint actions">
         <div class="col-md-4">
-          <button type="button" class="btn btn-custom btn-red" ng-click="invoiceDetails.reject()"  ng-if="invoiceDetails.datas.quotation.outstanding > 0">{{ 'cancel' | translate }}</button>
+          <button type="button" class="btn btn-custom btn-red" ng-click="invoiceDetails.reject()"  ng-if="invoiceDetails.datas.quotation.outstanding > 0 && invoiceDetails.datas.status != 'cancelled'">{{ 'cancel' | translate }}</button>
         </div>
         <div class="col-md-8 text-right">
-          <button type="button" class="btn btn-custom btn-green" ng-click="invoiceDetails.print()" ng-if="invoiceDetails.datas.quotation.outstanding > 0">{{ 'quotation_print' | translate }}</button>
-          <a href="/somsri_invoice#/invoice/{{ invoiceDetails.quotationId }}" class="btn btn-custom btn-blue" ng-if="invoiceDetails.datas.quotation.outstanding > 0">{{ 'pay' | translate }}</a>
+          <button type="button" class="btn btn-custom btn-green" ng-click="invoiceDetails.print()" ng-if="invoiceDetails.datas.quotation.outstanding > 0 && invoiceDetails.datas.status != 'cancelled'">{{ 'quotation_print' | translate }}</button>
+          <a href="/somsri_invoice#/invoice/{{ invoiceDetails.quotationId }}" class="btn btn-custom btn-blue" ng-if="invoiceDetails.datas.quotation.outstanding > 0 && invoiceDetails.datas.status != 'cancelled'">{{ 'pay' | translate }}</a>
           <a href="/somsri_invoice#/quotation" class="btn btn-custom btn-gray" ng-click="invoiceDetails.cancel()">{{ 'close' | translate }}</a>
         </div>
       </div>

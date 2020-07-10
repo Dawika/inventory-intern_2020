@@ -305,6 +305,7 @@ en:
   quotation_printed_at: 'Printed at'
   quotation_unpaid: 'Payment'
   quotation_active: 'Paid'
+  quotation_cancelled: 'Cacalled'
   search_quotation_no: 'Search Quotation no.'
   can_payment: "Paid From"
   can_payment_school: "Payment at School"
