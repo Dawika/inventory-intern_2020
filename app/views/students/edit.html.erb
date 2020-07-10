@@ -5,6 +5,8 @@
       <span id="full-name-label"><%= @student.full_name_with_title %></span>
       <input id="search-by-name" class="typeahead" type="text" placeholder=<%= t('search_student') %>>
       <a onclick="toggleSearchInput()"><i class="fa fa-search" aria-hidden="true"></i></a>
+      <a class="pull-right btn btn-custom btn-blue float-right mr-5" href="/somsri_invoice#/invoice/student/<%= @student.id %>"><i class="fa fa-share-square-o" aria-hidden="true"></i> ชำระเงิน</a>
+      <a class="pull-right btn btn-custom btn-blue-sky float-right mr-5" href="/somsri_invoice#/student/quotation_new/<%= @student.id %>"><i class="fa fa-share-square-o" aria-hidden="true"></i> วางบิล</a>
     </h1>
   </div>
   <div class="space20"></div>

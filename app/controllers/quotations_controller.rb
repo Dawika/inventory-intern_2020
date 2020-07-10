@@ -44,8 +44,8 @@ class QuotationsController < ApplicationController
   end
 
   def create_bill
-    grade = Grade.where(name: params[:quotation][:grade_name][:value]).first if params[:quotation][:grade_name].present?  
-    if params[:quotation][:grade_name].present? && !params[:student].present?
+    grade = Grade.where(name: params[:quotations][:grade_name]).first if params[:quotations][:grade_name].present?  
+    if params[:quotations][:grade_name].present? && !params[:student].present?
       Quotation.transaction do
         Student.where(grade_id: grade.id).each do |student|
           next if student.parents.nil?
@@ -78,8 +78,6 @@ class QuotationsController < ApplicationController
       end
       render json: { success: true}, status: :ok
     else
-      grade = Student.where(full_name: params[:student][:full_name]).first.grade if params[:student][:grade].nil?
-      grade = Grade.where(name: params[:quotation][:grade_name][:value]).first if params[:quotation][:grade_name].present?  
     Quotation.transaction do
       parent = Parent.find_or_create_by(parent_params);
       student = nil

@@ -114,6 +114,7 @@ Rails.application.routes.draw do
     end
     collection do
       get 'permission'
+      post 'studentinfo'
     end
   end
 

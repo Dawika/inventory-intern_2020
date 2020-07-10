@@ -2,8 +2,9 @@
   'use strict';
   angular.module('somsri.invoice.invoice', [
   ])
-  .controller('invoiceCtrl', ['$scope', '$http', 'DEFAULT_LOGO', 'LocalStorage', 'Currency', 'invoiceService', '$rootScope', 'translateFilter', function($scope, $http, DEFAULT_LOGO, LocalStorage, Currency, service, $rootScope, translateFilter) {
+  .controller('invoiceCtrl', ['$scope', '$http', 'DEFAULT_LOGO', 'LocalStorage', 'Currency', 'invoiceService', '$rootScope', 'translateFilter', '$stateParams', function($scope, $http, DEFAULT_LOGO, LocalStorage, Currency, service, $rootScope, translateFilter, $stateParams) {
     var ctrl = this;
+    ctrl.id = $stateParams.id
     var defaultInvoice = {
       invoice: {
         items: [
@@ -215,6 +216,19 @@
           ctrl.date_display = nowDate.getDate() + "/" + (nowDate.getMonth() + 1) + "/" + (nowDate.getFullYear() + 543);
           ctrl.availableCurrencies = Currency.all();
           ctrl.invoiceTotal();
+
+          if(ctrl.id != null){
+            service.getStudentInfo(ctrl.id).then(function(resp){
+              if(!ctrl.datas) { ctrl.datas = {} }
+              if(!ctrl.datas.student) { ctrl.datas.student = {} }
+              ctrl.datas.parent = {};
+
+              ctrl.datas.student.student_number = resp.data.student_number
+              ctrl.datas.student.full_name = resp.data.full_name
+              ctrl.datas.parent.full_name = resp.data.parent_name
+              ctrl.datas.invoice.grade_name = resp.data.grade
+            })
+          }
         },function(resp) {
         });
 

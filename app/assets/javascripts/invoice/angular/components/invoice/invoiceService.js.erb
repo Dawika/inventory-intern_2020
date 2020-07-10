@@ -12,5 +12,9 @@
       return $http.post('/invoices', data);
     };
 
+    this.getStudentInfo = function(id){
+      return $http.post('/invoices/studentinfo/', {invoice: id});
+    }
+
   }]);
 })();
