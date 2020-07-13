@@ -72,7 +72,7 @@ class Invoice < ApplicationRecord
       when "เช็คธนาคาร"    #compare to 1
         result += pay.cheque_number
       when "เงินโอน"
-        result += pay.transfer_bank_name
+        result += pay.transfer_bank_name || "-"
       else
         result += "-"
       end
