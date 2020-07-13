@@ -126,7 +126,7 @@
 
     function dateFormatter(value, row, index) {
       if (!value) { return '-' }
-      return $filter('date')(value, 'd/MM/yyyy hh:mm');
+      return $filter('date')(value, 'd/MM/yyyy HH:mm');
     }
 
     function filterCurrency(value, row, index) {
@@ -140,15 +140,14 @@
 
       return link;
     }
-
     function linkToInvoiceFormatter(value, row, index) {
       var text = translateFilter('quotation_' + value)
-      var link = '<p><i class="fa fa-money" aria-hidden="true"></i> ' + text +'</p>';
-
+      var link = '<i class="fas fa-check" aria-hidden="true"></i> ' + text;
       if (!value || value === 'active') { return link; }
-
+      var link = '<i class="fas fa-times"></i> ' + text;
+      if (!value || value === 'cancelled') { return link; }
       link = "<a href='/somsri_invoice#/invoice/" + row.id + "'>" +
-                "<i class='fa fa-money' aria-hidden='true'></i> " + text + "</a>";
+                "<i class='fas fa-receipt' aria-hidden='true'></i> " + text + "</a>";
 
       return link;
     }
