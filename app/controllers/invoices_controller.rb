@@ -97,18 +97,21 @@ class InvoicesController < ApplicationController
     end
 
     #get line_item
-    line_items = LineItem.pluck(:detail, :amount).uniq
+    line_items = LineItem.pluck(:detail, :amount, :total_price, :item_amount).uniq
     line_items_info = []
     line_items.each do |line_item|
       line_item_display = ""
       if(line_item[1])
-        line_item_display = line_item[0] + '(' + line_item[1].to_s + ')'
+        line_item_display = line_item[0] + ' (' + line_item[1].to_s + ')'
+        ap line_item_display
       else
         line_item_display = line_item[0]
       end
       line_items_info << {
         detail: line_item[0],
         amount: line_item[1],
+        total_price: line_item[2],
+        item_amount: line_item[3],
         line_item_display: line_item_display
       }
     end
@@ -637,7 +640,7 @@ class InvoicesController < ApplicationController
     end
 
     def line_item_params
-      params.require(:invoice).permit(items: [[:detail, :amount]])
+      params.require(:invoice).permit(items: [[:detail, :amount, :total_price, :item_amount]])
     end
 
     def payment_method_params
