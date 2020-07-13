@@ -809,16 +809,16 @@ body {
 }
 
 .btn-blue-sky {
-  background-color: #00D2D7;
-  color: #fff !important;
-  border: 2px solid #00D2D7;
-  &:hover {
-    border: 2px solid #00D2D7;
+    background-color: #00D2D7;
     color: #fff !important;
-  }
-  &:focus {
-    color: #fff;
-  }
+    border: 2px solid #00D2D7;
+    &:hover {
+        border: 2px solid #00D2D7;
+        color: #00D2D7 !important;
+    }
+    &:focus {
+        color: #fff;
+    }
 }
 
 .btn-orange {
@@ -1997,29 +1997,30 @@ tags-input .tags .tag-item .remove-button {
 }
 
 .pd-l-10 {
-  padding-right: 10px;
+    padding-right: 10px;
 }
 
 .ml-120 {
-  margin-left: 120px;
+    margin-left: 120px;
 }
 
 .pb-0-ml-10 {
-  padding-bottom: 0px;
-  margin-left: 10px;
+    padding-bottom: 0px;
+    margin-left: 10px;
 }
 
 .pb-0 {
-  padding-bottom: 0px;
+    padding-bottom: 0px;
 }
 
 .tab {
-  text-indent: 50px;
+    text-indent: 50px;
 }
 
-.container-fluid .text-right{
-  padding-right: 0px !important;
+.container-fluid .text-right {
+    padding-right: 0px !important;
 }
+
 .container-fluid .col-xs-9 {
-  padding-left: 0px !important;
+    padding-left: 0px !important;
 }

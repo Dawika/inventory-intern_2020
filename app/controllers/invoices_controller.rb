@@ -48,6 +48,19 @@ class InvoicesController < ApplicationController
   def show
   end
 
+  def studentinfo
+    student = Student.find(params[:invoice]) 
+    if student.school_id == current_user.school_id
+      render json: {
+        id: student.id,
+        parent_name: student.parents.first&.full_name,
+        full_name: student.full_name_with_title,
+        student_number: student.student_number,
+        grade: student.grade&.name
+      }, status: :ok
+    end
+  end
+
   # GET /invoices/new
   def new
     last_invoice_id = Invoice.last ? Invoice.last.id : 0
@@ -119,7 +132,7 @@ class InvoicesController < ApplicationController
   def create
     grade = Grade.find_by_name(params[:student][:grade]) if params[:student][:grade].present?
     grade = Student.where(full_name: params[:student][:full_name]).first.grade if params[:student][:grade].nil?
-    grade = Grade.where(name: params[:invoice][:grade_name][:value]).first if params[:invoice][:grade_name].present?
+    grade = Grade.where(name: params[:invoice][:grade_name]).first if params[:invoice][:grade_name].present?
     Invoice.transaction do
       parent = Parent.find_or_create_by(parent_params);
       student = nil

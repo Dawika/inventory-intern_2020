@@ -3,11 +3,12 @@
   angular.module('somsri.invoice.quotation_new', [])
     .controller('quotationNewCtrl', quotationNewCtrl);
 
-  quotationNewCtrl.$inject = ['$rootScope', 'translateFilter', 'quotationNewService', 'Currency', '$timeout'];
+  quotationNewCtrl.$inject = ['$rootScope', 'translateFilter', 'quotationNewService', 'Currency', '$timeout', '$stateParams'];
 
-  function quotationNewCtrl($rootScope, translateFilter, quotationNewService, Currency, $timeout) {
+  function quotationNewCtrl($rootScope, translateFilter, quotationNewService, Currency, $timeout, $stateParams) {
     $rootScope.menu = I18n.t('quotation_link_nav')
     var quotationNew = this;
+    quotationNew.id = $stateParams.id
     var defaultDatas = {
       quotations: {
         items: [
@@ -70,6 +71,19 @@
         quotationNew.date_display = nowDate.getDate() + "/" + (nowDate.getMonth() + 1) + "/" + (nowDate.getFullYear() + 543);
         quotationNew.availableCurrencies = Currency.all();
         quotationNew.calculateTotal();
+
+        if(quotationNew.id != null){
+          quotationNewService.getStudentInfo(quotationNew.id).then(function(resp){
+          if(!quotationNew.datas) { quotationNew.datas = {} }
+          if(!quotationNew.datas.student) { quotationNew.datas.student = {} }
+          quotationNew.datas.parent = {};
+          quotationNew.datas.student.student_number = resp.data.student_number
+          quotationNew.datas.student.full_name = resp.data.full_name
+          quotationNew.datas.parent.full_name = resp.data.parent_name
+          quotationNew.datas.quotations.grade_name = resp.data.grade
+
+          })
+        }
       });
     }
 

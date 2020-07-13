@@ -14,11 +14,16 @@
       remove: remove,
       getData: getData,
       getBank: getBank,
-      createBank: createBank
+      createBank: createBank,
+      getStudentInfo: getStudentInfo
     };
 
     function get(id) {
       return $http.get('/quotations/' + id);
+    }
+
+    function getStudentInfo(id) {
+      return $http.post('/invoices/studentinfo/', {invoice: id});
     }
 
     function create(params) {

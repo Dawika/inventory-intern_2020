@@ -134,6 +134,19 @@
         }
       }).
       state({
+        url: '/invoice/student/:id',
+        name: 'studentinvoice',
+        templateUrl: "<%= asset_path('invoice/angular/components/invoice/invoiceView.html') %>",
+        controller: 'invoiceCtrl as invoice',
+        resolve: {
+          resources: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              ASSETS.somsri.invoice.invoice
+            ]);
+          }]
+        }
+      }).
+      state({
         url: '/report',
         name: 'report',
         templateUrl: "<%= asset_path('invoice/angular/components/report/reportView.html') %>",
@@ -337,6 +350,19 @@
           resources: ['$ocLazyLoad', function($ocLazyLoad) {
             return $ocLazyLoad.load([
               ASSETS.somsri.invoice.quotation
+            ]);
+          }]
+        }
+      }).
+      state({
+        url: '/student/quotation_new/:id',
+        name: 'studentquotation_new',
+        templateUrl: "<%= asset_path('invoice/angular/components/quotation/new/quotationNewView.html') %>",
+        controller: 'quotationNewCtrl as quotationNew',
+        resolve: {
+          resources: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              ASSETS.somsri.invoice.quotation_new
             ]);
           }]
         }
