@@ -97,13 +97,12 @@ class InvoicesController < ApplicationController
     end
 
     #get line_item
-    line_items = LineItem.pluck(:detail, :amount, :total_price, :item_amount).uniq
+    line_items = LineItem.where(school_id: current_user.school_id).pluck(:detail, :amount, :total_price, :item_amount).uniq
     line_items_info = []
     line_items.each do |line_item|
       line_item_display = ""
       if(line_item[1])
-        line_item_display = line_item[0] + ' (' + line_item[1].to_s + ')'
-        ap line_item_display
+        line_item_display = "#{line_item[0]} ( #{line_item[3].to_s} ) ( #{line_item[2].to_s} )"
       else
         line_item_display = line_item[0]
       end
@@ -214,7 +213,7 @@ class InvoicesController < ApplicationController
       invoice.invoice_status_id = InvoiceStatus.find_by_name("Active").id
 
       line_item_params.to_h[:items].each do |item|
-        invoice.line_items << LineItem.new(item)
+        invoice.line_items << LineItem.new(item.merge(school_id: current_user.school_id))
       end
 
       pm = payment_method_params

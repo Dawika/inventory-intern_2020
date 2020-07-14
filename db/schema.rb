@@ -659,6 +659,9 @@ ActiveRecord::Schema.define(version: 20200713050347) do
     t.integer  "quotation_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.float    "total_price"
+    t.integer  "item_amount"
+    t.integer  "school_id"
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -669,6 +672,7 @@ ActiveRecord::Schema.define(version: 20200713050347) do
     t.datetime "updated_at",  null: false
     t.float    "total_price"
     t.integer  "item_amount"
+    t.integer  "school_id"
   end
 
   create_table "lists", force: :cascade do |t|

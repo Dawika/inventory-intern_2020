@@ -12,7 +12,7 @@
     var defaultDatas = {
       quotations: {
         items: [
-          { detail: translateFilter('tuition_fee'), amount: 48900.0 }
+          { detail: I18n.t('tuition_fee'), amount: 35000.0, item_amount: 1, total_price: 35000.0}
         ],
         payment_date_end: new Date(),
         payment_date_start: new Date()
@@ -56,6 +56,7 @@
         quotationNew.parent_info = resp.data.parent_info;
         quotationNew.line_items_info = resp.data.line_items_info;
         quotationNew.grades = resp.data.grades;
+        console.log(resp)
 
         var nowDate = new Date();
         // Clone to prevent the reset value
@@ -87,7 +88,7 @@
       });
     }
 
-    quotationNew.save = function() {
+    quotationNew.save = function(data) {
       quotationNewService.create(quotationNew.datas).then(function(resp) {
         if(resp.data.success){
           $rootScope.openQuotation();
@@ -145,14 +146,22 @@
     // Calculates the sub total of the invoice
     // Adds an item to the invoice's items
     quotationNew.addItem = function() {
-      quotationNew.datas.quotations.items.push({ amount:0, detail:"" });
+      quotationNew.datas.quotations.items.push({ amount:0, detail:"", item_amount: 0, total_price: 0 });
       quotationNew.calculateTotal();
     }
+
+    quotationNew.onSelectLineItem = function ($item, $model) {
+      $model.amount = $item.amount;
+      $model.item_amount = $item.item_amount;
+      $model.total_price = $item.total_price;
+      quotationNew.calculateTotal();
+    };
 
     quotationNew.calculateTotal = function() {
       var total = 0.00;
       angular.forEach(quotationNew.datas.quotations.items, function(item, key){
-        total += item.amount;
+        total += (item.amount * item.item_amount);
+        item.total_price = item.amount * item.item_amount
       });
       quotationNew.total = total;
     };

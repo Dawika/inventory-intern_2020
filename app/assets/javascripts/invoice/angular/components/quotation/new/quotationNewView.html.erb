@@ -1,6 +1,6 @@
 
 <div class="container" id="invoice" style="width: 960px;">
-  <form name="createQuotationForm" ng-submit="quotationNew.save()">
+  <form name="createQuotationForm" ng-submit="quotationNew.save(quotationNew.datas)">
     <div class="row">
       <div class="col-md-6 heading">
         {{ 'quotation_receipt' | translate }}
@@ -96,8 +96,10 @@
         <div class="row header">
           <div class="col-md-1">&nbsp;</div>
           <div class="col-md-1 text-center">#</div>
-          <div class="col-md-8">{{ 'item' | translate }}</div>
+          <div class="col-md-4">{{ 'item' | translate }}</div>
+          <div class="col-md-2 text-right-htable">{{ 'amount' | translate }}</div>
           <div class="col-md-2 text-right-htable">{{ 'price' | translate }}</div>
+          <div class="col-md-2 text-right-htable">{{ 'total' | translate }}</div>
         </div>
 
         <div class="row invoice-item" ng-repeat="item in quotationNew.datas.quotations.items" ng-animate="'slide-down'">
@@ -107,14 +109,24 @@
           <div class="col-md-1">
             {{ $index + 1 }}
           </div>
-          <div class="col-md-8">
+          <div class="col-md-4">
             <div class="form-group form-list">
               <input type="text" placeholder="{{ 'item' | translate }}" class="form-control grop-table" ng-model="item.detail" typeahead-on-select="quotationNew.onSelectLineItem($item, item)" uib-typeahead="item.detail as item.line_item_display for item in quotationNew.line_items_info | filter:{detail:$viewValue} | limitTo:8">
             </div>
           </div>
           <div class="col-md-2">
             <div class="form-group form-price">
+              <input type="text" value="0" ng-required min="-100000" step="1" ng-validate="number" class="form-control table-price" ng-model="item.item_amount" ng-change="quotationNew.calculateTotal()" ui-number-mask="0" ui-negative-number required>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group form-price">
               <input type="text" value="0.00" ng-required min="-100000" step="1000" ng-validate="number" placeholder="{{ 'price' | translate }}" class="form-control table-price" ng-model="item.amount" ng-change="quotationNew.calculateTotal()" ui-number-mask="2" ui-negative-number>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group form-price">
+              <input type="text" value="0.00" ng-required min="-100000" step="1000" ng-validate="number" class="form-control table-price" ng-model="item.total_price" ng-change="quotationNew.calculateTotal()" ui-number-mask="2" ui-negative-number>
             </div>
           </div>
         </div>

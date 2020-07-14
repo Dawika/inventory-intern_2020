@@ -65,7 +65,11 @@
                 var opts = sel.options;
                 for (var j = 0; j < opts.length; j++) {
                   if (opts[j].label == ctrl.student_info[i].grade) {
+<<<<<<< HEAD
                     ctrl.datas.invoice.grade_name = opts[j].label
+=======
+                    ctrl.datas.invoice.grade_name = opts[i].label
+>>>>>>> add amount to invoice and quotation
                   }
                 }
               }
@@ -136,6 +140,8 @@
 
       ctrl.onSelectLineItem = function ($item, $model) {
         $model.amount = $item.amount;
+        $model.item_amount = $item.item_amount;
+        $model.total_price = $item.total_price;
         ctrl.invoiceTotal();
       };
 
