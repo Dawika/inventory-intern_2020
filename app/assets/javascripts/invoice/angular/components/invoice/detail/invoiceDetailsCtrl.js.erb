@@ -5,12 +5,12 @@
   .controller('invoiceDetailsCtrl', ['$scope', '$http', '$state', 'DEFAULT_LOGO', 'LocalStorage', 'Currency', 'invoiceService', '$rootScope', 'translateFilter', 'quotationNewService', 
     function($scope, $http, $state, DEFAULT_LOGO, LocalStorage, Currency, service, $rootScope, translateFilter, quotationNewService) 
   {
-    $rootScope.menu = translateFilter('invoice_form');
+    $rootScope.menu = I18n.t('invoice_form');
     var ctrl = this;
     var defaultInvoice = {
       invoice: {
         items: [
-          { detail: translateFilter('tuition_fee'), amount: 48900.0 }
+          { detail: I18n.t('tuition_fee'), amount: 48900.0 }
         ]
       },
       payment_method: {
@@ -57,7 +57,7 @@
 
         angular.forEach(ctrl.grades, function(item, key){
           if( item.value == ctrl.datas.invoice.grade_name )
-            ctrl.datas.invoice.grade_name = item
+            ctrl.datas.invoice.grade_name = item.value
         });
 
       });

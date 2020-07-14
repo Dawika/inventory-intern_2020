@@ -34,7 +34,8 @@
           <div class="form-group">
             <!-- <select class="btn btn-grades" ng-model="invoiceDetails.datas.invoiceDetails.grade_name" ng-init="invoiceDetails.datas.invoiceDetails.grade_name = invoiceDetails.grades[0]" ng-options=" obj.value for obj in invoiceDetails.grades">
             </select> -->
-            <select id="grade" class="btn btn-grades" ng-model="invoiceDetails.datas.invoice.grade_name" ng-options=" obj.value for obj in invoiceDetails.grades">
+            <select id="grade" class="btn btn-grades" ng-model="invoiceDetails.datas.invoice.grade_name">
+              <option ng-repeat="grade in invoiceDetails.grades" value="{{ grade.value }}">{{ grade.value }}</option>
             </select>
           </div>
         </div>
