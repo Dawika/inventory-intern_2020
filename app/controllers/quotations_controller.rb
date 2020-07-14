@@ -193,10 +193,12 @@ class QuotationsController < ApplicationController
     line_items = []
     total = 0
     @quotation.line_item_quotations.each do |line_item|
-      total += line_item.amount
+      total += ( line_item.amount * line_item.item_amount )
       line_items << {
         detail: line_item.detail,
         amount: line_item.amount,
+        item_amount: line_item.item_amount,
+        total_price: line_item.total_price
       }
     end
 

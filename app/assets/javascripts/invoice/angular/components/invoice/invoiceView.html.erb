@@ -32,7 +32,6 @@
         <div class="row form-1_2">
           <div class="col-md-3">
             <div class="form-group">
-            {{invoice.datas.invoice.grade_name}}
               <select id="grade" class="btn btn-grades" ng-model="invoice.datas.invoice.grade_name" required="required">
                 <option value>{{ 'choose_level' | translate }}</option>
                 <option ng-repeat="grade in invoice.grades" value="{{ grade.value }}">{{ grade.value }}</option>
