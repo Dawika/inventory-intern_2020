@@ -167,7 +167,7 @@
       var opts = sel.options;
       for (var i = 0; i < opts.length; i++) {
         if (opts[i].label == $item.grade) {
-            sel.selectedIndex = i;
+          quotationNew.datas.quotations.grade_name = opts[i].label
         }
       }
       quotationNew.datas.student.full_name = $item.full_name;
@@ -180,7 +180,7 @@
       var opts = sel.options;
       for (var i = 0; i < opts.length; i++) {
         if (opts[i].label == $item.grade) {
-            sel.selectedIndex = i;
+          quotationNew.datas.quotations.grade_name = opts[i].label
         }
       }
       quotationNew.datas.student.full_name = $item.full_name;
@@ -224,7 +224,7 @@
                 var opts = sel.options;
                 for (var j = 0; j < opts.length; j++) {
                   if (opts[j].label == quotationNew.student_info[i].grade) {
-                    sel.selectedIndex = j;
+                    quotationNew.datas.quotations.grade_name = opts[j].label
                   }
                 }
               }

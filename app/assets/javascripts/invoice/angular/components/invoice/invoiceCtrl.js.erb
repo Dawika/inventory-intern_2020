@@ -65,7 +65,7 @@
                 var opts = sel.options;
                 for (var j = 0; j < opts.length; j++) {
                   if (opts[j].label == ctrl.student_info[i].grade) {
-                    sel.selectedIndex = j;
+                    ctrl.datas.invoice.grade_name = opts[j].label
                   }
                 }
               }
@@ -113,7 +113,7 @@
         var opts = sel.options;
         for (var i = 0; i < opts.length; i++) {
           if (opts[i].label == $item.grade) {
-            sel.selectedIndex = i;
+            ctrl.datas.invoice.grade_name = opts[i].label
           }
         }
         ctrl.datas.student.full_name = $item.full_name;
@@ -126,7 +126,7 @@
         var opts = sel.options;
         for (var i = 0; i < opts.length; i++) {
           if (opts[i].label == $item.grade) {
-            sel.selectedIndex = i;
+            ctrl.datas.invoice.grade_name = opts[i].label
           }
         }
         ctrl.datas.student.student_number = $item.student_number;
