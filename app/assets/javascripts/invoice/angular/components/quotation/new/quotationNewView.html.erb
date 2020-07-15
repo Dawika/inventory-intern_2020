@@ -99,7 +99,7 @@
           <div class="col-md-4">{{ 'item' | translate }}</div>
           <div class="col-md-2 text-right-htable">{{ 'amount' | translate }}</div>
           <div class="col-md-2 text-right-htable">{{ 'price' | translate }}</div>
-          <div class="col-md-2 text-right-htable">{{ 'total' | translate }}</div>
+          <div class="col-md-2 text-right-htable">{{ 'total_cost' | translate }}</div>
         </div>
 
         <div class="row invoice-item" ng-repeat="item in quotationNew.datas.quotations.items" ng-animate="'slide-down'">
@@ -111,7 +111,7 @@
           </div>
           <div class="col-md-4">
             <div class="form-group form-list">
-              <input type="text" placeholder="{{ 'item' | translate }}" class="form-control grop-table" ng-model="item.detail" typeahead-on-select="quotationNew.onSelectLineItem($item, item)" uib-typeahead="item.detail as item.line_item_display for item in quotationNew.line_items_info | filter:{detail:$viewValue} | limitTo:8">
+              <input type="text" required placeholder="{{ 'item' | translate }}" class="form-control grop-table" ng-model="item.detail" typeahead-on-select="quotationNew.onSelectLineItem($item, item)" uib-typeahead="item.detail as item.line_item_display for item in quotationNew.line_items_info | filter:{detail:$viewValue} | limitTo:8">
             </div>
           </div>
           <div class="col-md-2">

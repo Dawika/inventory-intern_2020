@@ -216,7 +216,6 @@
           ctrl.datas.payment_method.is_transfer = resp.data.default_transfer_payment_method;
           ctrl.datas.payment_method.is_cheque = resp.data.default_cheque_payment_method;
           ctrl.datas.invoice.school_year = resp.data.school_year;
-          console.log(resp)
 
           ctrl.date_display = nowDate.getDate() + "/" + (nowDate.getMonth() + 1) + "/" + (nowDate.getFullYear() + 543);
           ctrl.availableCurrencies = Currency.all();

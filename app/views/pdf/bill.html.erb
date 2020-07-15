@@ -50,7 +50,7 @@
             <% @results["line_items"].each_with_index do |line_item, i| %>
               <tr>
                 <td class="border-left-1 border-right-1 p-10 text-center"><%= i + 1 %></th>
-                <td class="border-left-1 border-right-1 p-10"><%= line_item[:detail] %></td>
+                <td class="border-left-1 border-right-1 p-10"><%= I18n.t(line_item[:detail]) %></td>
                 <td class="border-left-1 border-right-1 p-10 text-right">
                   <%= number_with_precision(line_item[:amount], precision: 2, delimiter: ',') %> (x<%= line_item[:item_amount] %>)
                 </td>

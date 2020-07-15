@@ -187,7 +187,7 @@ class InvoicesController < ApplicationController
       if student.parents.size == 0 || student.parents.select{|p| p.full_name == parent.full_name}.size == 0
         StudentsParent.create(student_id: student.id, parent_id: parent.id, relationship_id: 2)
       end
-
+      
       invoice_hash = invoice_params.to_h
       invoice_hash.delete(:items)
       invoice_hash.delete(:grade)
@@ -356,10 +356,12 @@ class InvoicesController < ApplicationController
     line_items = []
     total = 0
     @invoice.line_items.each do |line_item|
-      total += line_item.amount
+      total += ( line_item.amount * line_item.item_amount )
       line_items << {
         detail: line_item.detail,
         amount: line_item.amount,
+        item_amount: line_item.item_amount,
+        total_price: line_item.total_price
       }
     end
 

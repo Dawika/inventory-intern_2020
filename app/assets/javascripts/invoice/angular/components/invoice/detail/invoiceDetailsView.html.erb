@@ -94,8 +94,10 @@
         <div class="row header">
           <div class="col-md-1 text-center"></div>
           <div class="col-md-1 text-center">#</div>
-          <div class="col-md-8">{{ 'item' | translate }}</div>
+          <div class="col-md-4">{{ 'item' | translate }}</div>
+          <div class="col-md-2 text-right-htable">{{ 'amount' | translate }}</div>
           <div class="col-md-2 text-right-htable">{{ 'price' | translate }}</div>
+          <div class="col-md-2 text-right-htable">{{ 'total_cost' | translate }}</div>
         </div>
 
         <div class="row invoice-item" ng-repeat="item in invoiceDetails.datas.invoice.items" ng-animate="'slide-down'">
@@ -103,11 +105,17 @@
           <div class="col-md-1">
             {{ $index + 1 }}
           </div>
-          <div class="col-md-8 mt-5">
-            {{ item.detail }}
+          <div class="col-md-4 mt-5">
+            {{ item.detail | translate}}
           </div>
           <div class="col-md-2 text-right-htable">
+            {{ item.item_amount}}
+          </div>
+            <div class="col-md-2 text-right-htable">
             {{ item.amount.toFixed(2) | number:2 }}
+          </div>
+            <div class="col-md-2 text-right-htable">
+            {{ item.total_price.toFixed(2) | number:2 }}
           </div>
         </div>
 

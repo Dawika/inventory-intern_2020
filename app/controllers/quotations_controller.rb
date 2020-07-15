@@ -70,7 +70,7 @@ class QuotationsController < ApplicationController
           quotation_new.quotation_status = 0
     
           line_item_params.to_h[:items].each do |item|
-            quotation_new.line_item_quotations << LineItemQuotation.new(item)
+            quotation_new.line_item_quotations << LineItemQuotation.new(item.merge(school_id: current_user.school_id))
           end
           quotation_new.save
         end
@@ -149,7 +149,7 @@ class QuotationsController < ApplicationController
       quotation_new.quotation_status = 0
 
       line_item_params.to_h[:items].each do |item|
-        quotation_new.line_item_quotations << LineItemQuotation.new(item)
+        quotation_new.line_item_quotations << LineItemQuotation.new(item.merge(school_id: current_user.school_id))
       end
 
       quotation_new.save
