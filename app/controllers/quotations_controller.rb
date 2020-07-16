@@ -70,7 +70,7 @@ class QuotationsController < ApplicationController
           quotation_new.quotation_status = 0
     
           line_item_params.to_h[:items].each do |item|
-            quotation_new.line_item_quotations << LineItemQuotation.new(item)
+            quotation_new.line_item_quotations << LineItemQuotation.new(item.merge(school_id: current_user.school_id))
           end
           quotation_new.save
         end
@@ -149,7 +149,7 @@ class QuotationsController < ApplicationController
       quotation_new.quotation_status = 0
 
       line_item_params.to_h[:items].each do |item|
-        quotation_new.line_item_quotations << LineItemQuotation.new(item)
+        quotation_new.line_item_quotations << LineItemQuotation.new(item.merge(school_id: current_user.school_id))
       end
 
       quotation_new.save
@@ -193,10 +193,12 @@ class QuotationsController < ApplicationController
     line_items = []
     total = 0
     @quotation.line_item_quotations.each do |line_item|
-      total += line_item.amount
+      total += ( line_item.amount * line_item.item_amount )
       line_items << {
         detail: line_item.detail,
         amount: line_item.amount,
+        item_amount: line_item.item_amount,
+        total_price: line_item.total_price
       }
     end
 
@@ -255,7 +257,7 @@ class QuotationsController < ApplicationController
   end
 
   def line_item_params
-    params.require(:quotations).permit(items: [[:detail, :amount]])
+    params.require(:quotations).permit(items: [[:detail, :amount, :total_price, :item_amount]])
   end
 
 end

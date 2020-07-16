@@ -56,13 +56,14 @@
             <div class="title-htable">{{ 'invoice_list' | translate }}</div>
           </div>
         </div>
-
         <div class="items-table">
           <div class="row header">
             <div class="col-md-1">&nbsp;</div>
             <div class="col-md-1 text-center">#</div>
-            <div class="col-md-8">{{ 'item' | translate }}</div>
+            <div class="col-md-4">{{ 'item' | translate }}</div>
+            <div class="col-md-2 text-right-htable">{{ 'amount' | translate }}</div>
             <div class="col-md-2 text-right-htable">{{ 'price' | translate }}</div>
+            <div class="col-md-2 text-right-htable">{{ 'total_cost' | translate }}</div>
           </div>
 
           <div class="row invoice-item" ng-repeat="item in invoice.datas.invoice.items" ng-animate="'slide-down'">
@@ -72,15 +73,23 @@
             <div class="col-md-1">
               {{ $index + 1 }}
             </div>
-            <div class="col-md-8">
+            <div class="col-md-4">
               <div class="form-group form-list">
-                <input type="text" placeholder="{{ 'item' | translate }}" class="form-control grop-table" ng-model="item.detail" typeahead-on-select="invoice.onSelectLineItem($item, item)" uib-typeahead="item.detail as item.line_item_display for item in invoice.line_items_info | filter:{detail:$viewValue} | limitTo:8">
+                <input type="text" required placeholder="{{ 'item' | translate }}" class="form-control grop-table" ng-model="item.detail" typeahead-on-select="invoice.onSelectLineItem($item, item)" uib-typeahead="item.detail as item.line_item_display for item in invoice.line_items_info | filter:{detail:$viewValue} | limitTo:8">
               </div>
             </div>
             <div class="col-md-2">
               <div class="form-group form-price">
-                <input type="text" value="0.00" ng-required min="-100000" step="1000" ng-validate="number" placeholder="{{ 'price' | translate }}" class="form-control table-price" ng-model="item.amount" ng-change="invoice.invoiceTotal()" ui-number-mask="2" ui-negative-number>
+                <input type="text" value="0" required min="-100000" step="1" ng-validate="number" class="form-control table-price" ng-model="item.item_amount" ng-change="invoice.invoiceTotal()"  ui-number-mask="0" ui-negative-number>
               </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group form-price">
+                <input type="text" value="0.00" required min="-100000" step="1000" ng-validate="number" placeholder="{{ 'price' | translate }}" class="form-control table-price" ng-model="item.amount" ng-change="invoice.invoiceTotal()" ui-number-mask="2" ui-negative-number>
+              </div>
+            </div>
+            <div class="col-md-2 text-right-htable">
+              {{ item.total_price.toFixed(2) | number:2 }}
             </div>
           </div>
 

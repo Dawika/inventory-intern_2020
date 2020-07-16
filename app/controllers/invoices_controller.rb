@@ -97,18 +97,20 @@ class InvoicesController < ApplicationController
     end
 
     #get line_item
-    line_items = LineItem.pluck(:detail, :amount).uniq
+    line_items = LineItem.where(school_id: current_user.school_id).pluck(:detail, :amount, :total_price, :item_amount).uniq
     line_items_info = []
     line_items.each do |line_item|
       line_item_display = ""
       if(line_item[1])
-        line_item_display = line_item[0] + '(' + line_item[1].to_s + ')'
+        line_item_display = "#{line_item[0]} ( #{line_item[3].to_s} ) ( #{line_item[2].to_s} )"
       else
         line_item_display = line_item[0]
       end
       line_items_info << {
         detail: line_item[0],
         amount: line_item[1],
+        total_price: line_item[2],
+        item_amount: line_item[3],
         line_item_display: line_item_display
       }
     end
@@ -185,7 +187,7 @@ class InvoicesController < ApplicationController
       if student.parents.size == 0 || student.parents.select{|p| p.full_name == parent.full_name}.size == 0
         StudentsParent.create(student_id: student.id, parent_id: parent.id, relationship_id: 2)
       end
-
+      
       invoice_hash = invoice_params.to_h
       invoice_hash.delete(:items)
       invoice_hash.delete(:grade)
@@ -211,7 +213,7 @@ class InvoicesController < ApplicationController
       invoice.invoice_status_id = InvoiceStatus.find_by_name("Active").id
 
       line_item_params.to_h[:items].each do |item|
-        invoice.line_items << LineItem.new(item)
+        invoice.line_items << LineItem.new(item.merge(school_id: current_user.school_id))
       end
 
       pm = payment_method_params
@@ -354,10 +356,12 @@ class InvoicesController < ApplicationController
     line_items = []
     total = 0
     @invoice.line_items.each do |line_item|
-      total += line_item.amount
+      total += ( line_item.amount * line_item.item_amount )
       line_items << {
         detail: line_item.detail,
         amount: line_item.amount,
+        item_amount: line_item.item_amount,
+        total_price: line_item.total_price
       }
     end
 
@@ -637,7 +641,7 @@ class InvoicesController < ApplicationController
     end
 
     def line_item_params
-      params.require(:invoice).permit(items: [[:detail, :amount]])
+      params.require(:invoice).permit(items: [[:detail, :amount, :total_price, :item_amount]])
     end
 
     def payment_method_params

@@ -8,7 +8,7 @@
     var defaultInvoice = {
       invoice: {
         items: [
-          { detail: translateFilter('tuition_fee'), amount: 35000.0}
+          { detail: I18n.t('tuition_fee'), amount: 35000.0, item_amount: 1, total_price: 35000.0}
         ]
       }
     }
@@ -136,12 +136,14 @@
 
       ctrl.onSelectLineItem = function ($item, $model) {
         $model.amount = $item.amount;
+        $model.item_amount = $item.item_amount;
+        $model.total_price = $item.total_price;
         ctrl.invoiceTotal();
       };
 
       // Adds an item to the invoice's items
       ctrl.addItem = function() {
-        ctrl.datas.invoice.items.push({ amount:0, detail:"" });
+        ctrl.datas.invoice.items.push({ amount:0, detail:"", item_amount: 0, total_price: 0 });
         ctrl.invoiceTotal();
       }
 
@@ -177,8 +179,10 @@
       ctrl.invoiceTotal = function() {
         var total = 0.00;
         angular.forEach(ctrl.datas.invoice.items, function(item, key){
-          total += item.amount;
+          total += (item.amount * item.item_amount);
+          item.total_price = item.amount * item.item_amount
         });
+
         ctrl.total = total;
       };
 
