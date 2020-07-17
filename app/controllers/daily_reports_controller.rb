@@ -86,7 +86,6 @@ class DailyReportsController < ApplicationController
     @daily_report = DailyReport.new(daily_report_params)
     @daily_report.user_id = current_user.id
     @daily_report.save
-    ap params[:daily_report][:invoice_id]
     params[:daily_report][:invoice_id].collect do |id|
       Invoice.find(id).update(status_daily_report: true)
     end
