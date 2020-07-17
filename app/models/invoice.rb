@@ -29,7 +29,7 @@ class Invoice < ApplicationRecord
   end
 
   def total_amount
-    self.line_items.collect(&:amount).inject(:+)
+    self.line_items.collect(&:total_price).inject(:+)
   end
 
   def entrance_fee
@@ -138,6 +138,7 @@ class Invoice < ApplicationRecord
         semester: self.semester,
         created_at: self.created_at,
         updated_at: self.updated_at,
+        status_daily_report: self.status_daily_report,
         students: {
           full_name: self.student_full_name_with_nickname,
         },

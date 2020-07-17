@@ -38,7 +38,7 @@ class DailyReportsController < ApplicationController
     end_time = nil
     end_time = Time.zone.parse(params[:end_time]) if params[:end_time]
     end_time = Time.zone.now if !end_time
-    invoices =  Invoice.joins(user: [:school]).where("schools.id = #{current_user.school.id}").where(created_at: start_time..end_time, invoice_status_id: InvoiceStatus.find_by_name('Active'))
+    invoices =  Invoice.joins(user: [:school]).where("schools.id = #{current_user.school.id}").where(created_at: start_time..end_time, invoice_status_id: InvoiceStatus.find_by_name('Active'), status_daily_report: false)
     invoice_ids = []
     unless current_user.admin? || current_user.super_admin?
       invoices.each do |invoice|
@@ -72,6 +72,7 @@ class DailyReportsController < ApplicationController
     end
 
     render json: {
+      invoice_id: invoice_ids,
       cash: cash,
       credit_card: credit_card,
       cheque: cheque,
@@ -85,6 +86,9 @@ class DailyReportsController < ApplicationController
     @daily_report = DailyReport.new(daily_report_params)
     @daily_report.user_id = current_user.id
     @daily_report.save
+    params[:daily_report][:invoice_id].collect do |id|
+      Invoice.find(id).update(status_daily_report: true)
+    end
     render json: @daily_report, status: :ok
   end
 

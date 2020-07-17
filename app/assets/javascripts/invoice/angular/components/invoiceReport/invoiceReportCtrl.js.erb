@@ -57,7 +57,7 @@
       }
 
       function linkCancelInvoice(value, row, index) {
-        if(!row.is_cancel && ctrl.thisDay(row.created_at)){
+        if(!row.is_cancel && ctrl.thisDay(row.created_at) && !row.status_daily_report){
           ctrl.invoice[index] = row;
           var func = angularScopeInvoice + '.cancelInvoiceModal('+ angularScopeInvoice+ '.invoice['+ index +'])';
           var link = "<a href='javascript:void(0)' onclick='" + func + "'><i class='fa fa-times-circle'></i>&nbsp" + translateFilter('cancel_receipt') + "</a>";
