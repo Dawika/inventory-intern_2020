@@ -967,6 +967,7 @@ en:
   change_plan: Change plan
   Cancel_Subscribe: Cancel Subscribe
   auto_subscribe: Auto Subscribe
+  print_paper_size: "Paper size"
 
   #purchases
   purchases:

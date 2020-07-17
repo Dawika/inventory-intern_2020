@@ -71,6 +71,13 @@
           </div><br>
           <div class="row">
             <div class="col-md-12">
+                <label class="">{{ 'print_paper_size' | translate }} </label>
+                <input type="radio" ng-model="setting.datas.school.print_paper_size" value= "A4"> A4 
+                <input type="radio" ng-model="setting.datas.school.print_paper_size" value= "A5"> A5
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
               <div class="form-group">
                 <label for="address">{{ 'address' | translate }}</label>
                 <input type="text" class="form-control white-bg" id="address" ng-model="setting.datas.school.address">
