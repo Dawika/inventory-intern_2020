@@ -23,7 +23,7 @@ class Quotation < ApplicationRecord
   end
 
   def total_amount
-    line_item_quotations&.sum(&:amount) || 0
+    line_item_quotations&.sum(&:total_price) || 0
   end
 
   def paid_at
@@ -33,7 +33,7 @@ class Quotation < ApplicationRecord
   def outstanding_balance # ยอดค้างชำระ
     total = 0
     invoices.each do |invoice|
-      total += invoice&.line_items&.sum(&:amount) || 0
+      total += invoice&.line_items&.sum(&:total_price) || 0
     end
     return total_amount - total
   end
@@ -43,7 +43,7 @@ class Quotation < ApplicationRecord
     invoices.each do |invoice|
       invoice_line_item << {
         id: invoice.id,
-        amount: invoice&.line_items&.sum(&:amount),
+        amount: invoice&.line_items&.sum(&:total_price),
         created_at: invoice&.created_at&.strftime("%d/%m/%Y")
       }
     end

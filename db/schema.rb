@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200716080845) do
+ActiveRecord::Schema.define(version: 20200717083435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -629,8 +629,8 @@ ActiveRecord::Schema.define(version: 20200716080845) do
     t.integer  "invoice_status_id"
     t.string   "school_year"
     t.string   "semester"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "grade_name"
     t.string   "classroom"
     t.string   "student_name"
@@ -638,6 +638,7 @@ ActiveRecord::Schema.define(version: 20200716080845) do
     t.string   "user_name"
     t.integer  "slip_id"
     t.integer  "school_id"
+    t.boolean  "status_daily_report", default: false
     t.index ["school_id"], name: "index_invoices_on_school_id", using: :btree
   end
 
