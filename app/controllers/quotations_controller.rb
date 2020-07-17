@@ -212,7 +212,9 @@ class QuotationsController < ApplicationController
       format.pdf do
         @results = bill_info
         render pdf: "file_name",
-                template: "pdf/bill.html.erb",
+                page_size: current_user.school.print_paper_size,
+                orientation: 'Portrait', 
+                template: current_user.school.print_paper_size == "A4" ? "pdf/bill.html.erb" : "pdf/bill_a5.html.erb",
                 encoding: "UTF-8",
                 layout: 'pdf.html',
                 show_as_html: params[:show_as_html].present?

@@ -19,6 +19,7 @@ class SettingsController < ApplicationController
       current_user.school.school_setting.update(params_school_setting)
       update_school_status = true
       if self.can? :update, School
+        ap params_school
         update_school_status = current_user.school.update(params_school)
         if current_user.school.bil_info.present?
           current_user.school.bil_info.update(params_billing)
@@ -75,7 +76,7 @@ class SettingsController < ApplicationController
     end
 
     def params_school
-      params.require(:school).permit(:name, :name_eng, :tax_id, :logo, :address, :zip_code, :email, :phone, :fax, :subdomain_name, :branch, :note)
+      params.require(:school).permit(:print_paper_size, :name, :name_eng, :tax_id, :logo, :address, :zip_code, :email, :phone, :fax, :subdomain_name, :branch, :note)
     end
 
     def params_user

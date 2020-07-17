@@ -374,8 +374,10 @@ class InvoicesController < ApplicationController
       end
       format.pdf do
         @results = slip_info
-        render pdf: "file_name",
-                template: "pdf/invoice.html.erb",
+        render pdf: "ใบเสร็จ #{@invoice.slip_id}",
+                page_size: current_user.school.print_paper_size,
+                orientation: 'Portrait', 
+                template: current_user.school.print_paper_size == "A4" ? "pdf/invoice.html.erb" : "pdf/invoice_a5.html.erb",
                 encoding: "UTF-8",
                 layout: 'pdf.html',
                 show_as_html: params[:show_as_html].present?
