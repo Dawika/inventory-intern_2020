@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 
   resources :helps
 
+  resources :auto_line_items
+
   resources :purchases, param: :school_id, only: [:new] do
     patch 'renew'
     post 'update_card'

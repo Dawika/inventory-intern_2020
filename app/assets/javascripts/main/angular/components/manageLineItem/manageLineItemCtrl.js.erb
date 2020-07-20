@@ -1,0 +1,16 @@
+(function () {
+  'use strict';
+  angular.module('somsri.main.manageLineItem', [
+  ])
+    .controller('manageLineItemCtrl', ['$rootScope', '$scope', '$uibModal', 'manageLineItemService', function ($rootScope, $scope, $uibModal, service) {
+      $rootScope.menu = I18n.t('manage_line_item');
+      var ctrl = this
+      ctrl.autoLineItem = []
+      service.getAutoLineItem().then(function(resp){
+        console.log(resp)
+        ctrl.autoLineItem = resp.data
+      })
+
+
+    }]);
+})();

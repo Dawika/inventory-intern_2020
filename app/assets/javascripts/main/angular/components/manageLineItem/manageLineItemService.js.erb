@@ -1,0 +1,13 @@
+(function() {
+  'use strict';
+
+  angular.module('somsri.main.manageLineItem.service', [])
+    .service('manageLineItemService', ['$http', 'Upload', function($http, Upload) {
+
+      this.getAutoLineItem = function(){
+        return $http.get('/auto_line_items/')
+      }
+   
+
+    }]);
+})();
