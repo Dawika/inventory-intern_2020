@@ -3,22 +3,69 @@
 <div class="space20"></div>
 <div class="row">
     <div class="col-xs-2">
-        <a href="/main#/classroom">
+        <a href="/main#/setting">
             <h3><i class="back-hearder fas fa-long-arrow-alt-left color-orange"></i> {{"manage_line_item" | translate}}</h3>
         </a>
     </div>
 </div><br>
 <div class="content-box-classroom-manage">
   <div class="row">
-    <div class="col-xs-1">
-      <h4 class="header">{{ "grade_level" | translate }}</h4>
-    </div>
-    <div class="col-xs-11">
-      <button type="button" class="btn btn-primary button-header"><i class="fas fa-plus"></i> {{ "create_grade" | translate }}</button>
-    </div>
+      <div class="col-xs-2">
+          <h4 class="header">{{ "manage_line_item" | translate }}</h4>
+      </div>
+      <div class="col-xs-10">
+          <button type="button" ng-disabled="!manageLineItem.inputCreate" ng-click="manageLineItem.show_create(false)" class="btn btn-primary button-header"><i class="fas fa-plus"></i> {{ "add" | translate }}</button>
+      </div>
+  </div><br>
+  <div class="row">
+      <div class="col-xs-12">
+          <ul class="list-group" ng-hide="manageLineItem.inputCreate">
+              <li class="list-group-item-create">
+                  <form ng-submit="manageLineItem.create()" id="create-form">
+                      <div class="row">
+                          <div class="col-xs-3">
+                              <input type="text" ng-model="manageLineItem.datas.name" placeholder= "ชื่อ" class="form-control" required>
+                          </div>
+                          <div class="col-xs-2">
+                              <input type="number" ng-model="manageLineItem.datas.price" placeholder= "ราคา" class="form-control" required>
+                          </div>
+                          <div class="col-xs-2  pull-right">
+                              <input type="submit" id="create_grade" hidden>
+                              <a href="javascript:void(0)" ng-click="manageLineItem.show_create(true)" class="far fa-trash-alt trash color-red pull-right"> {{ "delete" | translate }}</a>
+                              <a onclick="$('#create_grade').trigger('click')" ng-click="manageLineItem.datas.name != '' && manageLineItem.datas.price != '' ? manageLineItem.show_create(true) : false" class="fas fa-save save color-blue pull-right"> {{ "save" | translate }}</a>
+                          </div>
+                      </div>
+                  </form>
+              </li>
+          </ul>
+      </div>
   </div>
   <div class="row">
-
+      <div class="col-xs-12">
+          <ul class="list-group">
+              <li ng-repeat="item in manageLineItem.autoLineItem" class="list-group-item">
+                  <div class="row">
+                      <div class="col-xs-3">
+                        <div class="input-group">
+                          <span class="input-group-addon">ชื่อ</span>
+                          <input type="text" ng-model="item.name" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-xs-3">
+                        <div class="input-group">
+                          <span class="input-group-addon">ราคา</span>
+                          <input type="number" ng-model="item.price" class="form-control">
+                          <span class="input-group-addon">บาท</span>
+                        </div>
+                      </div>
+                      <div class="col-xs-2 pull-right">
+                          <a href="javascript:void(0)" ng-click="manageLineItem.delete(item.id)" class="far fa-trash-alt trash color-red pull-right"> {{ "delete" | translate }}</a>
+                          <a ng-show="manageLineItem.oldAutoLineItem[$index].name != item.name || manageLineItem.oldAutoLineItem[$index].price != item.price" href="javascript:void(0)" ng-click="manageLineItem.update(item.id, item.name, item.price)" class="fas fa-save save color-blue pull-right"> {{ "save" | translate }}</a>
+                      </div>
+                  </div>
+              </li>
+          </ul>
+      </div>
+    </div>
   </div>
-  
-  </div>
+</div>
