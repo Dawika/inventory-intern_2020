@@ -268,6 +268,10 @@ class InvoicesController < ApplicationController
   # PATCH/PUT /invoices/:id/cancel
   def cancel
     if @invoice.update(invoice_status_id: InvoiceStatus.find_by_name('Canceled').id)
+      if @invoice.quotation_invoices.present?
+        quotation = Quotation.find(@invoice.quotation_invoices.first&.quotation_id)
+        quotation.update(quotation_status: "cancelled")
+      end
       render json: ["SUCCESS"], status: :ok
     else
       render json: ["FAILED"], status: :ok
