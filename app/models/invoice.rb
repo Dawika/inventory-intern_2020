@@ -171,7 +171,8 @@ class Invoice < ApplicationRecord
         amount: helper.number_with_delimiter('%.2f' % self.total_amount, :delimiter => ','),
         created_at: self.created_at,
         grade_classroom: self.grade_classroom,
-        payment_methods: self.payment_method_names
+        payment_methods: self.payment_method_names,
+        invoice_status: self.invoice_status.name
       }
     else
       super()
