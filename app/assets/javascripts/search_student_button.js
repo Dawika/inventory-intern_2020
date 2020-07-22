@@ -182,12 +182,16 @@ function filterCurrency(index, row, element) {
 }
 
 function linkToInvoiceFormatter(index, row, element) {
-    var link = '<p><i class="fa fa-money" aria-hidden="true"></i>ชำระแล้ว</p>';
-    if (!index || index === 'active') {
+    var link = '<i class="fa fa-money" aria-hidden="true"></i> ' + I18n.t("quotation_active");
+    if (!index || index === 'active' || index === 'Active') {
+        return link;
+    }
+    link = I18n.t('quotation_cancelled');
+    if (!index || index === 'cancelled' || index === 'Canceled') {
         return link;
     }
     link = "<a href='/somsri_invoice#/invoice/" + row.id + "'>" +
-        "<i class='fa fa-money' aria-hidden='true'></i>ชำระเงิน</a>";
+        "<i class='fa fa-money' aria-hidden='true'></i>" + I18n.t("quotation_unpaid") + "</a>";
 
     return link;
 }
