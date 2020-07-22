@@ -8,14 +8,6 @@ class InvoicesController < ApplicationController
     start_date = Time.zone.parse(params[:start_date]).beginning_of_day if isDate(params[:start_date])
     end_date = Time.zone.parse(params[:end_date]).end_of_day if isDate(params[:end_date])
 
-    # invoice_status_id = nil
-    # if params[:is_active] == "1"
-    #   invoice_status_id = InvoiceStatus.status_active_id
-    # end
-    # if params[:is_active] == "0"
-    #   invoice_status_id = InvoiceStatus.status_canceled_id
-    # end
-
     @invoices = get_invoices(grade_select, params[:search_keyword], start_date, end_date, params[:page], params[:sort], params[:order], params[:export], params[:student_id])
     if params[:page] && @invoices.total_pages < @invoices.current_page
       @invoices = get_invoices(grade_select, params[:search_keyword], start_date, end_date, 1, params[:sort], params[:order], params[:export], params[:student_id])
@@ -608,7 +600,6 @@ class InvoicesController < ApplicationController
       qry_invoices = Invoice.includes(:payment_methods, :parent, :student, :user, :line_items, :invoice_status)
                             .search(search_keyword)
 
-      # qry_invoices = qry_invoices.where(invoice_status_id: invoice_status_id) if invoice_status_id
       qry_invoices = qry_invoices.where(student_id: student_id) if student_id
 
       if grade_select.downcase != 'all'
