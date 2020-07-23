@@ -149,13 +149,15 @@ function goToUrl(url) {
     }
 }
 
-searchInput.richAutocomplete({
-    loadPage: loadServerPage,
-    render: renderSearch,
-    select: selected,
-    paging: true,
-    pageSize: 20
-});
+try {
+    searchInput.richAutocomplete({
+        loadPage: loadServerPage,
+        render: renderSearch,
+        select: selected,
+        paging: true,
+        pageSize: 20
+    });
+} catch (e) {}
 
 $('.rich-autocomplete').hide();
 
