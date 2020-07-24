@@ -462,6 +462,7 @@ th:
   create_bus: "เพิ่มรถรับ - ส่ง"
   the_driver: "พนักงานขับรถ"
   new_bus_lane: "เพิ่มเส้นทางเดินรถ"
+  created_at: "วันที่สร้าง"
 
   # Quotation
   quotation_link_nav: "ใบแจ้งการชำระเงินค่าเทอม"
