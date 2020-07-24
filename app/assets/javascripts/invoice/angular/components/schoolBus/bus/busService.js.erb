@@ -13,6 +13,18 @@
     return $http.post('buses',  {bus: data})
   }
 
+  this.getBusInfo = function(id){
+    return $http.get('buses/' + id +'/edit')
+  }
+
+  this.update = function(id, data){
+    return $http.patch('buses/' + id + '/', {bus: data})
+  }
+
+  this.delete = function(id){
+    return $http.delete('buses/' + id)
+  }
+
 
   }]);
 })();

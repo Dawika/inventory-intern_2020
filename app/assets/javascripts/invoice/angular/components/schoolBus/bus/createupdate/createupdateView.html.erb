@@ -1,9 +1,9 @@
 <div class="space20"></div>
 <div class="space20"></div>
-<form ng-submit="createupdatebus.submit(createupdatebus.datas)">
+<form ng-submit="createupdatebus.submit()">
 <div class="row">
   <div class="col-xs-12">
-    <h3><a href="/somsri_invoice#/bus"><i class="fas fa-arrow-left color-orange"></i> {{'bus' | translate}}</a></h3>
+    <h3><a href="/somsri_invoice#/bus"><i class="fas fa-arrow-left color-orange"></i> {{ ( createupdatebus.id == null ? 'bus' : createupdatebus.datas.license_plate ) | translate }}</a></h3>
   </div>
 </div> <br>
  <!-- bus -->
@@ -58,7 +58,8 @@
     <button type= "submit" class="btn btn-custom btn-blue btn-block"> {{ 'save' | translate }}</button>
   </div>
   <div class="col-xs-2">
-    <a href="/somsri_invoice#/bus" class="btn btn-custom btn-gray btn-block"> {{ 'Canceled' | translate }}</a>
+    <a ng-if = "createupdatebus.id == null" href="/somsri_invoice#/bus" class="btn btn-custom btn-gray btn-block"> {{ 'Canceled' | translate }}</a>
+    <a ng-if = "createupdatebus.id != null" ng-click = "createupdatebus.delete()" class="btn btn-custom btn-red btn-block"> {{ 'delete' | translate }}</a>
   </div>
 </div>
 </form>
