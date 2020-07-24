@@ -21,6 +21,12 @@ Rails.application.routes.draw do
   resources :helps
 
   resources :auto_line_items
+  
+  resources :buses do
+    collection do 
+      get 'get_employee'
+    end
+  end
 
   resources :purchases, param: :school_id, only: [:new] do
     patch 'renew'

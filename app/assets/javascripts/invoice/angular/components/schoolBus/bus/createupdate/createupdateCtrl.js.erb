@@ -3,11 +3,18 @@
   angular.module('somsri.invoice.createupdatebus', [
   ])
   .controller('createupdatebusCtrl', ['$scope', '$rootScope', 'busService', '$stateParams',function($scope, $rootScope, service, $stateParams) {
-    $rootScope.menu = I18n.t('bus_lane')
+    $rootScope.menu = I18n.t('bus')
     var ctrl = this
-    
+    ctrl.employeeInfo = []
+
+    service.getEmployee().then(function(resp){
+      ctrl.employeeInfo = resp.data
+    })
     ctrl.submit = function(data){
-      console.log(data)
+      service.create(data).then(function(resp){
+        $rootScope.openBus()
+        $rootScope.opensuccessModal(I18n.t('save_success'), false)
+      })
     }
   }]);
 })();
