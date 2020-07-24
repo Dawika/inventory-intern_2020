@@ -23,11 +23,17 @@
               <li class="list-group-item-create">
                   <form ng-submit="manageLineItem.create()" id="create-form">
                       <div class="row">
-                          <div class="col-xs-3">
-                              <input type="text" ng-model="manageLineItem.datas.name" placeholder= "ชื่อ" class="form-control" required>
+                          <div class="col-xs-3 form-inline">
+                            <div class="form-group">
+                              <label>{{'name' | translate}} </label>
+                              <input type="text" ng-model="manageLineItem.datas.name" class="form-control ml-10" required>
+                            </div>
                           </div>
-                          <div class="col-xs-2">
-                              <input type="number" ng-model="manageLineItem.datas.price" placeholder= "ราคา" class="form-control" required>
+                          <div class="col-xs-3 form-inline">
+                            <div class="form-group">
+                              <label>{{'price' | translate}} </label>
+                              <input type="number" ng-model="manageLineItem.datas.price" class="form-control ml-10" required>
+                            </div>
                           </div>
                           <div class="col-xs-2  pull-right">
                               <input type="submit" id="create_grade" hidden>
@@ -45,17 +51,16 @@
           <ul class="list-group">
               <li ng-repeat="item in manageLineItem.autoLineItem" class="list-group-item">
                   <div class="row">
-                      <div class="col-xs-3">
-                        <div class="input-group">
-                          <span class="input-group-addon">ชื่อ</span>
-                          <input type="text" ng-model="item.name" class="form-control">
+                      <div class="col-xs-3 form-inline">
+                        <div class="form-group">
+                          <label>{{'name' | translate}} </label>
+                          <input type="text" ng-model="item.name" class="form-control ml-10">
                         </div>
                       </div>
-                      <div class="col-xs-3">
-                        <div class="input-group">
-                          <span class="input-group-addon">ราคา</span>
-                          <input type="number" ng-model="item.price" class="form-control">
-                          <span class="input-group-addon">บาท</span>
+                      <div class="col-xs-3 form-inline">
+                        <div class="form-group">
+                          <label>{{'price' | translate}} </label>
+                          <input type="number" ng-model="item.price" class="form-control ml-10">
                         </div>
                       </div>
                       <div class="col-xs-2 pull-right">
