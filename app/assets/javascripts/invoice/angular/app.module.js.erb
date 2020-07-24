@@ -197,6 +197,19 @@
             ]);
           }]
         }
+      }). 
+      state({
+        url: '/updatebus/:id',
+        name: 'updatebus',
+        templateUrl: "<%= asset_path('invoice/angular/components/schoolBus/bus/createupdate/createupdateView.html') %>",
+        controller: 'createupdatebusCtrl as createupdatebus',
+        resolve: {
+          resources: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              ASSETS.somsri.invoice.createupdatebus
+            ]);
+          }]
+        }
       }).
        state({
         url: '/buslane',

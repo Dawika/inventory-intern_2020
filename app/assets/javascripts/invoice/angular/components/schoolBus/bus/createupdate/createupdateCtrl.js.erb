@@ -5,16 +5,60 @@
   .controller('createupdatebusCtrl', ['$scope', '$rootScope', 'busService', '$stateParams',function($scope, $rootScope, service, $stateParams) {
     $rootScope.menu = I18n.t('bus')
     var ctrl = this
+    ctrl.id = $stateParams.id
     ctrl.employeeInfo = []
+    ctrl.datas = {
+      license_plate: '',
+      province: '',
+      car_brand: '',
+      employee_id: '',
+      note: ''
+    }
 
-    service.getEmployee().then(function(resp){
-      ctrl.employeeInfo = resp.data
-    })
-    ctrl.submit = function(data){
-      service.create(data).then(function(resp){
-        $rootScope.openBus()
-        $rootScope.opensuccessModal(I18n.t('save_success'), false)
+    function getServiceEmployee(){
+      service.getEmployee().then(function(resp){
+        ctrl.employeeInfo = resp.data
       })
     }
+
+    if(ctrl.id == null){
+      getServiceEmployee()
+    }else{
+      getServiceEmployee()
+      service.getBusInfo(ctrl.id).then(function(resp){
+        ctrl.datas.license_plate = resp.data.license_plate
+        ctrl.datas.province = resp.data.province
+        ctrl.datas.car_brand = resp.data.car_brand
+        ctrl.datas.employee_id = resp.data.employee_id.toString()
+        ctrl.datas.note = resp.data.note
+
+      })
+    }
+
+    ctrl.submit = function(){
+      if(ctrl.id == null){
+        service.create(ctrl.datas).then(function(resp){
+          $rootScope.openBus()
+          $rootScope.opensuccessModal(I18n.t('save_success'), false)
+        })
+      }else{
+        service.update(ctrl.id, ctrl.datas).then(function(e){
+          $rootScope.openBus()
+          $rootScope.opensuccessModal(I18n.t('save_success'), false)
+        })
+      }
+    }
+
+    ctrl.delete = function(){
+      $rootScope.openConfirmationModal(I18n.t('confirmdelete'), true , function(){   
+        service.delete(ctrl.id).then(function(resp){
+          $rootScope.openBus()
+          $rootScope.opensuccessModal(I18n.t('delete_success'), false)
+        })
+      })
+    }
+
+
+
   }]);
 })();
