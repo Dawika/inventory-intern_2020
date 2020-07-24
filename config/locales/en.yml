@@ -299,6 +299,7 @@ en:
   create_bus: "Create bus"
   the_driver: "The driver"
   new_bus_lane: "New bus lane"
+  created_at: "Created at"
 
 
   # Quotation

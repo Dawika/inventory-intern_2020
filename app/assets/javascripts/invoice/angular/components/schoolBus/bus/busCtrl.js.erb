@@ -10,24 +10,27 @@
       sidePagination: "server",
       pagination: true,
       pageSize: 10, 
-      showColumns: true,
+      showColumns: false,
       height: 'auto',
       striped: false,
       search: false,
       toolbar: ".toolbar",
-      url: "/bus_lanes",
+      url: "/buses",
       columns: [{
-        field: 'name',
-        title: I18n.t("bus_lane_name")  
+        field: 'license_plate',
+        title: I18n.t("license_plate")  
       },{
-        field: 'bus',
-        title: I18n.t("bus")
+        field: 'province',
+        title: I18n.t("province")
+      },{
+        field: 'car_brand',
+        title: I18n.t("car_brand"),
       },{
         field: 'employee',
-        title: I18n.t("bus_employee"),
+        title: I18n.t("the_driver"),
       },{
-        field: 'students',
-        title: I18n.t("total_student"),
+        field: 'created_at',
+        title: I18n.t("created_at"),
       },{
         field: 'bring_back',
         formatter: editBtnFormatter

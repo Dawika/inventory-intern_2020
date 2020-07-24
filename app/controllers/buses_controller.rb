@@ -1,5 +1,15 @@
 class BusesController < ApplicationController
 
+  def index
+    buses = Bus.includes(:employee).where(school_id: current_user.school_id).order(id: 'desc')
+    total = buses.size
+    buses = buses.offset(params[:offset]).limit(params[:limit])
+    render json: {
+      rows: buses.as_json('index'),
+      total: total
+    }, status: :ok
+  end
+
   def create
     Bus.create(bus_params)
     render json: {success: true}

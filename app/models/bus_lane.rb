@@ -14,6 +14,8 @@ class BusLane < ApplicationRecord
         employee: self.employees.first&.full_name,
         students: self.students.count
       }
+    else
+      super()
     end
   end
 end
