@@ -1,6 +1,14 @@
 <div class="container main-menu main">
     <div class="row justify-content-center">
         <div class="col-xs-3">
+            <div class="menu-btn create-payment" ng-click="manageLineItem()">
+                <div class="wraptocenter">
+                    <%= image_tag 'line_item.png', class: "menu_line_item" %>
+                </div>
+            </div>
+            <p>{{ 'manage_line_item' | translate }}</p>
+        </div>
+        <div class="col-xs-3">
             <div class="menu-btn create-payment" ng-click="openSchoolProfile()">
                 <div class="wraptocenter">
                     <%= image_tag 'blue-school.png', class: "" %>

@@ -511,6 +511,9 @@ th:
   vacation: "วันลา"
   scout: "แมวมอง"
   school_bus: "รถโรงเรียน"
+  manage_line_item: "รายการสินค้าและบริการ"
+  confirm_update: "คุณต้องการอัพเดทใช่หรือไม่"
+  confirm_delete_line_item: "คุณต้องการลบใช่หรือไม่"
   #menu school bus
   manage_school_bus: จัดการรถรับ - ส่ง
   bus_lane: "เส้นทางเดินรถ"

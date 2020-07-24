@@ -1,0 +1,25 @@
+(function() {
+  'use strict';
+
+  angular.module('somsri.main.manageLineItem.service', [])
+    .service('manageLineItemService', ['$http', 'Upload', function($http, Upload) {
+
+      this.getAutoLineItem = function(){
+        return $http.get('/auto_line_items/')
+      }
+
+      this.create = function(data){
+        return $http.post('/auto_line_items', {auto_line_item: data})
+      }
+
+      this.update = function(id, name, price){
+        return $http.patch('/auto_line_items/'+ id +'/', {auto_line_item: {name: name, price: price}})
+      }
+
+      this.delete = function(id){
+        return $http.delete('/auto_line_items/' + id)
+      }
+   
+
+    }]);
+})();

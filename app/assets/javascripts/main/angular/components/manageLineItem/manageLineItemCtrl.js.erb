@@ -1,0 +1,53 @@
+(function () {
+  'use strict';
+  angular.module('somsri.main.manageLineItem', [
+  ])
+    .controller('manageLineItemCtrl', ['$rootScope', '$scope', '$uibModal', 'manageLineItemService', function ($rootScope, $scope, $uibModal, service) {
+      $rootScope.menu = I18n.t('manage_line_item');
+      var ctrl = this
+      ctrl.autoLineItem = []
+      ctrl.inputCreate = true
+      ctrl.datas = {}
+      
+      service.getAutoLineItem().then(function(resp){
+        ctrl.setData(resp)
+      })
+
+      ctrl.show_create = function(show){
+        ctrl.inputCreate = show
+        ctrl.datas.name = ''
+        ctrl.datas.price = ''
+      }
+
+      ctrl.create = function(){
+        service.create(ctrl.datas).then(function(resp){
+          $rootScope.opensuccessModal(I18n.t('save_success'), false) 
+          ctrl.setData(resp)
+        })
+      }
+
+      ctrl.update = function(id, name, price){
+        $rootScope.openConfirmationModal(I18n.t('save_change_confirmation'), false , function(){
+          service.update(id, name, price).then(function(resp){
+            $rootScope.opensuccessModal(I18n.t('save_success'), false) 
+            ctrl.setData(resp)
+          })
+        }) 
+      }
+
+      ctrl.delete = function(id){
+        $rootScope.openConfirmationModal(I18n.t('confirm_delete_line_item'), true , function(){
+          service.delete(id).then(function(resp){
+            $rootScope.opensuccessModal(I18n.t('delete_success'), false) 
+            ctrl.setData(resp)
+          })
+        })
+      }    
+
+      ctrl.setData = function(resp){
+          ctrl.autoLineItem = resp.data
+          ctrl.oldAutoLineItem = JSON.parse(JSON.stringify(ctrl.autoLineItem))
+      }   
+
+    }]);
+})();

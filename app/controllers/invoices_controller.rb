@@ -89,20 +89,22 @@ class InvoicesController < ApplicationController
     end
 
     #get line_item
-    line_items = LineItem.where(school_id: current_user.school_id).pluck(:detail, :amount, :total_price, :item_amount).uniq
+    line_items = LineItem.where(school_id: current_user.school_id).pluck(:detail, :amount, :item_amount, :total_price).uniq
+    auto_line_item = AutoLineItem.where(school_id: current_user.school_id).pluck(:name, :price, :amount).uniq
+    line_items = line_items.concat(auto_line_item).uniq! {|i| i.first}
     line_items_info = []
     line_items.each do |line_item|
       line_item_display = ""
       if(line_item[1])
-        line_item_display = "#{line_item[0]} ( #{line_item[3].to_s} ) ( #{line_item[2].to_s} )"
+        line_item_display = "#{line_item[0]} ( #{line_item[2].to_s} ) ( #{line_item[3] || line_item[1].to_s} )"
       else
         line_item_display = line_item[0]
       end
       line_items_info << {
         detail: line_item[0],
         amount: line_item[1],
-        total_price: line_item[2],
-        item_amount: line_item[3],
+        total_price: line_item[3] || line_item[1],
+        item_amount: line_item[2] || line_item[2],
         line_item_display: line_item_display
       }
     end
