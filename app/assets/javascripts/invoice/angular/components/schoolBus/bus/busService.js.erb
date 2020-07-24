@@ -1,0 +1,18 @@
+(function() {
+  'use strict';
+
+  angular.module('somsri.main.bus.service', [
+  ])
+  .service('busService', ['$http', function($http) {
+
+  this.getEmployee = function(){
+    return $http.get('buses/get_employee')
+  }
+
+  this.create = function(data){
+    return $http.post('buses',  {bus: data})
+  }
+
+
+  }]);
+})();

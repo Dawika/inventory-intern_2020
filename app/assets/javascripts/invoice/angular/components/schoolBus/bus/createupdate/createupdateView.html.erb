@@ -1,0 +1,64 @@
+<div class="space20"></div>
+<div class="space20"></div>
+<form ng-submit="createupdatebus.submit(createupdatebus.datas)">
+<div class="row">
+  <div class="col-xs-12">
+    <h3><a href="/somsri_invoice#/bus"><i class="fas fa-arrow-left color-orange"></i> {{'bus' | translate}}</a></h3>
+  </div>
+</div> <br>
+ <!-- bus -->
+<div class="container-fluid" id="bus">
+  <div class="row paper-white padding30 container-fluid">
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <label>{{ 'license_plate' | translate }}</label>
+              <input type="text" class="form-control white-bg" ng-model="createupdatebus.datas.license_plate" required>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group">
+              <label>{{ 'province' | translate }}</label>
+              <input type="text" class="form-control white-bg" ng-model="createupdatebus.datas.province" required>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <label>{{ 'car_brand' | translate }}</label>
+              <input type="text" class="form-control white-bg" ng-model="createupdatebus.datas.car_brand" required>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group">
+              <label>{{ 'the_driver' | translate }}</label>
+              <select class="form-control" ng-model="createupdatebus.datas.employee_id" required>
+                <option value="">{{'choose_employee' | translate}}</option>
+                <option ng-repeat= "employee in createupdatebus.employeeInfo" value="{{employee.id}}">{{ employee.full_name }}</option>
+              </select>   
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <label>{{ 'note' | translate }}</label>
+            <textarea class="form-control border-textarea" rows="9" id="note" ng-model="createupdatebus.datas.note"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-6"></div>
+    </div><br><br><br>
+  </div>
+</div><br>
+<div class="row">
+  <div class="col-xs-2">
+    <button type= "submit" class="btn btn-custom btn-blue btn-block"> {{ 'save' | translate }}</button>
+  </div>
+  <div class="col-xs-2">
+    <a href="/somsri_invoice#/bus" class="btn btn-custom btn-gray btn-block"> {{ 'Canceled' | translate }}</a>
+  </div>
+</div>
+</form>
