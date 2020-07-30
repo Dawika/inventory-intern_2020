@@ -79,12 +79,12 @@ function selectionStudentFormatter(value, row, index) {
         '<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="options' + row.id + '">' +
         '<li>' +
         "<a href='/students/" + row.id + "/edit'>" +
-        "<i class='fa fa-pencil-square-o fa-fw' aria-hidden='true'></i>&nbsp;" + I18n.t("edit") +
+        "<i class='fas fa-edit fa-fw' aria-hidden='true'></i>&nbsp;" + I18n.t("edit") +
         '</a>' +
         '</li>' +
         '<li>' +
         "<a onclick='openResignStudentModal(" + row.id + ")'>" +
-        "<i class='fa fa-share-square-o color-orange fa-fw' aria-hidden='true'></i>&nbsp;" + I18n.t("resign") +
+        "<i class='fas fa-share-square color-orange fa-fw' aria-hidden='true'></i>&nbsp;" + I18n.t("resign") +
         '</a>' +
         '</li>' +
         '<li>' +
@@ -139,7 +139,7 @@ function selectionParentFormatter(value, row, index) {
             '<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="options' + id + '">' +
             '<li>' +
             "<a href='/parents/" + id + "/edit'>" +
-            "<i class='fa fa-pencil-square-o fa-fw' aria-hidden='true'></i>&nbsp;" + I18n.t("edit") +
+            "<i class='fas fa-edit fa-fw' aria-hidden='true'></i>&nbsp;" + I18n.t("edit") +
             '</a>' +
             '</li>' +
             '<li>' +
