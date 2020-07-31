@@ -181,7 +181,7 @@
 
       // Adds an item to the invoice's items
       ctrl.addItem = function() {
-        ctrl.datas.invoice.items.push({ amount:0, detail:"", item_amount: 0, total_price: 0 });
+        ctrl.datas.invoice.items.push({ amount:0, detail:"", item_amount: 1, total_price: 0 });
         ctrl.invoiceTotal();
       }
 
@@ -195,6 +195,7 @@
         var total = 0.00;
         angular.forEach(ctrl.datas.invoice.items, function(item, key){
           total += ( item.amount * item.item_amount )
+          item.total_price = item.amount * item.item_amount
         });
         ctrl.total = total;
         ctrl.datas.quotation.amount = total
