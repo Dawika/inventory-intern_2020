@@ -163,21 +163,22 @@ class StudentsController < ApplicationController
 
     # without angular
     if grade_select.downcase == 'all' && class_select.downcase == 'all'
-      students = @students
+      students = @students.includes(:classroom, :grade, school: [:school_settings])
     elsif grade_select.downcase == 'all' && class_select.downcase != 'all'
       classroom = Classroom.where(name: class_select).first
-      students = @students.where(classroom_id: classroom.id)
+      students = @students.where(classroom_id: classroom.id).includes(:classroom, :grade, school: [:school_settings])
     elsif grade_select.downcase != 'all' && class_select.downcase == 'all'
       grade = Grade.where(name: grade_select).first
-      students = @students.where(grade: grade.id)
+      students = @students.where(grade: grade.id).includes(:classroom, :grade, school: [:school_settings])
     elsif grade_select.downcase != 'all' && class_select.downcase != 'all'
       grade = Grade.where(name: grade_select).first
       classroom = Classroom.where(name: class_select).first
-      students = @students.where(grade: grade.id , classroom_id: classroom.id)
+      students = @students.where(grade: grade.id , classroom_id: classroom.id).includes(:classroom, :grade, school: [:school_settings])
     end
     @students = students.order("#{params[:sort]} #{params[:order]}").search(params[:search])
     @filter_grade = grade_select
     @filter_class = class_select
+    @total_student = students.count
 
     if params[:for_print]
       results = {
