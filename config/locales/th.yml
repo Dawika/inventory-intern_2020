@@ -372,6 +372,7 @@ th:
   add_item: "เพิ่มรายการ"
   net: "ยอดรวมสุทธิ"
   outstanding: "ยอดค้างชำระ"
+  outstanding_balance: "ยอดค้างชำระรวมสุทธิ"
   payment_channel: "ชำระเงินโดย"
   pay_by: "ชำระโดย"
   cash: "เงินสด"
