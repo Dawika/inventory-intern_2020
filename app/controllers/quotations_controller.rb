@@ -187,7 +187,7 @@ class QuotationsController < ApplicationController
         student_number: @quotation.student.student_number
       },
       display_schools_year_with_invoice_id: @school_config.display_schools_year_with_invoice_id,
-      banks: Bank.all
+      banks: Bank.where(school_id: current_user.school_id)
     }
 
     line_items = []
