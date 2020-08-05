@@ -65,7 +65,7 @@ class QuotationsController < ApplicationController
           quotation_new.student_id = student.id
           quotation_new.student_name = student.invoice_screen_full_name_display
           quotation_new.user_id = current_user.id
-          quotation_new.user_name = current_user.name
+          quotation_new.user_name = current_user.employee.full_name
           quotation_new.grade_name = grade.name
           quotation_new.quotation_status = 0
     
@@ -144,7 +144,7 @@ class QuotationsController < ApplicationController
       quotation_new.student_id = student.id
       quotation_new.student_name = student.invoice_screen_full_name_display
       quotation_new.user_id = current_user.id
-      quotation_new.user_name = current_user.name
+      quotation_new.user_name = current_user.employee.full_name
       quotation_new.grade_name = grade.name
       quotation_new.quotation_status = 0
 
@@ -242,8 +242,10 @@ class QuotationsController < ApplicationController
 
     keyword = params[:keyword]
     if keyword.present?
-      keyword = "%#{keyword}%"
-      @quotations = @quotations.where('CAST(id as text) LIKE ?', keyword)
+      @quotations = @quotations.where('student_name LIKE :search OR
+                                        grade_name LIKE :search OR
+                                        parent_name LIKE :search',
+                                        search: "%#{keyword}%")
     end
   end
 
