@@ -204,6 +204,7 @@ class QuotationsController < ApplicationController
 
     bill_info["line_items"] = line_items if line_items.length > 0
     bill_info["total_amount"] = total
+    bill_info["outstanding_balance"] = @quotation.outstanding_balance
 
     respond_to do |format|
       format.html do

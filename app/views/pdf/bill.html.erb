@@ -76,22 +76,35 @@
             <td class="border-1 p-10" colspan="2"><%= I18n.t('net') %> (<%=I18n.t('baht')%>) </td>
             <td class="border-1 p-10 text-right"><%= cleanNumber(number_with_precision(@results["total_amount"], precision: 2, delimiter: ',')) %></td>
           </tr>
+          <% if @results["outstanding_balance"] != @results["total_amount"]%>
           <tr>
+            <td class="border-1 p-10"></td>
+            <td class="border-1 p-10" colspan="2"><%= I18n.t('paid_amount') %> (<%=I18n.t('baht')%>) </td>
+            <td class="border-1 p-10 text-right"><%= cleanNumber(number_with_precision(@results["total_amount"] - @results["outstanding_balance"] , precision: 2, delimiter: ',')) %></td>
+          </tr>
+          <tr>
+          <tr>
+            <td class="border-1 p-10"></td>
+            <td class="border-1 p-10" colspan="2"><%= I18n.t('quotation_outstanding_balance') %> (<%=I18n.t('baht')%>) </td>
+            <td class="border-1 p-10 text-right"><%= cleanNumber(number_with_precision(@results["outstanding_balance"], precision: 2, delimiter: ',')) %></td>
+          </tr>
+          <tr>
+          <% end %>
             <td class="border-1 p-10"></td>
             <td class="border-1 p-10" colspan="3">
               <div class="row">
                 <div class="col-xs-3">
-                  <span><%= I18n.t('net') %>  </span>
+                  <span><%= @results["outstanding_balance"] != @results["total_amount"] ? I18n.t('outstanding_balance') : I18n.t('net') %>  </span>
                 </div>
                 <div class="col-xs-9 text-right">
-                  <b class="total_text"><%= I18n.locale == :th ? thaiBaht(@results["total_amount"]) : NumbersInWords.in_words(roundNumber (@results["total_amount"])).titleize.concat(" Baht") %></b>
+                  <b class="total_text"><%= I18n.locale == :th ? thaiBaht(@results["outstanding_balance"] != @results["total_amount"] ? @results["outstanding_balance"] : @results["total_amount"]) : NumbersInWords.in_words(roundNumber (@results["total_amount"])).titleize.concat(" Baht") %></b>
                 </div>
               </div>
             </td>
           </tr>
         </tfoot>
       </table>
-    </div>
+    </div> 
     <div id="min-height-pay">
       <% if @results[:remark] %>
         <div class="sec-remart">
