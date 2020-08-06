@@ -27,6 +27,9 @@
     </div>
   </div>
   <div class="content-student-parent">
+    <div class="col-xs-12 select-filter ">
+      <h4 id="total"><%=t('parent_total')%> <%= @total %> <%=t('man')%></h4><br>
+    </div>
     <div class="row toolbar-student-parent">
       <div class="col-xs-6">
         <div class="search">
@@ -37,7 +40,7 @@
       </div>
       <div class="col-xs-6 select-filter">
         <span><%= t('select_classroom') %></span>
-        <select name="grade_select" id="grade_select" class="btn-grades" onchange="filter(), getclassroom('/students')">
+        <select name="grade_select" id="grade_select" class="btn-grades" onchange="filter(), getclassroom('/parents')">
           <option value='all'><%= t('all') %></option>
           <% @Grade.all.each do |grade| %>
           <option value="<%= grade.name %>" <%= @filter_grade.to_s == grade.name.to_s ? "selected" : "" %>>

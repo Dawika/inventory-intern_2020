@@ -10,15 +10,16 @@ class ParentsController < ApplicationController
     grade_select = (params[:grade_select] || 'All')
     class_select = (params[:class_select] || 'All')
     @class_display = Grade.where(school_id: current_user.school_id, name: params[:grade_select]).first.classrooms.order("id ASC").select(:name).map(&:name).compact if params[:grade_select].present? and params[:grade_select] != "all"
-    total = @parents.count
+    @total = @parents.count
     @menu = t('parent')
     rows = @parents.limit(params[:limit]).offset(params[:offset]).as_json({index: true})
     respond_to do |f|
       f.html { render "parents/index", layout: "application_invoice" }
       f.json {
         render json: {
-          total: total,
-          rows: rows
+          total: @total,
+          rows: rows,
+          class: @class_display
         }
       }
     end
@@ -186,8 +187,7 @@ class ParentsController < ApplicationController
                                   email LIKE :search',
                                   search: search)
     end
-
-    @parents = @parents.joins(students: [:grade]).where('grades.name = ?', params[:grade_select]) if params[:grade_select] != 'all'
+    @parents = @parents.joins(students: [:grade]).where('grades.name = ?', params[:grade_select]).uniq if params[:grade_select] != 'all' && params[:grade_select].present? 
 
     # sort and order
     if params[:sort].present?
@@ -198,8 +198,6 @@ class ParentsController < ApplicationController
         @parents = @parents.order(mobile: params[:order])
       when 'parents.email'
         @parents = @parents.order(email: params[:order])
-      # when 'relationships.name'
-      #   @parents = @parents.joins(:relationships).order(name: params[:order])
       when 'students.full_name'
         @parents = @parents.order(full_name: params[:order])
       end

@@ -193,6 +193,7 @@
             ctrl.currentGradeString = translateFilter(ctrl.grade_name)
             ctrl.grades = grade_resp.data
             service.getInvoices(ctrl.grade_name, ctrl.searchKeyword, ctrl.start_date, ctrl.end_date, ctrl.currentPage, ctrl.sort, ctrl.order, '').then(function(resp) {
+              ctrl.total = resp.data.total_records
               ctrl.datas = [];
               if (resp.data && resp.data.invoices){
                 ctrl.datas = resp.data.invoices
