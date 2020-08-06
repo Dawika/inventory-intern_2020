@@ -32,6 +32,12 @@
         </div>
       </div>
       <div class="row report-content container-fluid">
+      <div class="row">
+        <div class="col-md-10"></div>      
+        <div class="col-md-2">
+          <h4>{{ 'invoice_total' | translate }} {{invoiceReport.total}} {{'bil' | translate}}</h4><br>
+        </div>
+      </div>
       <div class="col-xs-12 form-group fix-head-table for-display">
         <div class="col-xs-6">
           <input id="searchField" type="text" ng-model="invoiceReport.searchKeyword" ng-change="invoiceReport.search()" placeholder="{{ 'receipt_search' | translate }}" class="search-sp" />

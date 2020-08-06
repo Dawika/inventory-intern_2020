@@ -11,6 +11,7 @@
             ctrl.timeout = false
             ctrl.import = true;
             $rootScope.archive_employee = "color"
+            ctrl.total = 0
 
             getPayroll(dateNow.getMonth() + 1, dateNow.getFullYear());
 
@@ -40,7 +41,8 @@
 
             function getPayroll(month, year) {
                 employeeService.getAllEmployee().then(function(resp) {
-                    ctrl.datas = resp.data;
+                    ctrl.total = resp.data.total
+                    ctrl.datas = resp.data.employee;
                     ctrl.display_datas = [];
                     ctrl.delete_datas = [];
                     for (var i = 0; i < ctrl.datas.length; i++) {

@@ -4,9 +4,11 @@ class EmployeesController < ApplicationController
 
   # GET /employees
   def index
-    employee = @employees.includes(:payrolls).with_deleted.order('employees.deleted_at DESC ,employees.start_date ASC, employees.created_at ASC')
-                              .as_json(employee_list: true)
-    render json: employee, status: :ok
+    employee = @employees.includes(:payrolls)
+    total = employee.count
+    employee = employee.with_deleted.order('employees.deleted_at DESC ,employees.start_date ASC, employees.created_at ASC')
+    .as_json(employee_list: true)
+    render json: {employee: employee, total: total},  status: :ok
   end
 
   def import

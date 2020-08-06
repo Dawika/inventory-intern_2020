@@ -180,6 +180,7 @@ function getclassroom(url) {
             grade_select: $("select#grade_select").val()
         },
         success: function(response) {
+            $('#total').replaceWith('<h4 id="total">' + I18n.t('total_student') + ' ' + response.total + ' ' + I18n.t('man') + '</h4>')
             $("#class_select option[value!='all']").remove();
             if ($("#class_select option[value!='all']")) {
                 var select = document.getElementById("class_select");
