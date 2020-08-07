@@ -10,7 +10,8 @@
           {{ 'classification_report_1' | translate }}
         </h1>
       </div>
-      <div class="col-xs-6 text-right">
+      <div class="col-xs-3"></div>
+      <div class="col-xs-3">
         <a href="#/grouping_report" class="btn btn-custom btn-black" onclick="window.print()"><i class='fa fa-print'></i> {{ 'print_report' | translate }}</a>
         <button class="btn btn-custom btn-blue-sky" ng-click="groupingReport.exportExcel()"><i class="fa fa-share-square-o" aria-hidden="true"></i>  {{ 'export' | translate }}</button>
       </div>
@@ -57,7 +58,7 @@
                 </div>
               </div>
               <div class="col-xs-2 col-lg-2" style="text-align:center;">
-                <div class="dropdown invoice-items-list">
+                <%# <div class="dropdown invoice-items-list">
                   <h4 id="groupingReport-list" data-toggle="dropdown">
                     <span>{{ 'chose_type' | translate }}</span>
                     <i class="fa fa-angle-down" aria-hidden="true"></i>
@@ -68,7 +69,7 @@
                     </li>
                   </ul>
                 </div>
-              </div>
+              </div> %>
             </div>
           </div>
         </div>
@@ -101,7 +102,7 @@
                   </td>
                   <td ng-show="groupingReport.isDisplay('header_row_name')">
                     <div ng-show="row.url == null">{{row.header_row_name}}</div>
-                    <a ng-href="{{row.url}}" ng-show="row.url != null">{{row.header_row_name}}</a>
+                    <a ng-href="{{row.url}}" target="_blank" ng-show="row.url != null">{{row.header_row_name}}</a>
                   </td>
                   <td ng-show="groupingReport.isDisplay('header_row_classroom')">{{row.header_row_classroom}}</td>
                   <td class="text-right numberic" ng-repeat="data in row.datas track by $index">{{data.toFixed(2) | number:2}}</td>
