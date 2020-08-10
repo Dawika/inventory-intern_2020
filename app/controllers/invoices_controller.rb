@@ -440,16 +440,9 @@ class InvoicesController < ApplicationController
       ]
     end
 
-    grouping_keyword.each do |gk|
-      header << gk[:name]
-    end
-
-    if display_etc
-      header << I18n.t('extra_etc')
-    end
     header << I18n.t('sum')
 
-    column_size =  6 + grouping_keyword.size
+    column_size =  5 
     column_size -= 4 if !display_payment_method
     column_size -= 1 if !display_etc
 
@@ -490,25 +483,23 @@ class InvoicesController < ApplicationController
             datas: datas_tmp
           }
         end
-
         # reset tmp data
         header_row_date_tmp = invoice.created_at.strftime("%d/%m/%Y")
         datas_tmp = Array.new(column_size, 0.0)
       elsif summary_mode == "per_invoice"
         row = {
-          header_row_name: invoice.student.invoice_screen_full_name_display,
+          header_row_name: invoice.student.full_name,
           header_row_invoice_id: invoice.id,
           header_row_classroom: invoice.student.grade_name_with_title_classroom,
           header_row_date: invoice.created_at.strftime("%d/%m/%Y"),
           datas: datas_tmp = Array.new(column_size, 0.0)
         }
-        row[:url] = edit_student_path(id: student_id_tmp) if Student.where(id: student_id_tmp).exists?
+        row[:url] = edit_student_path(id: student_id_tmp) 
         rows << row
       end
       if display_payment_method
-        set_payment_method_datas(invoice, datas_tmp, total_tmp)
+        set_payment_method_datas(invoice, datas_tmp, total_tmp, column_size)
       end
-      set_grouping_item(invoice, grouping_keyword, column_size, datas_tmp, total_tmp, display_etc, display_payment_method)
     end
 
     # add last date
@@ -565,7 +556,7 @@ class InvoicesController < ApplicationController
       end
     end
 
-    def set_payment_method_datas(invoice, datas_tmp, total_tmp)
+    def set_payment_method_datas(invoice, datas_tmp, total_tmp, column_size)
       invoice.payment_methods.each do |pm|
         # group by payment method
         if pm.payment_method == "เงินสด"
@@ -585,6 +576,8 @@ class InvoicesController < ApplicationController
           total_tmp[3] += pm.amount
         end
       end
+      datas_tmp[column_size - 1] = datas_tmp[0] + datas_tmp[1] + datas_tmp[2] + datas_tmp[3]
+      total_tmp[column_size - 1] = total_tmp[0] + total_tmp[1] + total_tmp[2] + total_tmp[3]
     end
 
     def select_summary_mode(start_date, end_date)
@@ -596,7 +589,7 @@ class InvoicesController < ApplicationController
     end
 
     def query_invoice_by_date_range(start_date, end_date)
-      qry_invoices = Invoice.where(invoice_status_id: InvoiceStatus.find_by_name('Active').id)
+      qry_invoices = Invoice.where(invoice_status_id: InvoiceStatus.find_by_name('Active').id).includes(:payment_methods, :line_items)
       data_field = Invoice.arel_table[:created_at]
       qry_invoices = qry_date_range(qry_invoices, data_field, start_date, end_date)
       return qry_invoices.joins(user: [:school]).where("schools.id = #{current_user.school.id}")
