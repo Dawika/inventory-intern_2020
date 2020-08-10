@@ -121,9 +121,13 @@
       <div class="form-group">
       <label class="control-label" for="student_classroom_id">ห้อง</label>
         <div class="col-md-12">
+        <% if @is_edit %>
+        <%= f.collection_select :classroom_id, Classroom.where(school_id: @school_id, grade_id: @grade_id), :id, :name, {prompt: t('select_class')}, {class: "form-control"} %>
+        <% else %>
         <select class="form-control" name="student[classroom_id]" id="student_classroom_id">
-        <option value="">โปรดเลือกห้อง</option>
+        <option value=""><%= t('select_class')%></option>
         </select>
+        <% end%>
         </div>
       </div>
     </div>
