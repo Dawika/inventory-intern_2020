@@ -440,13 +440,6 @@ class InvoicesController < ApplicationController
       ]
     end
 
-    # grouping_keyword.each do |gk|
-    #   header << gk[:name]
-    # end
-
-    # if display_etc
-    #   header << I18n.t('extra_etc')
-    # end
     header << I18n.t('sum')
 
     column_size =  5 
@@ -507,7 +500,6 @@ class InvoicesController < ApplicationController
       if display_payment_method
         set_payment_method_datas(invoice, datas_tmp, total_tmp, column_size)
       end
-      # set_grouping_item(invoice, grouping_keyword, column_size, datas_tmp, total_tmp, display_etc, display_payment_method)
     end
 
     # add last date
