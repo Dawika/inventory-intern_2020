@@ -1,5 +1,5 @@
 class Bus < ApplicationRecord
-  has_many :bus_lanes
+  has_many :bus_lanes, dependent: :destroy
   belongs_to :employee
 
   def as_json(options = {})
