@@ -88,7 +88,8 @@ class ClassroomsController < ApplicationController
   def student_list
     students = []
     classroom = Classroom.find(params[:id])
-    Student.where(classroom: classroom).each do |student|
+    ap classroom
+    Student.where(classroom_id: classroom.id).each do |student|
       students << {
         img: student.img_url.exists? ? student.img_url.expiring_url(10, :medium) : nil,
         name: student.invoice_screen_full_name_display,
@@ -140,13 +141,15 @@ class ClassroomsController < ApplicationController
       classroomOrder.each do |order|
         Classroom.where(id: order['id']).update(next_id: order['next_id'])
       end
-    end
-    _student_promote([nil, ''], true) # start with next_id = nil
-    @classrooms.find_by_sql(
-      "SELECT * FROM classrooms c1
-      JOIN classrooms c2 ON c1.id = c2.id
-      WHERE c1.id = c2.next_id").each do |classroom|
-      _student_promote(classroom.id, false) # start with next_id = id
+      _student_promote([nil, ''], true) # start with next_id = nil
+      @classrooms.find_by_sql(
+        "SELECT * FROM classrooms c1
+        JOIN classrooms c2 ON c1.id = c2.id
+        WHERE c1.id != c2.next_id").each do |classroom|
+        Student.where(classroom_id: classroom.id).update_all(classroom_id: classroom.next_id, grade_id: Classroom.find(classroom.next_id).grade.id) if classroom.next_id.present?
+        _student_promote(classroom.id, false) # start with next_id = id
+      end
+      Classroom.all.collect {|c| c.update(next_id: c.id)}
     end
     render json: ["SUCCESS"], status: :ok
   end
@@ -180,10 +183,6 @@ class ClassroomsController < ApplicationController
         Student.where(classroom_id: classroom.id).to_a.each do |student|
           student.graduate if student
         end
-        _student_promote(classroom.id, false)
-      elsif classroom.id != next_id
-        Student.where(classroom_id: classroom.id).update_all(classroom_id: next_id)
-        _student_promote(classroom.id, false)
       end
     end
   end
