@@ -1,4 +1,6 @@
 th:
+  forgot_your_password: "ลืมรหัสผ่าน?"
+  send_me_reset_password_instructions: "ส่งคำขอตั้งรหัสผ่านใหม่"
   user_name: ชื่อผู้ใช้
   password: รหัสผ่าน
   keep_me_signed_in: ให้ฉันอยู่ในระบบต่อไป

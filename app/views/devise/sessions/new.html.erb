@@ -57,12 +57,19 @@
           </div>
           </div>
           <div class="row">
-            <% if devise_mapping.rememberable? -%>
+            <div class="col-xs-6">
+              <% if devise_mapping.rememberable? -%>
               <div class="field form-group text-remember">
                 <%= f.check_box :remember_me, class: "form-inline" %>
                 <label style="font-weight:normal" for="user_remember_me"><%= t('keep_me_signed_in') %></label>
               </div>
-            <% end -%>
+              <% end -%>
+            </div>       
+            <div class="col-xs-6 text-right">
+              <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+                <%= link_to t("forgot_your_password"), new_password_path(resource_name) %><br />
+              <% end -%>
+            </div>
           </div>
           <div class="row">
             <div class="sign-in actions text-center">
@@ -78,7 +85,6 @@
           <% end %>
         <% end %>
       </div>
-      <%= render "devise/shared/links" %>
     </div>
   </div>
 </div>
