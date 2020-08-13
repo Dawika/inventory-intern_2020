@@ -20,7 +20,11 @@ Rails.application.routes.draw do
 
   resources :helps
 
-  resources :auto_line_items
+  resources :auto_line_items do
+    collection do
+      patch 'update_school_setting'
+    end
+  end
   
   resources :buses do
     collection do 

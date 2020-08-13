@@ -611,6 +611,10 @@ table.classroom-table {
     .space-input {
         width: max-content;
     }
+    .panel-body {
+        overflow: scroll;
+        height: 440px;
+    }
 }
 
 .menu_line_item {

@@ -89,9 +89,13 @@ class InvoicesController < ApplicationController
     end
 
     #get line_item
-    line_items = LineItem.where(school_id: current_user.school_id).pluck(:detail, :amount, :item_amount, :total_price).uniq
-    auto_line_item = AutoLineItem.where(school_id: current_user.school_id).pluck(:name, :price, :amount).uniq
-    line_items = line_items.concat(auto_line_item).uniq! {|i| i.first}
+    if current_user.school.school_setting.show_only_lineitem
+      line_items = AutoLineItem.where(school_id: current_user.school_id).pluck(:name, :price, :amount).uniq
+    else
+      line_items = LineItem.where(school_id: current_user.school_id).pluck(:detail, :amount, :item_amount, :total_price).uniq
+      auto_line_item = AutoLineItem.where(school_id: current_user.school_id).pluck(:name, :price, :amount).uniq
+      line_items = line_items.concat(auto_line_item).uniq! {|l| l.first} if auto_line_item.present?
+    end
     line_items_info = []
     line_items.each do |line_item|
       line_item_display = ""
