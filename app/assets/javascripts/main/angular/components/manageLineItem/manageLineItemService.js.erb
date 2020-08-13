@@ -20,6 +20,9 @@
         return $http.delete('/auto_line_items/' + id)
       }
    
+      this.updateShowOnlyLineitem = function(data){
+        return $http.patch('/auto_line_items/update_school_setting/', {auto_line_item: data})
+      }
 
     }]);
 })();

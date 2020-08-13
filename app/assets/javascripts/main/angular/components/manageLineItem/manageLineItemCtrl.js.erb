@@ -13,6 +13,13 @@
         ctrl.setData(resp)
       })
 
+      ctrl.updateShowOnlyLineitem = function(){
+        service.updateShowOnlyLineitem(ctrl.showOnlyLineitem).then(function(resp){
+          $rootScope.opensuccessModal(I18n.t('save_success'), false) 
+          ctrl.setData(resp)
+        })
+      }
+
       ctrl.show_create = function(show){
         ctrl.inputCreate = show
         ctrl.datas.name = ''
@@ -45,7 +52,8 @@
       }    
 
       ctrl.setData = function(resp){
-          ctrl.autoLineItem = resp.data
+          ctrl.autoLineItem = resp.data.item
+          ctrl.showOnlyLineitem = resp.data.show_only_lineitem
           ctrl.oldAutoLineItem = JSON.parse(JSON.stringify(ctrl.autoLineItem))
       }   
 

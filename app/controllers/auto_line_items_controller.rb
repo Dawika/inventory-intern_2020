@@ -3,7 +3,8 @@ class AutoLineItemsController < ApplicationController
 
   def index
     item = AutoLineItem.where(school_id: current_user.school_id).order(id: 'desc')
-    render json: item, status: :ok
+    show_only_lineitem = current_user.school.school_setting.show_only_lineitem
+    render json: {item: item, show_only_lineitem: show_only_lineitem}, status: :ok
   end
 
   def create
@@ -23,6 +24,11 @@ class AutoLineItemsController < ApplicationController
 
   def find_autolineitem
     @item = AutoLineItem.find(params[:id])
+  end
+
+  def update_school_setting
+    current_user.school.school_setting.update(show_only_lineitem: params[:auto_line_item])
+    index
   end
 
   def auto_line_item_params

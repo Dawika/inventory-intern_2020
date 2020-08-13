@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200720061951) do
+ActiveRecord::Schema.define(version: 20200813043259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -917,6 +917,7 @@ ActiveRecord::Schema.define(version: 20200720061951) do
     t.boolean "enable_inventory",                     default: false
     t.float   "social_insurance_rate",                default: 0.05
     t.boolean "enable_schoolbus",                     default: false
+    t.boolean "show_only_lineitem",                   default: false
     t.index ["school_id"], name: "index_school_settings_on_school_id", using: :btree
   end
 
