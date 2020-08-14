@@ -451,9 +451,9 @@ class Employee < ApplicationRecord
             employee.start_date = row[:start_working].present? ? row[:start_working].to_time : nil
             employee.address = row[:address]
             employee.status = row[:status]
-            grade = Grade.where(["name = ?", row[:gade_name].to_s])
+            grade = Grade.where(name: row[:gade_name].to_s, school_id: school_id)
+            classroom = Classroom.where(name: row[:classroom_name].to_s, grade_id: grade != nil ? grade.ids[0] : 0, school_id: school_id)    
             employee.grade_id = (grade != nil ? grade.ids[0] : 0)
-            classroom = Classroom.where(["name = ?", row[:classroom_name].to_s])
             employee.classroom_id = (classroom != nil ? classroom.ids[0] : 0)
             # income
             payroll = employee.payrolls.first
