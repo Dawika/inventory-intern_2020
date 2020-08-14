@@ -36,7 +36,7 @@
             <div class="form-group">
               <label>{{ 'the_driver' | translate }}</label>
               <select class="form-control" ng-model="createupdatebus.datas.employee_id" required>
-                <option value="">{{'choose_employee' | translate}}</option>
+                <option value="">{{'choose_driver' | translate}}</option>
                 <option ng-repeat= "employee in createupdatebus.employeeInfo" value="{{employee.id}}">{{ employee.full_name }}</option>
               </select>   
             </div>
