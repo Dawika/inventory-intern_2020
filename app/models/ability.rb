@@ -28,6 +28,8 @@ class Ability
           can :manage, Quotation, user: { school_id: user.school_id }
           can :manage, School, id: user.school_id
           can :manage, Student, school_id: user.school_id
+          can :manage, Bus, school_id: user.school_id
+          can :manage, BusLane, school_id: user.school_id
         else
           can :manage, Alumni
           can :manage, Bank
@@ -169,7 +171,7 @@ class Ability
         end
         can :read, Individual
       end
-      if user.employee?
+      if user.employee? || user.chauffeur?
         can :manage, [:menu, :setting]
         can :read, Grade
         can :manage, :setting

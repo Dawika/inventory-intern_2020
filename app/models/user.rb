@@ -35,6 +35,10 @@ class User < ApplicationRecord
     Employee.find(self.id)
   end
 
+  def chauffeur?
+    self.has_role? :chauffeur
+  end
+
   def account_holder?
     self.has_role? :account_holder
   end
