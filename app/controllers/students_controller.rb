@@ -172,7 +172,7 @@ class StudentsController < ApplicationController
       students = @students.where(grade: grade.id).includes(:classroom, :grade, school: [:school_settings])
     elsif grade_select.downcase != 'all' && class_select.downcase != 'all'
       grade = Grade.where(name: grade_select).first
-      classroom = Classroom.where(name: class_select).first
+      classroom = Classroom.where(name: class_select, grade_id: grade.id).first
       students = @students.where(grade: grade.id , classroom_id: classroom.id).includes(:classroom, :grade, school: [:school_settings])
     end
     @students = students.order("#{params[:sort]} #{params[:order]}").search(params[:search])
