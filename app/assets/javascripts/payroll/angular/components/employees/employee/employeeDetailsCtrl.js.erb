@@ -355,10 +355,10 @@
 
               // get others employee
               service.getAllEmployee().then(function (resp) {
-                if (resp.data.length > 0) {
+                if (resp.data.employee.length > 0) {
                   ctrl.employee_lists = []; //resp.data
-                  for (var i = 0; i < resp.data.length; i++) {
-                    var employee = resp.data[i];
+                  for (var i = 0; i < resp.data.employee.length; i++) {
+                    var employee = resp.data.employee[i];
                     if (employee.id + ': ' + employee.name !== ctrl.displayName) {
                       // ctrl.employee_lists.splice(i, 1);
                       if (!employee['deleted_at']) {
