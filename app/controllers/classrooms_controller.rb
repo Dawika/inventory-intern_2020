@@ -88,7 +88,6 @@ class ClassroomsController < ApplicationController
   def student_list
     students = []
     classroom = Classroom.find(params[:id])
-    ap classroom
     Student.where(classroom_id: classroom.id).each do |student|
       students << {
         img: student.img_url.exists? ? student.img_url.expiring_url(10, :medium) : nil,
