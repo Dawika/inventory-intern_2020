@@ -42,6 +42,8 @@ class Ability
           can :manage, Quotation
           can :manage, School
           can :manage, Student
+          can :manage, Bus
+          can :manage, BusLane
         end
         can :manage, Evaluate
         can :manage, ExpenseItem
