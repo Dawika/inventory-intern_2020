@@ -40,6 +40,14 @@
         }
       });
 
+      ctrl.openNewDatePopup = function() {
+        ctrl.openDatePopup.opened = true;
+      };
+
+      ctrl.openDatePopup = {
+        opened: false
+      };
+
       if (value.expenses_id)
         ctrl.expenses_id = value.expenses_id;
 
