@@ -6,6 +6,7 @@ class School < ApplicationRecord
   has_many :students
   has_many :parents
   has_many :invoices
+  has_many :expense_tags
   has_many :licenses
   has_one :bil_info
   belongs_to :plan

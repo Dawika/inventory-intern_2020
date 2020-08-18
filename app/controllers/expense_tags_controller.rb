@@ -40,7 +40,7 @@ class ExpenseTagsController < ApplicationController
 
     # create
     create_expenses.each do |c|
-      expense = ExpenseTag.create(name: c[:name])
+      expense = ExpenseTag.create(name: c[:name], school_id: current_user.school_id)
       c[:id] = expense.id
     end
 

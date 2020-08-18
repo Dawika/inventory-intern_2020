@@ -1,5 +1,6 @@
 class ExpenseTag < ApplicationRecord
   has_many :expense_items
+  belongs_to :school
 
   def self.search(keyword)
     if keyword.present?
@@ -10,7 +11,7 @@ class ExpenseTag < ApplicationRecord
   end
 
   def tag_tree
-    SiteConfig.get_cache.expense_tag_tree_hash
+    self.school.school_setting.expense_tag_tree_hash
   end
 
   def related_tag_ids

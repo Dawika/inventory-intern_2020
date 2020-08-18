@@ -33,10 +33,10 @@
             </div>
             <span class="input-group col-xs-10">
               <input id="new_date" type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" datepicker-options="{showWeeks:false}"
-                ng-model="create.effective_date" is-open="expenses.newDatePopup.opened" close-text="Close" ng-change="expenses.optionsChange()"
+                ng-model="create.effective_date" is-open="create.openDatePopup.opened" close-text="Close" 
                 required />
               <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="expenses.openNewDatePopup()"><i class="fa fa-calendar"></i></button>
+                <button type="button" class="btn btn-default" ng-click="create.openNewDatePopup()"><i class="fa fa-calendar"></i></button>
               </span>
             </span>
           </div>
@@ -101,7 +101,7 @@
                   <label for="file-upload" class="custom-file-upload mt-15">
                     <i class="fa fa-upload"></i> {{ 'choose_file' | translate }}
                   </label>
-                  <input id="file-upload" type="file" ngf-select="create.readUrl($event)" ng-model="create.imgUploadData" accept="image/*" size="60"/>
+                  <input id="file-upload" type="file" ngf-select="create.readUrl($event)" ng-model="create.imgUploadData" style="display: none"accept="image/*" size="60"/>
                 </div>
               </div>
             </uib-tab>
