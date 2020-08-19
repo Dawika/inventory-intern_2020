@@ -30,7 +30,7 @@
         <% end %>
         <ul class="nav navbar-nav navbar-right dropdown" id="dropdownMenu" onclick="showDropdown(this.id)">
           <% if user_signed_in? %>
-          <%= image_tag current_user.school.logo_url,class: 'w-14 m-h-45' %>
+          <%= image_tag current_user.school.logo_url, class: 'w-14 m-h-45' %>
           <a class="nav-user avatar" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <%= current_user.name.blank? ? current_user.email : current_user.name %>
