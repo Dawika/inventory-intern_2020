@@ -125,6 +125,6 @@ th:
       already_confirmed: "ยืนยันแล้ว ลองเข้าสู่ระบบ"
       confirmation_period_expired: "จำเป็นต้องได้รับการยืนยันในเวลา %{period}, กรุณาทำใหม่อีกครั้ง"
       expired: "การยืนยันหมดอายุแล้ว กรุณาขอใหม่อีกครั้ง"
-      not_found: "ไม่พบ"
+      not_found: "ไม่มีข้อมูล"
       not_locked: "ไม่ถูกล็อก"
       not_saved: "%{count} ผิดพลาด %{resource} นี้ถูกห้ามบันทึก:"

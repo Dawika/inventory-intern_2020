@@ -3,6 +3,9 @@
     margin-bottom: 0px !important;
     margin-top: 12%;
   }
+  .message {
+    color: red
+  }
 </style>
 <div id="new-password">
   <div class="container" id="warp">
@@ -11,7 +14,6 @@
       <div class="col-md-12 box">
         <div class="form-sign-in">
           <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-          <%= devise_error_messages! %>
           <div class="row">
             <div class="col-xs-12 text-center">
               <h2><%= t('forgot_your_password') %></h2>
