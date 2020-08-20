@@ -28,7 +28,7 @@
           </div>
           <div class="col-md-12">
                <div class="field form-group">
-              <%= f.password_field :password, id: "password-input", autofocus: true, autocomplete: "off", class: "form-control input-login", onchange: "checkPasswordMinLength()" %>
+              <%= f.password_field :password, id: "password-input", autofocus: true, autocomplete: "off", class: "form-control input-login"%>
             </div>
           </div>
           </div>
@@ -38,21 +38,13 @@
           </div>
           <div class="col-md-12">
             <div class="field form-group">
-              <%= f.password_field :password_confirmation, id: "confirm-password-input", autocomplete: "off", class: "form-control input-login", style: "margin-top:10px;", onchange: "checkPasswordMismatch()" %>
+              <%= f.password_field :password_confirmation, id: "confirm-password-input", autocomplete: "off", class: "form-control input-login", style: "margin-top:10px;"%>
             </div>
           </div>
           </div><br>
           <div class="row">
-            <div id="min-length-warning" class="waring-message" style="display: none">*
-              <%= t('invite_password.min_length_warning', minimum_password_length: @minimum_password_length) %></div>
-            <div id="mismatch-warning" class="waring-message" style="display: none">*
-              <%= t('invite_password.mismatch_warning') %></div>
-          </div>
-          <div class="row">
             <div class="sign-in actions text-center">
-              <buttont id="submit-btn" class="btn btn-signin" type="button" onclick="submit()">
-                <%= t('invite_password.submit') %>
-              </buttont>
+              <button id="submit-btn" class="btn btn-signin" type="submit"><%= t('invite_password.submit') %></button>
             </div>
           </div><br>
           <% if (@school.present?) && (@school_config.enable_rollcall) && (@school_config.roll_call_apk_url)  %>
@@ -74,49 +66,3 @@
     </div>
   </footer>
 </div>
-<script>
-  var minimum_password_length = <%= @minimum_password_length %> ;
-  var isSubmited = false;
-
-  function checkPasswordMismatch() {
-    var confirmPassword = $('#confirm-password-input').val();
-    var password = $('#password-input').val();
-    if (!(password && confirmPassword && confirmPassword === password)) {
-      $('#mismatch-warning').show();
-      return false;
-    } else {
-      $('#mismatch-warning').hide();
-      return true;
-    }
-  }
-
-  function checkPasswordMinLength() {
-    var password = $('#password-input').val();
-    if (password.length < minimum_password_length) {
-      $('#min-length-warning').show();
-      return false;
-    } else {
-      $('#min-length-warning').hide();
-      return true
-    }
-  }
-
-  function checkPassword() {
-    var password = $('#password-input').val();
-    var confirmPassword = $('#confirm-password-input').val();
-    if (!checkPasswordMismatch()) {
-      return false
-    }
-    if (!checkPasswordMinLength()) {
-      return false
-    }
-    return true;
-  }
-
-  function submit() {
-    if (checkPassword() && !isSubmited) {
-      isSubmited = true;
-      $('#form').submit();
-    }
-  }
-</script>
