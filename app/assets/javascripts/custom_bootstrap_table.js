@@ -198,6 +198,20 @@ function getclassroom(url) {
     });
 }
 
+function getCountTotalStudent(url) {
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        data: {
+            grade_select: $("select#grade_select").val(),
+            class_select: $("select#class_select").val()
+        },
+        success: function(response) {
+            $('#total').replaceWith('<h4 id="total">' + I18n.t('total_student') + ' ' + response.total + ' ' + I18n.t('man') + '</h4>')
+        }
+    });
+}
+
 function toggleImportSection() {
     var button_import = $('#importSection')
     button_import.is(':hidden') ? button_import.show() : button_import.hide()
