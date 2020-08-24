@@ -318,11 +318,11 @@
           ctrl.order
           ).then(function(resp) {
             ctrl.datas = [];
-            ctrl.datas.expenses_tag = resp.data.expenses_tag
             if (resp.data && resp.data.expenses){
               ctrl.datas = resp.data.expenses;
               ctrl.totalItems = resp.data.total_records;
               ctrl.currentPage = resp.data.current_page;
+              ctrl.datas.expenses_tag = resp.data.expenses_tag
               if (resp.data.total_price){
                 ctrl.total_all_price = resp.data.total_price;
               } else {
