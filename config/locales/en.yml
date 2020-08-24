@@ -140,6 +140,7 @@ en:
   first_name_en: "First Name (Eng)"
   middle_name_en: "Middle Name (Eng)"
   last_name_en: "Last Name (Eng)"
+  total_amount: "Total"
 
   # tax
   other_deduction: "Other"
