@@ -10,7 +10,7 @@ class ExpensesController < ApplicationController
     start_date = Time.zone.parse(params[:start_date]).beginning_of_day if isDate(params[:start_date])
     end_date = Time.zone.parse(params[:end_date]).end_of_day if isDate(params[:end_date])
 
-    qry_expenses = Expense.all
+    qry_expenses = Expense.where(school_id: current_user.school_id)
     qry_expenses = qry_date_range(qry_expenses, Expense.arel_table[:effective_date], start_date, end_date)
     qry_expenses = qry_expenses.search(search) if search.present?
     qry_expenses = qry_expenses.order("total_cost::FLOAT #{order}") if sort == 'total_cost' && order
@@ -63,6 +63,7 @@ class ExpensesController < ApplicationController
 
   # POST /expenses
   def create
+    @expense.school_id = current_user.school_id
     if @expense.save
       render json: @expense, status: :ok
     else
@@ -103,7 +104,7 @@ class ExpensesController < ApplicationController
 
     if tag_tree.present?
       @lv_max = tag_tree[0][:lv]
-      qry_expenses = Expense.all
+      qry_expenses = Expense.where(school_id: current_user.school_id)
       qry_expenses = qry_date_range(qry_expenses, Expense.arel_table[:effective_date], @start_date_time, @end_date_time)
       qry_expense_items = ExpenseItem.where(expense_id: qry_expenses.pluck(:id))
       qry_expense_items.each do |et|
@@ -144,7 +145,7 @@ class ExpensesController < ApplicationController
   def report_by_payment
     @start_date_time = Time.zone.parse(params[:start_date]).beginning_of_day if isDate(params[:start_date])
     @end_date_time = Time.zone.parse(params[:end_date]).end_of_day if isDate(params[:end_date])
-    qry_expenses = Expense.all
+    qry_expenses = Expense.where(school_id: current_user.school_id)
     qry_expenses = qry_date_range(
                       qry_expenses,
                       Expense.arel_table[:effective_date],
