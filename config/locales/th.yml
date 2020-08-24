@@ -306,6 +306,7 @@ th:
   first_name_en: ชื่อ (อังกฤษ)
   middle_name_en: ชื่อกลาง (อังกฤษ)
   last_name_en: นามสกุล (อังกฤษ)
+  total_amount: "รวม"
 
   # tax
   other_deduction: "ค่าลดหย่อนอื่นๆ"

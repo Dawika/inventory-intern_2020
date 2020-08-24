@@ -54,8 +54,9 @@
         <tr>
           <th class="border-1 w-10p p-10 text-center"><%= I18n.t('item_no') %></th>
           <th class="border-1 w-70p p-10 text-center"><%= I18n.t('item_desc') %></th>
-          <th class="border-1 w-10p p-10 text-center"><%= I18n.t('amount') %></th>
-          <th class="border-1 w-20p p-10 text-center"><%= I18n.t('price') %></th>
+          <th class="border-1 w-10p p-10 text-center"><%= I18n.t('price') %></th>
+          <th class="border-1 w-20p p-10 text-center"><%= I18n.t('amount') %></th>
+          <th class="border-1 w-20p p-10 text-center"><%= I18n.t('total_amount') %></th>
         </tr>
       </thead>
       <tbody class="">
@@ -64,9 +65,12 @@
         <tr>
           <td class="border-left-1 border-right-1 p-10 text-center"><%= i + 1 %></th>
           <td class="border-left-1 border-right-1 p-10"><%= line_item[:detail] %></td>
-          <td class="border-left-1 border-right-1 p-10 text-center"><%= line_item[:item_amount] %></td>
           <td class="border-left-1 border-right-1 p-10 text-right"> 
             <%= number_with_precision(line_item[:amount], precision: 2, delimiter: ',') %>
+          </td>
+          <td class="border-left-1 border-right-1 p-10 text-center"><%= line_item[:item_amount] %></td>
+          <td class="border-left-1 border-right-1 p-10 text-right"> 
+            <%= number_with_precision(line_item[:amount]*line_item[:item_amount], precision: 2, delimiter: ',') %>
           </td>
         </tr>
         <% end %>
@@ -78,6 +82,7 @@
           <td class="border-left-1 border-right-1 p-10">&nbsp;</td>
           <td class="border-left-1 border-right-1 p-10">&nbsp;</td>
           <td class="border-left-1 border-right-1 p-10">&nbsp;</td>
+          <td class="border-left-1 border-right-1 p-10">&nbsp;</td>
         </tr>
         <% end %>
         <% end %>
@@ -85,13 +90,13 @@
       <tfoot>
         <tr>
           <td class="border-1 p-10"></td>
-          <td class="border-1 p-10" colspan="2"><%= I18n.t('net') %> (<%=I18n.t('baht')%>) </td>
+          <td class="border-1 p-10" colspan="3"><%= I18n.t('net') %> (<%=I18n.t('baht')%>) </td>
           <td class="border-1 p-10 text-right">
             <%= cleanNumber(number_with_precision(@results["total_amount"], precision: 2, delimiter: ',')) %></td>
         </tr>
         <tr>
           <td class="border-1 p-10"></td>
-          <td class="border-1 p-10" colspan="3">
+          <td class="border-1 p-10" colspan="4">
             <div class="row">
               <div class="col-xs-3">
                 <span><%= I18n.t('net') %> </span>
