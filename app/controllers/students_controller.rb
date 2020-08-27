@@ -31,7 +31,8 @@ class StudentsController < ApplicationController
     grade_select = (params[:grade_select] || 'All')
     class_select = (params[:class_select] || 'All')
     year_select = (params[:year_select] || Date.current.year + 543)
-    semester_select = params[:semester_select]
+    semester_select = params[:semester_select] 
+    semester_select = '' if semester_select == "ไม่ระบุภาคการเรียน"
     invoice_status = params[:status]
     student_index = Array.new
     students = Student.includes(:parents, :students_parents, :grade, :classroom, school: [:school_settings]).where(school_id: current_user.school.id)
@@ -56,7 +57,7 @@ class StudentsController < ApplicationController
       year_fee = 0.0
       payment_method = ""
       last_tuition_invoice = nil
-      qry_invoice = Invoice.includes(:line_items, :payment_methods).where(student_id: student.id, school_year: year_select, invoice_status_id: invoice_status_id).order("created_at ASC").to_a
+      qry_invoice = Invoice.includes(:line_items, :payment_methods).where(semester: semester_select,student_id: student.id, school_year: year_select, invoice_status_id: invoice_status_id).order("created_at ASC").to_a
       invoices = qry_invoice
 
       #skip student no invoice and deleted
