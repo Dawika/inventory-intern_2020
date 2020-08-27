@@ -779,7 +779,6 @@
               field: 'model',
               title: translateFilter("model"),
               class: 'text-currency',
-              align: 'right',
               sortable: true,
             }, {
               field: 'description',
@@ -802,7 +801,7 @@
           }
 
           function editInventoryRequestFormatter(value, row, index) {
-            return '<a id="editInventory' + row['id'] + '" onclick="' + angularCtrlStr + '.editInventory(' + row['id'] + ')"> <i class=\'fa fa-pencil-square-o fa-fw color-orange cursor-pointer\'></i> </a>';
+            return '<a id="editInventory' + row['id'] + '" onclick="' + angularCtrlStr + '.editInventory(' + row['id'] + ')"> <i class=\'fas fa-search-plus color-blue cursor-pointer\'></i> </a>';
           }
 
           ctrl.editInventory = function (inventory_id) {
@@ -813,15 +812,20 @@
             var color = ""
             if (row['inventory_status'] == "delete") {
               color = "color-red"
-            } else if (row['inventory_status'] == "waiting repair") {
+            } else if (row['inventory_status'] == "waiting repair" || row['inventory_status'] == "pending") {
               color = "color-orange"
             }
+            
+            $(function () {
+              $('[data-toggle="popover"]').popover()
+            })
 
             if (row['inventory_status'] == 'rejected' || row['inventory_status'] == "delete") {
-              return '<span class="cursor-pointer" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" title="Reason" data-content="' + row['comment'] + '">' + row['inventory_status'] + '</span>'
+              return '<span class="cursor-pointer popover-reason '+ color +'"data-trigger="hover" data-toggle="popover" data-placement="top" title="Reason" data-content="' + row['comment'] + '">' + row['inventory_status'] + '</span>'
             } else {
               return '<span class="' + color + '" tyep="text">' + row['inventory_status'] + '</span>'
             }
+            
           }
 
           employee_inventory_table.bootstrapTable($.extend(bootstrapTableOptionsInvetoryRequest, { toolbar: "date-filter" }));
@@ -839,12 +843,12 @@
                 for (var i = 0; i < count; i++) {
                   var status = ctrl.datasReuestExport[i].inventory_status
                   if (ctrl.datasReuestExport[i].inventory_status == "wait") {
-                    status = "-"
+                    status = "pending"
                   } else if (ctrl.datasReuestExport[i].inventory_status == "delete_inventory") {
                     status = "delete"
                   } else if (ctrl.datasReuestExport[i].inventory_status == "repair") {
                     status = "waiting repair"
-                  }
+                  } 
 
                   var serial_number = "-"
                   var model = "-"

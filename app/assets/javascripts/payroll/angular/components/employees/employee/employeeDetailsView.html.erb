@@ -51,16 +51,12 @@
             <li class="orange" ng-class="{ 'active' : employee.activeTab === 'private' }" ng-show="employee.isEdit">
               <a data-toggle="tab" ng-click="employee.activeTab = 'private'; employee.selectTab('private')" href="javascript:void(0)">{{ "personal_data" | translate }}</a>
             </li>
-            <div ng-if= "employee.school_config_enable_inventory">
-            <li class="cyan" ng-class="{ 'active' : employee.activeTab === 'inventory' }" ng-show="employee.isEdit">
+            <li ng-if= "employee.school_config_enable_inventory" class="cyan" ng-class="{ 'active' : employee.activeTab === 'inventory' }" ng-show="employee.isEdit">
               <a data-toggle="tab" ng-click="employee.activeTab = 'inventory'; employee.selectTab('inventory')" href="">{{ "inventory_data" | translate }}</a>
             </li>
-            </div>
-            <div ng-if= "employee.school_config_enable_vacation">
-            <li class="cyan" ng-class="{ 'active' : employee.activeTab === 'vacation' }" ng-show="employee.isEdit">
+            <li  ng-if= "employee.school_config_enable_vacation" class="cyan" ng-class="{ 'active' : employee.activeTab === 'vacation' }" ng-show="employee.isEdit">
               <a data-toggle="tab" ng-click="employee.activeTab = 'vacation'; employee.selectTab('vacation')" href="">{{ "vacation_manage" | translate }}</a>
             </li>
-            </div>
           </ul>
         </div>
       </div>
