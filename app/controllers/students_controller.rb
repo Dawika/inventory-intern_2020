@@ -31,7 +31,7 @@ class StudentsController < ApplicationController
     grade_select = (params[:grade_select] || 'All')
     class_select = (params[:class_select] || 'All')
     year_select = (params[:year_select] || Date.current.year + 543)
-    semester_select = params[:semester_select]
+    semester_select = params[:semester_select] 
     invoice_status = params[:status]
     student_index = Array.new
     students = Student.includes(:parents, :students_parents, :grade, :classroom, school: [:school_settings]).where(school_id: current_user.school.id)
@@ -63,10 +63,11 @@ class StudentsController < ApplicationController
       next if invoices.count == 0 && student.deleted_at
 
       semester_exclude = []
-      if semester_select == "อื่นๆ"
+      if semester_select == "ไม่ระบุภาคการเรียน"
         semester_exclude = school_setting
       else
         semester_exclude = school_setting - [semester_select.to_s]
+        semester_exclude.push('')
       end
 
       invoices.each do |invoice|
