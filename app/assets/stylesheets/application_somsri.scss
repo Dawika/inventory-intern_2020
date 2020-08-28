@@ -769,6 +769,28 @@ body {
     }
 }
 
+.popover {
+    border: 1px solid rgb(202, 202, 202);
+}
+/* Popover Header */
+.popover-title {
+    background-color: #d23d29; 
+    color: #FFFFFF; 
+    font-size: 16px;
+    text-align:center;
+    font-family: 'Maitree', serif;
+    
+}
+/* Popover Body */
+.popover-content {
+    background-color: white;
+    padding: 5px;
+    text-align: center;
+    font-family: 'Maitree', serif;
+    font-size: 14px;
+}
+
+
 .btn-blue {
     background-color: #3fa1e6;
     color: #fff !important;

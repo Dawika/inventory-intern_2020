@@ -773,9 +773,9 @@ th:
   #Update inventory request
   details_inventory_request: "รายละเอียดคำขอใช้อุปกรณ์"
   approve_request: "อนุมัติคำขอ"
-  inventory_purchase: "สั่งซื้อพัสดุ"
+  inventory_purchase: "สั่งเบิกพัสดุ"
   get_inventory: "รับพัสดุ"
-  dispatch_to_employees: "จัดส่งให้พนักงาน"
+  dispatch_to_employees: "ส่งคืนพนักงาน"
   dispatch_to_employees_success: "จัดส่งให้พนักงานสำเร็จ"
   date_get_inventory: "วันที่ได้รับ"
   date_purchase_inventory: "ได้ทำการสั่งซื้อวันที่"
