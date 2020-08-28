@@ -638,7 +638,7 @@ en:
   confirm_accept: "Confirm accept"
   sent_repair: "Sent Repair"
   repairs_completed: "repairs completed"
-  repair_notification: "Repair notification"
+  repair_notification: "Repair notification:"
   accept_repair: "Accept repair"
 
   # Rollcall
