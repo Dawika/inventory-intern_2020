@@ -473,8 +473,12 @@
         color = "color-green"
       }
 
+      $(function () {
+        $('[data-toggle="popover"]').popover()
+      })
+
       if (row['inventory_status'] == 'rejected' || row['inventory_status'] == "delete") {
-        return '<span class="cursor-pointer '+ color + '" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" title="Reason" data-content="' + row['comment'] + '">' +  row['inventory_status'] + '</span>' 
+        return '<span class="cursor-pointer '+ color + '" data-trigger="hover" data-toggle="popover" data-placement="top" title="Reason" data-content="' + row['comment'] + '">' +  row['inventory_status'] + '</span>' 
       } else {
         return '<span class="'+ color + '" tyep="text">' + row['inventory_status'] + '</span>'
       }
@@ -779,10 +783,16 @@
       var color = ""
       if (row.status == "แจ้งซ่อม" || row.status == "Repair notification") {
         color = "color-orange"
+      }else if(row.status == "ไม่อนุมัติ" || row.status == "Rejected"){
+        color = "color-red"
       }
 
-      if (row.status == "แจ้งซ่อม" || row.status == "Repair notification") {
-        return '<span class="' + color + '" tyep="text">' + row.status + '</span>'
+      $(function () {
+        $('[data-toggle="popover"]').popover()
+      })
+
+      if (row.status == "ไม่อนุมัติ" || row.status == "Rejected") {
+        return '<span class="cursor-pointer '+ color + '" data-trigger="hover" data-toggle="popover" data-placement="top" title="Reason" data-content="' + row['comment'] + '">' +  row.status + '</span>' 
       } else {
         return '<span class="' + color + '" tyep="text">' + row.status + '</span>'
       }
@@ -824,6 +834,7 @@
               price: ctrl.datasInventoryRepairExport[i].price,
               status: translateFilter(ctrl.datasInventoryRepairExport[i].repair_status),
               created_at: ctrl.datasInventoryRepairExport[i].created_at,
+              comment: ctrl.datasInventoryRepairExport[i].comment,
               updated_at: ctrl.datasInventoryRepairExport[i].updated_at
             })
           }
