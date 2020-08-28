@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200828065442) do
+ActiveRecord::Schema.define(version: 20200813043259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -591,7 +591,6 @@ ActiveRecord::Schema.define(version: 20200828065442) do
     t.integer  "repair_status"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.string   "comment"
     t.index ["employee_id"], name: "index_inventory_repairs_on_employee_id", using: :btree
     t.index ["inventory_id"], name: "index_inventory_repairs_on_inventory_id", using: :btree
     t.index ["inventory_request_id"], name: "index_inventory_repairs_on_inventory_request_id", using: :btree
