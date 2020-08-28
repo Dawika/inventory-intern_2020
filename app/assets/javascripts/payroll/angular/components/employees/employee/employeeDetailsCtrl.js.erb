@@ -810,7 +810,7 @@
 
           function statusFormmatter(value, row, index) {
             var color = ""
-            if (row['inventory_status'] == "delete" || row['inventory_status'] == 'rejected') {
+            if (row['inventory_status'] == "delete") {
               color = "color-red"
             } else if (row['inventory_status'] == "waiting repair" || row['inventory_status'] == "pending") {
               color = "color-orange"
@@ -848,8 +848,6 @@
                     status = "delete"
                   } else if (ctrl.datasReuestExport[i].inventory_status == "repair") {
                     status = "waiting repair"
-                  }  else if (ctrl.datasReuestExport[i].inventory_status == "rejected") {
-                    status = "rejected"
                   } 
 
                   var serial_number = "-"
