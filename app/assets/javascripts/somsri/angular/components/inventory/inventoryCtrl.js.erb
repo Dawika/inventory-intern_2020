@@ -274,7 +274,7 @@
     };
 
     function editInventoryFormatter(value, row, index) {
-      return '<a id="editInventory' + row['id'] + '" onclick="' + angularCtrlStr + '.editInventory(' + row['id'] + ')"> <i class=\'fa fa-pencil-square-o fa-fw color-orange cursor-pointer\'></i> </a>';
+      return '<a id="editInventory' + row['id'] + '" onclick="' + angularCtrlStr + '.editInventory(' + row['id'] + ')"> <i class=\'fas fa-edit color-orange cursor-pointer\'></i> </a>';
     }
 
     ctrl.editInventory = function(id) {
@@ -282,7 +282,7 @@
     }
 
     function deleteInventoryFormatter(value, row, index) {
-      return '<a id="deleteInventory' + row['id'] + '" onclick="' + angularCtrlStr + '.deleteInventory(' + row['id'] + ')"> <i class=\'fa fa-trash color-red fa-fw cursor-pointer\'></i></i> </a>';
+      return '<a id="deleteInventory' + row['id'] + '" onclick="' + angularCtrlStr + '.deleteInventory(' + row['id'] + ')"> <i class=\'fas fa-trash-alt color-red fa-fw cursor-pointer\'></i></i> </a>';
     }
 
     ctrl.deleteInventory = function(id) {
@@ -482,9 +482,9 @@
 
     function editInventoryRequestFormatter(value, row, index) {
       if (row['inventory_status'] == "delete") {
-        return '<a id="showDetailsInventoryRequest' + row['id'] + '" onclick="' + angularCtrlStr + '.showDetailsInventoryRequest(' + row['id'] + ')"> <i class=\'fa fa-pencil-square-o fa-fw color-orange cursor-pointer\'></i> </a>';
+        return '<a id="showDetailsInventoryRequest' + row['id'] + '" onclick="' + angularCtrlStr + '.showDetailsInventoryRequest(' + row['id'] + ')"> <i class=\'fas fa-edit color-orange cursor-pointer\'></i> </a>';
       } else {
-        return '<a id="editInventoryRequest' + row['id'] + '" onclick="' + angularCtrlStr + '.editInventoryRequest(' + row['id'] + ')"> <i class=\'fa fa-pencil-square-o fa-fw color-orange cursor-pointer\'></i> </a>';        
+        return '<a id="editInventoryRequest' + row['id'] + '" onclick="' + angularCtrlStr + '.editInventoryRequest(' + row['id'] + ')"> <i class=\'fas fa-edit color-orange cursor-pointer\'></i> </a>';        
       }
     }
 
@@ -501,7 +501,7 @@
       if (row['inventory_status'] == "delete" || row['inventory_status'] == "assigned" || row['inventory_status'] == "purchasing" || row['inventory_status'] == "done") {
         return '<a></a>'
       } else {
-        return '<a id="deleteInventoryRequest' + row['id'] + '" onclick="' + angularCtrlStr + '.deleteInventoryRequest(' + row['id'] + ')"> <i class=\'fa fa-trash color-red fa-fw cursor-pointer\'></i></i> </a>';        
+        return '<a id="deleteInventoryRequest' + row['id'] + '" onclick="' + angularCtrlStr + '.deleteInventoryRequest(' + row['id'] + ')"> <i class=\'fas fa-trash-alt color-red fa-fw cursor-pointer\'></i></i> </a>';        
       }
     }
 
@@ -653,7 +653,7 @@
     }
 
     function editSupplierFormatter(value, row, index) {
-      return '<a id="editSuppliers' + row['id'] + '" onclick="' + angularCtrlStr + '.editSuppliers(' + row['id'] + ')"> <i class=\'fa fa-pencil-square-o fa-fw color-orange cursor-pointer \' ></i> </a>';
+      return '<a id="editSuppliers' + row['id'] + '" onclick="' + angularCtrlStr + '.editSuppliers(' + row['id'] + ')"> <i class=\'fas fa-edit color-orange cursor-pointer \' ></i> </a>';
     }
 
     ctrl.editSuppliers = function(id) {
@@ -661,7 +661,7 @@
     }
 
     function deleteSupplierFormatter(value, row, index) {
-      return '<a id="deleteSuppliers' + row['id'] + '" onclick="' + angularCtrlStr + '.deleteSuppliers(' + row['id'] + ')"> <i class=\'fa fa-trash color-red fa-fw cursor-pointer \'></i></i> </a>';
+      return '<a id="deleteSuppliers' + row['id'] + '" onclick="' + angularCtrlStr + '.deleteSuppliers(' + row['id'] + ')"> <i class=\'fas fa-trash-alt color-red fa-fw cursor-pointer \'></i></i> </a>';
     }
 
     ctrl.deleteSuppliers = function(id) {
@@ -775,7 +775,7 @@
     }
 
     function editInventoryRepairFormatter(value, row, index) {
-      return '<a id="editInventoryRepair' + row['id'] + '" onclick="' + angularCtrlStr + '.editInventoryRepair(' + row['id'] + ')"> <i class=\'fa fa-pencil-square-o fa-fw color-orange cursor-pointer\'></i> </a>';
+      return '<a id="editInventoryRepair' + row['id'] + '" onclick="' + angularCtrlStr + '.editInventoryRepair(' + row['id'] + ')"> <i class=\'fas fa-edit color-orange cursor-pointer\'></i> </a>';
     }
 
     ctrl.editInventoryRepair = function(id) {
