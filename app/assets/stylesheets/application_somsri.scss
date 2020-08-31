@@ -1,6 +1,7 @@
 @import 'font_awesome5_webfont';
 body {
     font-family: 'Maitree', serif !important;
+    background-color: white !important;
 }
 
 .cursor-not-allowed {
@@ -2023,4 +2024,10 @@ tags-input .tags .tag-item .remove-button {
 
 .container-fluid .col-xs-9 {
     padding-left: 0px !important;
+}
+
+.logo-img {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
 }
