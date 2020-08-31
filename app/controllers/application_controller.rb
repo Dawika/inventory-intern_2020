@@ -42,6 +42,10 @@ class ApplicationController < ActionController::Base
       if is_expired or captured
         @message = 'test' if current_user.school.customer_info.blank?
         @show = true
+        if !current_user.has_role?(:super_admin) && !current_user.has_role?(:admin)
+          @check_user = true
+          @show = false
+        end
         redirect_to '/' and return unless controller_name == 'home'
       end
     end
