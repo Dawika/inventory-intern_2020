@@ -4,7 +4,7 @@ namespace :auto_renewal do
 
       today = DateTime.now.utc.to_date
       renewal_schools = 0
-      School.where(auto_subscribe: true).where.not(plan: nil).each do |school|
+      School.where.not(plan: nil).each do |school|
         active_license = school.active_license
         if active_license.present?
           next if active_license.renewal_reminder_sent
@@ -12,6 +12,7 @@ namespace :auto_renewal do
           next unless (active_license.expired_date - 2.day).to_date <= today
           ap "Sending license renewal reminder to : #{school.email}..."
           SchoolMailer.license_renewal_reminder(school).deliver
+          SchoolMailer.license_renewal_reminder_admin(school).deliver
           renewal_schools += 1
           active_license.renewal_reminder_sent = true
           active_license.save

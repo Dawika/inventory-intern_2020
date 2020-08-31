@@ -16,7 +16,12 @@ class SchoolMailer < ApplicationMailer
 
   def license_renewal_reminder(schools)
       @school = schools
-      mail(to: @school.email, subject: 'license renewal reminder')
+      mail(to: @school.email, subject: 'แจ้งเตือนการใกล้หมดอายุ')
+  end
+
+  def license_renewal_reminder_admin(schools)
+    @school = schools
+    mail(to: 'accounting@bananacoding.com', subject: 'license renewal reminder to admin')
   end
 
   def renew_license_success_and_error(schools)
