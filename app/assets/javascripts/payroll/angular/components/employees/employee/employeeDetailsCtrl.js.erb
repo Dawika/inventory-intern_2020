@@ -802,7 +802,7 @@
           }
 
           function editInventoryRequestFormatter(value, row, index) {
-            return '<a id="editInventory' + row['id'] + '" onclick="' + angularCtrlStr + '.editInventory(' + row['id'] + ')"> <i class=\'fa fa-pencil-square-o fa-fw color-orange cursor-pointer\'></i> </a>';
+            return '<a id="editInventory' + row['id'] + '" onclick="' + angularCtrlStr + '.editInventory(' + row['id'] + ')"> <i class=\'fas fa-edit color-orange cursor-pointer\'></i> </a>';
           }
 
           ctrl.editInventory = function (inventory_id) {
