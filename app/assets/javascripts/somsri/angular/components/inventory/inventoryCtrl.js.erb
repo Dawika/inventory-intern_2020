@@ -418,7 +418,7 @@
               
               var status = ctrl.datasReuestExport[i].inventory_status
               if (ctrl.datasReuestExport[i].inventory_status == "wait") {
-                status = "-"
+                status = "pending"
               } else if (ctrl.datasReuestExport[i].inventory_status == "delete_inventory") {
                 status = "delete"
               }
@@ -765,6 +765,7 @@
         field: 'status',
         title: translateFilter("status"),
         sortable: true,
+        formatter: statusRepairFormatter,
         class: 'font-weight-bold '
       },{
         field: 'edit',
@@ -772,6 +773,21 @@
         sortable: false,
         formatter : editInventoryRepairFormatter
       }]
+    }
+
+    function statusRepairFormatter(value, row, index) {
+      var color = ""
+      if (row.status == "แจ้งซ่อม" || row.status == "Repair notification") {
+        color = "color-orange"
+      }else if(row.status == "ไม่อนุมัติ" || row.status == "rejected"){
+        color = "color-red"
+      }
+      
+      if (row.status == "แจ้งซ่อม" || row.status == "Repair notification") {
+        return '<span class="' + color + '" tyep="text">' + row.status + '</span>'
+      }else {
+        return '<span class="' + color + '" tyep="text">' + row.status + '</span>'
+      }
     }
 
     function editInventoryRepairFormatter(value, row, index) {
