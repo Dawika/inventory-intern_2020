@@ -1927,6 +1927,26 @@ tags-input .tags .tag-item .remove-button {
     line-height: 19px;
 }
 
+.popover {
+    border: 1px solid rgb(202, 202, 202);
+}
+
+.popover-title {
+    background-color: #d23d29; 
+    color: #FFFFFF;
+    font-size: 16px;
+    text-align:center;
+    font-family: 'Maitree', serif;
+}
+
+.popover-content {
+    background-color: white;
+    padding: 5px;
+    text-align: center;
+    font-family: 'Maitree', serif;
+    font-size: 14px;
+}
+
 .color-blue-candidate {
     color: #4A90E2;
 }
