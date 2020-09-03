@@ -64,6 +64,7 @@ class InventoryRepairsController < ApplicationController
 		inventory_repiars = InventoryRepair.find(params[:id])
 		inventory_repiars.rejected?
 		inventory_repiars.update(repair_status: :rejected)
+		inventory_repiars.inventory_request.update(inventory_status: :rejected)
 		render json: inventory_repiars ,status: :ok
 	end
 

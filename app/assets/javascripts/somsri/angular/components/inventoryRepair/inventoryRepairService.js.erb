@@ -35,8 +35,8 @@
 			return $http.put('/inventory_repairs/' + id + '/repair_notification')
 		}
 
-		this.rejected = function(id) {
-			return $http.put('/inventory_repairs/' + id + '/rejected')
+		this.rejected = function(datas,id) {
+			return $http.put('/inventory_repairs/' + id + '/rejected',datas)
 		}
 
 		this.confirm_accept = function(id) {
