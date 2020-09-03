@@ -779,7 +779,6 @@
               field: 'model',
               title: translateFilter("model"),
               class: 'text-currency',
-              align: 'right',
               sortable: true,
             }, {
               field: 'description',
@@ -811,14 +810,14 @@
 
           function statusFormmatter(value, row, index) {
             var color = ""
-            if (row['inventory_status'] == "delete") {
+            if (row['inventory_status'] == "delete" || row['inventory_status'] == 'rejected') {
               color = "color-red"
-            } else if (row['inventory_status'] == "waiting repair") {
+            } else if (row['inventory_status'] == "waiting repair" || row['inventory_status'] == "pending") {
               color = "color-orange"
             }
 
             if (row['inventory_status'] == 'rejected' || row['inventory_status'] == "delete") {
-              return '<span class="cursor-pointer" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" title="Reason" data-content="' + row['comment'] + '">' + row['inventory_status'] + '</span>'
+              return '<span class="cursor-pointer ' + color + '" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" title="Reason" data-content="' + row['comment'] + '">' + row['inventory_status'] + '</span>'
             } else {
               return '<span class="' + color + '" tyep="text">' + row['inventory_status'] + '</span>'
             }
@@ -839,11 +838,13 @@
                 for (var i = 0; i < count; i++) {
                   var status = ctrl.datasReuestExport[i].inventory_status
                   if (ctrl.datasReuestExport[i].inventory_status == "wait") {
-                    status = "-"
+                    status = "pending"
                   } else if (ctrl.datasReuestExport[i].inventory_status == "delete_inventory") {
                     status = "delete"
                   } else if (ctrl.datasReuestExport[i].inventory_status == "repair") {
                     status = "waiting repair"
+                  }else if (ctrl.datasReuestExport[i].inventory_status == "rejected") {
+                    status = "rejected"
                   }
 
                   var serial_number = "-"
