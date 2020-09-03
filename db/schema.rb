@@ -586,6 +586,7 @@ ActiveRecord::Schema.define(version: 20200903073727) do
     t.string   "reason"
     t.datetime "repair_date"
     t.datetime "return_date"
+    t.string   "comment"
     t.float    "price"
     t.string   "receipt"
     t.integer  "repair_status"
