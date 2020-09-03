@@ -786,8 +786,8 @@
         color = "color-red"
       }
       
-      if (row.status == "แจ้งซ่อม" || row.status == "Repair notification") {
-        return '<span class="' + color + '" tyep="text">' + row.status + '</span>'
+      if (row.status == "ไม่อนุมัติ" || row.status == "Rejected") {
+        return '<span class="cursor-pointer '+ color + '" data-trigger="hover" data-toggle="popover" data-placement="top" title="Reason" data-content="' + row['comment'] + '">' +  row.status + '</span>'
       }else {
         return '<span class="' + color + '" tyep="text">' + row.status + '</span>'
       }
@@ -826,6 +826,7 @@
               return_date: ctrl.datasInventoryRepairExport[i].return_date,
               price: ctrl.datasInventoryRepairExport[i].price,
               status: translateFilter(ctrl.datasInventoryRepairExport[i].repair_status),
+              comment: ctrl.datasInventoryRepairExport[i].comment,
               created_at: ctrl.datasInventoryRepairExport[i].created_at,
               updated_at: ctrl.datasInventoryRepairExport[i].updated_at
             })

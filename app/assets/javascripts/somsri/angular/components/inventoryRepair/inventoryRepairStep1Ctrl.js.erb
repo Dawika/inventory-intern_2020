@@ -21,6 +21,10 @@
         ctrl.item_name = value.item_name
         ctrl.serial_number = value.serial_number
         ctrl.reason = value.reason
+        ctrl.description = value.description
+        ctrl.user_name = value.user_name
+        ctrl.request_type = value.request_type
+        ctrl.request_date = new Date(value.request_date)
         ctrl.manage_inventory_repair = value.manage_inventory_repair
         if (ctrl.manage_inventory_repair) {
           ctrl.step = ctrl.manage_inventory_repair.step
@@ -95,8 +99,15 @@
     }
       
     ctrl.reject = function() {
-      inventoryRepairService.rejected(ctrl.real_id).then(function(resp) {
-        $rootScope.openInventory(3)
+      $rootScope.openConfirmationInventoryRequestModal(translateFilter("delete_expense"), function(){
+        var inventory_datas = {
+          comment: $rootScope.comment,
+          
+        }
+        console.log(inventory_datas)
+        inventoryRepairService.rejected(inventory_datas,ctrl.real_id).then(function(resp) {
+          $rootScope.openInventory(3)
+        })
       })
     }
 
