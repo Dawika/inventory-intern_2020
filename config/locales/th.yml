@@ -772,7 +772,7 @@ th:
 
   #Update inventory request
   details_inventory_request: "รายละเอียดคำขอใช้อุปกรณ์"
-  approve_request: "อนุมัติคำขอ"
+  approve_request: "ทำการอนุมัติคำขอ"
   inventory_purchase: "สั่งซื้อพัสดุ"
   get_inventory: "รับพัสดุ"
   dispatch_to_employees: "ส่งคืนพนักงาน"
@@ -786,7 +786,7 @@ th:
   receive_products_on_date: "ได้รับสินค้าในวันที่"
   continue: "ต่อไป"
   completed: "เรียบร้อยแล้ว"
-  send_the_package_to: "ได้ทำการส่งมอบพัสดุให้กับ"
+  send_the_package_to: "จัดส่งให้พนักงาน"
   get_inventory_by: "รับพัสดุโดย"
 
   #Repair
