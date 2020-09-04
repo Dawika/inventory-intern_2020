@@ -63,12 +63,59 @@
 							</div>
 						</div>
 					</div>
+					<div class="mt-20" style="height: 300px;">
+						<div class="row">
+							<div class="report-content container-fluid panel-board"  >
+								<ul class="step d-flex flex-nowrap">
+									<li class="step-item active">
+										<a href="#!" class="">
+											<!--  <i class="fa fa-check fa-2x icon-in-step"></i> -->
+											<h3 class="text-in-step-repair1 mt-0 {{ currentLang }}">1</h3> 
+											{{ "confirm_accept" | translate }}
+										</a>
+									</li>
+									<li class="step-item">
+										<a href="#!" class="">
+											<!-- 	<i class="fa fa-check fa-2x icon-in-step"></i> -->
+											<h3 class="text-in-step-repair2 mt-0 {{ currentLang }}">2</h3> 
+											{{ "inventory_purchase" | translate }}
+										</a>
+									</li>
+									<li class="step-item">
+										<a href="#!" class="">
+											<!-- <i class="fa fa-check fa-2x icon-in-step2"></i> --> 
+											<h3 class="text-in-step-repair3 mt-0 {{ currentLang }}">3</h3>
+											{{ "get_inventory" | translate }}
+										</a>
+									</li>
+									<li class="step-item">
+										<a href="#!" class="">
+											<!-- <i class="fa fa-check fa-2x icon-in-step"></i>  -->
+											<h3 class="text-in-step4 mt-0 {{ currentLang }}">4</h3>
+											{{ "send_the_package_to" | translate }}  
+										</a>
+									</li>
+								</ul> 
+								<div class="row mt-50">
+									<b class="font-16 pl-20 ">{{ "approve_request" | translate }}</b>
+								</div>
+								<div class="row mt-20">
+									<div class="col-md-2">
+										<button type="button" class="btn btn-custom btn-green ng-binding btn-block  padding-left10" ng-click="inventory.accept()">{{ "accept" | translate }}</button>
+									</div>
+									<div class="col-md-2 pl-0">
+										<button type="button" class="btn btn-custom btn-red ng-binding btn-block  padding-left10" ng-click="inventory.reject()">{{ "reject" | translate }}</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="row mt-20">
 						<div class="pull-right text-right padding-left10">
-							<button type="button pull-right text-right padding-left10" class="btn btn-custom btn-red ng-binding btn-block  padding-left10" ng-click="inventory.reject()">{{ "rejected" | translate }}</button>
+							<button type="button" class="btn btn-custom btn-gray ng-binding" ng-click="inventory.back()">{{ "cancel" | translate }}</button>
 						</div>
 						<div class="pull-right text-right padding-left10">
-							<button type="button" class="btn btn-custom btn-green ng-binding btn-block  padding-left10" ng-click="inventory.accept()">{{ "approve" | translate }}</button>
+							<button type="submit" class="btn btn-custom btn-blue ng-binding btn-block padding-left10">{{ "save" | translate }}</button>
 						</div>
 					</div>
 				</div>
