@@ -771,7 +771,7 @@ th:
   from_store: "จากร้าน"
 
   #Update inventory request
-  details_inventory_request: "รายละเอียดคำขอใช้อุปกรณ์"
+  details_inventory_request: "รายละเอียดคำขอใช้พัสดุ"
   approve_request: "ทำการอนุมัติคำขอ"
   inventory_purchase: "สั่งซื้อพัสดุ"
   get_inventory: "รับพัสดุ"
@@ -804,6 +804,7 @@ th:
   repair_notification: "แจ้งซ่อม"
   accept_repair: "อนุมัติการแจ้งซ่อม"
   receive_parcel_at_date: "ได้รับพัสดุในวันที่"
+  sent_to: "ส่งพัสดุให้"
 
   #inventory supplier
   inventory_supplier: "ร้านค้า"

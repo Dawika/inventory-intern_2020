@@ -862,18 +862,10 @@ body {
 }
 
 .btn-background {
-    background-color: #F4F9FC;
+    background-color: #fff;
     padding-bottom: 15px;
     padding-left: 0px;
     color: #fff !important;
-    border: 2px solid #F4F9FC;
-    &:hover {
-        border: 2px solid #F4F9FC;
-        color: #F4F9FC !important;
-    }
-    &:focus {
-        color: #fff;
-    }
 }
 
 .background-blue-hover:focus,
@@ -1348,6 +1340,20 @@ tags-input .tags .tag-item .remove-button {
     top: 0;
     z-index: 999;
     width: 20px;
+    &.en {
+        transform: translate(240%, 40%);
+    }
+    &.th {
+        transform: translate(85%, 40%);
+    }
+}
+
+.text-in-step-repair4 {
+    color: #FFFFFF;
+    position: absolute;
+    top: 0;
+    z-index: 999;
+    width: 31px;
     &.en {
         transform: translate(240%, 40%);
     }
