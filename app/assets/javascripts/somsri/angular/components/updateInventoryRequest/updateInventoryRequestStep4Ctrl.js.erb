@@ -352,7 +352,7 @@
 
     function isSave() {
       service.assigned(ctrl.real_id).then(function(resp) {
-        $rootScope.openInventory(1)
+        $rootScope.updateInventoryRequestStep5(ctrl.real_id)
       })
     }
 
