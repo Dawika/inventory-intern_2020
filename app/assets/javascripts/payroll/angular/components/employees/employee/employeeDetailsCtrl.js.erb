@@ -816,6 +816,10 @@
               color = "color-orange"
             }
 
+            $(function () {
+              $('[data-toggle="popover"]').popover()
+            })
+
             if (row['inventory_status'] == 'rejected' || row['inventory_status'] == "delete") {
               return '<span class="cursor-pointer ' + color + '" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="top" title="Reason" data-content="' + row['comment'] + '">' + row['inventory_status'] + '</span>'
             } else {
