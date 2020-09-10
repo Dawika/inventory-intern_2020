@@ -781,7 +781,7 @@ th:
   date_purchase_inventory: "ได้ทำการสั่งซื้อวันที่"
   date_send_inventory: "จัดส่งในวันที่"
   save_by: "บันทึกโดย"
-  request_approval: "อนุมัติคำขอ"
+  request_approval: "ได้ทำการอนุมัติคำขอ"
   bath: "บาท"
   receive_products_on_date: "ได้รับสินค้าในวันที่"
   continue: "ต่อไป"
@@ -790,6 +790,7 @@ th:
   send_to_employee: "ได้ทำการส่งมอบพัสดุให้กับ"
   success: "เรียบร้อย"
   get_inventory_by: "รับพัสดุโดย"
+  date_sending: "วันที่จัดส่ง"
 
   #Repair
   list_repair: "แจ้งซ่อม"
