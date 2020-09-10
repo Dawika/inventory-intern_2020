@@ -769,6 +769,7 @@ th:
   history: "ประวัติ"
   purchasing_by: "สั่งซื้อโดย"
   from_store: "จากร้าน"
+  
 
   #Update inventory request
   details_inventory_request: "รายละเอียดคำขอใช้พัสดุ"
@@ -791,6 +792,7 @@ th:
   success: "เรียบร้อย"
   get_inventory_by: "รับพัสดุโดย"
   date_sending: "วันที่จัดส่ง"
+  end_warranty_inventory: "สิ้นสุดการรับประกันในวันที่"
 
   #Repair
   list_repair: "แจ้งซ่อม"
