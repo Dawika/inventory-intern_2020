@@ -800,16 +800,17 @@ th:
   reason_for_repair: "เหตุผลที่ส่งซ่อม"
   repair_date: "วันที่ส่งซ่อม"
   repair_return_date: "วันที่ซ่อมเสร็จ"
-  bill: "ใบเสร็จ"
+  bill: "เลขที่ใบเสร็จ"
   detal_repair: "รายละเอียดแจ้งซ่อม"
   approve_repair: "ยืนยันการแจ้งซ่อม"
   confirm_accept: "รับเรื่อง"
   sent_repair: "ส่งซ่อม"
   repairs_completed: "ซ่อมเสร็จ"
   repair_notification: "แจ้งซ่อม"
-  accept_repair: "อนุมัติการแจ้งซ่อม"
+  accept_repair: "ได้ทำการอนุมัติการแจ้งซ่อม"
   receive_parcel_at_date: "ได้รับพัสดุในวันที่"
   sent_to: "ส่งพัสดุให้"
+  sent_to_employee: "ส่งให้พนักงาน"
 
   #inventory supplier
   inventory_supplier: "ร้านค้า"
@@ -817,7 +818,7 @@ th:
   add_supplier: "+ เพิ่มร้านค้า"
   supplier_details: "รายละเอียดร้านค้า"
   supplier: "ชื่อร้านค้า"
-  appointment_date: "วันที่นัดรับ"
+  appointment_date: "นัดรับวันที่"
 
   # Rollcall
   monthly: ประจำเดือน

@@ -27,7 +27,7 @@
         if (ctrl.manage_inventory_repair) {
           ctrl.step = ctrl.manage_inventory_repair.step
           ctrl.manage_inventory_repair_id = ctrl.manage_inventory_repair.id
-          ctrl.step1_save_by = ctrl.step1_save_by
+          ctrl.step1_save_by = ctrl.manage_inventory_repair.step1_save_by
           ctrl.repair_date = $filter('date')(new Date(ctrl.manage_inventory_repair.repair_date), 'dd/MM/yyyy')
           ctrl.supplier_name = ctrl.manage_inventory_repair.supplier_name
           ctrl.appointment_date = $filter('date')(new Date(ctrl.manage_inventory_repair.appointment_date), 'dd/MM/yyyy')
