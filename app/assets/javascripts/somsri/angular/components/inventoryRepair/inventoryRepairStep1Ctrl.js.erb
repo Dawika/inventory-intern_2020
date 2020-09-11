@@ -102,9 +102,10 @@
       $rootScope.openConfirmationInventoryRequestModal(translateFilter("delete_expense"), function(){
         var inventory_datas = {
           comment: $rootScope.comment,
-          
         }
-        console.log(inventory_datas)
+        if (inventory_datas.comment == null){
+          inventory_datas = {comment: "-"}     
+        }
         inventoryRepairService.rejected(inventory_datas,ctrl.real_id).then(function(resp) {
           $rootScope.openInventory(3)
         })
