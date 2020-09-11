@@ -75,9 +75,9 @@
       ctrl.date_save_step1 = $filter('date')(new Date(ctrl.manage_inventory_request.date_save_step1), 'dd/MM/yyyy HH:mm')
       //setp2
       ctrl.save_by_step2 = ctrl.manage_inventory_request.save_by_step2
-      ctrl.date_purchase = $filter('date')(new Date(ctrl.manage_inventory_request.date_purchase), 'dd/MM/yyyy HH:mm')
+      ctrl.date_purchase = $filter('date')(new Date(ctrl.manage_inventory_request.date_purchase), 'dd/MM/yyyy')
       ctrl.date_purchase_save = ctrl.manage_inventory_request.date_purchase
-      ctrl.date_send = $filter('date')(new Date(ctrl.manage_inventory_request.date_send), 'dd/MM/yyyy HH:mm')
+      ctrl.date_send = $filter('date')(new Date(ctrl.manage_inventory_request.date_send), 'dd/MM/yyyy')
       ctrl.date_send_save = ctrl.manage_inventory_request.date_send
       ctrl.price_step2 = parseFloat(ctrl.manage_inventory_request.price)
       ctrl.date_save_step2 = $filter('date')(new Date(ctrl.manage_inventory_request.date_save_step2), 'dd/MM/yyyy HH:mm')
