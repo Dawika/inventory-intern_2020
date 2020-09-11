@@ -15,17 +15,13 @@
 								<div class="col-md-3">
 									<div class="form-group">
 										<label class="control-label" for="item_name">{{"item_name" | translate}}</label>
-										<div class="col-md-12">
-											<input class="form-control" autocomplete="off" type="text" id="inventory_name" ng-model="inventory.name" required="true">
-										</div>
+										<input class="form-control" autocomplete="off" type="text" id="inventory_name" ng-model="inventory.name" required="true">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="control-label" for="description">{{"description" | translate}}</label>
-										<div class="col-md-12">
-											<input class="form-control" autocomplete="off" type="text" id="inventory_description" ng-model="inventory.description" required="true">
-										</div>
+										<input class="form-control" autocomplete="off" type="text" id="inventory_description" ng-model="inventory.description" required="true">
 									</div>
 								</div>
 								<div class="col-md-3">
@@ -34,7 +30,7 @@
 										<p class="input-group">
 											<input id="request_date" type="text" class="form-control numberic" uib-datepicker-popup="dd/MM/yyyy" ng-model="inventory.datas_step.request_date" is-open="inventory.requestDatePopup.opened" close-text="Close" required="true"/>
 											<span class="input-group-btn">
-												<button type="button" class="btn btn-default" ng-click="inventory.openRequestDatePopup()" ><i class="fa fa-calendar"></i></button>
+												<button type="button" class="btn btn-default" ng-click="inventory.openRequestDatePopup()" ><i class="far fa-calendar-alt"></i></button>
 											</span>
 										</p>
 									</div>
@@ -44,17 +40,13 @@
 								<div class="col-md-3">
 									<div class="form-group">
 										<label class="control-label" for="user_request">{{"user_request" | translate}}</label>
-										<div class="col-md-12">
-											<input class="form-control" autocomplete="off" type="text" id="inventory_user" ng-model="inventory.user_name" required="true" >
-										</div>
+										<input class="form-control" autocomplete="off" type="text" id="inventory_user" ng-model="inventory.user_name" required="true" >
 									</div>
 								</div>
 								<div class="col-md-3">
 									<div class="form-group">
 										<label class="control-label" for="price">{{"price" | translate}}</label>
-										<div class="col-md-12">
-											<input class="form-control" autocomplete="off" type="number" id="inventory_price" ng-model="inventory.price" ng-validate="number" required="true" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" parseFloat>
-										</div>
+										<input class="form-control" autocomplete="off" type="number" id="inventory_price" ng-model="inventory.price" ng-validate="number" required="true" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" parseFloat>
 									</div>
 								</div>
 							</div>
@@ -65,89 +57,70 @@
 							<ul class="step d-flex flex-nowrap">
 								<li class="step-item">
 									<a href="#!" class="">
-										<i class="fa fa-check fa-2x icon-in-step-repair1 {{ currentLang }}"></i>
+										<i class="fa fa-check fa-2x icon-in-step {{ currentLang }}"></i>
 										<!-- <h3 class="text-in-step mt-0">1</h3>  -->
 										{{ "confirm_accept" | translate }}
 									</a>
 								</li>
-								<li class="step-item">
+								<li class="step-item ">
 									<a href="#!" class="">
-										<i class="fa fa-check fa-2x icon-in-step-repair2 {{ currentLang }}"></i> 
-										 <!-- <h3 class="text-in-step-repair2 mt-0 {{ currentLang }}">2</h3> -->
-										{{ "sent_repair" | translate }}
+										<i class="fa fa-check fa-2x icon-in-step2 {{ currentLang }}"></i>
+										<!-- <h3 class="text-in-step2 mt-0 {{ currentLang }}">2</h3> -->
+										{{ "inventory_purchase" | translate }}
 									</a>
 								</li>
-								<li class="step-item">
+								<li class="step-item ">
 									<a href="#!" class="">
-										<i class="fa fa-check fa-2x icon-in-step-repair3 {{ currentLang }}"></i>
-										<!-- <h3 class="text-in-step-repair3 mt-0 {{ currentLang }}">3</h3> -->
-										{{ "repairs_completed" | translate }}
+										<i class="fa fa-check fa-2x icon-in-step3 {{ currentLang }}"></i>
+										<!-- <h3 class="text-in-step3 mt-0 {{ currentLang }}">3</h3> -->
+										{{ "get_inventory" | translate }}
 									</a>
 								</li>
 								<li class="step-item active">
 									<a href="#!" class="">
-										<!-- <i class="fa fa-check fa-2x icon-in-step"></i>  -->
-										<h3 class="text-in-step-repair4 mt-0 {{ currentLang }}">4</h3>
-										{{ "dispatch_to_employees" | translate }}    
+										<!-- <i class="fa fa-check fa-2x icon-in-step4 {{ currentLang }}"></i> -->   
+										<h3 class="text-in-step4 mt-0 {{ currentLang }}">4</h3>
+										{{ "send_the_package_to" | translate }}    
 									</a>
 								</li>
 							</ul> 
-							<form ng-submit="inventory.continue()">
-								<div class="row mt-50">
-									
-									<div class="col-md-3">
+							<div class="row mt-50">
+								<div class="col-md-3">
+									<div class="form-group">
+										<label class="control-label" for="employee_name">{{ "sent_to" | translate }}</label>
 										<div class="form-group">
-											<label class="control-label" for="employee_name">{{ "sent_to" | translate }}</label>
-											<div class="form-group">
-												<input type="text" class="form-control" id="employee_name" placeholder="{{ 'employee_name' | translate }}" ng-model="inventory.employee_name"  typeahead-on-select="inventory.onSelectEmployeeFullName($item)" ng-change="inventory.onChangeName()" uib-typeahead="inventory.name as inventory.name for inventory in inventory.employee_lists | filter:{name:$viewValue} | limitTo:8" required , autocomplete="off">
-											</div>
+											<input type="text" class="form-control" id="employee_name" placeholder="{{ 'employee_name' | translate }}" ng-model="inventory.employee_name"  typeahead-on-select="inventory.onSelectEmployeeFullName($item)" ng-change="inventory.onChangeName()" uib-typeahead="inventory.name as inventory.name for inventory in inventory.employee_lists | filter:{name:$viewValue} | limitTo:8" required , autocomplete="off">
 										</div>
 									</div>
 								</div>
-								<div class="row mt-20">
-									<div class="col-md-2">
-										<button type="submit" class="btn btn-custom btn-continue ng-binding btn-block padding-left10">{{ "continue" | translate }}</button>
-									</div>
-									<div class="col-md-2 pl-0">
-										<button type="button" class="btn btn-custom btn-gray ng-binding btn-block  padding-left10" ng-click="inventory.cancel()">{{ "cancel" | translate }}</button>
-									</div>
-								</div>									
-							</form>
+							</div>
+							<div class="row mt-20">
+								<div class="col-md-2">
+									<button type="submit" class="btn btn-custom btn-continue ng-binding btn-block padding-left10">{{ "continue" | translate }}</button>
+								</div>
+								<div class="col-md-2 pl-0">
+									<button type="button" class="btn btn-custom btn-gray ng-binding btn-block  padding-left10" ng-click="inventory.cancel()">{{ "cancel" | translate }}</button>
+								</div>
+							</div>	
 							<div class="row mt-20">
 								<p class="pl-20 ">
-									<p class="pl-20 " ng-show=inventory.show_text>
-									{{ inventory.date_save_step1 }} - {{ "request_approval" | translate }} 
-									<label class="control-label color-light-blue">{{ inventory.save_by }}</label><br>
-									{{ inventory.date_save_step2 }} - {{ "purchasing_by" | translate }}
-									<label class="control-label color-light-blue">{{ inventory.save_by_step2 }}</label>
-									{{ "from_store" | translate }}
-									<label class="control-label color-light-blue">{{ inventory.supplier_name }}</label><br>
-									{{ inventory.date_save_step3 }} - {{ "get_inventory_by" | translate }}
-									<label class="control-label color-light-blue">{{ inventory.save_by_step3 }}</label>
-									{{ "buy_slip" | translate }}
-									<label class="control-label color-light-blue">{{ inventory.buy_slip }}</label>
-									</p>
+									<p class="pl-20 " style="color: #B6B6B6;" ng-show=inventory.show_text>{{ "receive_products_on_date" | translate }} {{ inventory.get_date }} </p>
+									<p class="pl-20 " style="color: #B6B6B6;" ng-show=inventory.show_text> {{ "buy_slip" | translate }} {{ inventory.buy_slip }} </p>
+									<p class="pl-20 " style="color: #B6B6B6;" ng-show=inventory.show_text> {{"end_warranty_inventory" | translate}} {{ inventory.end_warranty }} ({{ "save_by" | translate }} {{ inventory.save_by }})</p>
 								</p>
-								<p class="pl-20" style="color: #B6B6B6;" ng-show="!inventory.show_text">
-									{{ inventory.date_save_step1 }} - {{ "request_approval" | translate }} ({{ "save_by" | translate }} {{ inventory.save_by }})
-								</p>
+								<p class="pl-20" style="color: #B6B6B6;" ng-show="!inventory.show_text">{{ "request_approval" | translate }} ({{ "save_by" | translate }} {{ inventory.save_by }})</p>
 							</div>
 						</div>
-					</div>	
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-lg-4" ></div>
-			<div class="col-lg-8" style="padding: inherit;">
-				<div class="footer-menu mt-20">
-					<div class="pull-right text-right padding-left10">
-						<button type="button" class="btn btn-custom btn-gray ng-binding" ng-click="inventory.backToRootView()">{{ "cancel" | translate }}</button>
-					</div>
-					<div class="pull-right text-right padding-left10">
-						<button type="submit" class="btn btn-custom btn-blue ng-binding btn-block padding-left10">{{ "save" | translate }}</button>
-					</div>
-				</div>
+		<div class="footer-menu row mt-20">
+			<div class="pull-right text-right padding-left10">
+				<button type="button" class="btn btn-custom btn-gray ng-binding" ng-click="inventory.backToRootView()">{{ "cancel" | translate }}</button>
+			</div>
+			<div class="pull-right text-right padding-left10">
+				<button type="submit" class="btn btn-custom btn-blue ng-binding btn-block padding-left10">{{ "save" | translate }}</button>
 			</div>
 		</div>
 	</form>
