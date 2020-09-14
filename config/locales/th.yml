@@ -789,7 +789,6 @@ th:
   completed: "เรียบร้อยแล้ว"
   send_the_package_to: "จัดส่งให้พนักงาน"
   send_to_employee: "ได้ทำการส่งมอบพัสดุให้กับ"
-  success: "เรียบร้อย"
   get_inventory_by: "รับพัสดุโดย"
   date_sending: "วันที่จัดส่ง"
   end_warranty_inventory: "สิ้นสุดการรับประกันในวันที่"

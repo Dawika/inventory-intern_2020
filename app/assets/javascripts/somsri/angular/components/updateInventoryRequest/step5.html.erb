@@ -34,7 +34,7 @@
 										<p class="input-group">
 											<input id="request_date" type="text" class="form-control numberic" uib-datepicker-popup="dd/MM/yyyy" ng-model="inventory.datas.request_date" is-open="inventory.requestDatePopup.opened" close-text="Close" required="true"/>
 											<span class="input-group-btn">
-												<button type="button" class="btn btn-default" ng-click="inventory.openRequestDatePopup()" ><i class="fa fa-calendar"></i></button>
+												<button type="button" class="btn btn-default" ng-click="inventory.openRequestDatePopup()" ><i class="far fa-calendar-alt"></i></button>
 											</span>
 										</p>
 									</div>
@@ -94,29 +94,17 @@
 								</li>
 							</ul> 
 							<div class="row mt-20">
-								<p class="pl-20 ">
-									<p class="pl-20 " style="color: #B6B6B6;" ng-show=inventory.show_text>
-										{{ inventory.date_save_step1 }} - {{ "request_approval" | translate }}
-										<label>({{ "save_by" | translate }} {{ inventory.save_by }})</label><br>
-										{{"date_purchase_inventory" | translate}} {{ inventory.date_purchase }}<br>
-										{{"date_send_inventory" | translate}} {{inventory.date_send}}<br>
-										{{"price" | translate}} {{inventory.price_step2}} {{"bath" | translate}}
-										<label>{{ inventory.supplier_name }}</label><br>
-										{{"receive_products_on_date" | translate}} {{ inventory.get_date }}<br>
-										{{ "buy_slip" | translate }}
-										<label>{{ inventory.buy_slip }}</label><br>
-										{{"end_warranty" | translate}} {{ inventory.end_warranty }}
-										<label>({{ "save_by" | translate }} {{ inventory.save_by_step4 }})</label><br>
-										{{ "send_to_employee" | translate }} {{ inventory.employee_name }} {{"success" | translate}}
-										<label>({{ "save_by" | translate }} {{ inventory.save_by_step4 }})</label>
-									</p>
-								</p>
-								<p class="pl-20" style="color: #B6B6B6;" ng-show="!inventory.show_text">
-									{{ inventory.date_save_step1 }} - {{ "request_approval" | translate }} 
-									<label>({{ "save_by" | translate }} {{ inventory.save_by }})</label><br>
-									{{ "send_to_employee" | translate }} {{ inventory.employee_name }} {{"success" | translate}}
-									<label>({{ "save_by" | translate }} {{ inventory.save_by_step4}})</label>
-								</p>
+									<p class="pl-20 " style="color: #B6B6B6;" ng-show=inventory.show_text>{{ "request_approval" | translate }} ({{ "save_by" | translate }} {{ inventory.save_by }})</p></p>
+									<p class="pl-20 " style="color: #B6B6B6;" ng-show=inventory.show_text>{{"date_purchase_inventory" | translate}} {{ inventory.date_purchase }}</p>
+									<p class="pl-20 " style="color: #B6B6B6;" ng-show=inventory.show_text>{{"date_send_inventory" | translate}} {{inventory.date_send}}</p>
+									<p class="pl-20 " style="color: #B6B6B6;" ng-show=inventory.show_text>{{"price" | translate}} {{inventory.price_step2}} {{"bath" | translate}} ({{ "save_by" | translate }} {{ inventory.save_by }})</p>
+									<p class="pl-20 " style="color: #B6B6B6;" ng-show=inventory.show_text>{{"receive_products_on_date" | translate}} {{ inventory.get_date }}</p>
+									<p class="pl-20 " style="color: #B6B6B6;" ng-show=inventory.show_text>{{ "buy_slip" | translate }} {{ inventory.buy_slip }}</p>
+									<p class="pl-20 " style="color: #B6B6B6;" ng-show=inventory.show_text>{{"end_warranty" | translate}} {{ inventory.end_warranty }} ({{ "save_by" | translate }} {{ inventory.save_by_step4 }})</p>
+									<p class="pl-20 " style="color: #B6B6B6;" ng-show=inventory.show_text>{{ "send_to_employee" | translate }} {{ inventory.employee_name }} {{"completed" | translate}} ({{ "save_by" | translate }} {{ inventory.save_by_step4 }})</p>
+								
+								<p class="pl-20" style="color: #B6B6B6;" ng-show="!inventory.show_text">{{ "request_approval" | translate }} ({{ "save_by" | translate }} {{ inventory.save_by }}) </p>
+								<p class="pl-20" style="color: #B6B6B6;" ng-show="!inventory.show_text">{{ "send_to_employee" | translate }} {{ inventory.employee_name }} {{"completed" | translate}} ({{ "save_by" | translate }} {{ inventory.save_by_step4}})</p>
 							</div>
 						</div>
 					</div>				
