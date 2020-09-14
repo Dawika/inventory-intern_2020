@@ -15,38 +15,30 @@
 								<div class="col-md-3">
 									<div class="form-group">
 										<label class="control-label" for="employee_name">{{"employee_name" | translate}}</label>
-										<div class="col-md-12">
-											<input class="form-control" autocomplete="off" type="text" id="employee_name" ng-model="inventory.employee_name" required="true">
-										</div>
+										<input class="form-control" autocomplete="off" type="text" id="employee_name" ng-model="inventory.employee_name" required="true">
 									</div>
 								</div>
 								<div class="col-md-3">
 									<div class="form-group">
 										<label class="control-label" for="item_name">{{"item_name" | translate}}</label>
-										<div class="col-md-12">
-											<input class="form-control" autocomplete="off" type="text" id="item_name" ng-model="inventory.item_name" required="true">
-										</div>
+										<input class="form-control" autocomplete="off" type="text" id="item_name" ng-model="inventory.item_name" required="true">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="control-label" for="serial_number">{{"serial_number" | translate}}</label>
-										<div class="col-md-12">
-											<input class="form-control" autocomplete="off" type="text" id="inventory_serial_number" ng-model="inventory.serial_number" required="true">
-										</div>
+										<input class="form-control" autocomplete="off" type="text" id="inventory_serial_number" ng-model="inventory.serial_number" required="true">
 									</div>
 								</div>
 							</div>
-							<div class="row mt-20">
+							<!-- <div class="row mt-20">
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="control-label" for="reason">{{"reason" | translate}}</label>
-										<div class="col-md-12">
-											<input class="form-control" autocomplete="off" type="text" id="reason" ng-model="inventory.reason" required="true">
-										</div>
+										<input class="form-control" autocomplete="off" type="text" id="reason" ng-model="inventory.reason" required="true">
 									</div>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</form>
@@ -77,7 +69,7 @@
 							<li class="step-item active">
 								<a href="#!" class="">
 									<!-- <i class="fa fa-check fa-2x icon-in-step"></i>  -->
-									<h3 class="text-in-step4 mt-0 {{ currentLang }}">4</h3>
+									<h3 class="text-in-step-repair4 mt-0 {{ currentLang }}">4</h3>
 									{{ "dispatch_to_employees" | translate }}    
 								</a>
 							</li>
@@ -85,6 +77,7 @@
 						<form ng-submit="inventory.continue()"> 
 							<div class="row mt-50">
 								<div class="col-md-4">
+									<label class="control-label" for="employee_name">{{ "sent_to_employee" | translate }}</label>
 									<div class="form-group">
 										<input type="text" class="form-control" id="employee_name" placeholder="{{ 'employee_name' | translate }}" ng-model="inventory.employee_name"  typeahead-on-select="inventory.onSelectEmployee($item)" ng-change="inventory.onChangeEmployee()" uib-typeahead="inventory.name as inventory.name for inventory in inventory.employee_lists | filter:{name:$viewValue} | limitTo:8" required , autocomplete="off">
 										</div>
@@ -102,7 +95,7 @@
 						<div class="row mt-20">
 							<p class="pl-20" style="color: #B6B6B6;" >{{ "receive_parcel_at_date" | translate }} {{ inventory.return_date }}  </p>
 							<p class="pl-20" style="color: #B6B6B6;" >{{ "expenses" | translate }} {{ inventory.price }}  </p>
-							<p class="pl-20" style="color: #B6B6B6;" >{{ "receipt" | translate }} {{ inventory.receipt }} ({{ "save_by" | translate }} {{ inventory.step3_save_by }})  </p>
+							<p class="pl-20" style="color: #B6B6B6;" >{{ "bill" | translate }} {{ inventory.receipt }} ({{ "save_by" | translate }} {{ inventory.step3_save_by }})  </p>
 						</div>
 					</div>
 				</div>

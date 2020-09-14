@@ -15,38 +15,30 @@
 								<div class="col-md-3">
 									<div class="form-group">
 										<label class="control-label" for="employee_name">{{"employee_name" | translate}}</label>
-										<div class="col-md-12">
-											<input class="form-control" autocomplete="off" type="text" id="employee_name" ng-model="inventory.employee_name" required="true">
-										</div>
+										<input class="form-control" autocomplete="off" type="text" id="employee_name" ng-model="inventory.employee_name" required="true">
 									</div>
 								</div>
 								<div class="col-md-3">
 									<div class="form-group">
 										<label class="control-label" for="item_name">{{"item_name" | translate}}</label>
-										<div class="col-md-12">
-											<input class="form-control" autocomplete="off" type="text" id="item_name" ng-model="inventory.item_name" required="true">
-										</div>
+										<input class="form-control" autocomplete="off" type="text" id="item_name" ng-model="inventory.item_name" required="true">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="control-label" for="serial_number">{{"serial_number" | translate}}</label>
-										<div class="col-md-12">
-											<input class="form-control" autocomplete="off" type="text" id="inventory_serial_number" ng-model="inventory.serial_number" required="true">
-										</div>
+										<input class="form-control" autocomplete="off" type="text" id="inventory_serial_number" ng-model="inventory.serial_number" required="true">
 									</div>
 								</div>
 							</div>
-							<div class="row mt-20">
+							<!-- <div class="row mt-20">
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="control-label" for="reason">{{"reason" | translate}}</label>
-										<div class="col-md-12">
-											<input class="form-control" autocomplete="off" type="text" id="reason" ng-model="inventory.reason" required="true">
-										</div>
+										<input class="form-control" autocomplete="off" type="text" id="reason" ng-model="inventory.reason" required="true">
 									</div>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</form>
@@ -77,7 +69,7 @@
 								<li class="step-item ">
 									<a href="#!" class="">
 										<!-- <i class="fa fa-check fa-2x icon-in-step"></i>  -->
-										<h3 class="text-in-step4 mt-0 {{ currentLang }}">4</h3>
+										<h3 class="text-in-step-repair4 mt-0 {{ currentLang }}">4</h3>
 										{{ "dispatch_to_employees" | translate }}    
 									</a>
 								</li>
@@ -90,7 +82,7 @@
 											<p class="input-group">
 												<input id="date" type="text" class="form-control numberic" uib-datepicker-popup="dd/MM/yyyy" ng-model="inventory.repair_date" is-open="inventory.repairDatePopup.opened" close-text="Close" required="true"/>
 												<span class="input-group-btn">
-													<button type="button" class="btn btn-default" ng-click="inventory.openRepairDatePopup()"><i class="fa fa-calendar"></i></button>
+													<button type="button" class="btn btn-default" ng-click="inventory.openRepairDatePopup()"><i class="far fa-calendar-alt"></i></button>
 												</span>
 											</p>
 										</div>
@@ -98,9 +90,7 @@
 									<div class="col-md-3">
 										<div class="form-group">
 											<label class="control-label" for="supplier_name">ชื่อร้านที่ส่งซ่อม</label>
-											<div class="col-md-12">
-												<input class="form-control" autocomplete="off" type="text" id="supplier_name" ng-model="inventory.supplier_name" required="true">
-											</div>
+											<input class="form-control" autocomplete="off" type="text" id="supplier_name" ng-model="inventory.supplier_name" required="true">
 										</div>
 									</div>
 									<div class="col-md-3">
@@ -109,7 +99,7 @@
 											<p class="input-group">
 												<input id="date" type="text" class="form-control numberic" uib-datepicker-popup="dd/MM/yyyy" ng-model="inventory.appointment_date" is-open="inventory.appointmenttDatePopup.opened" close-text="Close" required="true"/>
 												<span class="input-group-btn">
-													<button type="button" class="btn btn-default" ng-click="inventory.openAppointmentDatePopup()"><i class="fa fa-calendar"></i></button>
+													<button type="button" class="btn btn-default" ng-click="inventory.openAppointmentDatePopup()"><i class="far fa-calendar-alt"></i></button>
 												</span>
 											</p>
 										</div>
@@ -125,7 +115,7 @@
 								</div>									
 							</form>
 							<div class="row mt-20">
-								<p class="pl-20" style="color: #B6B6B6;" >{{ "request_approval" | translate }} ({{ "save_by" | translate }} {{ inventory.save_by }})  </p>
+								<p class="pl-20" style="color: #B6B6B6;" >{{ "accept_repair" | translate }} ({{ "save_by" | translate }} {{ inventory.step1_save_by }})  </p>
 							</div>
 						</div>
 					</div>
