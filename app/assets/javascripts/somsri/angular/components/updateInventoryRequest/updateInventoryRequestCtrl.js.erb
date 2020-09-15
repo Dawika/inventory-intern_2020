@@ -90,17 +90,21 @@
 
     function createManageInventory(data) {
       service.createManageInventoryRequest(data, ctrl.real_id).then(function(resp) {
-        save()
+        save('accept')
       })
     }
 
     function updateMangeInventory(data) {
       service.updateManageInventoryRequest(data, ctrl.real_id , ctrl.manage_inventory_id).then(function(resp) {
-        save()
+        save('accept')
       })
     }
+    
+    ctrl.save = function(){
+      save('save')
+    }
 
-    function save() {
+    function save(checkState) {
     	var changePrice = parseFloat(ctrl.price)
     	var inventory_datas = {
         user_name: ctrl.user_name,
@@ -109,19 +113,22 @@
         price: changePrice,
         request_date: ctrl.datas.request_date,
         employee_id: ctrl.employee_id
-    	}
-
+      }
       if (ctrl.real_id) {
-        updateInventoryRequest(inventory_datas, ctrl.real_id)
-      } 
+        updateInventoryRequest(inventory_datas, ctrl.real_id, checkState)
+      }
     }
 
-    function updateInventoryRequest(inventory_datas, id) {
+    function updateInventoryRequest(inventory_datas, id, checkState) {
     	service.updateInventoryRequest(inventory_datas, id).then(function(resp) {
-        if (ctrl.request_type == "request") {
+        if (checkState != 'save') {
+          if (ctrl.request_type == "request") {
             $rootScope.updateInventoryRequestStep4(ctrl.real_id)
           } else {
             $rootScope.updateInventoryRequestStep2(ctrl.real_id)
+        }
+        }else{
+          $rootScope.openInventory(1)
         }
     	}, function(e){
 

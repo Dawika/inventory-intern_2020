@@ -62,7 +62,7 @@
           ctrl.step = ctrl.manage_inventory_request.step
           ctrl.manage_inventory_id = ctrl.manage_inventory_request.id
           ctrl.supplier_id = ctrl.manage_inventory_request.supplier_id
-          getSupplier(ctrl.supplier_id)
+          // getSupplier(ctrl.supplier_id)
           checkStep()
         }
         setData()
@@ -135,7 +135,7 @@
           beforeSave()
         })
       } else {
-        beforeUpdateRequest() 
+        beforeUpdateRequest(null, 'save') 
       }
     }
 
@@ -193,7 +193,6 @@
       createInventory(inventory_datas, category_datas)
     }
 
-
     function createInventory(inventory_datas, category_datas) {
        inventoryService.newInventory(inventory_datas).then(function(resp) {
         $rootScope.supplier_id = null
@@ -205,11 +204,11 @@
 
     function createCategory(inventory_id, data) {
       inventoryService.createCategory(inventory_id, data).then(function(resp) {
-        beforeUpdateRequest(inventory_id)
+        beforeUpdateRequest(inventory_id, 'continue')
       })
     }
 
-    function beforeUpdateRequest(inventory_id) {
+    function beforeUpdateRequest(inventory_id, checkState) {
       var changePrice = parseFloat(ctrl.price)
       if (changePrice == ctrl.price_step2) {
         changePrice = parseFloat(ctrl.price_step2)
@@ -226,13 +225,12 @@
         inventory_id: inventory_id
 
       }
-
       if (ctrl.real_id) {
-        updateInventoryRequest(inventory_datas, ctrl.real_id, inventory_id)
+        updateInventoryRequest(inventory_datas, ctrl.real_id, inventory_id, checkState)
       } 
     }
     
-    function updateInventoryRequest(inventory_datas, id, inventory_id) {
+    function updateInventoryRequest(inventory_datas, id, inventory_id, checkState) {
       var date_save_step3 = $filter('date')(new Date(), 'dd/MM/yyyy HH:mm')
       var data = {
         manage_inventories_requests: {
@@ -247,11 +245,15 @@
       }
 
     	service.updateInventoryRequest(inventory_datas, id).then(function(resp) {
-    		if (ctrl.manage_inventory_id) {
-    			updateManageInventory(data)
-    		} else {
-    			createManageInventory(data)
-    		}
+        if (checkState != 'save'){
+          if (ctrl.manage_inventory_id) {
+            updateManageInventory(data)
+          } else {
+            createManageInventory(data)
+          }
+        }else{
+          $rootScope.openInventory(1)
+        }
     	}, function(e){
 
     	})
@@ -374,12 +376,12 @@
       })
     }
 
-    function getSupplier(id) {
-      ctrl.supplier_lists = []
-      inventorySupplierService.show(id).then(function(resp) {
-        ctrl.supplier_name = resp.data.suppliers.name
-      })
-    }
+    // function getSupplier(id) {
+    //   ctrl.supplier_lists = []
+    //   inventorySupplierService.show(id).then(function(resp) {
+    //     ctrl.supplier_name = resp.data.suppliers.name
+    //   })
+    // }
 
     ctrl.openRequestDatePopup = function() {
       ctrl.requestDatePopup.opened = true;

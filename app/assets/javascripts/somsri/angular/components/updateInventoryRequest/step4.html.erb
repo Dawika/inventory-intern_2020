@@ -1,13 +1,13 @@
 <div class="container" >
-	<form ng-submit="inventory.continue()">
-		<div class="row">
-			<div id="inventory">
-				<div class="col-xs-12">
-					<div class="row">
-						<div class="col-xs-6 mt-20 mb-20" style="padding-left: 0px;">
-							<h1>{{ "details_inventory_request" | translate }}</h1>
-						</div>
+	<div class="row">
+		<div id="inventory">
+			<div class="col-xs-12">
+				<div class="row">
+					<div class="col-xs-6 mt-20 mb-20" style="padding-left: 0px;">
+						<h1>{{ "details_inventory_request" | translate }}</h1>
 					</div>
+				</div>
+				<form ng-submit="inventory.save()">
 					<button type="submit" class="submit" style="display: none;"></button>
 					<div class="row report-content container-fluid panel-board" style="height: 300px;">
 						<div class="tab-content">
@@ -52,38 +52,40 @@
 							</div>
 						</div>
 					</div>
-					<div class="row mt-20">
-						<div class="report-content container-fluid panel-board">
-							<ul class="step d-flex flex-nowrap">
-								<li class="step-item">
-									<a href="#!" class="">
-										<i class="fa fa-check fa-2x icon-in-step {{ currentLang }}"></i>
-										<!-- <h3 class="text-in-step mt-0">1</h3>  -->
-										{{ "confirm_accept" | translate }}
-									</a>
-								</li>
-								<li class="step-item ">
-									<a href="#!" class="">
-										<i class="fa fa-check fa-2x icon-in-step2 {{ currentLang }}"></i>
-										<!-- <h3 class="text-in-step2 mt-0 {{ currentLang }}">2</h3> -->
-										{{ "inventory_purchase" | translate }}
-									</a>
-								</li>
-								<li class="step-item ">
-									<a href="#!" class="">
-										<i class="fa fa-check fa-2x icon-in-step3 {{ currentLang }}"></i>
-										<!-- <h3 class="text-in-step3 mt-0 {{ currentLang }}">3</h3> -->
-										{{ "get_inventory" | translate }}
-									</a>
-								</li>
-								<li class="step-item active">
-									<a href="#!" class="">
-										<!-- <i class="fa fa-check fa-2x icon-in-step4 {{ currentLang }}"></i> -->   
-										<h3 class="text-in-step4 mt-0 {{ currentLang }}">4</h3>
-										{{ "send_the_package_to" | translate }}    
-									</a>
-								</li>
-							</ul> 
+				</form>
+				<div class="row mt-20">
+					<div class="report-content container-fluid panel-board">
+						<ul class="step d-flex flex-nowrap">
+							<li class="step-item">
+								<a href="#!" class="">
+									<i class="fa fa-check fa-2x icon-in-step {{ currentLang }}"></i>
+									<!-- <h3 class="text-in-step mt-0">1</h3>  -->
+									{{ "confirm_accept" | translate }}
+								</a>
+							</li>
+							<li class="step-item ">
+								<a href="#!" class="">
+									<i class="fa fa-check fa-2x icon-in-step2 {{ currentLang }}"></i>
+									<!-- <h3 class="text-in-step2 mt-0 {{ currentLang }}">2</h3> -->
+									{{ "inventory_purchase" | translate }}
+								</a>
+							</li>
+							<li class="step-item ">
+								<a href="#!" class="">
+									<i class="fa fa-check fa-2x icon-in-step3 {{ currentLang }}"></i>
+									<!-- <h3 class="text-in-step3 mt-0 {{ currentLang }}">3</h3> -->
+									{{ "get_inventory" | translate }}
+								</a>
+							</li>
+							<li class="step-item active">
+								<a href="#!" class="">
+									<!-- <i class="fa fa-check fa-2x icon-in-step4 {{ currentLang }}"></i> -->   
+									<h3 class="text-in-step4 mt-0 {{ currentLang }}">4</h3>
+									{{ "send_the_package_to" | translate }}    
+								</a>
+							</li>
+						</ul> 
+						<form ng-submit="inventory.continue()">
 							<div class="row mt-50">
 								<div class="col-md-3">
 									<div class="form-group">
@@ -102,26 +104,26 @@
 									<button type="button" class="btn btn-custom btn-gray ng-binding btn-block  padding-left10" ng-click="inventory.cancel()">{{ "cancel" | translate }}</button>
 								</div>
 							</div>	
-							<div class="row mt-20">
-								<p class="pl-20 ">
-									<p class="pl-20 " style="color: #B6B6B6;" ng-show=inventory.show_text>{{ "receive_products_on_date" | translate }} {{ inventory.get_date }} </p>
-									<p class="pl-20 " style="color: #B6B6B6;" ng-show=inventory.show_text> {{ "buy_slip" | translate }} {{ inventory.buy_slip }} </p>
-									<p class="pl-20 " style="color: #B6B6B6;" ng-show=inventory.show_text> {{"end_warranty_inventory" | translate}} {{ inventory.end_warranty }} ({{ "save_by" | translate }} {{ inventory.save_by }})</p>
-								</p>
-								<p class="pl-20" style="color: #B6B6B6;" ng-show="!inventory.show_text">{{ "request_approval" | translate }} ({{ "save_by" | translate }} {{ inventory.save_by }})</p>
-							</div>
+						</form>
+						<div class="row mt-20">
+							<p class="pl-20 ">
+								<p class="pl-20 " style="color: #B6B6B6;" ng-show=inventory.show_text>{{ "receive_products_on_date" | translate }} {{ inventory.get_date }} </p>
+								<p class="pl-20 " style="color: #B6B6B6;" ng-show=inventory.show_text> {{ "buy_slip" | translate }} {{ inventory.buy_slip }} </p>
+								<p class="pl-20 " style="color: #B6B6B6;" ng-show=inventory.show_text> {{"end_warranty_inventory" | translate}} {{ inventory.end_warranty }} ({{ "save_by" | translate }} {{ inventory.save_by }})</p>
+							</p>
+							<p class="pl-20" style="color: #B6B6B6;" ng-show="!inventory.show_text">{{ "request_approval" | translate }} ({{ "save_by" | translate }} {{ inventory.save_by }})</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="footer-menu row mt-20">
-			<div class="pull-right text-right padding-left10">
-				<button type="button" class="btn btn-custom btn-gray ng-binding" ng-click="inventory.backToRootView()">{{ "cancel" | translate }}</button>
-			</div>
-			<div class="pull-right text-right padding-left10">
-				<button type="submit" class="btn btn-custom btn-blue ng-binding btn-block padding-left10">{{ "save" | translate }}</button>
-			</div>
+	</div>
+	<div class="footer-menu row mt-20">
+		<div class="pull-right text-right padding-left10">
+			<button type="button" class="btn btn-custom btn-gray ng-binding" ng-click="inventory.backToRootView()">{{ "cancel" | translate }}</button>
 		</div>
-	</form>
+		<div class="pull-right text-right padding-left10">
+			<button type="submit" class="btn btn-custom btn-blue ng-binding btn-block padding-left10" onclick="$('.submit').trigger('click')">{{ "save" | translate }}</button>
+		</div>
+	</div>
 </div>              

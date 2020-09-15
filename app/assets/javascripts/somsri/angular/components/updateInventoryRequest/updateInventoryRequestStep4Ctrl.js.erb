@@ -243,11 +243,15 @@
       });
     };
 
+    ctrl.save = function(){
+      beforeUpdateInventoryRequest('save')
+    }
+
     ctrl.continue = function() {
       if (ctrl.inventory_employee_id != ctrl.employee_id) {
         beforeSave()
       } else {
-        beforeUpdateInventoryRequest()
+        beforeUpdateInventoryRequest('continue')
       }
     }
 
@@ -272,13 +276,13 @@
     function updateInventory(inventory_datas, id) {
       inventoryService.updateInventory(inventory_datas, id).then(function(resp) {
         $rootScope.inventory_id = null
-        beforeUpdateInventoryRequest()
+        beforeUpdateInventoryRequest('continue')
       },function(e) {
         // Error
       })
     }
 
-    function beforeUpdateInventoryRequest() {
+    function beforeUpdateInventoryRequest(checkState) {
 
       var changePrice = parseFloat(ctrl.price)
       if (changePrice == ctrl.price_step2) {
@@ -300,12 +304,12 @@
         define_return_date: ctrl.define_return_date
       }
 
-      if (ctrl.real_id) {
-        updateInventoryRequest(inventory_datas, ctrl.real_id)
+      if (ctrl.real_id, checkState) {
+        updateInventoryRequest(inventory_datas, ctrl.real_id, checkState)
       } 
     }
 
-    function updateInventoryRequest(inventory_datas, id) {
+    function updateInventoryRequest(inventory_datas, id, checkState) {
       if (ctrl.checkName) {
         ctrl.employee_id = ""
       }
@@ -328,10 +332,14 @@
         }
       }
       service.updateInventoryRequest(inventory_datas, id).then(function(resp) {
-        if (ctrl.manage_inventory_id) {
-          updateManageInventory(data)
-        } else {
-          createManageInventory(data)
+        if(checkState != 'save'){
+          if (ctrl.manage_inventory_id) {
+            updateManageInventory(data)
+          } else {
+            createManageInventory(data)
+          }
+        }else{
+          $rootScope.openInventory(1)
         }
       }, function(e){
 
