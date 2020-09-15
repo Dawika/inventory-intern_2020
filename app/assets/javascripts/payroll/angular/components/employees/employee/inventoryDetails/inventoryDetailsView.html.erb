@@ -14,26 +14,19 @@
               <div class="col-md-3">
                 <div class="form-group">
                   <label class="control-label" for="item_name">{{ "item_name" | translate }}</label>
-
-                  <div class="col-md-12">
-                    <input class="form-control" autocomplete="off" type="text" id="inventory_name" ng-model="inventory.name" required="true">
-                  </div>
+                  <input class="form-control" autocomplete="off" type="text" id="inventory_name" ng-model="inventory.name" required="true">
                 </div>
               </div>
               <div class="col-md-5">
                 <div class="form-group">
                   <label class="control-label" for="serial_number">{{ "serial_number" | translate}} </label>
-                  <div class="col-md-12">
-                    <input class="form-control" autocomplete="off" type="text" id="inventory_serial_number" ng-model="inventory.serial_number">
-                  </div>
+                  <input class="form-control" autocomplete="off" type="text" id="inventory_serial_number" ng-model="inventory.serial_number">
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
                   <label class="control-label" for="model">{{ "model" | translate }}</label>
-                  <div class="col-md-12">
-                    <input class="form-control" autocomplete="off" type="text" id="inventory_model" ng-model="inventory.model">
-                  </div>
+                  <input class="form-control" autocomplete="off" type="text" id="inventory_model" ng-model="inventory.model">
                 </div>
               </div>
             </div>
@@ -41,9 +34,7 @@
               <div class="col-md-8">
                 <div class="form-group">
                   <label class="control-label" for="description">{{ "description" | translate }}</label>
-                  <div class="col-md-12">
-                    <input class="form-control" autocomplete="off" type="text" id="inventory_description" ng-model="inventory.description">
-                  </div>
+                  <input class="form-control" autocomplete="off" type="text" id="inventory_description" ng-model="inventory.description">
                 </div>
               </div>
               <div class="col-md-4">
@@ -52,7 +43,7 @@
                   <p class="input-group">
                     <input id="request_date" type="text" class="form-control numberic" uib-datepicker-popup="dd/MM/yyyy" ng-model="inventory.request_date" is-open="inventory.requestDatePopup.opened" close-text="Close" required="true"/>
                     <span class="input-group-btn">
-                      <button type="button" class="btn btn-default" ng-click="inventory.openRequestDatePopup()" ><i class="fa fa-calendar"></i></button>
+                      <button type="button" class="btn btn-default" ng-click="inventory.openRequestDatePopup()" ><i class="far fa-calendar-alt"></i></button>
                     </span>
                   </p>
                 </div>

@@ -566,6 +566,10 @@ en:
   inventory_data: "Device"
   inventory_search: "Search form name, model, serial number, date purchase and user name"
   inventory_request_search: "Search form name, description ,request date and user name"
+  comfirm_delete_inventory: "Do you want to delete this?"
+  filter: "Filter"
+  date_range_order: "Date range on order"
+  date_range_add: "Date range on add"
 
   #Inventory Request
   list_request: "Request list"
@@ -595,10 +599,13 @@ en:
   new_request_inventory: "New request inventory"
   request_number: "Request number"
   of: "of"
-  date_purchasing: "date_purchasing"
+  date_purchasing: "Date purchasing"
   history: "History"
   purchasing_by: "Purchasing by"
   from_store: "From store"
+  end_warranty_inventory: "End of warranty on date"
+  add_button: "Save"
+  date_range_request: "Date range on request" 
 
   #Update inventory request
   details_inventory_request: "Details Inventory Request"
@@ -618,6 +625,8 @@ en:
   completed: "Completed"
   send_the_package_to: "Send the package to"
   get_inventory_by: "Get inventory by"
+  send_to_employee: "Send the package to"
+  date_sending: "Date sending"
 
   #inventory supplier
   inventory_supplier: "Supplier"
@@ -625,6 +634,7 @@ en:
   add_supplier: "+ Add supplier"
   supplier_details: "Supplier Details"
   appointment_date: "Appointment date"
+  supplier: "Supplier"
 
   #Repair
   list_repair: "Repair list"
@@ -640,6 +650,11 @@ en:
   repairs_completed: "repairs completed"
   repair_notification: "Repair notification:"
   accept_repair: "Accept repair"
+  parcel_return_date: "Parcel return date"
+  sent_to: "Sent to"
+  supplier_repair: "Supplier"
+  date_repair: "Repair date"
+  receive_parcel_at_date : "Receive a parcel on date"
 
   # Rollcall
   monthly: "Month"

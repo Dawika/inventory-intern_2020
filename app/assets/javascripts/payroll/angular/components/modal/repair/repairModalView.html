@@ -9,17 +9,13 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label class="control-label" for="item_name">{{ "item_name" | translate }}</label>
-						<div class="col-md-12">
-							<input class="form-control" autocomplete="off" type="text" id="inventory_name" ng-model="inventory.name" required="true">
-						</div>
+						<input class="form-control" autocomplete="off" type="text" id="inventory_name" ng-model="inventory.name" required="true">
 					</div>
 				</div>
 				<div class="col-md-8">
 					<div class="form-group">
 						<label class="control-label" for="serial_number">{{ "serial_number" | translate}} </label>
-						<div class="col-md-12">
-							<input class="form-control" autocomplete="off" type="text" id="inventory_serial_number" ng-model="inventory.serial_number">
-						</div>
+						<input class="form-control" autocomplete="off" type="text" id="inventory_serial_number" ng-model="inventory.serial_number">
 					</div>
 				</div>
 			</div>
@@ -27,15 +23,13 @@
 				<div class="col-md-12">
 					<div class="form-group">
 						<label class="control-label" for="reason">{{ "reason_for_repair" | translate}} </label>
-						<div class="col-md-12">
-							<input class="form-control" autocomplete="off" type="text" id="reason" ng-model="inventory.reason" required="true">
-						</div>
+						<input class="form-control" autocomplete="off" type="text" id="reason" ng-model="inventory.reason" required="true">
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="modal-footer">
-			<button type="submit" class="btn btn-custom btn-green ng-binding">{{"add_button" | translate}}</button>
+		<div class="modal-footer-inventory">
+			<button type="submit" class="btn btn-custom btn-blue ng-binding">{{"ok" | translate}}</button>
 			<button type="button" class="btn btn-custom btn-gray ng-binding" ng-click="inventory.close()">{{ "cancel" | translate }}</button>
 		</div>
 	</form>

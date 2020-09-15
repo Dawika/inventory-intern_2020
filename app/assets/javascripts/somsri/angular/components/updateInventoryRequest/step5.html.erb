@@ -14,18 +14,13 @@
 								<div class="col-md-3">
 									<div class="form-group">
 										<label class="control-label" for="item_name">{{"item_name" | translate}}</label>
-	
-										<div class="col-md-12">
-											<input class="form-control" autocomplete="off" type="text" id="inventory_name" ng-model="inventory.name" required="true">
-										</div>
+										<input class="form-control" autocomplete="off" type="text" id="inventory_name" ng-model="inventory.name" required="true">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="control-label" for="description">{{"description" | translate}}</label>
-										<div class="col-md-12">
-											<input class="form-control" autocomplete="off" type="text" id="inventory_description" ng-model="inventory.description" required="true">
-										</div>
+										<input class="form-control" autocomplete="off" type="text" id="inventory_description" ng-model="inventory.description" required="true">
 									</div>
 								</div>
 								<div class="col-md-3">
@@ -44,17 +39,13 @@
 								<div class="col-md-3">
 									<div class="form-group">
 										<label class="control-label" for="user_request">{{"user_request" | translate}}</label>
-										<div class="col-md-12">
-											<input class="form-control" autocomplete="off" type="text" id="inventory_user" ng-model="inventory.user_name" required="true" >
-										</div>
+										<input class="form-control" autocomplete="off" type="text" id="inventory_user" ng-model="inventory.user_name" required="true" >
 									</div>
 								</div>
 								<div class="col-md-3">
 									<div class="form-group">
 										<label class="control-label" for="price">{{"price" | translate}}</label>
-										<div class="col-md-12">
-											<input class="form-control" autocomplete="off" type="number" id="inventory_price" ng-model="inventory.price" ng-validate="number" required="true" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" parseFloat>
-										</div>
+										<input class="form-control" autocomplete="off" type="number" id="inventory_price" ng-model="inventory.price" ng-validate="number" required="true" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" parseFloat>
 									</div>
 								</div>
 							</div>

@@ -1230,7 +1230,7 @@ tags-input .tags .tag-item .remove-button {
     top: 0;
     z-index: 999;
     &.en {
-        transform: translate(105%, 30%);
+        transform: translate(110%, 30%);
     }
     &.th {
         transform: translate(30%, 30%);
@@ -1243,7 +1243,7 @@ tags-input .tags .tag-item .remove-button {
     top: 0;
     z-index: 999;
     &.en {
-        transform: translate(210%, 30%);
+        transform: translate(185%, 30%);
     }
     &.th {
         transform: translate(125%, 30%);
@@ -1257,7 +1257,7 @@ tags-input .tags .tag-item .remove-button {
     z-index: 999;
     width: 20px;
     &.en {
-        transform: translate(125%, 40%);
+        transform: translate(200%, 40%);
     }
     &.th {
         transform: translate(60%, 40%);
@@ -1271,7 +1271,7 @@ tags-input .tags .tag-item .remove-button {
     z-index: 100;
     width: 27px;
     &.en {
-        transform: translate(180%, 40%);
+        transform: translate(185%, 40%);
     }
     &.th {
         transform: translate(60%, 40%);
@@ -1285,7 +1285,7 @@ tags-input .tags .tag-item .remove-button {
     z-index: 999;
     width: 20px;
     &.en {
-        transform: translate(170%, 40%);
+        transform: translate(180%, 40%);
     }
     &.th {
         transform: translate(60%, 40%);
@@ -1299,7 +1299,7 @@ tags-input .tags .tag-item .remove-button {
     z-index: 999;
     width: 44px;
     &.en {
-        transform: translate(115%, 40%);
+        transform: translate(100%, 40%);
     }
     &.th {
         transform: translate(60%, 40%);
@@ -2060,4 +2060,14 @@ tags-input .tags .tag-item .remove-button {
     max-width: 100%;
     height: auto;
     margin: 0 auto;
+}
+
+.modal-footer-supplier{
+    padding: 15px;
+    text-align: right;
+}
+
+.modal-footer-inventory{
+    padding: 15px;
+    text-align: right;
 }
