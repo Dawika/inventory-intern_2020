@@ -94,7 +94,11 @@
       }
 
       ctrl.request = function() {
-        addSave("request")
+        if(ctrl.inventory_id != null){
+          addSave("request")
+        }else{
+          $rootScope.opensuccessModal(translateFilter("none_inventory"), true)
+        }
       }
 
       function addSave(str) {
