@@ -6,7 +6,7 @@
 		var ctrl = this
 		ctrl.real_id = $state.params.id;
 		ctrl.date_purchase = ""
-		ctrl.date_send = new Date()
+    ctrl.date_send = ""
 
     ctrl.openDatePurchasePopup = function() {
       ctrl.datePurchasePopup.opened = true;
@@ -33,7 +33,11 @@
     };
 
     ctrl.continue = function() {
-      beforeSave()
+      beforeSave("continue")
+    }
+
+    ctrl.save = function() {
+      beforeSave("save")
     }
 
     ctrl.cancel = function() {
@@ -54,7 +58,7 @@
       $rootScope.openInventory(1)
     }
 
-    function beforeSave() {
+    function beforeSave(checkState) {
       var changePrice = parseFloat(ctrl.price)
       if (ctrl.price_step2) {
         changePrice = parseFloat(ctrl.price_step2)
@@ -70,9 +74,13 @@
         employee_id: ctrl.employee_id
       }
 
-      if (ctrl.real_id) {
+      if (ctrl.real_id && checkState == "continue") {
         updateInventoryRequest(inventory_datas, ctrl.real_id)
-      } 
+      } else{
+        service.updateInventoryRequest(inventory_datas, ctrl.real_id).then(function(resp) {
+          $rootScope.openInventory(1)
+        })
+      }
     }
 
     function updateInventoryRequest(inventory_datas, id) {
@@ -192,22 +200,22 @@
     	})
   	}
 
-    function getSupplierList() {
-      ctrl.supplier_lists = []
-      inventorySupplierService.getAllSuppliers().then(function(resp) {
-        if (resp.data.length > 0){
-          for (var i = 0; i < resp.data.length; i++) {
-            var supplier = resp.data[i]
-            if (supplier.name != ctrl.supplierDisplayName) {
-              ctrl.supplier_lists.push({
-                name: supplier.name,
-                id: supplier.id
-              })
-            }
-          }
-        }
-      })
-    }
+    // function getSupplierList() {
+    //   ctrl.supplier_lists = []
+    //   inventorySupplierService.getAllSuppliers().then(function(resp) {
+    //     if (resp.data.length > 0){
+    //       for (var i = 0; i < resp.data.length; i++) {
+    //         var supplier = resp.data[i]
+    //         if (supplier.name != ctrl.supplierDisplayName) {
+    //           ctrl.supplier_lists.push({
+    //             name: supplier.name,
+    //             id: supplier.id
+    //           })
+    //         }
+    //       }
+    //     }
+    //   })
+    // }
 
     ctrl.onSelectSupplier = function($item) {
       ctrl.supplier_name = $item.name;
@@ -228,7 +236,7 @@
       })
     }
 
-    getSupplierList()
+    //getSupplierList()
   	getSetting()
   	initData()
 
