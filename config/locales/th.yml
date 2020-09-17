@@ -736,6 +736,11 @@ th:
   meeting_presentation_equipment: "อุปกรณ์เพื่อการประชุมและนำเสนอ"
   inventory_search: "ค้นหาจากชื่อ รุ่น หมายเลขซีเรียล วันที่ซื้อ ชื่อคนใช้งาน"
   inventory_request_search: "ค้นหาจากชื่อ วันที่ส่งคำขอ ชื่อคนใช้งาน"
+  comfirm_delete_inventory: "คุณต้องการลบรายการนี้ใช่หรือไม่?"
+  filter: "ตัวกรอง"
+  date_range_order: "ช่วงวันที่สั่งซื้อ"
+  date_range_add: "ช่วงวันที่เพิ่ม"
+  date_range_request: "ช่วงวันที่ส่งคำขอ" 
 
    #InventoryRequest
   list_request: "รายการคำขอใช้พัสดุ"
@@ -798,6 +803,7 @@ th:
   employee_name: "พนักงาน"
   reason_for_repair: "เหตุผลที่ส่งซ่อม"
   repair_date: "วันที่ส่งซ่อม"
+  date_repair: "ส่งซ่อมวันที่"
   repair_return_date: "วันที่ซ่อมเสร็จ"
   bill: "เลขที่ใบเสร็จ"
   detal_repair: "รายละเอียดแจ้งซ่อม"
@@ -810,6 +816,8 @@ th:
   receive_parcel_at_date: "ได้รับพัสดุในวันที่"
   sent_to: "ส่งพัสดุให้"
   sent_to_employee: "ส่งให้พนักงาน"
+  supplier_repair: "ร้าน"
+  parcel_return_date: "รับคืนวันที่"
 
   #inventory supplier
   inventory_supplier: "ร้านค้า"

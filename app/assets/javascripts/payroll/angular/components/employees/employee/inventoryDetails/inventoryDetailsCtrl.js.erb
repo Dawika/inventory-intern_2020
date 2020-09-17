@@ -168,7 +168,7 @@
       }
 
       ctrl.deleteInventory = function() {
-        $rootScope.openDeleteModal(translateFilter("delete_expense"), function(resp) {
+        $rootScope.openDeleteModal(translateFilter("comfirm_delete_inventory"), function(resp) {
           inventoryRequestService.removeInventoryRequest(ctrl.inventory_request_id).then(function(resp) {
             backToRootView()
           })

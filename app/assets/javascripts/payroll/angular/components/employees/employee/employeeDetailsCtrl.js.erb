@@ -774,7 +774,6 @@
               field: 'serial_number',
               title: translateFilter("serial_number"),
               sortable: true,
-              class: 'font-weight-bold'
             }, {
               field: 'model',
               title: translateFilter("model"),
@@ -801,7 +800,7 @@
           }
 
           function editInventoryRequestFormatter(value, row, index) {
-            return '<a id="editInventory' + row['id'] + '" onclick="' + angularCtrlStr + '.editInventory(' + row['id'] + ')"> <i class=\'fas fa-edit color-orange cursor-pointer\'></i> </a>';
+            return '<a id="editInventory' + row['id'] + '" onclick="' + angularCtrlStr + '.editInventory(' + row['id'] + ')"> <i class=\'fas fa-search-plus color-blue cursor-pointer\'></i> </a>';
           }
 
           ctrl.editInventory = function (inventory_id) {
@@ -814,6 +813,8 @@
               color = "color-red"
             } else if (row['inventory_status'] == "waiting repair" || row['inventory_status'] == "pending") {
               color = "color-orange"
+            }else if( row['inventory_status'] == "purchasing"){
+              color = "color-list-stap"
             }
 
             $(function () {

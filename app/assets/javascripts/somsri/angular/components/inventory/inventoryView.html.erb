@@ -178,43 +178,43 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title color-blue" id="listrequest"> <i class="fa fa-filter "></i>  ตัวกรอง</h4>
+          <h4 class="modal-title color-blue" id="listrequest"> <i class="fa fa-filter "></i>  {{"filter" | translate}} </h4>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="col-md-2">
-              <b>สถานะ</b>
+              <b> {{"status" | translate}} </b>
             </div>
             <form id="slectionForm">
-              <input type="checkbox" ng-click="inventory.requestToggleAll()" ng-model="inventory.isAllRequsetSelected"> Select all
+              <input type="checkbox" ng-click="inventory.requestToggleAll()" ng-model="inventory.isAllRequsetSelected"> All
               <br>
-              <div class="col-md-6 mt-10" ng-repeat="item in inventory.check_box_request">
+              <div class="col-md-4 mt-10" ng-repeat="item in inventory.check_box_request">
                   <input type="checkbox" ng-model="item.selected" ng-change="inventory.checkBoxRequestToggled()"> {{ item.value | translate }}
               </div>
             </form>
           </div>
           <div class="row mt-20">
             <div class="col-md-12">
-              <b>ช่วงวันที่ส่งคำขอ</b>
+              <b> {{"date_range_request" | translate}} </b>
             </div>
           </div>
           <div class="row mt-10">
-            <div class="col-md-6"> จาก
+            <div class="col-md-6"> {{"from" | translate}}
               <div class="form-group">
                 <p class="input-group">
                   <input id="date_purchase" type="text" class="form-control numberic" uib-datepicker-popup="dd/MM/yyyy" datepicker-options="{showWeeks:false}" ng-model="inventory.start_request_date" is-open="inventory.startDatePuchasingPopup.opened" close-text="Close" required="true"/>
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="inventory.openStartDatePurchasingPopup()"><i class="fa fa-calendar"></i></button>
+                    <button type="button" class="btn btn-default" ng-click="inventory.openStartDatePurchasingPopup()"><i class="far fa-calendar-alt"></i></button>
                   </span>
                 </p>
               </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group">ถึง
+                <div class="form-group">{{"to" | translate}}
                   <p class="input-group">
                     <input id="date_purchase" type="text" class="form-control numberic" uib-datepicker-popup="dd/MM/yyyy" datepicker-options="{showWeeks:false}" ng-model="inventory.end_request_date" is-open="inventory.endDatePurchasingPopup.opened" close-text="Close" required="true"/>
                     <span class="input-group-btn">
-                      <button type="button" class="btn btn-default" ng-click="inventory.openEndDatePurchasingPopup()"><i class="fa fa-calendar"></i></button>
+                      <button type="button" class="btn btn-default" ng-click="inventory.openEndDatePurchasingPopup()"><i class="far fa-calendar-alt"></i></button>
                     </span>
                   </p>
                 </div>
@@ -222,36 +222,36 @@
           </div>
           <div class="row mt-20">
             <div class="col-md-12">
-              <b>ช่วงวันที่ซื้อ</b>
+              <b>{{"date_range_order" | translate}}</b>
             </div>
           </div>
           <div class="row mt-10">
-            <div class="col-md-6"> จาก
+            <div class="col-md-6"> {{"from" | translate}}
               <div class="form-group">
                 <p class="input-group">
                   <input id="date_purchase" type="text" class="form-control numberic" uib-datepicker-popup="dd/MM/yyyy" datepicker-options="{showWeeks:false}" ng-model="inventory.start_date_purchasing" is-open="inventory.startRequestDatePopup.opened" close-text="Close" required="true"/>
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="inventory.openStartRequestDatePopup()"><i class="fa fa-calendar"></i></button>
+                    <button type="button" class="btn btn-default" ng-click="inventory.openStartRequestDatePopup()"><i class="far fa-calendar-alt"></i></button>
                   </span>
                 </p>
               </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group">ถึง
+                <div class="form-group">{{"to" | translate}}
                   <p class="input-group">
                     <input id="date_purchase" type="text" class="form-control numberic" uib-datepicker-popup="dd/MM/yyyy" datepicker-options="{showWeeks:false}" ng-model="inventory.end_date_purchasing" is-open="inventory.endRequestDatePopup.opened" close-text="Close" required="true"/>
                     <span class="input-group-btn">
-                      <button type="button" class="btn btn-default" ng-click="inventory.openEndRequestDatePopup()"><i class="fa fa-calendar"></i></button>
+                      <button type="button" class="btn btn-default" ng-click="inventory.openEndRequestDatePopup()"><i class="far fa-calendar-alt"></i></button>
                     </span>
                   </p>
                 </div>
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-custom btn-blue ng-binding" ng-click="inventory.optionsRequestChange()" data-dismiss="modal">ตกลง</button>
-          <button type="button" class="btn btn-custom btn-orange ng-binding" ng-click="inventory.resetInventoryRequestFilter()"> รีเซ็ต </button>
-          <button type="button" class="btn btn-custom btn-gray  ng-binding" data-dismiss="modal">ยกเลิก</button>
+        <div class="modal-footer-inventory">
+          <button type="button" class="btn btn-custom btn-blue ng-binding" ng-click="inventory.optionsRequestChange()" data-dismiss="modal"> {{"ok" | translate}} </button>
+          <!-- <button type="button" class="btn btn-custom btn-orange ng-binding" ng-click="inventory.resetInventoryRequestFilter()"> รีเซ็ต </button> -->
+          <button type="button" class="btn btn-custom btn-gray  ng-binding" data-dismiss="modal"> {{"cancle" | translate}} </button>
         </div>
       </div>
     </div>
@@ -262,15 +262,15 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title color-blue" id="myModal"> <i class="fa fa-filter "></i>  ตัวกรอง</h4>
+          <h4 class="modal-title color-blue" id="myModal"> <i class="fa fa-filter "></i> {{"filter" | translate}} </h4>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="col-md-2">
-              <b>ประเภท</b>
+              <b> {{"category" | translate}} </b>
             </div>
             <form id="slectionForm">
-              <input type="checkbox" ng-click="inventory.toggleAll()" ng-model="inventory.isAllSelected"> Select all
+              <input type="checkbox" ng-click="inventory.toggleAll()" ng-model="inventory.isAllSelected"> All
               <br>
               <div class="col-md-6 mt-10" ng-repeat="item in inventory.check_box">
                   <input type="checkbox" ng-model="item.selected" ng-change="inventory.checkBoxToggled()"> {{ item.value | translate }}
@@ -279,26 +279,26 @@
           </div>
           <div class="row mt-20">
             <div class="col-md-12">
-              <b>ช่วงวันที่สั่งซื้อ</b>
+              <b>{{"date_range_order" | translate}}</b>
             </div>
           </div>
           <div class="row mt-10">
-            <div class="col-md-6"> จาก
+            <div class="col-md-6"> {{"from" | translate}}
               <div class="form-group">
                 <p class="input-group">
                   <input id="date_purchase" type="text" class="form-control numberic" uib-datepicker-popup="dd/MM/yyyy" datepicker-options="{showWeeks:false}" ng-model="inventory.start_date_purchase" is-open="inventory.startDatePuchasePopup.opened" close-text="Close" required="true"/>
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="inventory.openStartDatePurchasePopup()"><i class="fa fa-calendar"></i></button>
+                    <button type="button" class="btn btn-default" ng-click="inventory.openStartDatePurchasePopup()"><i class="far fa-calendar-alt"></i></button>
                   </span>
                 </p>
               </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group">ถึง
+                <div class="form-group"> {{"to" | translate}}
                   <p class="input-group">
                     <input id="date_purchase" type="text" class="form-control numberic" uib-datepicker-popup="dd/MM/yyyy" datepicker-options="{showWeeks:false}" ng-model="inventory.end_date_purchase" is-open="inventory.endDatePurchasePopup.opened" close-text="Close" required="true"/>
                     <span class="input-group-btn">
-                      <button type="button" class="btn btn-default" ng-click="inventory.openEndDatePurchasePopup()"><i class="fa fa-calendar"></i></button>
+                      <button type="button" class="btn btn-default" ng-click="inventory.openEndDatePurchasePopup()"><i class="far fa-calendar-alt"></i></button>
                     </span>
                   </p>
                 </div>
@@ -306,36 +306,36 @@
           </div>
           <div class="row mt-20">
             <div class="col-md-12">
-              <b>ช่วงวันที่เพิ่ม</b>
+              <b> {{"date_range_add" | translate}} </b>
             </div>
           </div>
           <div class="row mt-10">
-            <div class="col-md-6"> จาก
+            <div class="col-md-6"> {{"from" | translate}}
               <div class="form-group">
                 <p class="input-group">
                   <input id="date_purchase" type="text" class="form-control numberic" uib-datepicker-popup="dd/MM/yyyy" ng-model="inventory.start_date_add" is-open="inventory.startDateAddPopup.opened" close-text="Close" required="true"/>
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="inventory.openStartDateAddPopup()"><i class="fa fa-calendar"></i></button>
+                    <button type="button" class="btn btn-default" ng-click="inventory.openStartDateAddPopup()"><i class="far fa-calendar-alt"></i></button>
                   </span>
                 </p>
               </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group">ถึง
+                <div class="form-group">{{"to" | translate}}
                   <p class="input-group">
                     <input id="date_purchase" type="text" class="form-control numberic" uib-datepicker-popup="dd/MM/yyyy" ng-model="inventory.end_date_add" is-open="inventory.endDateAddPopup.opened" close-text="Close" required="true"/>
                     <span class="input-group-btn">
-                      <button type="button" class="btn btn-default" ng-click="inventory.openEndDateAddPopup()"><i class="fa fa-calendar"></i></button>
+                      <button type="button" class="btn btn-default" ng-click="inventory.openEndDateAddPopup()"><i class="far fa-calendar-alt"></i></button>
                     </span>
                   </p>
                 </div>
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-custom btn-blue ng-binding" ng-click="inventory.optionsChange()" data-dismiss="modal">ตกลง</button>
-          <button type="button" class="btn btn-custom btn-orange ng-binding" ng-click="inventory.resetInventoryFilter()"> รีเซ็ต </button>
-          <button type="button" class="btn btn-custom btn-gray ng-binding" data-dismiss="modal">ยกเลิก</button>
+        <div class="modal-footer-inventory">
+          <button type="button" class="btn btn-custom btn-blue ng-binding" ng-click="inventory.optionsChange()" data-dismiss="modal"> {{"ok" | translate}} </button>
+          <!-- <button type="button" class="btn btn-custom btn-orange ng-binding" ng-click="inventory.resetInventoryFilter()"> รีเซ็ต </button> -->
+          <button type="button" class="btn btn-custom btn-gray ng-binding" data-dismiss="modal"> {{"cancle" | translate}} </button>
         </div>
       </div>
     </div>
