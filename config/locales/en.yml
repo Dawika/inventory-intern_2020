@@ -570,6 +570,7 @@ en:
   filter: "Filter"
   date_range_order: "Date range on order"
   date_range_add: "Date range on add"
+  none_inventory: "This inventory not be found."
 
   #Inventory Request
   list_request: "Request list"
