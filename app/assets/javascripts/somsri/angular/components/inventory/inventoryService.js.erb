@@ -4,7 +4,7 @@
 	angular.module('somsri.somsri.inventory.service', [])
 	.service('inventoryService', ['$http', 'Upload', function($http, Upload) {
 		this.newInventory = function(data) {
-			return $http.post('/inventories', data)
+			return $http.post('/inventories', {inventory: data})
 		};
 
 		this.getAllInventory= function() {
