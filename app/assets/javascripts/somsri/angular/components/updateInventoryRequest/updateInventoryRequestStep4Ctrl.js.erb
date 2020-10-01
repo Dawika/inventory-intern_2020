@@ -11,6 +11,7 @@
     ctrl.return_date = new Date()
     ctrl.show_return_date = false
 
+
     function initIventoryData() {
       if (!ctrl.real_id) { 
         return
@@ -20,7 +21,8 @@
       inventoryService.show(ctrl.inventory_id).then(function(resp) {
         var value = resp.data
         ctrl.datas = resp.data
-        
+        ctrl.inventory_requests = ctrl.datas.inventory_requests
+        ctrl.request_count = ctrl.inventory_requests[0].request_count
         ctrl.name = value.item_name
         if (!ctrl.name) {
           ctrl.name = "-"

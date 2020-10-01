@@ -48,7 +48,7 @@
 										<input class="form-control" autocomplete="off" type="number" id="inventory_price" ng-model="inventory.price" ng-validate="number" required="true" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" parseFloat>
 									</div>
 								</div>
-								<div class="col-md-3">
+								<div class="col-md-3" ng-show="inventory.showCount">
 									<div class="form-group">
 										<label class="control-label" for="amount">{{"amount" | translate}}</label>
 										<input class="form-control" autocomplete="off" type="number" id="amount" ng-model="inventory.request_count" required="true" t>
