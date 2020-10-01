@@ -14,6 +14,11 @@
     ctrl.model = ""
     ctrl.category = translateFilter("select_category")
 
+    ctrl.item_type = [
+      {name: "durable_goods"},
+      {name: "material"}
+    ]
+
     ctrl.item_catogery = [
       {name: "office_furniture", id: 1},
       {name: "equipment_computer", id: 2},
@@ -179,7 +184,8 @@
         date_add: ctrl.date_add,
         end_warranty: ctrl.end_warranty,
         employee_id: ctrl.employee_id,
-        supplier_id: ctrl.supplier_id
+        supplier_id: ctrl.supplier_id,
+        inventory_type : ctrl.inventory_type
       }
 
       var category_datas = {
@@ -307,6 +313,14 @@
         if (ctrl.item_catogery[i].name == ctrl.category) {
           ctrl.category = ctrl.item_catogery[i].name
           ctrl.category_id = ctrl.item_catogery[i].id
+        }
+      }
+    }
+
+    ctrl.switchType = function() {
+      for( var i = 0; i < ctrl.item_type.length; i++ ) {
+        if (ctrl.item_type[i].name == ctrl.inventory_type) {
+          ctrl.inventory_type = ctrl.item_type[i].name
         }
       }
     }

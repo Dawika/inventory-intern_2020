@@ -11,7 +11,7 @@
         <ul class="nav nav-tabs tabs-menu">
           <li class="cyan col-md-12">
             <uib-tabset class="mt-0" active="inventory.activeTab">
-              <uib-tab id="inventory_durable_goods" index="0" heading="ครุภัณฑ์" active="inventory.activeTab == 0" ng-show="inventory.showinventoryType"> 
+              <uib-tab id="inventory_durable_goods" index="0" heading="{{ 'durable_goods' | translate }}" active="inventory.activeTab == 0" ng-show="inventory.showinventoryType"> 
                 <form ng-submit="inventory.save()">  
                 <div class="tab-content panel-board">
                     <div class="row">
@@ -143,7 +143,7 @@
                 </div>
                 </form>
               </uib-tab>
-              <uib-tab id="inventory_material" index="1" heading="วัสดุ" active="inventory.activeTab == 1" ng-show="inventory.showinventorymaterialType">
+              <uib-tab id="inventory_material" index="1" heading="{{ 'material' | translate }}" active="inventory.activeTab == 1" ng-show="inventory.showinventorymaterialType">
                 <form ng-submit="inventory.material()">
                   <div class="tab-content panel-board" >
                     <div class="row">
