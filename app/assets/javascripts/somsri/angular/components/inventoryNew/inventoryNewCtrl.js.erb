@@ -150,7 +150,6 @@
               } else {
                 ctrl.material_supplier_name = "-"
               }
-
             }
 
             if (value.inventory_requests) {
@@ -221,7 +220,7 @@
             if (ctrl.material_employee_name) {
               beforeCreate(changePrice, "material")
             } else {
-              ctrl.employee_id = ""
+              ctrl.material_employee_id = ""
               beforeCreate(changePrice, "material")
             } 
           }
@@ -453,9 +452,14 @@
         };
 
         function getEmployeeById(id) {
-          if (ctrl.employee_id && ctrl.employee_id != 0) {
+          if (ctrl.employee_id && ctrl.employee_id != 0 || ctrl.material_employee_id && ctrl.material_employee_id != 0) {
               employeesService.getEmployee(id).then(function(resp) {
-              ctrl.employee_name = resp.data.employee_display_name
+                if(ctrl.employee_id && ctrl.employee_id != 0){
+                  ctrl.employee_name = resp.data.employee_display_name
+                }else{
+                  ctrl.material_employee_name = resp.data.employee_display_name
+                  console.log(ctrl.material_employee_name);
+                }
             })
           }
         }
