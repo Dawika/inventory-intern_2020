@@ -10,8 +10,8 @@
         </div>
         <ul class="nav nav-tabs tabs-menu">
           <li class="cyan col-md-12">
-            <uib-tabset class="mt-0">
-              <uib-tab id="inventory_list" index="0" heading="เพิ่มครุภัณฑ์" ng-click="inventory.changeTab('add_inventory') " > 
+            <uib-tabset class="mt-0" active="inventory.activeTab">
+              <uib-tab id="inventory_durable_goods" index="0" heading="ครุภัณฑ์" active="inventory.activeTab == 0" ng-show="inventory.showinventoryType"> 
                 <form ng-submit="inventory.save()">  
                 <div class="tab-content panel-board">
                     <div class="row">
@@ -52,7 +52,7 @@
                       <div class="col-md-4">
                         <div class="form-group ">
                           <label class="control-label" for="category">{{ "category" | translate }}</label>
-                          <select class="form-control" id="inventory_category" ng-model="inventory.material_category" ng-change="inventory.switchCategory()" required="true">
+                          <select class="form-control" id="inventory_category" ng-model="inventory.category" ng-change="inventory.switchCategory()" required="true">
                             <option value="{{ 'select_category' | translate }}">{{ "select_category" | translate }}</option>
                             <option ng-repeat="item in inventory.item_catogery" value="{{item.name}}">{{ item.name | translate }}</option>
                           </select>
@@ -143,9 +143,9 @@
                 </div>
                 </form>
               </uib-tab>
-              <uib-tab id="inventory_request_list" index="1" heading="เพิ่มวัสดุ" ng-click="inventory.changeTab('add_request')">
+              <uib-tab id="inventory_material" index="1" heading="วัสดุ" active="inventory.activeTab == 1" ng-show="inventory.showinventorymaterialType">
                 <form ng-submit="inventory.material()">
-                  <div class="tab-content panel-board">
+                  <div class="tab-content panel-board" >
                     <div class="row">
                       <div class="col-md-3">
                         <div class="form-group">
@@ -170,7 +170,7 @@
                       <div class="col-md-4">
                         <div class="form-group ">
                           <label class="control-label" for="category">{{ "category" | translate }}</label>
-                          <select class="form-control" id="inventory_category" ng-model="inventory.category" ng-change="inventory.switchCategory()" required="true">
+                          <select class="form-control" id="inventory_category" ng-model="inventory.material_category" ng-change="inventory.switchCategory()" required="true">
                             <option value="{{ 'select_category' | translate }}">{{ "select_category" | translate }}</option>
                             <option ng-repeat="item in inventory.item_catogery" value="{{item.name}}">{{ item.name | translate }}</option>
                           </select>
@@ -201,7 +201,7 @@
                         <div class="dropdown">
                           <label class="control-label" for="supplier">{{ "supplier" | translate }}</label>
                           <div class="form-group">
-                            <input type="text" class="form-control" id="supplier_name" placeholder="{{ 'supplier' | translate }}" ng-model="inventory.material_supplier_name" ng-change="inventory.onChangeSupplier()" typeahead-on-select="inventory.onSelectSupplierMaterial($item)" uib-typeahead="inventory.name as inventory.name for inventory in inventory.supplier_lists | filter:{name:$viewValue} | limitTo:8" , autocomplete="off">
+                            <input type="text" class="form-control" id="supplier_name" placeholder="{{ 'supplier' | translate }}" ng-model="inventory.material_supplier_name" ng-change="inventory.onChangeSupplierMaterial()" typeahead-on-select="inventory.onSelectSupplierMaterial($item)" uib-typeahead="inventory.name as inventory.name for inventory in inventory.supplier_lists | filter:{name:$viewValue} | limitTo:8" , autocomplete="off">
                           </div>
                         </div>
                       </div>
@@ -209,7 +209,7 @@
                         <button type="button" class="btn btn-custom btn-orange ng-binding" ng-click="inventory.openAddSupplierModal()" >{{ "add_supplier" | translate }}</button>
                       </div>
                     </div>
-                    <div class="row mt-20" ng-show="inventory.showType">
+                    <!-- <div class="row mt-20" ng-show="inventory.showType">
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label" for="request_type">{{ "request_type" | translate }}</label>
@@ -238,7 +238,7 @@
                           </p>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="footer-menu row mt-20">
                       <div class="pull-right text-right padding-left10">
                         <button type="button" class="btn btn-custom btn-gray ng-binding" ng-click="inventory.cancel()">{{ "cancel" | translate }}</button>

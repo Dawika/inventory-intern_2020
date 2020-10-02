@@ -28,6 +28,8 @@
         ctrl.email = ""
         ctrl.inventory_request_id = ""
         ctrl.showType = false
+        ctrl.showinventoryType = true
+        ctrl.showinventorymaterialType = true
         // default last 7 days
         ctrl.end_date = new Date();
         ctrl.start_date = new Date(new Date().setMonth(new Date().getMonth() - 1));
@@ -54,64 +56,101 @@
           service.show(ctrl.real_id).then(function(resp) {
             var value = resp.data
             ctrl.datas = resp.data
-            // console.log("inventory", value)
-            
-            ctrl.name = value.item_name
-            if (!ctrl.name) {
-              ctrl.name = "-"
-            }
-            
-            ctrl.serial_number = value.serial_number
-            if (!ctrl.serial_number) {
-              ctrl.serial_number = "-"
-            }
+            if(value.inventory_type != "material"){
+              ctrl.showinventorymaterialType = false
+              ctrl.activeTab = 0
+              ctrl.name = value.item_name
+              if (!ctrl.name) {
+                ctrl.name = "-"
+              }
+              ctrl.serial_number = value.serial_number
+              if (!ctrl.serial_number) {
+                ctrl.serial_number = "-"
+              }
+              ctrl.model = value.model
+              if (!ctrl.model) {
+                ctrl.model = "-"
+              }
+              ctrl.description = value.description
+              if (!ctrl.description) {
+                ctrl.description = "-"
+              }  
+              ctrl.price = value.price
+              if (!ctrl.price) {
+                ctrl.price = ""
+              }
+              if (value.date_purchase) {
+                ctrl.datas.date_purchase = new Date(ctrl.datas.date_purchase)
+              } else {
+                ctrl.datas.date_purchase = null
+              }
+              if (value.end_warranty) {
+                ctrl.datas.end_warranty = new Date(ctrl.datas.end_warranty)
+              } else {
+                ctrl.datas.end_warranty = null
+              }
+              ctrl.get_category_id = value.categories.id
+              ctrl.category_id = value.categories.category_id
+              ctrl.category = value.categories.category_name
+              if (!ctrl.category) {
+                ctrl.category = translateFilter("select_category")
+              }
+              ctrl.category_barcode = value.categories.category_barcode
+              ctrl.date_add = value.date_add
+              ctrl.employee_id = value.employee_id
+              if (ctrl.employee_id && ctrl.employee_id != 0) {
+                getEmployeeById(ctrl.employee_id)
+              } else {
+                ctrl.employee_name = "-"
+              }
+              ctrl.supplier_id = value.supplier_id
+              if (ctrl.supplier_id) {
+                getSupplierById(ctrl.supplier_id)
+              } else {
+                ctrl.supplier_name = "-"
+              }
 
-            ctrl.model = value.model
-            if (!ctrl.model) {
-              ctrl.model = "-"
-            }
-            
-            ctrl.description = value.description
-            if (!ctrl.description) {
-              ctrl.description = "-"
-            }
-            
-            ctrl.price = value.price
-            if (!ctrl.price) {
-              ctrl.price = ""
-            }
+            }else if (value.inventory_type == "material"){
+              ctrl.showinventoryType = false
+              ctrl.activeTab = 1
+              ctrl.material_name = value.item_name
+              if (!ctrl.material_name) {
+                ctrl.material_name = "-"
+              }
+              ctrl.material_description = value.description
+              if (!ctrl.material_description) {
+                ctrl.material_description = "-"
+              }
+              ctrl.material_price = value.price
+              if (!ctrl.material_price) {
+                ctrl.material_price = ""
+              }
+              if (value.date_purchase) {
+                ctrl.datas.material_date_purchase = new Date(ctrl.datas.date_purchase)
+              } else {
+                ctrl.datas.material_date_purchase = null
+              }
+              ctrl.material_get_category_id = value.categories.id
+              ctrl.material_category_id = value.categories.category_id
+              ctrl.material_category = value.categories.category_name
+              if (!ctrl.material_category) {
+                ctrl.material_category = translateFilter("select_category")
+              }
+              ctrl.material_category_barcode = value.categories.category_barcode
+              ctrl.material_date_add = value.date_add
+              ctrl.material_employee_id = value.employee_id
+              if (ctrl.material_employee_id && ctrl.material_employee_id != 0) {
+                getEmployeeById(ctrl.material_employee_id)
+              } else {
+                ctrl.material_employee_name = "-"
+              }
+              ctrl.material_supplier_id = value.supplier_id
+              if (ctrl.material_supplier_id) {
+                getSupplierById(ctrl.material_supplier_id)
+              } else {
+                ctrl.material_supplier_name = "-"
+              }
 
-            if (value.date_purchase) {
-              ctrl.datas.date_purchase = new Date(ctrl.datas.date_purchase)
-            } else {
-              ctrl.datas.date_purchase = null
-            }
-
-            if (value.end_warranty) {
-              ctrl.datas.end_warranty = new Date(ctrl.datas.end_warranty)
-            } else {
-              ctrl.datas.end_warranty = null
-            }
-            ctrl.get_category_id = value.categories.id
-            ctrl.category_id = value.categories.category_id
-            ctrl.category = value.categories.category_name
-            if (!ctrl.category) {
-              ctrl.category = translateFilter("select_category")
-            }
-            
-            ctrl.category_barcode = value.categories.category_barcode
-            ctrl.date_add = value.date_add
-            ctrl.employee_id = value.employee_id
-            if (ctrl.employee_id && ctrl.employee_id != 0) {
-              getEmployeeById(ctrl.employee_id)
-            } else {
-              ctrl.employee_name = "-"
-            }
-            ctrl.supplier_id = value.supplier_id
-            if (ctrl.supplier_id) {
-              getSupplierById(ctrl.supplier_id)
-            } else {
-              ctrl.supplier_name = "-"
             }
 
             if (value.inventory_requests) {
@@ -198,7 +237,7 @@
           if (ctrl.category == translateFilter("select_category")) {
             ctrl.category = null
           }
-
+          console.log(ctrl.category)
           if (!ctrl.serial_number) {
             ctrl.serial_number = "-"
           }
@@ -252,8 +291,10 @@
             ctrl.price = ctrl.material_price
           }
 
-          if (ctrl.material_category) {
-          ctrl.category = ctrl.material_category
+          if (str == "durable_goods") {
+            ctrl.category = ctrl.category
+          }else{
+            ctrl.category = ctrl.material_category
           }
 
           if(ctrl.datas.material_date_purchase) {
@@ -303,7 +344,6 @@
               category_barcode: ctrl.category_barcode
             }
           }
-            
           if (!ctrl.real_id) {
             createInventory(inventory_datas, category_datas)
           } else {
@@ -314,6 +354,7 @@
         function createInventory(inventory_datas, category_datas) {
            service.newInventory(inventory_datas).then(function(resp) {
               createCategory(resp.data.id, category_datas)
+              //console.log(category_datas)
           }, function(e){
             // Error
           });
@@ -504,8 +545,11 @@
 
         function getSupplierById(id) {
           inventorySupplierService.show(id).then(function(resp) {
-            ctrl.supplier_name = resp.data.suppliers.name
-            ctrl.material_supplier_name = resp.data.suppliers.name
+            if(ctrl.supplier_id){
+              ctrl.supplier_name = resp.data.suppliers.name
+            }else if(ctrl.material_supplier_id){
+              ctrl.material_supplier_name = resp.data.suppliers.name
+            }
           })
         }
 
@@ -529,16 +573,18 @@
         ctrl.onSelectSupplier = function($item) {
           ctrl.supplier_name = $item.name;
           ctrl.supplier_id = $item.id
-          console.log($item)
         };
         ctrl.onSelectSupplierMaterial = function($item) {
           ctrl.material_supplier_name = $item.name;
           ctrl.supplier_id = $item.id
-          console.log($item)
         };
 
-        ctrl.onChangeSupplier = function() {
+        ctrl.onChangeSupplierMaterial = function() {
           ctrl.material_supplier_name = ctrl.material_supplier_name
+          ctrl.supplier_id = undefined
+        }
+
+        ctrl.onChangeSupplier = function() {
           ctrl.supplier_name = ctrl.supplier_name
           ctrl.supplier_id = undefined
         }
