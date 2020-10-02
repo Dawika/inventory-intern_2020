@@ -5,7 +5,8 @@
       function($compile, $scope, $window, $filter, $rootScope, $timeout, translateFilter, $uibModal, Upload, $state, service, settingService) {
 	$rootScope.menu = translateFilter("inventory_request")
 		var ctrl = this
-		ctrl.real_id = $state.params.id;
+    ctrl.real_id = $state.params.id;
+    ctrl.showCount = false;
 
   	function initData() {
       if (!ctrl.real_id) { 
@@ -22,10 +23,10 @@
         ctrl.request_date = new Date(value.request_date)
         ctrl.employee_id = value.employee_id
         ctrl.request_type = value.request_type
-        //ctrl.request_count = value.request_count
-        //console.log(value.request_count)
+        ctrl.request_count = value.request_count
         if (ctrl.request_type == "request") {
           ctrl.change_request_type = translateFilter("withdraw_equipment")
+          ctrl.showCount = true;
         } else {
           ctrl.change_request_type = translateFilter("new_request_inventory")
         }
@@ -115,7 +116,7 @@
         price: changePrice,
         request_date: ctrl.datas.request_date,
         employee_id: ctrl.employee_id,
-        //request_count: ctrl.request_count
+        request_count: ctrl.request_count
       }
       if (ctrl.real_id) {
         updateInventoryRequest(inventory_datas, ctrl.real_id, checkState)
