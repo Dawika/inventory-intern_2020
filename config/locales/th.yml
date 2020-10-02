@@ -742,6 +742,10 @@ th:
   date_range_add: "ช่วงวันที่เพิ่ม"
   date_range_request: "ช่วงวันที่ส่งคำขอ" 
   none_inventory: "ไม่พบพัสดุ"
+  durable_goods: "ครุภัณฑ์"
+  material: "วัสดุ"
+  inventory_type: "ประเภทพัสดุ"
+  select_type: "เลือกประเภทพัสดุ"
 
    #InventoryRequest
   list_request: "รายการคำขอใช้พัสดุ"

@@ -115,18 +115,27 @@
 										</p>
 									</div>
 								</div>
-							</div>
-							<div class="row mt-10">
 								<div class="col-md-3">
 									<div class="form-group">
 										<label class="control-label" for="serial_number">{{ "serial_number" | translate}} </label>
 										<input class="form-control" autocomplete="off" type="text" id="inventory_serial_number" ng-model="inventory.serial_number" >
 									</div>
 								</div>
+							</div>
+							<div class="row mt-10">
 								<div class="col-md-3">
 									<div class="form-group">
 										<label class="control-label" for="model">{{ "model" | translate }}</label>
 										<input class="form-control" autocomplete="off" type="text" id="inventory_model" ng-model="inventory.model" >
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group ">
+										<label class="control-label" for="inventory_type">{{ "inventory_type" | translate }}</label>
+										<select class="form-control" id="inventory_type" ng-model="inventory.inventory_type" ng-change="inventory.switchType()" required="true">
+											<option value="">{{ "select_type" | translate }}</option>
+											<option ng-repeat="item in inventory.item_type" value="{{item.name}}">{{ item.name | translate }}</option>
+										</select>
 									</div>
 								</div>
 								<div class="col-md-3">

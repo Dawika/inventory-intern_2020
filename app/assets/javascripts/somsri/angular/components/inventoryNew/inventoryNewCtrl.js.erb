@@ -237,7 +237,6 @@
           if (ctrl.category == translateFilter("select_category")) {
             ctrl.category = null
           }
-          console.log(ctrl.category)
           if (!ctrl.serial_number) {
             ctrl.serial_number = "-"
           }
@@ -354,7 +353,6 @@
         function createInventory(inventory_datas, category_datas) {
            service.newInventory(inventory_datas).then(function(resp) {
               createCategory(resp.data.id, category_datas)
-              //console.log(category_datas)
           }, function(e){
             // Error
           });
