@@ -796,7 +796,27 @@
               class: 'text-right',
               sortable: false,
               formatter: editInventoryRequestFormatter
+            }, {
+              field: 'return',
+              title: "",
+              class: 'text-right',
+              sortable: false,
+              formatter: returnInventoryFormatter
             }]
+          }
+          function returnInventoryFormatter(value, row, index) {
+            console.log(row.inventory_status);
+            if(row['inventory_status'] == 'assigned'){
+              return '<a id="returnInventory' + row['id'] + '" onclick="' + angularCtrlStr + '.returnInventory(' + row['id'] + ')"> <i class=\'fas fa-undo-alt color-red cursor-pointer\'></i> </a>';
+            }
+          }
+          
+          ctrl.returnInventory = function (row){
+            $rootScope.openConfirmationModal(translateFilter("confirm_return_inventory"),function(){
+              inventoryRequestService.return(row).then(function(resp){
+                getInventoryRequest()
+              })
+            })
           }
 
           function editInventoryRequestFormatter(value, row, index) {
@@ -815,6 +835,8 @@
               color = "color-orange"
             }else if( row['inventory_status'] == "purchasing"){
               color = "color-list-stap"
+            }else if (row['inventory_status'] == "return"){
+              color = "color-purple"
             }
 
             $(function () {
@@ -850,6 +872,8 @@
                     status = "waiting repair"
                   }else if (ctrl.datasReuestExport[i].inventory_status == "rejected") {
                     status = "rejected"
+                  }else if (ctrl.datasReuestExport[i].inventory_status == "return") {
+                    status = "return"
                   }
 
                   var serial_number = "-"

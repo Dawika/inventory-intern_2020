@@ -88,5 +88,9 @@
 			return $http.put('/inventory_requests/' + inventory_request_id+ '/manage_inventories_requests/' + id, data)
 		}
 
+		this.return = function(id){
+			return $http.put('/inventory_requests/' + id + '/return')
+		}
+
 	 }]);
 })();

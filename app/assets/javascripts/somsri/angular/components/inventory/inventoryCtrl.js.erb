@@ -399,7 +399,7 @@
 
     inventory_request_table.bootstrapTable($.extend(bootstrapTableOptionsInvetoryRequest, {toolbar: "date-filter"}));
 
-    ctrl.getRequestSelected = [0,1,2,3,4,5,6,7,8]
+    ctrl.getRequestSelected = [0,1,2,3,4,5,6,7,8,10]
     function getInventoryRequest() {
       ctrl.start_request_date = cleanDate(ctrl.start_request_date)
       ctrl.end_request_date = cleanDate(ctrl.end_request_date)
@@ -460,6 +460,7 @@
 
 
     function statusFormmatter(value, row, index) {
+      console.log(row)
       var color = ""
       if (row['inventory_status'] == "rejected" || row['inventory_status'] == "delete") {
         color = "color-red"
@@ -471,6 +472,8 @@
         color = "color-blue"
       } else if (row['inventory_status'] == "accept") {
         color = "color-green"
+      }else if (row['inventory_status'] == "return"){
+        color = "color-purple"
       }
 
       $(function () {
@@ -539,6 +542,7 @@
       {value: 'Purchasing', selected: true ,id: 5},
       {value: 'Done', selected: true ,id: 6},
       {value: 'Assigned', selected: true ,id: 7},
+      {value: 'return', selected: true , id: 10}
     ]
 
     ctrl.isAllRequsetSelected = true
@@ -546,7 +550,7 @@
     ctrl.requestToggleAll = function() {
       var toggleStatus = ctrl.isAllRequsetSelected
       angular.forEach(ctrl.check_box_request, function(item){ item.selected = toggleStatus })
-      ctrl.getRequestSelected = [0,1,2,3,4,5,6,7,8]
+      ctrl.getRequestSelected = [0,1,2,3,4,5,6,7,8,9]
     }
 
     ctrl.checkBoxRequestToggled = function() {
@@ -560,7 +564,7 @@
     }
 
     ctrl.resetInventoryRequestFilter = function() {
-      ctrl.getRequestSelected = [0,1,2,3,4,5,6,7,8]
+      ctrl.getRequestSelected = [0,1,2,3,4,5,6,7,8,9]
       ctrl.isAllRequsetSelected = true
       var toggleStatus = ctrl.isAllRequsetSelected
       angular.forEach(ctrl.check_box_request, function(item){ item.selected = toggleStatus })
