@@ -746,6 +746,7 @@ th:
   material: "วัสดุ"
   inventory_type: "ประเภทพัสดุ"
   select_type: "เลือกประเภทพัสดุ"
+  confirm_return_inventory: "คุณต้องการคืนพัสดุนี้?"
 
    #InventoryRequest
   list_request: "รายการคำขอใช้พัสดุ"

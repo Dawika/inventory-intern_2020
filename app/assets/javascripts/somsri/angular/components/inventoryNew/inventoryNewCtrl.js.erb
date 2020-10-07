@@ -155,7 +155,7 @@
             if (value.inventory_requests) {
               var inventory_request = value.inventory_requests
               for (var i = 0; i < inventory_request.length; i++) {
-                if(inventory_request[i].inventory_status == "assigned") {
+                if(inventory_request[i].inventory_status == "assigned" || inventory_request[i].inventory_status == "return") {
                   ctrl.request_type = inventory_request[i].request_type
                   if (ctrl.request_type == "request") {
                     ctrl.showType = true

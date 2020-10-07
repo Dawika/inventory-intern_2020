@@ -282,6 +282,7 @@ Rails.application.routes.draw do
       put 'delete_inventory'
       put 'wait'
       put 'repair'
+      put 'return'
     end
 
     # POST: /inventories_requests/:inventories_request_id/manage_inventories_requests

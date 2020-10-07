@@ -6,22 +6,22 @@ class InventoryRequestsController < ApplicationController
 		search = params[:search_keyword]
 		employee_id = params[:employee_id]
 		start_request_date = Time.zone.parse(params[:start_request_date]).beginning_of_day if isDate(params[:start_request_date])
-    end_request_date = Time.zone.parse(params[:end_request_date]).end_of_day if isDate(params[:end_request_date])
-    start_date_purchasing = Time.zone.parse(params[:start_date_purchasing]).beginning_of_day if isDate(params[:start_date_purchasing])
-    end_date_purchasing = Time.zone.parse(params[:end_date_purchasing]).end_of_day if isDate(params[:end_date_purchasing])
-    check_box = params[:check_box]
-		# @inventory_requests
-		# inventories_requests = InventoryRequests.all
-		# render json: inventories_requests. status: :ok
-		# render json: inventories_requests.as_json(methods: [:employee, :inventory]), status: :ok
+		end_request_date = Time.zone.parse(params[:end_request_date]).end_of_day if isDate(params[:end_request_date])
+		start_date_purchasing = Time.zone.parse(params[:start_date_purchasing]).beginning_of_day if isDate(params[:start_date_purchasing])
+		end_date_purchasing = Time.zone.parse(params[:end_date_purchasing]).end_of_day if isDate(params[:end_date_purchasing])
+		check_box = params[:check_box]
+			# @inventory_requests
+			# inventories_requests = InventoryRequests.all
+			# render json: inventories_requests. status: :ok
+			# render json: inventories_requests.as_json(methods: [:employee, :inventory]), status: :ok
 
 		if check_box 
-    	@inventory_requests = @inventory_requests.where(inventory_requests: { inventory_status: check_box })
-    end
+			@inventory_requests = @inventory_requests.where(inventory_requests: { inventory_status: check_box })
+		end
 
 		data_field = InventoryRequest.arel_table[:request_date]
-    @inventory_requests = qry_date_range(@inventory_requests, data_field, start_request_date, end_request_date)
-    @inventory_requests = qry_date_range(@inventory_requests, data_field, start_date_purchasing, end_date_purchasing)
+		@inventory_requests = qry_date_range(@inventory_requests, data_field, start_request_date, end_request_date)
+		@inventory_requests = qry_date_range(@inventory_requests, data_field, start_date_purchasing, end_date_purchasing)
 		
 		@inventory_requests = @inventory_requests.filterByEmployeeId(employee_id) if employee_id.present?
 		@inventory_requests = @inventory_requests.search(search) if search.present?
@@ -43,7 +43,7 @@ class InventoryRequestsController < ApplicationController
 		# 	inventories_requests = current_user.inventory_requests
 		# 	inventories_requests = inventories_requests
 		# end
-
+		
 		result = {}
 		if params[:bootstrap_table].to_s == "1" 
 			result = @inventory_requests.as_json({ bootstrap_table: true })
@@ -172,6 +172,14 @@ class InventoryRequestsController < ApplicationController
   	inventory.update(inventory_status: :repair)
   	render json: inventory, status: :ok
   end
+
+  def return
+	inventory = InventoryRequest.find(params[:id])
+	inventory.return?
+	inventory.update(inventory_status: :return)
+	render json: inventory, status: :ok
+end
+
 
 
 	private
