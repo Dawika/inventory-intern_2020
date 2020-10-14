@@ -1,0 +1,4 @@
+<p><%= @inventories.user_name %> </p>
+<p>ยื่นคำขอใช้พัสดุ <%= @inventories.item_name %> </p>
+<p>จำนวน <%= @inventories.request_count %> ในวันที่ <%= @inventories.request_date.strftime("%m/%d/%Y") %></p>
+<p>ไปยังหนัา<%= link_to 'Inventory', send_subdomain_in_mail_subdomains_url(subdomain_name: @subdomain)%></p>

@@ -5,6 +5,16 @@ class ManageInventoriesRequestsController < ApplicationController
 			invetory_request = InventoryRequest.find(params[:inventory_request_id])
 			manage = invetory_request.build_manage_inventory_request(manage_params) # has_one use build
 			if manage.save
+				requester_id = invetory_request.employee_id
+				requester = User.find(requester_id)
+				recipient_id = current_user.id
+				recipient = User.find(recipient_id)
+				case invetory_request.request_type
+					when "request"
+						InventoryMailer.send_approve_inventory_request(requester, invetory_request, recipient).deliver
+					when "new"
+						InventoryMailer.send_approve_inventory_new(requester, invetory_request, recipient).deliver
+				end
 				render json: manage, status: :ok
 			else
 				render json: manage.errors.full_messages, status: :ok

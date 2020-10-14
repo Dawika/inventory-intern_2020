@@ -40,7 +40,7 @@
                     var check = true
                     for (var j = 0; j < inventory.inventory_requests.length; j++) {
                       var value = inventory.inventory_requests[j]
-                      if (value.inventory_status == "assigned" || value.inventory_status == "repair") {
+                      if (value.inventory_status == "assigned" || value.inventory_status == "repair" || value.inventory_status == "return") {
                         check = false
                         break
                       }

@@ -3,6 +3,11 @@ class ManageInventoryRepairsController < ApplicationController
 		invetory_repair = InventoryRepair.find(params[:inventory_repair_id])
 		manage = invetory_repair.build_manage_inventory_repair(manage_params) # has_one use build
 		if manage.save
+			requester_id = invetory_repair.employee_id
+			requester = User.find(requester_id)
+			recipient_id = current_user.id
+			recipient = User.find(recipient_id)
+			InventoryMailer.send_approve_inventory_repair(requester, invetory_repair, recipient).deliver
 			render json: manage, status: :ok
 		else
 			render json: manage.errors.full_messages, status: :ok

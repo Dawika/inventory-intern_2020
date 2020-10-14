@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200925032714) do
+ActiveRecord::Schema.define(version: 20201008031205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -605,8 +605,8 @@ ActiveRecord::Schema.define(version: 20200925032714) do
     t.float    "price"
     t.datetime "request_date"
     t.integer  "inventory_status"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.string   "comment"
     t.integer  "employee_id"
     t.integer  "inventory_id"
@@ -614,6 +614,7 @@ ActiveRecord::Schema.define(version: 20200925032714) do
     t.integer  "request_count"
     t.string   "request_type"
     t.datetime "define_return_date"
+    t.datetime "return_request_date"
     t.index ["employee_id"], name: "index_inventory_requests_on_employee_id", using: :btree
     t.index ["inventory_id"], name: "index_inventory_requests_on_inventory_id", using: :btree
   end

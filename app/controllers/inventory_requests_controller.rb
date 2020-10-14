@@ -77,6 +77,22 @@ class InventoryRequestsController < ApplicationController
 		inventories_request = InventoryRequest.all
 		inventories = InventoryRequest.new(inventory_params)
 		if inventories.save
+			recipients = User.where(school_id: current_user.school_id).with_any_role(:approver, :admin, :human_resource)
+			school = current_user.school_id
+			school_id = current_user.school_id
+			subdomain = School.find(school_id).subdomain_name
+			domain_name = request.domain
+
+			case inventories.request_type
+				when "request"
+					recipients.each do |recipients|
+						InventoryMailer.send_request_inventory(recipients, inventories, subdomain, domain_name).deliver
+					end
+				when "new"
+					recipients.each do |recipients|
+						InventoryMailer.send_new_inventory(recipients, inventories, subdomain, domain_name).deliver
+					end
+			end
 			render json: inventories, status: :ok
 		else
 			render json: inventories.errors.full_messages, status: :ok
@@ -114,6 +130,11 @@ class InventoryRequestsController < ApplicationController
 		inventory = InventoryRequest.find(params[:id])
 		inventory.rejected?
 		inventory.update(inventory_status: :rejected)
+		requester_id = inventory.employee_id
+		requester = User.find(requester_id)
+		recipient_id = current_user.id
+		recipient = User.find(recipient_id)
+		InventoryMailer.send_reject_inventory_request(requester, inventory, recipient).deliver
 		render json: inventory ,status: :ok
 	end
 
@@ -156,6 +177,13 @@ class InventoryRequestsController < ApplicationController
   	inventory = InventoryRequest.find(params[:id])
 		inventory.delete_inventory?
 		inventory.update(inventory_status: :delete_inventory)
+		if inventory.return_date?
+			requester_id = inventory.employee_id
+			requester = User.find(requester_id)
+			recipient_id = current_user.id
+			recipient = User.find(recipient_id)
+			InventoryMailer.send_approve_return_inventory(requester, inventory, recipient).deliver
+		end
 		render json: inventory ,status: :ok
   end
 
@@ -177,15 +205,22 @@ class InventoryRequestsController < ApplicationController
 	inventory = InventoryRequest.find(params[:id])
 	inventory.return?
 	inventory.update(inventory_status: :return)
+	recipients = User.where(school_id: current_user.school_id).with_any_role(:approver, :admin, :human_resource)
+	school_id = current_user.school_id
+	subdomain = School.find(school_id).subdomain_name
+	domain_name = request.domain
+	recipients.each do |recipients|
+		InventoryMailer.send_return_inventory_request(recipients, inventory, subdomain, domain_name).deliver
+	end
 	render json: inventory, status: :ok
-end
+	end
 
 
 
 	private
 
 	def inventory_params
-		params.require(:inventories_request).permit(:user_name, :item_name, :description, :price, :request_date, :comment , :employee_id, :inventory_id, :return_date, :request_count, :request_type, :define_return_date)
+		params.require(:inventories_request).permit(:user_name, :item_name, :description, :price, :request_date, :comment , :employee_id, :inventory_id, :return_date, :request_count, :request_type, :define_return_date, :return_request_date)
 	end
 
 	def get_inventories_request(page)
