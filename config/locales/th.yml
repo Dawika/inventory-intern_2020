@@ -723,6 +723,7 @@ th:
   date_purchase: "วันที่ซื้อ"
   category: "ประเภท"
   date_add: "วันที่เพิ่ม"
+  use_name: "ชื่อผู้ใช้" 
   inventory_data: "ข้อมูลพัสดุ"
   select_category: "เลือกประเภท"
   end_warranty: "วันสิ้นสุดการรับประกัน"
