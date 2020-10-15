@@ -94,37 +94,39 @@
       }
 
       ctrl.save = function(str) {
-        
-        if (ctrl.request_date) {
-          ctrl.request_date = formatterDate(ctrl.request_date)
-        }
-
-        if (!ctrl.description) {
-          ctrl.description = "-"
-        }
-
-        if (!ctrl.serial_number) {
-          ctrl.serial_number = "-"
-        }
-
-        if (!ctrl.model) {
-          ctrl.model = "-"
-        }
-        var inventory_request_datas = {
-          item_name: ctrl.name,
-          description: ctrl.description,
-          request_date: ctrl.request_date,
-        }
-        
-
-       var inventory_datas = {
-          item_name: ctrl.name,
-          serial_number: ctrl.serial_number,
-          model: ctrl.model,
-          description: ctrl.description
-        }
-
-        updateInventoryRequest(inventory_request_datas, inventory_datas)
+        $rootScope.openConfirmationModal(translateFilter("save_change_confirmation"),function(){
+          
+          if (ctrl.request_date) {
+            ctrl.request_date = formatterDate(ctrl.request_date)
+          }
+  
+          if (!ctrl.description) {
+            ctrl.description = "-"
+          }
+  
+          if (!ctrl.serial_number) {
+            ctrl.serial_number = "-"
+          }
+  
+          if (!ctrl.model) {
+            ctrl.model = "-"
+          }
+          var inventory_request_datas = {
+            item_name: ctrl.name,
+            description: ctrl.description,
+            request_date: ctrl.request_date,
+          }
+          
+  
+         var inventory_datas = {
+            item_name: ctrl.name,
+            serial_number: ctrl.serial_number,
+            model: ctrl.model,
+            description: ctrl.description
+          }
+  
+          updateInventoryRequest(inventory_request_datas, inventory_datas)
+        })
       }    
 
       function updateInventoryRequest(inventory_request_datas, inventory_datas) {

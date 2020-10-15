@@ -196,7 +196,8 @@
         };
 
         ctrl.material = function() {
-          var changePrice = parseFloat(ctrl.material_price);
+          $rootScope.openminimalConfirmSaveModal(translateFilter("save_change_confirmation"),function(){
+            var changePrice = parseFloat(ctrl.material_price);
           ctrl.model = undefined
           ctrl.datas.end_warranty = undefined
           ctrl.serial_number = undefined
@@ -226,129 +227,132 @@
               beforeCreate(changePrice, "material")
             } 
           }
+          })
         }
         
         ctrl.save = function() {
-          var changePrice = parseFloat(ctrl.price);
+          $rootScope.openminimalConfirmSaveModal(translateFilter("save_change_confirmation"),function(){
+            var changePrice = parseFloat(ctrl.price);
           
-          if (!ctrl.real_id) {
-            ctrl.date_add = Date()
-          }
-
-          if (ctrl.category == translateFilter("select_category")) {
-            ctrl.category = null
-          }
-          if (!ctrl.serial_number) {
-            ctrl.serial_number = "-"
-          }
-
-          if (!ctrl.model) {
-            ctrl.model = "-"
-          }
-
-          generateCategoryBarcode(ctrl.category)
-
-          if (ctrl.checkName) {
-            ctrl.employee_id = ""
-            if (ctrl.checkSupplier) {
-
+            if (!ctrl.real_id) {
+              ctrl.date_add = Date()
             }
-            beforeCreate(changePrice, "durable_goods")
-            // var data = {
-            //   first_name: ctrl.employee_name,
-            //   email: "",
-            //   password: ""
-            // }
-            // if (ctrl.employee_name) {
-            //   employeesService.createEmployee(data).then(function(resp) {
-            //     ctrl.employee_id = resp.data.employee.id
-            //     beforeCreate(changePrice)
-            //   })
-            // } else {
-            //   ctrl.employee_id = 0
-            //   beforeCreate(changePrice)
-            // }
-          } else {
-            if (ctrl.employee_name) {
-              beforeCreate(changePrice, "durable_goods")
-            } else {
+
+            if (ctrl.category == translateFilter("select_category")) {
+              ctrl.category = null
+            }
+            if (!ctrl.serial_number) {
+              ctrl.serial_number = "-"
+            }
+
+            if (!ctrl.model) {
+              ctrl.model = "-"
+            }
+
+            generateCategoryBarcode(ctrl.category)
+
+            if (ctrl.checkName) {
               ctrl.employee_id = ""
+              if (ctrl.checkSupplier) {
+
+              }
               beforeCreate(changePrice, "durable_goods")
-            } 
-          }
+              // var data = {
+              //   first_name: ctrl.employee_name,
+              //   email: "",
+              //   password: ""
+              // }
+              // if (ctrl.employee_name) {
+              //   employeesService.createEmployee(data).then(function(resp) {
+              //     ctrl.employee_id = resp.data.employee.id
+              //     beforeCreate(changePrice)
+              //   })
+              // } else {
+              //   ctrl.employee_id = 0
+              //   beforeCreate(changePrice)
+              // }
+            } else {
+              if (ctrl.employee_name) {
+                beforeCreate(changePrice, "durable_goods")
+              } else {
+                ctrl.employee_id = ""
+                beforeCreate(changePrice, "durable_goods")
+              } 
+            }
+          })
         };
 
         function beforeCreate(changePrice,str) {
-          if (ctrl.material_name) {
-            ctrl.name = ctrl.material_name
-          }
-
-          if (ctrl.material_description) {
-            ctrl.description = ctrl.material_description
-          }
-
-          if (ctrl.material_price) {
-            ctrl.price = ctrl.material_price
-          }
-
-          if (str == "durable_goods") {
-            ctrl.category = ctrl.category
-          }else{
-            ctrl.category = ctrl.material_category
-          }
-
-          if(ctrl.datas.material_date_purchase) {
-            ctrl.datas.date_purchase = ctrl.datas.material_date_purchase
-          }
-
-          if(ctrl.material_employee_name) {
-            ctrl.employee_name = ctrl.material_employee_name
-          }
-
-          // if(ctrl.material_supplier_name) {
-          //   ctrl.supplier_name = ctrl.material_supplier_name
-          // }
-
-          if (!ctrl.description) {
-            ctrl.description = "-"
-          }
-
-          if (ctrl.employee_id == 0) {
-            ctrl.employee_name = ""
-          }
-
-          var employee_id = ctrl.employee_id
-          if (ctrl.return_date) {
-            employee_id = ""
-          }
-
-          var changeDatePurchase = formatterDate(ctrl.datas.date_purchase)
-
-          var inventory_datas = {
-            item_name: ctrl.name,
-            serial_number: ctrl.serial_number,
-            model: ctrl.model,
-            description: ctrl.description,
-            price: changePrice,
-            date_purchase: changeDatePurchase,
-            date_add: ctrl.date_add,
-            end_warranty: ctrl.datas.end_warranty,
-            employee_id: employee_id,
-            supplier_id: ctrl.supplier_id,
-            inventory_type: str
-          }
-          var category_datas = {
-            categories: {
-              category_id: ctrl.category_id,
-              category_name: ctrl.category,
-              category_barcode: ctrl.category_barcode
+            if (ctrl.material_name) {
+              ctrl.name = ctrl.material_name
             }
-          }
-          if (!ctrl.real_id) {
-            createInventory(inventory_datas, category_datas)
-          } else {
-            updateInventory(inventory_datas, ctrl.real_id, category_datas)
-          }
+  
+            if (ctrl.material_description) {
+              ctrl.description = ctrl.material_description
+            }
+  
+            if (ctrl.material_price) {
+              ctrl.price = ctrl.material_price
+            }
+  
+            if (str == "durable_goods") {
+              ctrl.category = ctrl.category
+            }else{
+              ctrl.category = ctrl.material_category
+            }
+  
+            if(ctrl.datas.material_date_purchase) {
+              ctrl.datas.date_purchase = ctrl.datas.material_date_purchase
+            }
+  
+            if(ctrl.material_employee_name) {
+              ctrl.employee_name = ctrl.material_employee_name
+            }
+  
+            // if(ctrl.material_supplier_name) {
+            //   ctrl.supplier_name = ctrl.material_supplier_name
+            // }
+  
+            if (!ctrl.description) {
+              ctrl.description = "-"
+            }
+  
+            if (ctrl.employee_id == 0) {
+              ctrl.employee_name = ""
+            }
+  
+            var employee_id = ctrl.employee_id
+            if (ctrl.return_date) {
+              employee_id = ""
+            }
+  
+            var changeDatePurchase = formatterDate(ctrl.datas.date_purchase)
+  
+            var inventory_datas = {
+              item_name: ctrl.name,
+              serial_number: ctrl.serial_number,
+              model: ctrl.model,
+              description: ctrl.description,
+              price: changePrice,
+              date_purchase: changeDatePurchase,
+              date_add: ctrl.date_add,
+              end_warranty: ctrl.datas.end_warranty,
+              employee_id: employee_id,
+              supplier_id: ctrl.supplier_id,
+              inventory_type: str
+            }
+            var category_datas = {
+              categories: {
+                category_id: ctrl.category_id,
+                category_name: ctrl.category,
+                category_barcode: ctrl.category_barcode
+              }
+            }
+            if (!ctrl.real_id) {
+              createInventory(inventory_datas, category_datas)
+            } else {
+              updateInventory(inventory_datas, ctrl.real_id, category_datas)
+            }
         }
 
         function createInventory(inventory_datas, category_datas) {
