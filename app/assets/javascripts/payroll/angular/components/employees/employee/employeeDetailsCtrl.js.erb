@@ -27,6 +27,7 @@
           ctrl.hasPayroll = ctrl.isEdit ? true : false;
           ctrl.pinChars = [];
           ctrl.filterKeyword = '';
+          ctrl.searchRequestKeyword = ''
           ctrl.total = '';
           ctrl.role = ['account_holder', 'admin', 'approver', 'employee', 'finance_officer', 'human_resource', 'procurement_officer', 'teacher', 'chauffeur']
           ctrl.select_role = []
@@ -862,7 +863,7 @@
 
           function getInventoryRequest() {
             if (!ctrl.requestCurrentPage) { ctrl.requestCurrentPage = 1 }
-            inventoryRequestService.getInventoryRequest(ctrl.requestCurrentPage, ctrl.empId).then(function (resp) {
+            inventoryRequestService.getInventoryRequest(ctrl.requestCurrentPage, ctrl.empId, ctrl.searchRequestKeyword).then(function (resp) {
               ctrl.datasReuestExport = [];
               if (resp.data) {
                 ctrl.requestTotalItems = resp.data.total_records;
@@ -921,6 +922,10 @@
               ctrl.paginateButtonMaxSize = 5;
               employee_inventory_table.bootstrapTable('load', ctrl.datasReuestExport);
             });
+          }
+
+          ctrl.searchInventoryRequest = function (){
+            getInventoryRequest()
           }
 
           ctrl.pageRequestChanged = function () {

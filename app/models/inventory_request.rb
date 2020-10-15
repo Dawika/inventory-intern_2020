@@ -40,19 +40,19 @@ class InventoryRequest < ApplicationRecord
 
 	def self.search(keyword)
 		if keyword.present?
-      left_outer_joins(:employee).where(
-        "CAST(inventory_requests.id AS TEXT) LIKE :search OR
-        lower(item_name) LIKE :search OR
-        lower(user_name) LIKE :search OR
-        lower(description) LIKE :search OR
-        to_char(inventory_requests.request_date::date, 'dd/mm/yyyy') LIKE :search OR
-        lower(employees.first_name) LIKE :search OR 
-        lower(employees.last_name) LIKE :search OR
-        employees.first_name_thai LIKE :search OR
-        employees.last_name_thai LIKE :search
-       ",
-        search: "%#{keyword.downcase}%")
-    else 
+			joins(:employee).where(
+			"CAST(inventory_requests.id AS TEXT) LIKE :search OR
+			lower(item_name) LIKE :search OR
+			lower(user_name) LIKE :search OR
+			lower(description) LIKE :search OR
+			to_char(inventory_requests.request_date::date, 'dd/mm/yyyy') LIKE :search OR
+			lower(employees.first_name) LIKE :search OR 
+			lower(employees.last_name) LIKE :search OR
+			employees.first_name_thai LIKE :search OR
+			employees.last_name_thai LIKE :search
+		",
+			search: "%#{keyword.downcase}%")
+    	else 
 			self.all
 		end
 	end

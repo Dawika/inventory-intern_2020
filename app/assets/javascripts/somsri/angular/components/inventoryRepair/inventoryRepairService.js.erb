@@ -7,10 +7,12 @@
 			return $http.post('/inventory_repairs', data)
 		};
 
-		this.getInventoryRepair = function(page) {
+		this.getInventoryRepair = function(page, search_keyword, get_repair_selected) {
 			return $http.get('/inventory_repairs',{
 				params: {
-					page: page
+					page: page,
+					search_keyword: search_keyword,
+					'check_box[]': get_repair_selected,
 				}
 			})
 		}

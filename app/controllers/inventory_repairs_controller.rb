@@ -1,12 +1,18 @@
 class InventoryRepairsController < ApplicationController
 	def index
 		page = params[:page]
+		search = params[:search_keyword]
 		inventory_repiars = InventoryRepair.all
 		inventory_repiars = inventory_repiars.paginate(page: page, per_page: 10)
 		inventory_repiars = inventory_repiars.order(updated_at: :desc)
+		check_box = params[:check_box]
 
 		result = {}
 		if page 
+			inventory_repiars = inventory_repiars.search(search) if search.present?
+			if check_box 
+				inventory_repiars = inventory_repiars.where(repair_status:params[:check_box])
+			end
 			if params[:bootstrap_table].to_s == "1" 
 				result = inventory_repiars.as_json({ bootstrap_table: true })
 			else 
@@ -40,7 +46,6 @@ class InventoryRepairsController < ApplicationController
 			school_id = current_user.school_id
 			subdomain = School.find(school_id).subdomain_name
 			domain_name = request.domain
-			ap inventory_repiar
 			recipients.each do |recipients|
 				InventoryMailer.send_repair_inventory(recipients, inventory_repiar, subdomain, domain_name).deliver
 			end
@@ -76,7 +81,6 @@ class InventoryRepairsController < ApplicationController
 		inventory_repiars.update(comment: params[:comment])
 		inventory_repiars.inventory_request.update(inventory_status: :rejected)
 		inventory_repiars.inventory_request.update(comment: params[:comment])
-		ap inventory_repiars
 		requester_id = inventory_repiars.employee_id
 		requester = User.find(requester_id)
 		recipient_id = current_user.id
