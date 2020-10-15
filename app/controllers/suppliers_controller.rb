@@ -2,13 +2,14 @@ class SuppliersController < ApplicationController
 	def index
 
 		page = params[:page]
-
+		search = params[:search_keyword]
 		@suppliers = Supplier.all
 		@suppliers = @suppliers.paginate(page: page, per_page: 10)
 		@suppliers = @suppliers.order(updated_at: :desc)
 
 		result = {}
 		if page 
+			@suppliers = @suppliers.search(search) if search.present?
 			if params[:bootstrap_table].to_s == "1" 
 				result = @suppliers.as_json({ bootstrap_table: true })
 			else 

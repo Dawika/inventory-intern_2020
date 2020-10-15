@@ -24,6 +24,8 @@
     // ctrl.real_id = $state.params.id;
     ctrl.searchKeyword = ''
     ctrl.searchRequestKeyword = ''
+    ctrl.searchRepairKeyword = ''
+    ctrl.searchSupplierKeyword = ''
     ctrl.comment = ""
     ctrl.show_add_button = true
     ctrl.loading = false
@@ -460,7 +462,6 @@
 
 
     function statusFormmatter(value, row, index) {
-      console.log(row)
       var color = ""
       if (row['inventory_status'] == "rejected" || row['inventory_status'] == "delete") {
         color = "color-red"
@@ -687,7 +688,7 @@
 
     function getSuppliers() {
       if(!ctrl.suppliersCurrentPage){ ctrl.suppliersCurrentPage = 1 }
-        inventorySupplierService.getSuppliers(ctrl.suppliersCurrentPage).then(function(resp) {
+        inventorySupplierService.getSuppliers(ctrl.suppliersCurrentPage, ctrl.searchSupplierKeyword).then(function(resp) {
           ctrl.datasSuppliersExport = [];
           if (resp.data) {
             ctrl.suppliersTotalItems = resp.data.total_records;
@@ -715,6 +716,10 @@
           ctrl.paginateButtonMaxSize = 5;
           inventory_supplier_table.bootstrapTable('load', ctrl.datasSuppliersExport);
         });
+    }
+
+    ctrl.searchInventorySuppliers = function() {
+      getSuppliers()
     }
 
     ctrl.pageSuppliersChanged = function() {
@@ -806,10 +811,11 @@
 
 
     inventory_repair_table.bootstrapTable($.extend(bootstrapTableOptionsInvetoryRepair, {toolbar: "date-filter"}));
-
+    
+    ctrl.getRepairSelected = [0,1,2,3,4,5]
     function getInvetoryReapir(){
       if(!ctrl.inventoryRepairCurrentPage){ ctrl.inventoryRepairCurrentPage = 1 }
-      inventoryRepairService.getInventoryRepair(ctrl.inventoryRepairCurrentPage).then(function(resp) {
+      inventoryRepairService.getInventoryRepair(ctrl.inventoryRepairCurrentPage, ctrl.searchRepairKeyword, ctrl.getRepairSelected).then(function(resp) {
         ctrl.datasInventoryRepairExport = [];
         if (resp.data) {
           ctrl.inventoryRepairTotalItems = resp.data.total_records;
@@ -844,10 +850,54 @@
       })
     }
 
+    ctrl.searchInventoryReapir = function() {
+      getInvetoryReapir()
+    }
 
     ctrl.pageInventoryRepairChanged = function() {
       getInvetoryReapir()
     };
+
+    ctrl.optionsRepairChange = function() {
+      getInvetoryReapir()
+      console.log(getInvetoryReapir);
+    }
+    ctrl.check_box_repair = [
+      {value: 'repair_notification', selected: true ,id: 0},
+      {value: 'confirm_accept', selected: true ,id: 1},
+      {value: 'Rejected', selected: true ,id: 2},
+      {value: 'sent_repair', selected: true ,id: 3},
+      {value: 'repairs_completed', selected: true ,id: 4},
+      {value: 'dispatch_to_employees', selected: true , id: 5}
+    ]
+
+    ctrl.isAllRepairSelected = true
+
+    ctrl.repairToggleAll = function() {
+      var toggleStatus = ctrl.isAllRepairSelected
+      angular.forEach(ctrl.check_box_repair, function(item){ item.selected = toggleStatus })
+      ctrl.getRepairSelected = [0,1,2,3,4,5]
+      console.log("repairToggleAll");
+    }
+
+    ctrl.checkBoxRepairToggled = function() {
+      ctrl.isAllRepairSelected = ctrl.check_box_repair.every(function(item){ return item.selected })
+      ctrl.getRepairSelected = []
+      for( var i = 0; i < ctrl.check_box_repair.length; i++ ) {
+        if (ctrl.check_box_repair[i].selected) {
+          ctrl.getRepairSelected.push(ctrl.check_box_repair[i].id)
+        }
+      }
+      console.log("checkBoxRepairToggled");
+    }
+
+    ctrl.resetInventoryRepairFilter = function() {
+      ctrl.getRepairSelected = [0,1,2,3,4,5,6,7,8]
+      ctrl.isAllRepairSelected = true
+      var toggleStatus = ctrl.isAllRepairSelected
+      angular.forEach(ctrl.check_box_repair, function(item){ item.selected = toggleStatus })
+      console.log("resetInventoryRepairFilter");
+    }
 
     getInvetoryReapir()
 

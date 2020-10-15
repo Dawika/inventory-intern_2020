@@ -12,10 +12,11 @@
 			return $http.get('/suppliers')
 		}
 
-		this.getSuppliers = function(page) {
+		this.getSuppliers = function(page, search_keyword) {
 			return $http.get('/suppliers', {
 				params: {
 					page: page,
+					search_keyword: search_keyword
 				}
 			})
 		}

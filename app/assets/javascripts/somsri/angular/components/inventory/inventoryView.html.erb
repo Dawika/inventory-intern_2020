@@ -112,6 +112,25 @@
                   </uib-tab>
                   <uib-tab id="inventory_repair_listrepair" index="3" heading="{{ 'list_repair' | translate }}" ng-click="inventory.changeTab('add_repair')">
                     <div class="col-md-12 panel-board">
+                      <div class="row pl-0">
+                        <div class="col-md-3">
+                          <div id="custom-search-input">
+                            <div class="col-md-12 input-group">
+                              <div class="row">
+                                <div class="col-md-2 pl-20">
+                                  <i class="fa fa-search glyphicon-search"></i>
+                                </div>
+                                <div class="col-md-10">
+                                  <input type="text" class="col-md-3 form-control input-lg" id="searchRequestField" ng-model="inventory.searchRepairKeyword" ng-change="inventory.searchInventoryReapir()" placeholder="{{ 'inventory_repair_search' | translate }}" />
+                                </div>
+                              </div>                        
+                            </div>
+                          </div>
+                        </div> 
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-custom btn-blue btn-block  ng-binding" data-toggle="modal" data-target="#listrepair"><i class="fa fa-filter"></i> Filter</button>
+                          </div>
+                      </div>
                       <div class="row">
                         <table id="inventory-repair-table" >
                           <thead>
@@ -140,6 +159,22 @@
                   </uib-tab>
                   <uib-tab id="inventory_supplier_list" index="2" heading="{{ 'inventory_supplier' | translate }}" ng-click="inventory.changeTab('add_supplier')">
                     <div class="col-md-12 panel-board">
+                      <div class="row pl-0">
+                          <div class="col-md-3">
+                            <div id="custom-search-input">
+                              <div class="col-md-12 input-group">
+                                <div class="row">
+                                  <div class="col-md-2 pl-20">
+                                    <i class="fa fa-search glyphicon-search"></i>
+                                  </div>
+                                  <div class="col-md-10">
+                                    <input type="text" class="col-md-3 form-control input-lg" id="searchRequestField" ng-model="inventory.searchSupplierKeyword" ng-change="inventory.searchInventorySuppliers()" placeholder="{{ 'inventory_supplier_search' | translate }}" />
+                                  </div>
+                                </div>                        
+                              </div>
+                            </div>
+                          </div> 
+                      </div>
                       <div class="row">
                         <table id="inventory-supplier-table" >
                           <thead>
@@ -334,6 +369,36 @@
         </div>
         <div class="modal-footer-inventory">
           <button type="button" class="btn btn-custom btn-blue ng-binding" ng-click="inventory.optionsChange()" data-dismiss="modal"> {{"ok" | translate}} </button>
+          <!-- <button type="button" class="btn btn-custom btn-orange ng-binding" ng-click="inventory.resetInventoryFilter()"> รีเซ็ต </button> -->
+          <button type="button" class="btn btn-custom btn-gray ng-binding" data-dismiss="modal"> {{"cancle" | translate}} </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal filter inventory repair-->
+  <div class="modal fade" id="listrepair" tabindex="-1" role="dialog" aria-labelledby="listrepair">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title color-blue" id="myModal"> <i class="fa fa-filter "></i> {{"filter" | translate}} </h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-2">
+              <b> {{"category" | translate}} </b>
+            </div>
+            <form id="slectionForm">
+              <input type="checkbox" ng-click="inventory.repairToggleAll()" ng-model="inventory.isAllRepairSelected"> All
+              <br>
+              <div class="col-md-6 mt-10" ng-repeat="item in inventory.check_box_repair">
+                  <input type="checkbox" ng-model="item.selected" ng-change="inventory.checkBoxRepairToggled()"> {{ item.value | translate }}
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer-inventory">
+          <button type="button" class="btn btn-custom btn-blue ng-binding" ng-click="inventory.optionsRepairChange()" data-dismiss="modal"> {{"ok" | translate}} </button>
           <!-- <button type="button" class="btn btn-custom btn-orange ng-binding" ng-click="inventory.resetInventoryFilter()"> รีเซ็ต </button> -->
           <button type="button" class="btn btn-custom btn-gray ng-binding" data-dismiss="modal"> {{"cancle" | translate}} </button>
         </div>
