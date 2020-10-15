@@ -38,37 +38,38 @@
     }
 
     ctrl.save = function() {
-
-      if (!ctrl.name) {
-        ctrl.name = "-"
-      }
-
-      if (!ctrl.address) {
-        ctrl.address = "-"
-      }
-
-      if (!ctrl.phone_number) {
-        ctrl.phone_number = "-"
-      }
-
-      if (!ctrl.email) {
-        ctrl.email = "-"
-      }
-
-      var datas = {
-        suppiler: {
-          name: ctrl.name,
-          address: ctrl.address,
-          phone_number: ctrl.phone_number,
-          email: ctrl.email
+      $rootScope.openminimalConfirmSaveModal(translateFilter("save_change_confirmation"),function(){
+        if (!ctrl.name) {
+          ctrl.name = "-"
         }
-      }
-
-      if (!ctrl.real_id) {
-        createSuppliers(datas)
-      } else {
-        updateSuppliers(datas, ctrl.real_id)
-      }
+  
+        if (!ctrl.address) {
+          ctrl.address = "-"
+        }
+  
+        if (!ctrl.phone_number) {
+          ctrl.phone_number = "-"
+        }
+  
+        if (!ctrl.email) {
+          ctrl.email = "-"
+        }
+  
+        var datas = {
+          suppiler: {
+            name: ctrl.name,
+            address: ctrl.address,
+            phone_number: ctrl.phone_number,
+            email: ctrl.email
+          }
+        }
+  
+        if (!ctrl.real_id) {
+          createSuppliers(datas)
+        } else {
+          updateSuppliers(datas, ctrl.real_id)
+        }
+      })
     }
 
     function createSuppliers(data) {
