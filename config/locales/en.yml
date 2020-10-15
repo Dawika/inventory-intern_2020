@@ -563,6 +563,7 @@ en:
   electronic_office_equipment: "Electronic office equipment"
   paper_products: "Paper products"
   meeting_presentation_equipment: "Meeting and presentation equipment"
+  use_name: "Username"
   inventory_data: "Device"
   inventory_search: "Search form name, model, serial number, date purchase or user name"
   inventory_request_search: "Search form name, description ,request date or user name"

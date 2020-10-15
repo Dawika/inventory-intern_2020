@@ -30,6 +30,7 @@
         ctrl.showType = false
         ctrl.showinventoryType = true
         ctrl.showinventorymaterialType = true
+        ctrl.showemployee = false
         // default last 7 days
         ctrl.end_date = new Date();
         ctrl.start_date = new Date(new Date().setMonth(new Date().getMonth() - 1));
@@ -100,8 +101,9 @@
               ctrl.employee_id = value.employee_id
               if (ctrl.employee_id && ctrl.employee_id != 0) {
                 getEmployeeById(ctrl.employee_id)
+                ctrl.showemployee = true
               } else {
-                ctrl.employee_name = "-"
+                ctrl.showemployee = false
               }
               ctrl.supplier_id = value.supplier_id
               if (ctrl.supplier_id) {

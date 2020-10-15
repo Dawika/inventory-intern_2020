@@ -808,6 +808,8 @@
           function returnInventoryFormatter(value, row, index) {
             if(row['inventory_status'] == 'assigned'){
               return '<a id="returnInventory' + row['id'] + '" onclick="' + angularCtrlStr + '.returnInventory(' + row['id'] + ')"> <i class=\'fas fa-undo-alt color-red cursor-pointer\'></i> </a>';
+            }else{
+              return ""
             }
           }
           

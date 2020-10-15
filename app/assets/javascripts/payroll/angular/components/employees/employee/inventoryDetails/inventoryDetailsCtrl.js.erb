@@ -12,7 +12,7 @@
       ctrl.employee_id = $state.params.id;
       ctrl.inventory_request_id = $state.params.inventory_id
       ctrl.delete_button = false
-      
+      ctrl.save_button = true
       getInventoruDetails()
       getEmployeeById(ctrl.employee_id)
 
@@ -45,6 +45,12 @@
           ctrl.receipt = value.manage_inventory.step3.buy_slip
           if (!ctrl.receipt) {
             ctrl.receipt = "-"
+          }
+
+          if (ctrl.inventory_status == "rejected" || ctrl.inventory_status == "delete_inventory") {
+            ctrl.save_button = false
+          } else {
+            ctrl.save_button = true
           }
 
           if (ctrl.inventory_status == "wait" || ctrl.inventory_status == "rejected" || ctrl.inventory_status == "delete_inventory" || ctrl.inventory_status == "return") {
