@@ -805,17 +805,25 @@
             }]
           }
           function returnInventoryFormatter(value, row, index) {
-            console.log(row.inventory_status);
             if(row['inventory_status'] == 'assigned'){
               return '<a id="returnInventory' + row['id'] + '" onclick="' + angularCtrlStr + '.returnInventory(' + row['id'] + ')"> <i class=\'fas fa-undo-alt color-red cursor-pointer\'></i> </a>';
             }
           }
           
-          ctrl.returnInventory = function (row){
+          ctrl.returnInventory = function (value,row){
+            var data = {
+              return_request_date: $filter('date')(new Date(), 'dd/MM/yyyy HH:mm')
+            }    
             $rootScope.openConfirmationModal(translateFilter("confirm_return_inventory"),function(){
-              inventoryRequestService.return(row).then(function(resp){
-                getInventoryRequest()
-              })
+              inventoryRequestService.updateInventoryRequest(data,value).then(function(resp) {
+                returnInventory(value);
+              })                
+            })
+          }
+
+          function returnInventory(id) {
+            inventoryRequestService.return(id).then(function(resp){  
+              getInventoryRequest()
             })
           }
 

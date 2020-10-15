@@ -10,4 +10,13 @@ class SubdomainsController < ApplicationController
   def change_subdomain_send_mail
     redirect_to edit_user_password_url(@employee, reset_password_token: params[:reset_password_token], subdomain: params[:subdomain_name])
   end
+
+  def send_subdomain_in_mail
+    redirect_to path_subdomains_url(subdomain: params[:subdomain_name])
+  end
+
+  def path
+    redirect_to '/somsri#/inventory'
+  end
+  
 end 

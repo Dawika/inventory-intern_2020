@@ -35,6 +35,15 @@ class InventoryRepairsController < ApplicationController
 		inventory_repiars = InventoryRepair.all
 		inventory_repiar = InventoryRepair.new(inventory_repairs_params)
 		if inventory_repiar.save
+			recipients = User.where(school_id: current_user.school_id).with_any_role(:approver, :admin, :human_resource)
+			school = current_user.school_id
+			school_id = current_user.school_id
+			subdomain = School.find(school_id).subdomain_name
+			domain_name = request.domain
+			ap inventory_repiar
+			recipients.each do |recipients|
+				InventoryMailer.send_repair_inventory(recipients, inventory_repiar, subdomain, domain_name).deliver
+			end
 			render json: inventory_repiar, status: :ok
 		else
 			render json: inventory_repiar.errors.full_messages, status: :ok
@@ -67,6 +76,12 @@ class InventoryRepairsController < ApplicationController
 		inventory_repiars.update(comment: params[:comment])
 		inventory_repiars.inventory_request.update(inventory_status: :rejected)
 		inventory_repiars.inventory_request.update(comment: params[:comment])
+		ap inventory_repiars
+		requester_id = inventory_repiars.employee_id
+		requester = User.find(requester_id)
+		recipient_id = current_user.id
+		recipients = User.find(recipient_id)
+		InventoryMailer.send_reject_inventory_repair(requester, inventory_repiars, recipients).deliver
 		render json: inventory_repiars ,status: :ok
 	end
 

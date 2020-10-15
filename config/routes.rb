@@ -255,6 +255,8 @@ Rails.application.routes.draw do
     collection do
       get 'change'
       get 'change_subdomain_send_mail'
+      get 'send_subdomain_in_mail'
+      get 'path'
     end
   end
 

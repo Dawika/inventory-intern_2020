@@ -1,0 +1,4 @@
+<p><%= @inventory_repiar.employee_name %> </p>
+<p>ยื่นคำขอซ่อมพัสดุ <%= @inventory_repiar.item_name %> ในวันที่ <%= @inventory_repiar.repair_date.strftime("%m/%d/%Y") %></p>
+<p>เหตุผล <%= @inventory_repiar.reason %></p>
+<p>ไปยังหนัา<%= link_to 'Inventory', send_subdomain_in_mail_subdomains_url(subdomain_name: @subdomain)%></p>
